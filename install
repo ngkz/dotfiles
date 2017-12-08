@@ -65,5 +65,11 @@ else
 fi
 
 for df_script in "${df_scripts[@]}"; do
+    if [[ $df_script =~ /main\.sh$ ]]; then
+        df_script_name="$(basename "$(dirname "$df_script")")"
+    else
+        df_script_name="${df_script%.df.sh}"
+    fi
+
     (cd "$(dirname "$df_script")" && . "$df_script")
 done
