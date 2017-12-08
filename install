@@ -12,14 +12,14 @@ shopt -s failglob # glob patterns fail to match filenames result in an error.
 IFS=$'\n\t'       # don't treat space as separator.
 
 df_script_dir="$( cd "$(dirname "$0")" ; pwd -P )"
-df_dry_run=false
+df_confirm=true
 df_verbose=false
 df_args=()
 
 while (( $# > 0 )); do
     case "$1" in
-        -n|--dry-run)
-            df_dry_run=true
+        -n|--noconfirm)
+            df_confirm=false
             ;;
         -v|--verbose)
             df_verbose=true
@@ -28,8 +28,8 @@ while (( $# > 0 )); do
             echo "Usage: $0 [OPTIONS] [SCRIPT...]"
             echo "Options:"
             echo " --help           show this message"
-            echo " -n, --dry-run    perform a trial run with no changes made"
-            echo " -v, --verbose    show the assertion that made no change"
+            echo " -n, --noconfirm  do not ask for any confirmation"
+            echo " -v, --verbose    show the action that made no change"
             exit 1
             ;;
         *)
