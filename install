@@ -1,0 +1,64 @@
+#!/bin/bash
+
+#strict mode
+set -o errexit    # same as 'set -e'. exit immediately if any statement fails.
+set -o nounset    # same as 'set -u'. exit immediately if you try to use an
+                  # uninitialized variable.
+set -o pipefail   # set the return value of a pipeline to the value of the rightmost
+                  # command to exit with a non-zero status, or zero if all commands
+                  # in the pipeline exit successfully.
+set -o errtrace   # shell functions inherit an ERR trap.
+shopt -s failglob # glob patterns fail to match filenames result in an error.
+IFS=$'\n\t'       # don't treat space as separator.
+
+df_script_dir="$( cd "$(dirname "$0")" ; pwd -P )"
+df_dry_run=false
+df_verbose=false
+
+case "$1" in
+    -n|--dry-run)
+        shift
+        df_dry_run=true
+        ;;
+    -v|--verbose)
+        shift
+        df_verbose=true
+        ;;
+    --help|--*|-*)
+        echo "Usage: $0 [OPTIONS] [SCRIPT...]"
+        echo "Options:"
+        echo " --help           show this message"
+        echo " -n, --dry-run    perform a trial run with no changes made"
+        echo " -v, --verbose    show the assertion that made no change"
+        exit 1
+        ;;
+esac
+
+if (( $# == 0 )); then
+    shopt -s nullglob
+    shopt -u failglob
+    df_scripts=("$df_script_dir"/*.df.sh "$df_script_dir"/*/main.df.sh)
+    shopt -s failglob
+    shopt -u nullglob
+else
+    for df_arg in "$@"; do
+        df_arg_full="$df_script_dir/$df_arg"
+
+        if [[ -e $df_arg_full/main.df.sh ]]; then
+            df_script="$df_arg_full/main.df.sh"
+        else
+            df_script="${df_arg_full}.df.sh"
+        fi
+
+        if [[ ! -e $df_script ]]; then
+            echo "error: script $df_script not found" >&2
+            exit 1
+        fi
+
+        df_scripts+=("$df_script")
+    done
+fi
+
+for df_script in "${df_scripts[@]}"; do
+    (cd "$(dirname "$df_script")" && . "$df_script")
+done
