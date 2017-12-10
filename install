@@ -45,7 +45,7 @@ _parse_args() {
             v) _verbose=1 ;;
         esac
     done
-    shift $(( OPTIND - 1 ))
+    shift "$(( OPTIND - 1 ))"
 
     if (( $# == 0 )); then
         local script
