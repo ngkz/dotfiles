@@ -11,7 +11,7 @@ set -o pipefail   # set the return value of a pipeline to the value of the right
 shopt -s nullglob
 
 _script_dir="$( cd "$(dirname "$0")" && pwd -P )" || exit 1
-df_confirm=true
+_confirm=true
 df_verbose=false
 
 for df_lib in "$_script_dir"/lib/*.sh; do
@@ -24,7 +24,7 @@ df_args=()
 while (( $# > 0 )); do
     case "$1" in
         -n|--noconfirm)
-            df_confirm=false
+            _confirm=false
             ;;
         -v|--verbose)
             df_verbose=true
