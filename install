@@ -51,27 +51,27 @@ else
         _arg_full="$_script_dir/$_arg"
 
         if [[ -e $_arg_full/main.df.sh ]]; then
-            df_script="$_arg_full/main.df.sh"
+            _script="$_arg_full/main.df.sh"
         else
-            df_script="${_arg_full}.df.sh"
+            _script="${_arg_full}.df.sh"
         fi
 
-        if [[ ! -e $df_script ]]; then
-            echo "error: script $df_script not found" >&2
+        if [[ ! -e $_script ]]; then
+            echo "error: script $_script not found" >&2
             exit 1
         fi
 
-        _scripts+=("$df_script")
+        _scripts+=("$_script")
     done
 fi
 
-for df_script in "${_scripts[@]}"; do
-    if [[ $df_script =~ /main\.sh$ ]]; then
-        df_script_name="$(basename "$(dirname "$df_script")")"
+for _script in "${_scripts[@]}"; do
+    if [[ $_script =~ /main\.sh$ ]]; then
+        _script_name="$(basename "$(dirname "$_script")")"
     else
-        df_script_name="${df_script%.df.sh}"
+        _script_name="${_script%.df.sh}"
     fi
 
     # shellcheck disable=SC1090
-    (cd "$(dirname "$df_script")" && . "$df_script") || exit 1
+    (cd "$(dirname "$_script")" && . "$_script") || exit 1
 done
