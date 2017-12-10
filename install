@@ -20,61 +20,72 @@ for _lib in "$_SCRIPT_DIR"/lib/*.sh; do
 done
 unset _lib
 
-_args=()
+# parse args and output list of scripts to run
+_parse_args() {
+    local args=()
 
-while (( $# > 0 )); do
-    case "$1" in
-        -*)
-            ;;
-        -n|--noconfirm)
-            _confirm=0
-            ;;
-        -v|--verbose)
-            _verbose=1
-            ;;
-        --help|--*|-*)
-            echo "Usage: $0 [OPTIONS] [SCRIPT...]"
-            echo "Options:"
-            echo " --help           show this message"
-            echo " -n, --noconfirm  do not ask for any confirmation"
-            echo " -v, --verbose    show the action that made no change"
-            exit 1
-            ;;
-        *)
-            _args+=("$1")
-            ;;
-    esac
-    shift
-done
-
-if (( ${#_args[@]} == 0 )); then
-    _scripts=("$_SCRIPT_DIR"/*.df.sh "$_SCRIPT_DIR"/*/main.df.sh)
-else
-    for _arg in "${_args[@]}"; do
-        _arg_full="$_SCRIPT_DIR/$_arg"
-
-        if [[ -e $_arg_full/main.df.sh ]]; then
-            _script="$_arg_full/main.df.sh"
-        else
-            _script="${_arg_full}.df.sh"
-        fi
-
-        if [[ ! -e $_script ]]; then
-            echo "error: script $_script not found" >&2
-            exit 1
-        fi
-
-        _scripts+=("$_script")
+    while (( $# > 0 )); do
+        case "$1" in
+            -n|--noconfirm)
+                _confirm=0
+                ;;
+            -v|--verbose)
+                _verbose=1
+                ;;
+            --help|--*|-*)
+                echo "Usage: $0 [OPTIONS] [SCRIPT...]" >&2
+                echo "Options:" >&2
+                echo " --help           show this message" >&2
+                echo " -n, --noconfirm  do not ask for any confirmation" >&2
+                echo " -v, --verbose    show the action that made no change" >&2
+                return 1
+                ;;
+            *)
+                args+=("$1")
+                ;;
+        esac
+        shift
     done
-fi
 
-for _script in "${_scripts[@]}"; do
-    if [[ $_script =~ /main\.sh$ ]]; then
-        _script_name="$(basename "$(dirname "$_script")")"
+    if (( ${#args[@]} == 0 )); then
+        local script
+        for script in "$_SCRIPT_DIR"/*.df.sh "$_SCRIPT_DIR"/*/main.df.sh; do
+            echo "$script"
+        done
     else
-        _script_name="${_script%.df.sh}"
+        local arg
+        for arg in "${args[@]}"; do
+            local arg_full="$_SCRIPT_DIR/$arg"
+
+            local script
+            if [[ -e $arg_full/main.df.sh ]]; then
+                script="$arg_full/main.df.sh"
+            else
+                script="${arg_full}.df.sh"
+            fi
+
+            if [[ ! -e $script ]]; then
+                echo "error: script $script not found" >&2
+                return 1
+            fi
+
+            echo "$script"
+        done
     fi
+}
+
+#output name of script $1
+_get_script_name() {
+    if [[ $1 =~ /main\.df\.sh$ ]]; then
+        basename "$(dirname "$1")"
+    else
+        echo "${1%.df.sh}"
+    fi
+}
+
+_parse_args "$@" | while IFS= read -r _script; do
+    _script_name=$(_get_script_name "$_script") || exit 1
 
     # shellcheck disable=SC1090
     (cd "$(dirname "$_script")" && . "$_script") || exit 1
-done
+done || exit 1
