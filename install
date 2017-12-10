@@ -82,9 +82,11 @@ _get_script_name() {
     fi
 }
 
-_parse_args "$@" | while IFS= read -r _script; do
+_scripts=$(_parse_args "$@") || exit 1
+
+while IFS= read -r _script; do
     _script_name=$(_get_script_name "$_script") || exit 1
 
     # shellcheck disable=SC1090
     (cd "$(dirname "$_script")" && . "$_script") || exit 1
-done || exit 1
+done <<< "$_scripts"
