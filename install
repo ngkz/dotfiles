@@ -35,11 +35,11 @@ _parse_args() {
         case "$OPT" in
             h)
                 _usage
-                exit 0
+                return 0
                 ;;
             \?)
                 _usage
-                exit 1
+                return 1
                 ;;
             y) _yes=0 ;;
             v) _verbose=1 ;;
