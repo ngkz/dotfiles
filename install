@@ -10,11 +10,11 @@ set -o pipefail   # set the return value of a pipeline to the value of the right
                   # in the pipeline exit successfully.
 shopt -s nullglob
 
-df_script_dir="$( cd "$(dirname "$0")" && pwd -P )" || exit 1
+_script_dir="$( cd "$(dirname "$0")" && pwd -P )" || exit 1
 df_confirm=true
 df_verbose=false
 
-for df_lib in "$df_script_dir"/lib/*.sh; do
+for df_lib in "$_script_dir"/lib/*.sh; do
     # shellcheck disable=SC1090
     . "$df_lib" || exit 1
 done
@@ -45,10 +45,10 @@ while (( $# > 0 )); do
 done
 
 if (( ${#df_args[@]} == 0 )); then
-    df_scripts=("$df_script_dir"/*.df.sh "$df_script_dir"/*/main.df.sh)
+    df_scripts=("$_script_dir"/*.df.sh "$_script_dir"/*/main.df.sh)
 else
     for df_arg in "${df_args[@]}"; do
-        df_arg_full="$df_script_dir/$df_arg"
+        df_arg_full="$_script_dir/$df_arg"
 
         if [[ -e $df_arg_full/main.df.sh ]]; then
             df_script="$df_arg_full/main.df.sh"
