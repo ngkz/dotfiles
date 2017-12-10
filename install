@@ -19,7 +19,7 @@ for df_lib in "$_script_dir"/lib/*.sh; do
     . "$df_lib" || exit 1
 done
 
-df_args=()
+_args=()
 
 while (( $# > 0 )); do
     case "$1" in
@@ -38,16 +38,16 @@ while (( $# > 0 )); do
             exit 1
             ;;
         *)
-            df_args+=("$1")
+            _args+=("$1")
             ;;
     esac
     shift
 done
 
-if (( ${#df_args[@]} == 0 )); then
+if (( ${#_args[@]} == 0 )); then
     df_scripts=("$_script_dir"/*.df.sh "$_script_dir"/*/main.df.sh)
 else
-    for df_arg in "${df_args[@]}"; do
+    for df_arg in "${_args[@]}"; do
         df_arg_full="$_script_dir/$df_arg"
 
         if [[ -e $df_arg_full/main.df.sh ]]; then
