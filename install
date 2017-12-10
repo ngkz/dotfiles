@@ -14,9 +14,9 @@ _script_dir="$( cd "$(dirname "$0")" && pwd -P )" || exit 1
 _confirm=true
 _verbose=false
 
-for df_lib in "$_script_dir"/lib/*.sh; do
+for _lib in "$_script_dir"/lib/*.sh; do
     # shellcheck disable=SC1090
-    . "$df_lib" || exit 1
+    . "$_lib" || exit 1
 done
 
 _args=()
