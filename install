@@ -45,7 +45,7 @@ while (( $# > 0 )); do
 done
 
 if (( ${#_args[@]} == 0 )); then
-    df_scripts=("$_script_dir"/*.df.sh "$_script_dir"/*/main.df.sh)
+    _scripts=("$_script_dir"/*.df.sh "$_script_dir"/*/main.df.sh)
 else
     for df_arg in "${_args[@]}"; do
         df_arg_full="$_script_dir/$df_arg"
@@ -61,11 +61,11 @@ else
             exit 1
         fi
 
-        df_scripts+=("$df_script")
+        _scripts+=("$df_script")
     done
 fi
 
-for df_script in "${df_scripts[@]}"; do
+for df_script in "${_scripts[@]}"; do
     if [[ $df_script =~ /main\.sh$ ]]; then
         df_script_name="$(basename "$(dirname "$df_script")")"
     else
