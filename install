@@ -12,7 +12,7 @@ shopt -s nullglob
 
 _script_dir="$( cd "$(dirname "$0")" && pwd -P )" || exit 1
 _confirm=true
-df_verbose=false
+_verbose=false
 
 for df_lib in "$_script_dir"/lib/*.sh; do
     # shellcheck disable=SC1090
@@ -27,7 +27,7 @@ while (( $# > 0 )); do
             _confirm=false
             ;;
         -v|--verbose)
-            df_verbose=true
+            _verbose=true
             ;;
         --help|--*|-*)
             echo "Usage: $0 [OPTIONS] [SCRIPT...]"
