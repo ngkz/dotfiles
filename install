@@ -1,22 +1,21 @@
 #!/bin/bash
 
-#strict mode
-set -o errexit    # same as 'set -e'. exit immediately if any statement fails.
-set -o nounset    # same as 'set -u'. exit immediately if you try to use an
-                  # uninitialized variable.
+#set -o errexit   # is more harmful than useful
+                  # http://mywiki.wooledge.org/BashFAQ/105
+                  # http://wiki.bash-hackers.org/scripting/obsolete
+                  # https://github.com/yaccz/errexit-considered-harmful
+#set -o nounset   # bad practice
 set -o pipefail   # set the return value of a pipeline to the value of the rightmost
                   # command to exit with a non-zero status, or zero if all commands
                   # in the pipeline exit successfully.
-set -o errtrace   # shell functions inherit an ERR trap.
-shopt -s failglob # glob patterns fail to match filenames result in an error.
-IFS=$'\n\t'       # don't treat space as separator.
+shopt -s nullglob
 
-df_script_dir="$( cd "$(dirname "$0")" ; pwd -P )"
+df_script_dir="$( cd "$(dirname "$0")" && pwd -P )" || exit 1
 df_confirm=true
 df_verbose=false
 
 for df_lib in "$df_script_dir"/lib/*.sh; do
-    . "$df_lib"
+    . "$df_lib" || exit 1
 done
 
 df_args=()
@@ -45,11 +44,7 @@ while (( $# > 0 )); do
 done
 
 if (( ${#df_args[@]} == 0 )); then
-    shopt -s nullglob
-    shopt -u failglob
     df_scripts=("$df_script_dir"/*.df.sh "$df_script_dir"/*/main.df.sh)
-    shopt -s failglob
-    shopt -u nullglob
 else
     for df_arg in "${df_args[@]}"; do
         df_arg_full="$df_script_dir/$df_arg"
@@ -76,5 +71,5 @@ for df_script in "${df_scripts[@]}"; do
         df_script_name="${df_script%.df.sh}"
     fi
 
-    (cd "$(dirname "$df_script")" && . "$df_script")
+    (cd "$(dirname "$df_script")" && . "$df_script") || exit 1
 done
