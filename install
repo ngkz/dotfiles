@@ -11,8 +11,9 @@ set -o pipefail   # set the return value of a pipeline to the value of the right
 shopt -s nullglob
 
 readonly _SCRIPT_DIR="$( cd "$(dirname "$0")" && pwd -P )" || exit 1
-_yes=0
-_verbose=0
+_yes=0        #apply changes without user confirmation
+_verbose=0    #show the action that made no change
+_script_name= #name of currely running script
 
 for _lib in "$_SCRIPT_DIR"/lib/*.sh; do
     # shellcheck disable=SC1090
@@ -90,3 +91,5 @@ while IFS= read -r _script; do
     # shellcheck disable=SC1090
     (cd "$(dirname "$_script")" && . "$_script") || exit 1
 done <<< "$_scripts"
+
+unset _scripts
