@@ -15,6 +15,7 @@ df_confirm=true
 df_verbose=false
 
 for df_lib in "$df_script_dir"/lib/*.sh; do
+    # shellcheck disable=SC1090
     . "$df_lib" || exit 1
 done
 
@@ -71,5 +72,6 @@ for df_script in "${df_scripts[@]}"; do
         df_script_name="${df_script%.df.sh}"
     fi
 
+    # shellcheck disable=SC1090
     (cd "$(dirname "$df_script")" && . "$df_script") || exit 1
 done
