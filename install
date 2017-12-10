@@ -11,7 +11,7 @@ set -o pipefail   # set the return value of a pipeline to the value of the right
 shopt -s nullglob
 
 readonly _SCRIPT_DIR="$( cd "$(dirname "$0")" && pwd -P )" || exit 1
-_confirm=1
+_yes=0
 _verbose=0
 
 for _lib in "$_SCRIPT_DIR"/lib/*.sh; do
@@ -20,41 +20,40 @@ for _lib in "$_SCRIPT_DIR"/lib/*.sh; do
 done
 unset _lib
 
+_usage() {
+    echo "Usage: $0 [OPTIONS] [SCRIPT...]" >&2
+    echo "Options:" >&2
+    echo " -h  show this message" >&2
+    echo " -y  apply changes without your confirmation" >&2
+    echo " -v  show the action that made no change" >&2
+}
+
 # parse args and output list of scripts to run
 _parse_args() {
-    local args=()
-
-    while (( $# > 0 )); do
-        case "$1" in
-            -n|--noconfirm)
-                _confirm=0
+    while getopts hyv OPT; do
+        case "$OPT" in
+            h)
+                _usage
+                exit 0
                 ;;
-            -v|--verbose)
-                _verbose=1
+            \?)
+                _usage
+                exit 1
                 ;;
-            --help|--*|-*)
-                echo "Usage: $0 [OPTIONS] [SCRIPT...]" >&2
-                echo "Options:" >&2
-                echo " --help           show this message" >&2
-                echo " -n, --noconfirm  do not ask for any confirmation" >&2
-                echo " -v, --verbose    show the action that made no change" >&2
-                return 1
-                ;;
-            *)
-                args+=("$1")
-                ;;
+            y) _yes=0 ;;
+            v) _verbose=1 ;;
         esac
-        shift
     done
+    shift $(( OPTIND - 1 ))
 
-    if (( ${#args[@]} == 0 )); then
+    if (( $# == 0 )); then
         local script
         for script in "$_SCRIPT_DIR"/*.df.sh "$_SCRIPT_DIR"/*/main.df.sh; do
             echo "$script"
         done
     else
         local arg
-        for arg in "${args[@]}"; do
+        for arg in "$@"; do
             local arg_full="$_SCRIPT_DIR/$arg"
 
             local script
