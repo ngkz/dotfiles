@@ -11,8 +11,8 @@ set -o pipefail   # set the return value of a pipeline to the value of the right
 shopt -s nullglob
 
 _script_dir="$( cd "$(dirname "$0")" && pwd -P )" || exit 1
-_confirm=true
-_verbose=false
+_confirm=1
+_verbose=0
 
 for _lib in "$_script_dir"/lib/*.sh; do
     # shellcheck disable=SC1090
@@ -23,11 +23,13 @@ _args=()
 
 while (( $# > 0 )); do
     case "$1" in
+        -*)
+            ;;
         -n|--noconfirm)
-            _confirm=false
+            _confirm=0
             ;;
         -v|--verbose)
-            _verbose=true
+            _verbose=1
             ;;
         --help|--*|-*)
             echo "Usage: $0 [OPTIONS] [SCRIPT...]"
