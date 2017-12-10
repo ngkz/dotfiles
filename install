@@ -48,12 +48,12 @@ if (( ${#_args[@]} == 0 )); then
     _scripts=("$_script_dir"/*.df.sh "$_script_dir"/*/main.df.sh)
 else
     for _arg in "${_args[@]}"; do
-        df_arg_full="$_script_dir/$_arg"
+        _arg_full="$_script_dir/$_arg"
 
-        if [[ -e $df_arg_full/main.df.sh ]]; then
-            df_script="$df_arg_full/main.df.sh"
+        if [[ -e $_arg_full/main.df.sh ]]; then
+            df_script="$_arg_full/main.df.sh"
         else
-            df_script="${df_arg_full}.df.sh"
+            df_script="${_arg_full}.df.sh"
         fi
 
         if [[ ! -e $df_script ]]; then
