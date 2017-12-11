@@ -38,7 +38,7 @@ _noyes() {
     fi
 
     #clear stdin buffer
-    [ -t 0 ] && while read -r -t 0; do read -r; done
+    [[ -t 0 ]] && while read -r -t 0; do read -r; done
 
     while :; do
         #use stderr so questions are always displayed when redirecting output.
