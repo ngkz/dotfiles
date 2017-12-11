@@ -5,7 +5,12 @@ my dotfiles and configuration managent tool (WIP)
 (TODO)
 
 ```sh
-./install
+$ ./install --help
+Usage: ./install [OPTIONS]... [SCRIPT]...
+Options:
+  -h, --help            display this help and exit
+  -y, --yes             apply changes without your confirmation
+  -v, --verbose         show the action that made no change
 ```
 
 ## how to lint
