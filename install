@@ -21,6 +21,7 @@ for _lib in "$_SCRIPT_DIR"/lib/*.sh; do
 done
 unset _lib
 
+#show usage
 _usage() {
     echo "Usage: $0 [OPTIONS] [SCRIPT...]" >&2
     echo "Options:" >&2
