@@ -14,6 +14,7 @@ readonly _SCRIPT_DIR="$( cd "$(dirname "$0")" && pwd -P )" || exit 1
 _yes=0        #apply changes without user confirmation
 _verbose=0    #show the action that made no change
 _script_name= #name of currely running script
+_changed=0    #whether last action was changed the system or not
 
 for _lib in "$_SCRIPT_DIR"/lib/*.sh; do
     # shellcheck disable=SC1090
