@@ -123,3 +123,5 @@ _parse_targets "$@" | while IFS= read -r _script; do
     # shellcheck disable=SC1090
     (cd "$(dirname "$_script")" && . "$_script") || exit 1
 done
+
+echo
