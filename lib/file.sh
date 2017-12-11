@@ -1,16 +1,31 @@
 #!/bin/bash
-readonly _COLOR_FAILED=$(tput setaf 1) || exit 1
-readonly _COLOR_GREEN=$(tput setaf 2) || exit 1
-readonly _COLOR_CHANGED=$(tput setaf 3) || exit 1
-readonly _COLOR_RESET=$(tput sgr0) || exit 1
-readonly _ERASE_TO_EOL=$(tput el) || exit 1
+if [[ -t 1 ]]; then
+    readonly _COLOR_FAILED=$(tput setaf 1) || exit 1
+    readonly _COLOR_GREEN=$(tput setaf 2) || exit 1
+    readonly _COLOR_CHANGED=$(tput setaf 3) || exit 1
+    readonly _COLOR_RESET=$(tput sgr0) || exit 1
+    readonly _ERASE_TO_EOL=$(tput el) || exit 1
+else
+    readonly _COLOR_FAILED=
+    readonly _COLOR_GREEN=
+    readonly _COLOR_CHANGED=
+    readonly _COLOR_RESET=
+    readonly _ERASE_TO_EOL=
+fi
 
-_update_cols() {
-    _cols=$(tput cols)
-}
+if [[ -t 1 ]]; then
+    _update_cols() {
+        _cols=$(tput cols)
+    }
+
+    _update_cols || exit 1
+    trap '_update_cols' WINCH
+fi
 
 _set_column() {
-    tput hpa "$1"
+    if [[ -t 1 ]]; then
+        tput hpa "$1"
+    fi
 }
 
 #presents a prompt and gets a yes/no answer (no is default)
@@ -44,12 +59,10 @@ is-changed() {
     (( _changed ))
 }
 
-_update_cols || exit 1
-trap '_update_cols' WINCH
-
 #
 file() {
-    echo -n $'\r'"$_script_name: file $* $_ERASE_TO_EOL"
+    [[ -t 1 ]] && echo -n $'\r'
+    echo -n "$_script_name: file $* $_ERASE_TO_EOL"
 
     local action_name=file
 
@@ -286,7 +299,7 @@ file() {
     fi
 
     echo -n "[   ${_COLOR_GREEN}OK${_COLOR_RESET}   ]"
-    (( _verbose )) && echo
+    [[ -t 1 ]] && (( _verbose )) && echo
     _changed=0
     return 0
 }
