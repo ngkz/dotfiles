@@ -44,3 +44,12 @@ teardown() {
     [[ ${lines[1]} = 'Different group (current: root, desired: nogroup)' ]]
     [[ ${lines[2]} =~ 'Fix inconsistency?' ]]
 }
+
+@test "file: check mode if --mode is passed" {
+    touch "$work/src" "$work/dest"
+    echo "file --mode=7777 src dest" >"$work/test.df.sh"
+    run "$install" "$work/test" </dev/null
+    [[ $status -eq 0 ]]
+    [[ ${lines[1]} = 'Different mode (current: 0644, desired: 7777)' ]]
+    [[ ${lines[2]} =~ 'Fix inconsistency?' ]]
+}
