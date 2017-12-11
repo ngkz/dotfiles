@@ -1,13 +1,13 @@
 #!/bin/bash
 if [[ -t 1 ]]; then
     readonly _COLOR_FAILED=$(tput setaf 1) || exit 1
-    readonly _COLOR_GREEN=$(tput setaf 2) || exit 1
+    readonly _COLOR_OK=$(tput setaf 2) || exit 1
     readonly _COLOR_CHANGED=$(tput setaf 3) || exit 1
     readonly _COLOR_RESET=$(tput sgr0) || exit 1
     readonly _ERASE_TO_EOL=$(tput el) || exit 1
 else
     readonly _COLOR_FAILED=
-    readonly _COLOR_GREEN=
+    readonly _COLOR_OK=
     readonly _COLOR_CHANGED=
     readonly _COLOR_RESET=
     readonly _ERASE_TO_EOL=
@@ -298,7 +298,7 @@ file() {
         exit 1
     fi
 
-    echo -n "[   ${_COLOR_GREEN}OK${_COLOR_RESET}   ]"
+    echo -n "[   ${_COLOR_OK}OK${_COLOR_RESET}   ]"
     [[ -t 1 ]] && (( _verbose )) && echo
     _changed=0
     return 0
