@@ -1,6 +1,12 @@
 # ngkz/dotfiles
 my dotfiles and configuration managent tool (WIP)
 
+## dependencies
+```sh
+pacman -S util-linux #getopt command
+pacman -S diffutils  #cmp command
+```
+
 ## how to use
 (TODO)
 
