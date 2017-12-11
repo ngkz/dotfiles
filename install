@@ -30,14 +30,24 @@ _usage() {
     echo " -v  show the action that made no change" >&2
 }
 
+# join $2.. with $1.
+_join() {
+    local ifs_old=$IFS
+    IFS=$1
+    shift
+    echo "$*"
+    IFS=$ifs_old
+}
+
 # parse non-option parameters and output list of scripts to run
-_parse_args() {
+_parse_targets() {
     if (( $# == 0 )); then
         local script
         for script in "$_SCRIPT_DIR"/*.df.sh "$_SCRIPT_DIR"/*/main.df.sh; do
             echo "$script"
         done
     else
+        local scripts=()
         local arg
         for arg in "$@"; do
             local arg_full="$_SCRIPT_DIR/$arg"
@@ -54,8 +64,10 @@ _parse_args() {
                 return 1
             fi
 
-            echo "$script"
+            scripts+=("$script")
         done
+
+        _join $'\n' "${scripts[@]}"
     fi
 }
 
@@ -85,15 +97,9 @@ done
 shift "$(( OPTIND - 1 ))"
 unset _opt
 
-_scripts=$(_parse_args "$@") || exit 1
+_parse_targets "$@" | while IFS= read -r _script; do
+    _script_name=$(_get_script_name "$_script") || exit 1
 
-if [[ -n $_scripts ]]; then
-    while IFS= read -r _script; do
-        _script_name=$(_get_script_name "$_script") || exit 1
-
-        # shellcheck disable=SC1090
-        (cd "$(dirname "$_script")" && . "$_script") || exit 1
-    done <<< "$_scripts"
-fi
-
-unset _scripts
+    # shellcheck disable=SC1090
+    (cd "$(dirname "$_script")" && . "$_script") || exit 1
+done
