@@ -117,11 +117,17 @@ while :; do
     esac
 done
 
+# dup stdin to fd 3
+exec 3<&0
+
 _parse_targets "$@" | while IFS= read -r _script; do
     _script_name=$(_get_script_name "$_script") || exit 1
 
     # shellcheck disable=SC1090
-    (cd "$(dirname "$_script")" && . "$_script") || exit 1
+    (cd "$(dirname "$_script")" && . "$_script") <&3 || exit 1
 done
+
+# close fd 3
+exec 3<&-
 
 echo
