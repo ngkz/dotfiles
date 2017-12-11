@@ -128,7 +128,7 @@ file() {
         fi
 
         echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-        echo "Not enough arguments" >&2
+        echo "Wrong number of arguments" >&2
         exit 1
     fi
 
