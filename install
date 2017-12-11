@@ -10,13 +10,14 @@ set -o pipefail   # set the return value of a pipeline to the value of the right
                   # in the pipeline exit successfully.
 shopt -s nullglob
 
-readonly _SCRIPT_DIR="$( cd "$(dirname "$0")" && pwd -P )" || exit 1
+#absolute path to the script directory
+_script_dir="$( cd "$(dirname "$0")" && pwd -P )" || exit 1
 _yes=0        #apply changes without user confirmation
 _verbose=0    #show the action that made no change
 _script_name= #name of currely running script
 _changed=0    #whether last action was changed the system or not
 
-for _lib in "$_SCRIPT_DIR"/lib/*.sh; do
+for _lib in "$_script_dir"/lib/*.sh; do
     # shellcheck disable=SC1090
     . "$_lib" || exit 1
 done
@@ -35,14 +36,14 @@ _join() {
 _parse_targets() {
     if (( $# == 0 )); then
         local script
-        for script in "$_SCRIPT_DIR"/*.df.sh "$_SCRIPT_DIR"/*/main.df.sh; do
+        for script in "$_script_dir"/*.df.sh "$_script_dir"/*/main.df.sh; do
             echo "$script"
         done
     else
         local scripts=()
         local arg
         for arg in "$@"; do
-            local arg_full="$_SCRIPT_DIR/$arg"
+            local arg_full="$_script_dir/$arg"
 
             local script
             if [[ -e $arg_full/main.df.sh ]]; then
@@ -77,9 +78,10 @@ _usage() {
     cat <<EOF
 Usage: $0 [OPTIONS]... [SCRIPT]...
 Options:
-  -h, --help     display this help and exit
-  -y, --yes      apply changes without your confirmation
-  -v, --verbose  show the action that made no change
+  -h, --help            display this help and exit
+  -y, --yes             apply changes without your confirmation
+  -v, --verbose         show the action that made no change
+      --script-dir DIR  path to the script directory (for testing purpose)
 EOF
 }
 
@@ -89,7 +91,7 @@ if [[ $? -ne 4 ]]; then
     exit 1
 fi
 
-if ! _temp=$(getopt --name "$0" --options "hyv" --longoptions "help,yes,verbose" -- "$@"); then
+if ! _temp=$(getopt --name "$0" --options "hyv" --longoptions "help,yes,verbose,script-dir:" -- "$@"); then
     _usage
     exit 1
 fi
@@ -110,6 +112,14 @@ while :; do
         -v|--verbose)
             _verbose=1
             shift
+            ;;
+        --script-dir)
+            _script_dir=$(realpath $2) || exit 1
+            if [[ ! -d $_script_dir ]]; then
+                echo "$_script_dir is not a directory" >&2
+                exit 1
+            fi
+            shift 2
             ;;
         --)
             shift
