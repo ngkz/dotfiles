@@ -29,24 +29,8 @@ _usage() {
     echo " -v  show the action that made no change" >&2
 }
 
-# parse args and output list of scripts to run
+# parse non-option parameters and output list of scripts to run
 _parse_args() {
-    while getopts hyv OPT; do
-        case "$OPT" in
-            h)
-                _usage
-                return 0
-                ;;
-            \?)
-                _usage
-                return 1
-                ;;
-            y) _yes=0 ;;
-            v) _verbose=1 ;;
-        esac
-    done
-    shift "$(( OPTIND - 1 ))"
-
     if (( $# == 0 )); then
         local script
         for script in "$_SCRIPT_DIR"/*.df.sh "$_SCRIPT_DIR"/*/main.df.sh; do
@@ -82,6 +66,23 @@ _get_script_name() {
         echo "${1%.df.sh}"
     fi
 }
+
+while getopts hyv _opt; do
+    case "$_opt" in
+        h)
+            _usage
+            exit 0
+            ;;
+        \?)
+            _usage
+            exit 1
+            ;;
+        y) _yes=0 ;;
+        v) _verbose=1 ;;
+    esac
+done
+shift "$(( OPTIND - 1 ))"
+unset _opt
 
 _scripts=$(_parse_args "$@") || exit 1
 
