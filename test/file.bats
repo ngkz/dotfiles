@@ -53,3 +53,13 @@ teardown() {
     [[ ${lines[1]} = 'Different mode (current: 0644, desired: 7777)' ]]
     [[ ${lines[2]} =~ 'Fix inconsistency?' ]]
 }
+
+@test "file: compare file content" {
+    echo foo > "$work/src"
+    echo bar > "$work/dest"
+    echo "file src dest" >"$work/test.df.sh"
+    run "$install" "$work/test" </dev/null
+    [[ $status -eq 0 ]]
+    [[ ${lines[1]} = 'Different file content' ]]
+    [[ ${lines[2]} =~ 'Fix inconsistency?' ]]
+}
