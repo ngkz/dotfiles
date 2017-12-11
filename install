@@ -88,8 +88,7 @@ if [[ $? -ne 4 ]]; then
     exit 1
 fi
 
-_temp=$(getopt --name "$0" --options "hyv" --longoptions "help,yes,verbose" -- "$@")
-if [[ $? -ne 0 ]]; then
+if ! _temp=$(getopt --name "$0" --options "hyv" --longoptions "help,yes,verbose" -- "$@"); then
     _usage
     exit 1
 fi
