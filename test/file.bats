@@ -12,11 +12,12 @@ teardown() {
     rm -rf "$work"
 }
 
-@test "file: getopt error" {
+@test "file action fails if invalid option is passed" {
     echo "file --invalid-option src dest" >"$work/test.df.sh"
     run "$install" "$work/test"
     [[ $status -eq 1 ]]
     [[ $output =~ "file: unrecognized option '--invalid-option'" ]]
+    [[ $output =~ "[ FAILED ]" ]]
 }
 
 @test "file: wrong number of arguments" {
