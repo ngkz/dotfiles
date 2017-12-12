@@ -166,7 +166,6 @@ file() {
             fi
 
             echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-            echo "stat '$2' failed." >&2
             exit 1
         fi
 
@@ -189,7 +188,6 @@ file() {
             fi
 
             echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-            echo "stat '$2' failed." >&2
             exit 1
         fi
 
@@ -212,7 +210,6 @@ file() {
             fi
 
             echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-            echo "stat '$2' failed." >&2
             exit 1
         fi
 
