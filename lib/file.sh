@@ -59,6 +59,7 @@ _noyes() {
     while :; do
         #use stderr so questions are always displayed when redirecting output.
         echo -n "$prompt [y/N] " >&2
+        [[ ! -t 0 ]] && echo
 
         local input
         read -r input || return 1
