@@ -36,6 +36,18 @@ is_dry_run() {
     (( _dry_run ))
 }
 
+reset_changed() {
+    _changed=0
+}
+
+is_changed() {
+    (( _changed ))
+}
+
+flag_changed() {
+    _changed=1
+}
+
 for _lib in "$_SCRIPT_DIR"/lib/*.sh; do
     # shellcheck disable=SC1090
     . "$_lib" || exit 1
@@ -153,6 +165,7 @@ done || exit 1
 # close fd 3
 exec 3<&-
 
-if [[ -t 1 ]] && (( ! _verbose )); then
+if [[ -t 1 ]] && (( ! _verbose )) && ! is_changed; then
+    #print newline to avoid that the shell prompt overwrite the output
     echo
 fi
