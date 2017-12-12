@@ -28,5 +28,5 @@ shellcheck install lib/*
 ```sh
 docker pull archlinux/base
 docker build -t dotfiles-test .
-docker run -t --rm -v $(pwd):/dotfiles:ro dotfiles-test
+docker run -t --rm -v "$(pwd):/dotfiles:ro" dotfiles-test
 ```
