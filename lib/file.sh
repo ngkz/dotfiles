@@ -252,79 +252,93 @@ file() {
             ;;
     esac
 
-    if (( changed )) && _noyes; then
-        if ! cp "$src" "$dest"; then
+    if (( changed )); then
+        if _noyes; then
+            if ! cp "$src" "$dest"; then
+                if ! _set_column "$((_cols - 10))"; then
+                    echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                    echo "Can't set horizontal position" >&2
+                    exit 1
+                fi
+
+                echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                exit 1
+            fi
+
+            if [[ -n $owner && -n $group ]]; then
+                #owner and group are specified
+                if ! chown "$owner:$group" "$dest"; then
+                    if ! _set_column "$((_cols - 10))"; then
+                        echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                        echo "Can't set horizontal position" >&2
+                        exit 1
+                    fi
+
+                    echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                    exit 1
+                fi
+            elif [[ -n $owner ]]; then
+                #only owner is specified
+                if ! chown "$owner" "$dest"; then
+                    if ! _set_column "$((_cols - 10))"; then
+                        echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                        echo "Can't set horizontal position" >&2
+                        exit 1
+                    fi
+
+                    echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                    exit 1
+                fi
+            elif [[ -n $group ]]; then
+                #only group is specified
+                if ! chgrp "$group" "$dest"; then
+                    if ! _set_column "$((_cols - 10))"; then
+                        echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                        echo "Can't set horizontal position" >&2
+                        exit 1
+                    fi
+
+                    echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                    exit 1
+                fi
+            fi
+
+            if [[ -n $mode ]]; then
+                if ! chmod "$mode" "$dest"; then
+                    if ! _set_column "$((_cols - 10))"; then
+                        echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                        echo "Can't set horizontal position" >&2
+                        exit 1
+                    fi
+
+                    echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                    exit 1
+                fi
+            fi
+
             if ! _set_column "$((_cols - 10))"; then
                 echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
                 echo "Can't set horizontal position" >&2
                 exit 1
             fi
 
-            echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-            exit 1
-        fi
+            echo "[${_COLOR_CHANGED}CHANGED${_COLOR_RESET} ]"
 
-        if [[ -n $owner && -n $group ]]; then
-            #owner and group are specified
-            if ! chown "$owner:$group" "$dest"; then
-                if ! _set_column "$((_cols - 10))"; then
-                    echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-                    echo "Can't set horizontal position" >&2
-                    exit 1
-                fi
-
+            _changed=1
+            return 0
+        else
+            if ! _set_column "$((_cols - 10))"; then
                 echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                echo "Can't set horizontal position" >&2
                 exit 1
             fi
-        elif [[ -n $owner ]]; then
-            #only owner is specified
-            if ! chown "$owner" "$dest"; then
-                if ! _set_column "$((_cols - 10))"; then
-                    echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-                    echo "Can't set horizontal position" >&2
-                    exit 1
-                fi
 
-                echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-                exit 1
+            echo "[${_COLOR_SKIPPED}SKIPPED${_COLOR_RESET} ]"
+            if [[ ! -t 1 ]] || (( _verbose )); then
+                echo
             fi
-        elif [[ -n $group ]]; then
-            #only group is specified
-            if ! chgrp "$group" "$dest"; then
-                if ! _set_column "$((_cols - 10))"; then
-                    echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-                    echo "Can't set horizontal position" >&2
-                    exit 1
-                fi
-
-                echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-                exit 1
-            fi
+            return 0
         fi
-
-        if [[ -n $mode ]]; then
-            if ! chmod "$mode" "$dest"; then
-                if ! _set_column "$((_cols - 10))"; then
-                    echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-                    echo "Can't set horizontal position" >&2
-                    exit 1
-                fi
-
-                echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-                exit 1
-            fi
-        fi
-
-        if ! _set_column "$((_cols - 10))"; then
-            echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-            echo "Can't set horizontal position" >&2
-            exit 1
-        fi
-
-        echo "[${_COLOR_CHANGED}CHANGED${_COLOR_RESET} ]"
-
-        _changed=1
-        return 0
     fi
 
     if ! _set_column "$((_cols - 10))"; then
