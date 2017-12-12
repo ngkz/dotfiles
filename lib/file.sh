@@ -337,6 +337,8 @@ file() {
             if [[ ! -t 1 ]] || (( _verbose )); then
                 echo
             fi
+
+            _changed=0
             return 0
         fi
     fi
