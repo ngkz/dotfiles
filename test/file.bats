@@ -94,3 +94,21 @@ EOH
     [[ ${lines[4]} = 'is-changed is false' ]]
     [[ ! -e "$work/dest" ]]
 }
+
+@test "file --owner (dest doesn't exist, fix)" {
+    echo "src content" > "$work/src"
+    cat <<'EOH' >"$work/test.df.sh"
+_changed=0
+file --owner=nobody src dest
+echo -n "is-changed is "; is-changed && echo true || echo false
+EOH
+
+    run "$install" -y "$work/test" </dev/null
+    [[ $status -eq 0 ]]
+    [[ ${lines[1]} = "dest doesn't exist" ]]
+    [[ ${lines[2]} = 'Fix inconsistency? [y/N] Y' ]]
+    [[ ${lines[3]} =~ '[CHANGED ]' ]]
+    [[ ${lines[4]} = 'is-changed is true' ]]
+    [[ $(stat --format="%U" "$work/dest") = 'nobody' ]]
+    [[ $(<"$work/dest") = 'src content' ]]
+}
