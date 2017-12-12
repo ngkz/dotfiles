@@ -60,7 +60,7 @@ _noyes() {
         echo -n "$prompt [y/N] " >&$fd
 
         if (( _yes )); then
-            echo >&$fd
+            echo "Y" >&$fd
             return 0
         fi
 
