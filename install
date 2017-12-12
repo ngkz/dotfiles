@@ -103,7 +103,7 @@ EOF
 
 getopt --test >/dev/null 2>&1
 if [[ $? -ne 4 ]]; then
-    echo "This script needs GNU version of getopt."
+    echo "This script needs util-linux version of getopt."
     exit 1
 fi
 
