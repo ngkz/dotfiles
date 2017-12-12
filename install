@@ -149,4 +149,6 @@ done || exit 1
 # close fd 3
 exec 3<&-
 
-echo
+if [[ -t 1 ]] && (( ! _verbose )); then
+    echo
+fi
