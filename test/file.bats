@@ -20,11 +20,11 @@ teardown() {
     [[ $output =~ "[ FAILED ]" ]]
 }
 
-@test "file: wrong number of arguments" {
+@test "file action prints an error if the wrong number of arguments are passed" {
     echo "file src" >"$work/test.df.sh"
     run "$install" "$work/test"
     [[ $status -eq 1 ]]
-    [[ ${#lines[@]} -eq 2 ]]
+    [[ ${lines[0]} =~ "[ FAILED ]" ]]
     [[ ${lines[1]} = "Wrong number of arguments" ]]
 }
 
