@@ -19,14 +19,14 @@ if [[ -t 1 ]]; then
     readonly _COLOR_FAILED=$(tput setaf 1) || exit 1  #red
     readonly _COLOR_OK=$(tput setaf 2) || exit 1      #green
     readonly _COLOR_CHANGED=$(tput setaf 3) || exit 1 #yellow
-    readonly _COLOR_SKIP=$(tput setaf 6) || exit 1    #cyan
+    readonly _COLOR_SKIPPED=$(tput setaf 6) || exit 1    #cyan
     readonly _COLOR_RESET=$(tput sgr0) || exit 1
     readonly _ERASE_TO_EOL=$(tput el) || exit 1
 else
     readonly _COLOR_FAILED=
     readonly _COLOR_OK=
     readonly _COLOR_CHANGED=
-    readonly _COLOR_SKIP=
+    readonly _COLOR_SKIPPED=
     readonly _COLOR_RESET=
     readonly _ERASE_TO_EOL=
 fi
