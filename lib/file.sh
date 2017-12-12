@@ -156,98 +156,106 @@ file() {
 
     local changed=0
 
-    if [[ -n $owner ]]; then
-        local current_owner
-        if ! current_owner=$(stat --format="%U" "$dest"); then
-            if ! _set_column "$((_cols - 10))"; then
+    if [[ ! -e $dest ]]; then
+        if (( ! changed )); then
+            echo
+        fi
+        changed=1
+        echo "$dest doesn't exist"
+    else
+        if [[ -n $owner ]]; then
+            local current_owner
+            if ! current_owner=$(stat --format="%U" "$dest"); then
+                if ! _set_column "$((_cols - 10))"; then
+                    echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                    echo "Can't set horizontal position" >&2
+                    exit 1
+                fi
+
                 echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-                echo "Can't set horizontal position" >&2
                 exit 1
             fi
 
-            echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-            exit 1
+            if [[ $current_owner != "$owner" ]]; then
+                if (( ! changed )); then
+                    echo
+                fi
+                changed=1
+                echo "Different owner (current: $current_owner, desired: $owner)"
+            fi
         fi
 
-        if [[ $current_owner != "$owner" ]]; then
-            if (( ! changed )); then
-                echo
+        if [[ -n $group ]]; then
+            local current_group
+            if ! current_group=$(stat --format="%G" "$dest"); then
+                if ! _set_column "$((_cols - 10))"; then
+                    echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                    echo "Can't set horizontal position" >&2
+                    exit 1
+                fi
+
+                echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                exit 1
             fi
-            changed=1
-            echo "Different owner (current: $current_owner, desired: $owner)"
+
+            if [[ $current_group != "$group" ]]; then
+                if (( ! changed )); then
+                    echo
+                fi
+                changed=1
+                echo "Different group (current: $current_group, desired: $group)"
+            fi
         fi
+
+        if [[ -n $mode ]]; then
+            local current_mode
+            if ! current_mode=$(stat --format="%#a" "$dest"); then
+                if ! _set_column "$((_cols - 10))"; then
+                    echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                    echo "Can't set horizontal position" >&2
+                    exit 1
+                fi
+
+                echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                exit 1
+            fi
+
+            if (( current_mode != mode )); then
+                if (( ! changed )); then
+                    echo
+                fi
+                changed=1
+                echo "Different mode (current: $current_mode, desired: $mode)"
+            fi
+        fi
+
+        cmp --silent "$src" "$dest"
+        case "$?" in
+            0)
+                #no differences
+                ;;
+            1)
+                #differences were found
+                if (( ! changed )); then
+                    echo
+                fi
+                changed=1
+                echo "Different file content"
+                ;;
+            *)
+                #trouble
+                if ! _set_column "$((_cols - 10))"; then
+                    echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                    echo "Can't set horizontal position" >&2
+                    exit 1
+                fi
+
+                echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+                echo "Comparing '$1' and '$2' failed." >&2
+                exit 1
+                ;;
+        esac
     fi
-
-    if [[ -n $group ]]; then
-        local current_group
-        if ! current_group=$(stat --format="%G" "$dest"); then
-            if ! _set_column "$((_cols - 10))"; then
-                echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-                echo "Can't set horizontal position" >&2
-                exit 1
-            fi
-
-            echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-            exit 1
-        fi
-
-        if [[ $current_group != "$group" ]]; then
-            if (( ! changed )); then
-                echo
-            fi
-            changed=1
-            echo "Different group (current: $current_group, desired: $group)"
-        fi
-    fi
-
-    if [[ -n $mode ]]; then
-        local current_mode
-        if ! current_mode=$(stat --format="%#a" "$dest"); then
-            if ! _set_column "$((_cols - 10))"; then
-                echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-                echo "Can't set horizontal position" >&2
-                exit 1
-            fi
-
-            echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-            exit 1
-        fi
-
-        if (( current_mode != mode )); then
-            if (( ! changed )); then
-                echo
-            fi
-            changed=1
-            echo "Different mode (current: $current_mode, desired: $mode)"
-        fi
-    fi
-
-    cmp --silent "$src" "$dest"
-    case "$?" in
-        0)
-            #no differences
-            ;;
-        1)
-            #differences were found
-            if (( ! changed )); then
-                echo
-            fi
-            changed=1
-            echo "Different file content"
-            ;;
-        *)
-            #trouble
-            if ! _set_column "$((_cols - 10))"; then
-                echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-                echo "Can't set horizontal position" >&2
-                exit 1
-            fi
-
-            echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
-            echo "Comparing '$1' and '$2' failed." >&2
-            exit 1
-            ;;
-    esac
 
     if (( changed )); then
         if _noyes; then

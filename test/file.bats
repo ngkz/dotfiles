@@ -77,3 +77,20 @@ EOH
     [[ ${lines[0]} =~ '[   OK   ]' ]]
     [[ ${lines[1]} = 'is-changed is false' ]]
 }
+
+@test "file --owner (dest doesn't exist, skip)" {
+    touch "$work/src"
+    cat <<'EOH' >"$work/test.df.sh"
+_changed=1
+file --owner=nobody src dest
+echo -n "is-changed is "; is-changed && echo true || echo false
+EOH
+
+    run "$install" "$work/test" </dev/null
+    [[ $status -eq 0 ]]
+    [[ ${lines[1]} = "dest doesn't exist" ]]
+    [[ ${lines[2]} = 'Fix inconsistency? [y/N] ' ]]
+    [[ ${lines[3]} =~ '[SKIPPED ]' ]]
+    [[ ${lines[4]} = 'is-changed is false' ]]
+    [[ ! -e "$work/dest" ]]
+}
