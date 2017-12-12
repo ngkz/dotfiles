@@ -162,6 +162,16 @@ file() {
         fi
         changed=1
         echo "$dest doesn't exist"
+    elif [[ ! -f $dest ]]; then
+        if ! _set_column "$((_cols - 10))"; then
+            echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+            echo "Can't set horizontal position" >&2
+            exit 1
+        fi
+
+        echo "[ ${_COLOR_FAILED}FAILED${_COLOR_RESET} ]"
+        echo "$dest isn't a regular file" >&2
+        exit 1
     else
         if [[ -n $owner ]]; then
             local current_owner
