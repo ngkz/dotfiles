@@ -28,39 +28,52 @@ teardown() {
     [[ ${lines[1]} = "Wrong number of arguments" ]]
 }
 
-@test "file: check owner if --owner is passed" {
+@test "file --owner (skip)" {
     touch "$work/src" "$work/dest"
-    echo "file --owner=nobody src dest" >"$work/test.df.sh"
+    cat <<'EOH' >"$work/test.df.sh"
+_changed=1
+file --owner=nobody src dest
+echo -n "is-changed is "; is-changed && echo true || echo false
+EOH
+
     run "$install" "$work/test" </dev/null
     [[ $status -eq 0 ]]
     [[ ${lines[1]} = 'Different owner (current: root, desired: nobody)' ]]
-    [[ ${lines[2]} =~ 'Fix inconsistency?' ]]
+    [[ ${lines[2]} = 'Fix inconsistency? [y/N] ' ]]
+    [[ ${lines[3]} =~ '[SKIPPED ]' ]]
+    [[ ${lines[4]} = 'is-changed is false' ]]
+    [[ $(stat --format="%U" "$work/dest") = 'root' ]]
 }
 
-@test "file: check group if --group is passed" {
+@test "file --owner (changed)" {
     touch "$work/src" "$work/dest"
-    echo "file --group=nogroup src dest" >"$work/test.df.sh"
-    run "$install" "$work/test" </dev/null
+    cat <<'EOH' >"$work/test.df.sh"
+_changed=0
+file --owner=nobody src dest
+echo -n "is-changed is "; is-changed && echo true || echo false
+EOH
+
+    run "$install" -y "$work/test" </dev/null
     [[ $status -eq 0 ]]
-    [[ ${lines[1]} = 'Different group (current: root, desired: nogroup)' ]]
-    [[ ${lines[2]} =~ 'Fix inconsistency?' ]]
+    [[ ${lines[1]} = 'Different owner (current: root, desired: nobody)' ]]
+    [[ ${lines[2]} = 'Fix inconsistency? [y/N] Y' ]]
+    [[ ${lines[3]} =~ '[CHANGED ]' ]]
+    [[ ${lines[4]} = 'is-changed is true' ]]
+    [[ $(stat --format="%U" "$work/dest") = 'nobody' ]]
 }
 
-@test "file: check mode if --mode is passed" {
+@test "file --owner (ok)" {
     touch "$work/src" "$work/dest"
-    echo "file --mode=7777 src dest" >"$work/test.df.sh"
-    run "$install" "$work/test" </dev/null
-    [[ $status -eq 0 ]]
-    [[ ${lines[1]} = 'Different mode (current: 0644, desired: 7777)' ]]
-    [[ ${lines[2]} =~ 'Fix inconsistency?' ]]
-}
+    chown nobody "$work/dest"
+    cat <<'EOH' >"$work/test.df.sh"
+_changed=1
+file --owner=nobody src dest
+echo -n "is-changed is "; is-changed && echo true || echo false
+EOH
 
-@test "file: compare file content" {
-    echo foo > "$work/src"
-    echo bar > "$work/dest"
-    echo "file src dest" >"$work/test.df.sh"
+    #verify
     run "$install" "$work/test" </dev/null
     [[ $status -eq 0 ]]
-    [[ ${lines[1]} = 'Different file content' ]]
-    [[ ${lines[2]} =~ 'Fix inconsistency?' ]]
+    [[ ${lines[0]} =~ '[   OK   ]' ]]
+    [[ ${lines[1]} = 'is-changed is false' ]]
 }
