@@ -28,7 +28,7 @@ teardown() {
     [[ ${lines[1]} = "Wrong number of arguments" ]]
 }
 
-@test "file --owner (skip)" {
+@test "file --owner (dest exists, different owner, skip)" {
     touch "$work/src" "$work/dest"
     cat <<'EOH' >"$work/test.df.sh"
 _changed=1
@@ -45,7 +45,7 @@ EOH
     [[ $(stat --format="%U" "$work/dest") = 'root' ]]
 }
 
-@test "file --owner (changed)" {
+@test "file --owner (dest exists, different owner, fix)" {
     touch "$work/src" "$work/dest"
     cat <<'EOH' >"$work/test.df.sh"
 _changed=0
@@ -62,7 +62,7 @@ EOH
     [[ $(stat --format="%U" "$work/dest") = 'nobody' ]]
 }
 
-@test "file --owner (ok)" {
+@test "file --owner (dest exists, same owner)" {
     touch "$work/src" "$work/dest"
     chown nobody "$work/dest"
     cat <<'EOH' >"$work/test.df.sh"
