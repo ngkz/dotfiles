@@ -46,23 +46,39 @@ _set_column() {
 
 #presents a prompt and gets a yes/no answer (no is default)
 _noyes() {
-    local prompt=${1:-"Fix inconsistency? "}
+    local prompt=${1:-"Fix inconsistency?"}
 
+    local fd
     if (( _yes )); then
-        echo "$prompt [y/N]"
-        return 0
+        fd=1
+    else
+        #use stderr so questions are always displayed when redirecting output.
+        fd=2
     fi
 
-    #clear stdin buffer
-    [[ -t 0 ]] && while read -r -t 0; do read -r; done
-
     while :; do
-        #use stderr so questions are always displayed when redirecting output.
-        echo -n "$prompt [y/N] " >&2
-        [[ ! -t 0 ]] && echo
+        echo -n "$prompt [y/N] " >&$fd
+
+        if (( _yes )); then
+            echo >&$fd
+            return 0
+        fi
+
+        #discard unhandled input on the terminal's input buffer
+        [[ -t 0 ]] && while read -r -t 0; do read -r; done
 
         local input
-        read -r input || return 1
+        if ! read -r input; then
+            #EOF
+            echo >&$fd
+            return 1
+        fi
+
+        # if stdin is piped, response does not get printed out, and as a result
+        # a \n is missing, resulting in broken output
+        if [[ ! -t 0 ]]; then
+            echo "$input" >&$fd
+        fi
 
         if [[ $input =~ ^[Yy]([Ee][Ss])?$ ]]; then
             return 0
