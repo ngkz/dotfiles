@@ -211,6 +211,7 @@ done
 exec 3<&0
 
 _parse_targets "$@" | while IFS= read -r _script; do
+    # shellcheck disable=SC2034
     _script_name=$(_get_script_name "$_script") || exit 1
 
     # shellcheck disable=SC1090
