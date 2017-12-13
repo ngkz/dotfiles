@@ -81,7 +81,7 @@ _define() {
     eval "
 $action_quoted() {
     _reset_changed
-    [[ -t 1 ]] && echo -n \"           \$_script_name: $action_quoted $\*\"\$'\r'
+    [[ -t 1 ]] && echo -n \"           \$_script_name: $action_quoted \$*\"\$'\r'
 
     if ! $impl_quoted \"\$@\"; then
         echo \"[ \${_COLOR_FAILED}FAILED\${_COLOR_RESET} ] \$_script_name: $action_quoted \$*\"
