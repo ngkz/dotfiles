@@ -75,8 +75,9 @@ _define() {
         return 1
     fi
 
-    local action_quoted=$(printf "$1")
-    local impl_quoted=$2
+    local action_quoted impl_quoted
+    action_quoted=$(printf %q "$1") || return 1
+    impl_quoted=$(printf %q "$2") || return 1
 
     eval "
 $action_quoted() {

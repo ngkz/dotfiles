@@ -85,3 +85,31 @@ EOH
     [[ ${lines[6]} = 'changed flag is reset' ]]
     [[ ${lines[7]} = '[ FAILED ] test: action_failed arg1 ar  g2' ]]
 }
+
+@test "_define: quote action and impl correctly" {
+    cat <<'EOH' >"$work/test.df.sh"
+impl() {
+    echo failed
+    return 0
+}
+
+_define 'A=B; action' impl
+action
+EOH
+    run "$install" "$work/test"
+    [[ $status -eq 1 ]]
+    [[ $output =~ 'syntax error near unexpected token `(' ]]
+
+    cat <<'EOH' >"$work/test.df.sh"
+impl() {
+    echo failed
+    return 0
+}
+
+_define action '$(echo -n impl)'
+action
+EOH
+    run "$install" "$work/test"
+    [[ $status -eq 1 ]]
+    [[ $output =~ '$(echo -n impl): command not found' ]]
+}
