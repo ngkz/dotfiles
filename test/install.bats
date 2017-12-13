@@ -113,3 +113,29 @@ EOH
     [[ $status -eq 1 ]]
     [[ $output =~ '$(echo -n impl): command not found' ]]
 }
+
+@test "_parse_action_args: parse non option arguments" {
+    cat <<'EOH' >"$work/test.df.sh"
+_parse_action_args arg1 arg2 -- test1 test2 || exit 1
+for key in "${!_args[@]}"; do
+    echo "$key => ${_args[$key]}"
+done
+
+_parse_action_args arg1 -- test3 || exit 1
+for key in "${!_args[@]}"; do
+    echo "$key => ${_args[$key]}"
+done
+
+_parse_action_args arg1 arg2 -- toofewargs && exit 1
+for key in "${!_args[@]}"; do
+    echo "$key => ${_args[$key]}"
+done
+EOH
+    run "$install" "$work/test"
+    [[ $status -eq 0 ]]
+    [[ ${#lines[@]} -eq 4 ]]
+    [[ ${lines[0]} = 'arg1 => test1' ]]
+    [[ ${lines[1]} = 'arg2 => test2' ]]
+    [[ ${lines[2]} = 'arg1 => test3' ]]
+    [[ ${lines[3]} = 'Wrong number of arguments' ]]
+}

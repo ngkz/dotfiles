@@ -46,6 +46,7 @@ _dry_run=0       #perform a trial run with no changes made if this is true
 _verbose=0       #show the action that made no change if this is true
 _script_name=    #name of currely running script
 _changed=0       #whether last action was changed the system or not
+declare -A _args #last result of _parse_action_args
 
 is_dry_run() {
     (( _dry_run ))
@@ -99,6 +100,40 @@ $action_quoted() {
 
     return 0
 }"
+
+    return 0
+}
+
+#usage: _parse_action_args SPEC... -- "$@"
+_parse_action_args() {
+    _args=()
+
+    local non_option_arg_key=()
+    while :; do
+        case "$1" in
+            --)
+                shift
+                break
+                ;;
+            *)
+                non_option_arg_key+=("$1")
+                shift
+                ;;
+        esac
+    done
+
+    if (( $# != ${#non_option_arg_key[@]} )); then
+        _failure_reason "Wrong number of arguments"
+        return 1
+    fi
+
+    local i=0
+    while (( $# > 0 )); do
+        # shellcheck disable=SC2034
+        _args[${non_option_arg_key[$i]}]=$1
+        shift
+        (( i++ ))
+    done
 
     return 0
 }
