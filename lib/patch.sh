@@ -19,6 +19,7 @@ __patch_impl() {
     _needs_exec "patch" || return 1
     _parse_action_args origfile patchfile -- "$@" || return 1
 
+    # shellcheck disable=SC2154
     command patch -R -f --dry-run "${_args[origfile]}" "${_args[patchfile]}" \
             >/dev/null 2>&1
     case "$?" in
