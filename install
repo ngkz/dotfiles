@@ -205,6 +205,15 @@ _parse_action_args() {
     return 0
 }
 
+_needs_exec() {
+    if ! which "$1" >/dev/null 2>&1; then
+        _failure_reason "missing required command $1"
+        return 1
+    fi
+
+    return 0
+}
+
 for _lib in "$_SCRIPT_DIR"/lib/*.sh; do
     # shellcheck disable=SC1090
     . "$_lib" || exit 1

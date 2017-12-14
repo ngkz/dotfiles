@@ -4,6 +4,7 @@ my dotfiles and configuration managent tool (WIP)
 ## dependencies
 ```sh
 pacman -S util-linux #getopt command
+pacman -S which      #which command
 ```
 
 ## how to use

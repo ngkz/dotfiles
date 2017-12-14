@@ -196,3 +196,13 @@ EOH
     [[ $status -eq 0 ]]
     [[ ${output} = "getopt: unrecognized option '--invalid-flag'" ]]
 }
+
+@test "_needs_exec" {
+    cat <<EOH >"$work/test.df.sh"
+_needs_exec bash || exit 2
+_needs_exec ____not_exists____
+EOH
+    run "$install" "$work/test"
+    [[ $status -eq 1 ]]
+    [[ ${output} = "missing required command ____not_exists____" ]]
+}
