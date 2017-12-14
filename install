@@ -112,6 +112,8 @@ _parse_action_args() {
 
     local non_option_arg_key=()
     local allow_varargs=0
+    local flags=()
+
     while :; do
         if (( $# == 0 )); then
             _failure_reason "Missing '--'"
@@ -126,11 +128,39 @@ _parse_action_args() {
                 allow_varargs=1
                 shift
                 ;;
+            --*)
+                local flag_name=${1:2}
+                flags+=("$flag_name")
+                _args[$flag_name]=0
+                shift
+                ;;
             *)
                 non_option_arg_key+=("$1")
                 shift
                 ;;
         esac
+    done
+
+    local temp
+    if ! temp=$(getopt --longoptions="$(_join , "${flags[@]}")" -- parse_action_args "$@"); then
+        return 1
+    fi
+
+    eval set -- "$temp"
+
+    while :; do
+        if [[ $1 = "--" ]]; then
+            shift
+            break
+        fi
+
+        for flag_name in "${flags[@]}"; do
+            if [[ $1 = "--$flag_name" ]]; then
+                _args[$flag_name]=1
+                shift
+                break
+            fi
+        done
     done
 
     if (( $# < ${#non_option_arg_key[@]} || \

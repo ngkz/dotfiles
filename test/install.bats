@@ -158,3 +158,29 @@ EOH
     [[ ${lines[1]} = '_varargs[0] => varargs1' ]]
     [[ ${lines[2]} = '_varargs[1] => varargs2' ]]
 }
+
+@test "_parse_action_args: parse flags" {
+    cat <<EOH >"$work/test.df.sh"
+. "$BATS_TEST_DIRNAME/parse_action_args_helper.sh"
+pollute_args_and_varargs
+_parse_action_args --flag-on --flag-off -- --flag-on || exit 1
+dump_args_and_varargs
+EOH
+    run "$install" "$work/test"
+    [[ $status -eq 0 ]]
+    [[ ${#lines[@]} -eq 2 ]]
+    [[ ${lines[0]} = '_args[flag-off] => 0' ]]
+    [[ ${lines[1]} = '_args[flag-on] => 1' ]]
+}
+
+@test "_parse_action_flags: invalid flags or options" {
+    cat <<EOH >"$work/test.df.sh"
+. "$BATS_TEST_DIRNAME/parse_action_args_helper.sh"
+pollute_args_and_varargs
+_parse_action_args -- --invalid-flag && exit 1
+dump_args_and_varargs
+EOH
+    run "$install" "$work/test"
+    [[ $status -eq 0 ]]
+    [[ ${output} = "getopt: unrecognized option '--invalid-flag'" ]]
+}

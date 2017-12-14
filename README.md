@@ -20,7 +20,7 @@ Options:
 
 ## how to lint
 ```sh
-shellcheck install lib/*
+shellcheck install lib/* test/*.sh
 ```
 
 ## how to test
