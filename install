@@ -110,7 +110,7 @@ _parse_action_args() {
     _args=()
     _varargs=()
 
-    local non_option_arg_key=()
+    local non_option_args=()
     local allow_varargs=0
     local flags=()
 
@@ -135,7 +135,7 @@ _parse_action_args() {
                 shift
                 ;;
             *)
-                non_option_arg_key+=("$1")
+                non_option_args+=("$1")
                 shift
                 ;;
         esac
@@ -163,16 +163,16 @@ _parse_action_args() {
         done
     done
 
-    if (( $# < ${#non_option_arg_key[@]} || \
-          !allow_varargs && $# > ${#non_option_arg_key[@]} )); then
+    if (( $# < ${#non_option_args[@]} || \
+          !allow_varargs && $# > ${#non_option_args[@]} )); then
         _failure_reason "Wrong number of arguments"
         return 1
     fi
 
     local i=0
-    while (( i < ${#non_option_arg_key[@]} )); do
+    while (( i < ${#non_option_args[@]} )); do
         # shellcheck disable=SC2034
-        _args[${non_option_arg_key[$i]}]=$1
+        _args[${non_option_args[$i]}]=$1
         shift
         (( i++ ))
     done
