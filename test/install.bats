@@ -115,20 +115,8 @@ EOH
 }
 
 @test "_parse_action_args: parse non option arguments" {
-    cat <<'EOH' >"$work/test.df.sh"
-dump_args_and_varargs() {
-    for key in "${!_args[@]}"; do
-        echo "_args[$key] => ${_args[$key]}"
-    done
-    for i in "${!_varargs[@]}"; do
-        echo "_varargs[$i] => ${_varargs[$i]}"
-    done
-}
-
-pollute_args_and_varargs() {
-    _args=( [check]="args aren't reset" )
-    _varargs=("varargs aren't reset")
-}
+    cat <<EOH >"$work/test.df.sh"
+. "$BATS_TEST_DIRNAME/parse_action_args_helper.sh"
 
 pollute_args_and_varargs
 _parse_action_args arg1 arg2 -- test1 test2 || exit 1
@@ -157,21 +145,8 @@ EOH
 }
 
 @test "_parse_action_args: parse variable arguments" {
-    cat <<'EOH' >"$work/test.df.sh"
-dump_args_and_varargs() {
-    for key in "${!_args[@]}"; do
-        echo "_args[$key] => ${_args[$key]}"
-    done
-    for i in "${!_varargs[@]}"; do
-        echo "_varargs[$i] => ${_varargs[$i]}"
-    done
-}
-
-pollute_args_and_varargs() {
-    _args=( [check]="args aren't reset" )
-    _varargs=("varargs aren't reset")
-}
-
+    cat <<EOH >"$work/test.df.sh"
+. "$BATS_TEST_DIRNAME/parse_action_args_helper.sh"
 pollute_args_and_varargs
 _parse_action_args arg1 ... -- arg1value varargs1 varargs2 || exit 1
 dump_args_and_varargs
