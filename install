@@ -65,8 +65,12 @@ _flag_changed() {
     _changed=1
 }
 
-_failure_reason() {
+_hide_progress() {
     [[ -t 1 ]] && echo -n "$_ERASE_TO_EOL"
+}
+
+_failure_reason() {
+    _hide_progress
     echo "$*" >&2
 }
 
