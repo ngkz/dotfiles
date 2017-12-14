@@ -173,6 +173,18 @@ EOH
     [[ ${lines[1]} = '_args[flag-on] => 1' ]]
 }
 
+@test "_parse_action_args: parse options" {
+    cat <<EOH >"$work/test.df.sh"
+. "$BATS_TEST_DIRNAME/parse_action_args_helper.sh"
+pollute_args_and_varargs
+_parse_action_args --option-1: --option-2: -- --option-2 value || exit 1
+dump_args_and_varargs
+EOH
+    run "$install" "$work/test"
+    [[ $status -eq 0 ]]
+    [[ $output = '_args[option-2] => value' ]]
+}
+
 @test "_parse_action_args: invalid flags or options" {
     cat <<EOH >"$work/test.df.sh"
 . "$BATS_TEST_DIRNAME/parse_action_args_helper.sh"

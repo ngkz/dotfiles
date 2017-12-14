@@ -113,6 +113,7 @@ _parse_action_args() {
     local non_option_args=()
     local allow_varargs=0
     local flags=()
+    local options=()
 
     while :; do
         if (( $# == 0 )); then
@@ -128,6 +129,11 @@ _parse_action_args() {
                 allow_varargs=1
                 shift
                 ;;
+            --*:)
+                local option_name=${1:2:-1}
+                options+=("$option_name")
+                shift
+                ;;
             --*)
                 local flag_name=${1:2}
                 flags+=("$flag_name")
@@ -141,8 +147,14 @@ _parse_action_args() {
         esac
     done
 
+    local longoptions=("${flags[@]}")
+    local option_name
+    for option_name in "${options[@]}"; do
+        longoptions+=("$option_name:")
+    done
+
     local temp
-    if ! temp=$(getopt --longoptions="$(_join , "${flags[@]}")" -- parse_action_args "$@"); then
+    if ! temp=$(getopt --longoptions="$(_join , "${longoptions[@]}")" -- parse_action_args "$@"); then
         return 1
     fi
 
@@ -154,10 +166,20 @@ _parse_action_args() {
             break
         fi
 
+        local flag_name
         for flag_name in "${flags[@]}"; do
             if [[ $1 = "--$flag_name" ]]; then
                 _args[$flag_name]=1
                 shift
+                break
+            fi
+        done
+
+        local option_name
+        for option_name in "${options[@]}"; do
+            if [[ $1 = "--$option_name" ]]; then
+                _args[$option_name]=$2
+                shift 2
                 break
             fi
         done
