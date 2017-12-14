@@ -173,7 +173,7 @@ EOH
     [[ ${lines[1]} = '_args[flag-on] => 1' ]]
 }
 
-@test "_parse_action_flags: invalid flags or options" {
+@test "_parse_action_args: invalid flags or options" {
     cat <<EOH >"$work/test.df.sh"
 . "$BATS_TEST_DIRNAME/parse_action_args_helper.sh"
 pollute_args_and_varargs
