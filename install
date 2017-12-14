@@ -47,6 +47,7 @@ _verbose=0       #show the action that made no change if this is true
 _script_name=    #name of currely running script
 _changed=0       #whether last action was changed the system or not
 declare -A _args #last result of _parse_action_args
+_varargs=()      #last result of _parse_action_args
 
 is_dry_run() {
     (( _dry_run ))
@@ -109,6 +110,7 @@ _parse_action_args() {
     _args=()
 
     local non_option_arg_key=()
+    local allow_varargs=0
     while :; do
         if (( $# == 0 )); then
             _failure_reason "Missing '--'"
@@ -119,6 +121,10 @@ _parse_action_args() {
                 shift
                 break
                 ;;
+            ...)
+                allow_varargs=1
+                shift
+                ;;
             *)
                 non_option_arg_key+=("$1")
                 shift
@@ -126,18 +132,22 @@ _parse_action_args() {
         esac
     done
 
-    if (( $# != ${#non_option_arg_key[@]} )); then
+    if (( $# < ${#non_option_arg_key[@]} || \
+          !allow_varargs && $# > ${#non_option_arg_key[@]} )); then
         _failure_reason "Wrong number of arguments"
         return 1
     fi
 
     local i=0
-    while (( $# > 0 )); do
+    while (( i < ${#non_option_arg_key[@]} )); do
         # shellcheck disable=SC2034
         _args[${non_option_arg_key[$i]}]=$1
         shift
         (( i++ ))
     done
+
+    # shellcheck disable=SC2034
+    _varargs=("$@")
 
     return 0
 }

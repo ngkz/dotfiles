@@ -147,3 +147,21 @@ EOH
     [[ ${lines[3]} = 'Wrong number of arguments' ]]
     [[ ${lines[4]} = "Missing '--'" ]]
 }
+
+@test "_parse_action_args: parse variable arguments" {
+    cat <<'EOH' >"$work/test.df.sh"
+_parse_action_args arg1 ... -- arg1value varargs1 varargs2 || exit 1
+for key in "${!_args[@]}"; do
+    echo "_args[$key] => ${_args[$key]}"
+done
+for i in "${!_varargs[@]}"; do
+    echo "_varargs[$i] => ${_varargs[$i]}"
+done
+EOH
+    run "$install" "$work/test"
+    [[ $status -eq 0 ]]
+    [[ ${#lines[@]} -eq 3 ]]
+    [[ ${lines[0]} = '_args[arg1] => arg1value' ]]
+    [[ ${lines[1]} = '_varargs[0] => varargs1' ]]
+    [[ ${lines[2]} = '_varargs[1] => varargs2' ]]
+}
