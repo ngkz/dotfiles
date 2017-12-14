@@ -126,16 +126,24 @@ for key in "${!_args[@]}"; do
     echo "$key => ${_args[$key]}"
 done
 
+_args[check]=failed
 _parse_action_args arg1 arg2 -- toofewargs && exit 1
+for key in "${!_args[@]}"; do
+    echo "$key => ${_args[$key]}"
+done
+
+_args[check]=failed
+_parse_action_args arg1 && exit 1
 for key in "${!_args[@]}"; do
     echo "$key => ${_args[$key]}"
 done
 EOH
     run "$install" "$work/test"
     [[ $status -eq 0 ]]
-    [[ ${#lines[@]} -eq 4 ]]
+    [[ ${#lines[@]} -eq 5 ]]
     [[ ${lines[0]} = 'arg1 => test1' ]]
     [[ ${lines[1]} = 'arg2 => test2' ]]
     [[ ${lines[2]} = 'arg1 => test3' ]]
     [[ ${lines[3]} = 'Wrong number of arguments' ]]
+    [[ ${lines[4]} = "Missing '--'" ]]
 }

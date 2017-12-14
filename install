@@ -110,6 +110,10 @@ _parse_action_args() {
 
     local non_option_arg_key=()
     while :; do
+        if (( $# == 0 )); then
+            _failure_reason "Missing '--'"
+            return 1
+        fi
         case "$1" in
             --)
                 shift
