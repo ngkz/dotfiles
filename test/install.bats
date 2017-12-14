@@ -116,47 +116,65 @@ EOH
 
 @test "_parse_action_args: parse non option arguments" {
     cat <<'EOH' >"$work/test.df.sh"
+dump_args_and_varargs() {
+    for key in "${!_args[@]}"; do
+        echo "_args[$key] => ${_args[$key]}"
+    done
+    for i in "${!_varargs[@]}"; do
+        echo "_varargs[$i] => ${_varargs[$i]}"
+    done
+}
+
+pollute_args_and_varargs() {
+    _args=( [check]="args aren't reset" )
+    _varargs=("varargs aren't reset")
+}
+
+pollute_args_and_varargs
 _parse_action_args arg1 arg2 -- test1 test2 || exit 1
-for key in "${!_args[@]}"; do
-    echo "$key => ${_args[$key]}"
-done
+dump_args_and_varargs
 
+pollute_args_and_varargs
 _parse_action_args arg1 -- test3 || exit 1
-for key in "${!_args[@]}"; do
-    echo "$key => ${_args[$key]}"
-done
+dump_args_and_varargs
 
-_args[check]=failed
+pollute_args_and_varargs
 _parse_action_args arg1 arg2 -- toofewargs && exit 1
-for key in "${!_args[@]}"; do
-    echo "$key => ${_args[$key]}"
-done
+dump_args_and_varargs
 
-_args[check]=failed
+pollute_args_and_varargs
 _parse_action_args arg1 && exit 1
-for key in "${!_args[@]}"; do
-    echo "$key => ${_args[$key]}"
-done
+dump_args_and_varargs
 EOH
     run "$install" "$work/test"
     [[ $status -eq 0 ]]
     [[ ${#lines[@]} -eq 5 ]]
-    [[ ${lines[0]} = 'arg1 => test1' ]]
-    [[ ${lines[1]} = 'arg2 => test2' ]]
-    [[ ${lines[2]} = 'arg1 => test3' ]]
+    [[ ${lines[0]} = '_args[arg1] => test1' ]]
+    [[ ${lines[1]} = '_args[arg2] => test2' ]]
+    [[ ${lines[2]} = '_args[arg1] => test3' ]]
     [[ ${lines[3]} = 'Wrong number of arguments' ]]
     [[ ${lines[4]} = "Missing '--'" ]]
 }
 
 @test "_parse_action_args: parse variable arguments" {
     cat <<'EOH' >"$work/test.df.sh"
+dump_args_and_varargs() {
+    for key in "${!_args[@]}"; do
+        echo "_args[$key] => ${_args[$key]}"
+    done
+    for i in "${!_varargs[@]}"; do
+        echo "_varargs[$i] => ${_varargs[$i]}"
+    done
+}
+
+pollute_args_and_varargs() {
+    _args=( [check]="args aren't reset" )
+    _varargs=("varargs aren't reset")
+}
+
+pollute_args_and_varargs
 _parse_action_args arg1 ... -- arg1value varargs1 varargs2 || exit 1
-for key in "${!_args[@]}"; do
-    echo "_args[$key] => ${_args[$key]}"
-done
-for i in "${!_varargs[@]}"; do
-    echo "_varargs[$i] => ${_varargs[$i]}"
-done
+dump_args_and_varargs
 EOH
     run "$install" "$work/test"
     [[ $status -eq 0 ]]

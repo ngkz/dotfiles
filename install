@@ -108,6 +108,7 @@ $action_quoted() {
 #usage: _parse_action_args SPEC... -- "$@"
 _parse_action_args() {
     _args=()
+    _varargs=()
 
     local non_option_arg_key=()
     local allow_varargs=0
