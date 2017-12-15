@@ -22,6 +22,7 @@ __copy_impl() {
     local flags=(--recursive --links --times --executability)
     [[ ${_args[chown]} != "" ]] && flags+=("--owner" "--group" "--chown=${_args[chown]}")
     [[ ${_args[chmod]} != "" ]] && flags+=("--perms" "--chmod=${_args[chmod]}")
+    (( ${_args[delete]} )) && flags+=(--delete)
 
     local difference
     difference=$(rsync "${flags[@]}" --dry-run --itemize-changes \

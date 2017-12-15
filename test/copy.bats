@@ -93,3 +93,15 @@ EOH
     [[ ${lines[1]} = "-r---wx-w- 1 root root 0 Jan  1  2000 regular" ]]
     [[ ${lines[2]} = "lrwxrwxrwx 1 root root 7 Jan  1  2000 symlink -> regular" ]]
 }
+
+@test "copy: --delete" {
+    cp -ar "$work/src" "$work/dest"
+    touch "$work/dest/destonly"
+    cat <<'EOH' >"$work/test.df.sh"
+copy --delete src/ dest
+EOH
+    run "$install" "$work/test"
+    [[ $status -eq 0 ]]
+    [[ $output = "[CHANGED ] test: copy --delete src/ dest" ]]
+    [[ ! -e "$work/dest/destonly" ]]
+}
