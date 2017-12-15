@@ -6,6 +6,7 @@ my dotfiles and configuration managent tool (WIP)
 pacman -S util-linux #getopt command
 pacman -S which      #which command
 pacman -S patch      #patch command
+pacman -S rsync      #rsync command
 ```
 
 ## how to use
