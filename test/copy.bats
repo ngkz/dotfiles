@@ -105,3 +105,18 @@ EOH
     [[ $output = "[CHANGED ] test: copy --delete src/ dest" ]]
     [[ ! -e "$work/dest/destonly" ]]
 }
+
+@test "copy: --checksum" {
+    echo "foo" > "$work/src/regular"
+    cp -ar "$work/src" "$work/dest"
+    echo "bar" > "$work/src/regular"
+    touch --reference="$work/dest/regular" "$work/src/regular"
+
+    cat <<'EOH' >"$work/test.df.sh"
+copy --checksum src/ dest
+EOH
+    run "$install" "$work/test"
+    [[ $status -eq 0 ]]
+    [[ $output = "[CHANGED ] test: copy --checksum src/ dest" ]]
+    [[ $(<"$work/src/regular") = "$(<"$work/dest/regular")" ]]
+}

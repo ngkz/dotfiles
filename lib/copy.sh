@@ -24,6 +24,7 @@ __copy_impl() {
     [[ ${_args[chown]} != "" ]] && flags+=("--owner" "--group" "--chown=${_args[chown]}")
     [[ ${_args[chmod]} != "" ]] && flags+=("--perms" "--chmod=${_args[chmod]}")
     (( _args[delete] )) && flags+=(--delete)
+    (( _args[checksum] )) && flags+=(--checksum)
 
     local difference
     difference=$(rsync "${flags[@]}" --dry-run --itemize-changes \
