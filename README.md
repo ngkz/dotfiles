@@ -26,6 +26,8 @@ shellcheck install lib/* test/*.sh
 ```
 
 ## how to test
+Some tests modify the system. Don't run tests outside of docker!
+
 ```sh
 docker pull archlinux/base
 docker build -t dotfiles-test .
