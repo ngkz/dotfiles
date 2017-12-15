@@ -20,9 +20,10 @@ __copy_impl() {
     _parse_action_args --chown: --chmod: --delete --checksum src dest -- "$@" || return 1
 
     local flags=(--recursive --links --times --executability)
+    # shellcheck disable=SC2154
     [[ ${_args[chown]} != "" ]] && flags+=("--owner" "--group" "--chown=${_args[chown]}")
     [[ ${_args[chmod]} != "" ]] && flags+=("--perms" "--chmod=${_args[chmod]}")
-    (( ${_args[delete]} )) && flags+=(--delete)
+    (( _args[delete] )) && flags+=(--delete)
 
     local difference
     difference=$(rsync "${flags[@]}" --dry-run --itemize-changes \
