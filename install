@@ -339,7 +339,7 @@ done || exit 1
 # close fd 3
 exec 3<&-
 
-if [[ -t 1 ]] && (( ! _verbose )) && ! is_changed; then
+if [[ -t 1 ]] && (( ! _verbose )); then
     #print newline to avoid that the shell prompt overwrite the output
     echo
 fi
