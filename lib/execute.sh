@@ -1,5 +1,4 @@
 #!/bin/bash
-# vim: ft=sh
 # dotfiles
 # Copyright (C) 2017  Kazutoshi Noguchi
 #
