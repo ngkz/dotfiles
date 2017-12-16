@@ -30,7 +30,7 @@ __copy_impl() {
     difference=$(rsync "${flags[@]}" --dry-run --itemize-changes \
                     "${_args[src]}" "${_args[dest]}") || return 1
     if [[ -n $difference ]]; then
-        changed=1
+        _flag_changed
         if ! is_dry_run; then
             rsync "${flags[@]}" --quiet "${_args[src]}" "${_args[dest]}" || return 1
         fi

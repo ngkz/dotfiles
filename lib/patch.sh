@@ -31,7 +31,7 @@ __patch_impl() {
            ;;
     esac
 
-    changed=1
+    _flag_changed
 
     if ! is_dry_run; then
         command patch --batch --quiet --reject-file=- \

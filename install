@@ -57,6 +57,10 @@ is_changed() {
     (( changed ))
 }
 
+_flag_changed() {
+    changed=1
+}
+
 _hide_progress() {
     [[ -t 1 ]] && echo -n "$_ERASE_TO_EOL"
 }
