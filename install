@@ -240,7 +240,7 @@ _join() {
 _parse_targets() {
     if (( $# == 0 )); then
         local script
-        for script in *.df.sh */main.df.sh; do
+        _join $'\n' *.df.sh */main.df.sh | sort | while IFS= read -r script; do
             echo "$(pwd -P)/$script"
         done
     else
