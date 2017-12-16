@@ -2,10 +2,10 @@
 dump_args_and_varargs() {
     for key in "${!_args[@]}"; do
         echo "_args[$key] => ${_args[$key]}"
-    done
+    done | sort
     for i in "${!_varargs[@]}"; do
         echo "_varargs[$i] => ${_varargs[$i]}"
-    done
+    done | sort
 }
 
 pollute_args_and_varargs() {
