@@ -32,8 +32,8 @@ teardown() {
 pacman_install
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 1 ]]
-    [[ ${#lines[@]} -eq 2 ]]
+    (( status == 1 ))
+    (( ${#lines[@]} == 2 ))
     [[ ${lines[0]} = "no package specified" ]]
     [[ ${lines[1]} = "[ FAILED ] test: pacman_install " ]]
 }
@@ -45,7 +45,7 @@ pacman -Qi $(pacman -Sgq multilib-devel) >/dev/null 2>&1 tree && exit 1
 pacman_install multilib-devel tree
 EOH
     run "$install" --dry-run "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output = "[CHANGED ] test: pacman_install multilib-devel tree" ]]
 }
 
@@ -59,7 +59,7 @@ pacman -Qi $(pacman -Sgq multilib-devel) tree >/dev/null 2>&1 || exit 1
 pacman_install multilib-devel tree
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output =~ "[CHANGED ] test: pacman_install multilib-devel tree" ]]
     [[ $output =~ "installing lib32-glibc..." ]]
     [[ $output =~ "installing lib32-gcc-libs..." ]]
@@ -71,8 +71,8 @@ EOH
     rm -f /var/lib/pacman/sync/core.db
     echo "pacman_update" >"$work/test.df.sh"
     run "$install" --dry-run "$work/test"
-    [[ $status -eq 1 ]]
-    [[ ${#lines[@]} -eq 2 ]]
+    (( status == 1 ))
+    (( ${#lines[@]} == 2 ))
     [[ ${lines[0]} = "this action doesn't support --dry-run" ]]
     [[ ${lines[1]} = "[ FAILED ] test: pacman_update " ]]
     [[ ! -e /var/lib/pacman/sync/core.db ]]
@@ -82,11 +82,11 @@ EOH
     rm -f /var/lib/pacman/sync/core.db
     echo "pacman_update" >"$work/test.df.sh"
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output = "[CHANGED ] test: pacman_update " ]]
     [[ -e /var/lib/pacman/sync/core.db ]]
 
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output = "[   OK   ] test: pacman_update " ]]
 }

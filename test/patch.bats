@@ -40,7 +40,7 @@ EOH
 patch file file.patch
 EOH
     run "$install" --dry-run "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output = "[CHANGED ] test: patch file file.patch" ]]
     [[ $(<"$work/file") = "before" ]]
 }
@@ -51,7 +51,7 @@ EOH
 patch file nonexistent.patch
 EOH
     run "$install" --dry-run "$work/test"
-    [[ $status -eq 1 ]]
+    (( status == 1 ))
     [[ $output = "[ FAILED ] test: patch file nonexistent.patch" ]]
 }
 
@@ -68,12 +68,12 @@ EOH
 patch file file.patch
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output = "[CHANGED ] test: patch file file.patch" ]]
     [[ $(<"$work/file") = "after" ]]
 
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output = "[   OK   ] test: patch file file.patch" ]]
 }
 
@@ -90,8 +90,8 @@ EOH
 patch file file.patch
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 1 ]]
-    [[ ${#lines[@]} -eq 2 ]]
+    (( status == 1 ))
+    (( ${#lines[@]} == 2 ))
     [[ ${lines[0]} = "1 out of 1 hunk FAILED" ]]
     [[ ${lines[1]} = "[ FAILED ] test: patch file file.patch" ]]
 }

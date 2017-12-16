@@ -36,7 +36,7 @@ teardown() {
 copy src/ dest
 EOH
     run "$install" --dry-run "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output = "[CHANGED ] test: copy src/ dest" ]]
     [[ ! -e "$work/dest" ]]
 }
@@ -46,19 +46,19 @@ EOH
 copy src/ dest
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output = "[CHANGED ] test: copy src/ dest" ]]
 
     run ls -l "$work/src"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     src_ls=$output
     run ls -l "$work/dest"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     dest_ls=$output
     [[ $src_ls = "$dest_ls" ]]
 
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output = "[   OK   ] test: copy src/ dest" ]]
 }
 
@@ -67,12 +67,12 @@ EOH
 copy --chown nobody:nobody src/ dest
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output = "[CHANGED ] test: copy --chown nobody:nobody src/ dest" ]]
 
     run ls -l "$work/dest"
-    [[ $status -eq 0 ]]
-    [[ ${#lines[@]} -eq 3 ]]
+    (( status == 0 ))
+    (( ${#lines[@]} == 3 ))
     [[ ${lines[0]} = "total 0" ]]
     [[ ${lines[1]} = "-rw-r--r-- 1 nobody nobody 0 Jan  1  2000 regular" ]]
     [[ ${lines[2]} = "lrwxrwxrwx 1 nobody nobody 7 Jan  1  2000 symlink -> regular" ]]
@@ -83,12 +83,12 @@ EOH
 copy --chmod 0432 src/ dest
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output = "[CHANGED ] test: copy --chmod 0432 src/ dest" ]]
 
     run ls -l "$work/dest"
-    [[ $status -eq 0 ]]
-    [[ ${#lines[@]} -eq 3 ]]
+    (( status == 0 ))
+    (( ${#lines[@]} == 3 ))
     [[ ${lines[0]} = "total 0" ]]
     [[ ${lines[1]} = "-r---wx-w- 1 root root 0 Jan  1  2000 regular" ]]
     [[ ${lines[2]} = "lrwxrwxrwx 1 root root 7 Jan  1  2000 symlink -> regular" ]]
@@ -101,7 +101,7 @@ EOH
 copy --delete src/ dest
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output = "[CHANGED ] test: copy --delete src/ dest" ]]
     [[ ! -e "$work/dest/destonly" ]]
 }
@@ -116,7 +116,7 @@ EOH
 copy --checksum src/ dest
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output = "[CHANGED ] test: copy --checksum src/ dest" ]]
     [[ $(<"$work/src/regular") = "$(<"$work/dest/regular")" ]]
 }

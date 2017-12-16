@@ -15,11 +15,11 @@ teardown() {
 @test "install --dry-run" {
     echo 'is_dry_run && echo yes || echo no' >"$work/test.df.sh"
     run "$install" --dry-run "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output = "yes" ]]
 
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output = "no" ]]
 }
 
@@ -28,14 +28,14 @@ teardown() {
 _define action impl extra
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 1 ]]
+    (( status == 1 ))
     [[ $output = 'Wrong number of arguments' ]]
 
     cat <<'EOH' >"$work/test.df.sh"
 _define action impl
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
 }
 
 @test "_define: define action" {
@@ -74,8 +74,8 @@ action_failed "arg1" "ar  g2"
 echo "this won't get executed"
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 1 ]]
-    [[ ${#lines[@]} -eq 8 ]]
+    (( status == 1 ))
+    (( ${#lines[@]} == 8 ))
     [[ ${lines[0]} = '$1 => arg1' ]]
     [[ ${lines[1]} = '$2 => ar  g2' ]]
     [[ ${lines[2]} = '[   OK   ] test: action_ok arg1 ar  g2' ]]
@@ -97,7 +97,7 @@ _define 'A=B; action' impl
 action
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 1 ]]
+    (( status == 1 ))
     [[ $output =~ 'syntax error near unexpected token `(' ]]
 
     cat <<'EOH' >"$work/test.df.sh"
@@ -110,7 +110,7 @@ _define action '$(echo -n impl)'
 action
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 1 ]]
+    (( status == 1 ))
     [[ $output =~ '$(echo -n impl): command not found' ]]
 }
 
@@ -135,8 +135,8 @@ _parse_action_args arg1 && exit 1
 dump_args_and_varargs
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
-    [[ ${#lines[@]} -eq 5 ]]
+    (( status == 0 ))
+    (( ${#lines[@]} == 5 ))
     [[ ${lines[0]} = '_args[arg1] => test1' ]]
     [[ ${lines[1]} = '_args[arg2] => test2' ]]
     [[ ${lines[2]} = '_args[arg1] => test3' ]]
@@ -152,8 +152,8 @@ _parse_action_args arg1 ... -- arg1value varargs1 varargs2 || exit 1
 dump_args_and_varargs
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
-    [[ ${#lines[@]} -eq 3 ]]
+    (( status == 0 ))
+    (( ${#lines[@]} == 3 ))
     [[ ${lines[0]} = '_args[arg1] => arg1value' ]]
     [[ ${lines[1]} = '_varargs[0] => varargs1' ]]
     [[ ${lines[2]} = '_varargs[1] => varargs2' ]]
@@ -167,8 +167,8 @@ _parse_action_args --flag-on --flag-off -- --flag-on || exit 1
 dump_args_and_varargs
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
-    [[ ${#lines[@]} -eq 2 ]]
+    (( status == 0 ))
+    (( ${#lines[@]} == 2 ))
     [[ ${lines[0]} = '_args[flag-off] => 0' ]]
     [[ ${lines[1]} = '_args[flag-on] => 1' ]]
 }
@@ -181,7 +181,7 @@ _parse_action_args --option-1: --option-2: -- --option-2 value || exit 1
 dump_args_and_varargs
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output = '_args[option-2] => value' ]]
 }
 
@@ -193,7 +193,7 @@ _parse_action_args -- --invalid-flag && exit 1
 dump_args_and_varargs
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ ${output} = "getopt: unrecognized option '--invalid-flag'" ]]
 }
 
@@ -203,6 +203,6 @@ _needs_exec bash || exit 2
 _needs_exec ____not_exists____
 EOH
     run "$install" "$work/test"
-    [[ $status -eq 1 ]]
+    (( status == 1 ))
     [[ ${output} = "missing required command ____not_exists____" ]]
 }
