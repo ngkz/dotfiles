@@ -53,16 +53,8 @@ is_dry_run() {
     (( _dry_run ))
 }
 
-_reset_changed() {
-    _changed=0
-}
-
 is_changed() {
-    (( _changed ))
-}
-
-_flag_changed() {
-    _changed=1
+    (( changed ))
 }
 
 _hide_progress() {
@@ -87,7 +79,7 @@ _define() {
 
     eval "
 $action_quoted() {
-    _reset_changed
+    changed=0
     [[ -t 1 ]] && echo -n \"           \$_script_name: $action_quoted \$*\"\$'\\r'
 
     if ! $impl_quoted \"\$@\"; then

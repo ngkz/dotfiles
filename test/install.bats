@@ -53,7 +53,7 @@ impl_ok() {
 _define action_ok impl_ok
 
 impl_changed() {
-    _flag_changed
+    changed=1
     return 0
 }
 

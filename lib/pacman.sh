@@ -54,7 +54,7 @@ __pacman_install_impl() {
     done < <(__expand_group "$@" |  __filter_not_installed)
 
     if (( ${#to_install[@]} > 0 )); then
-        _flag_changed
+        changed=1
         if ! is_dry_run; then
             _hide_progress
             pacman -S --needed --noconfirm "${to_install[@]}" || return 1
@@ -77,7 +77,7 @@ __pacman_update_impl() {
     pacman -Sy >/dev/null || return 1
     db_state_new=$(ls -l /var/lib/pacman/sync/*.db) || return 1
     if [[ $db_state_old != "$db_state_new" ]]; then
-        _flag_changed
+        changed=1
     fi
 }
 
