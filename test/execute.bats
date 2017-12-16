@@ -40,7 +40,7 @@ teardown() {
     echo "execute touch $work/ok" >"$work/test.df.sh"
     run "$install" "$work/test"
     (( status == 0 ))
-    [[ $output = "[   OK   ] test: execute touch $work/ok" ]]
+    [[ $output = "[CHANGED ] test: execute touch $work/ok" ]]
     [[ -f "$work/ok" ]]
 }
 
@@ -48,7 +48,7 @@ teardown() {
     echo "execute echo stdout" >"$work/test.df.sh"
     run "$install" "$work/test"
     (( status == 0 ))
-    [[ $output = "[   OK   ] test: execute echo stdout" ]]
+    [[ $output = "[CHANGED ] test: execute echo stdout" ]]
 }
 
 @test "execute: ignore shell function" {

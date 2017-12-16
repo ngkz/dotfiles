@@ -25,7 +25,9 @@ __execute_impl() {
         _failure_reason "this action doesn't support --dry-run"
         return 1
     fi
-    command "$@" >/dev/null
+    command "$@" >/dev/null || return 1
+    _flag_changed
+    return 0
 }
 
 _define execute __execute_impl
