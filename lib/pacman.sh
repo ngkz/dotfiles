@@ -67,6 +67,11 @@ __pacman_install_impl() {
 __pacman_update_impl() {
     _needs_exec "pacman" || return 1
 
+    if is_dry_run; then
+        _failure_reason "this action doesn't support --dry-run"
+        return 1
+    fi
+
     local db_state_old db_state_new
     db_state_old=$(ls -l /var/lib/pacman/sync/*.db)
     pacman -Sy >/dev/null || return 1

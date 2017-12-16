@@ -67,8 +67,19 @@ EOH
     [[ $output =~ "[   OK   ] test: pacman_install multilib-devel tree" ]]
 }
 
+@test "pacman_update (dry run)" {
+    rm -f /var/lib/pacman/sync/core.db
+    echo "pacman_update" >"$work/test.df.sh"
+    run "$install" --dry-run "$work/test"
+    [[ $status -eq 1 ]]
+    [[ ${#lines[@]} -eq 2 ]]
+    [[ ${lines[0]} = "this action doesn't support --dry-run" ]]
+    [[ ${lines[1]} = "[ FAILED ] test: pacman_update " ]]
+    [[ ! -e /var/lib/pacman/sync/core.db ]]
+}
+
 @test "pacman_update" {
-    rm -rf /var/lib/pacman/sync/core.db
+    rm -f /var/lib/pacman/sync/core.db
     echo "pacman_update" >"$work/test.df.sh"
     run "$install" "$work/test"
     [[ $status -eq 0 ]]
