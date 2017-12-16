@@ -20,6 +20,7 @@ pacman_install rsync
 
 # enable multilib repo
 patch /etc/pacman.conf pacman.conf.patch
+# shellcheck disable=SC2154
 pacman_conf_changed=$changed
 
 copy --chown root:root --chmod 0644 mirrorlist /etc/pacman.d/mirrorlist
