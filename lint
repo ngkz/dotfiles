@@ -1,0 +1,3 @@
+#!/bin/sh
+shellcheck install lint
+find . -type f -name "*.sh" -exec shellcheck "{}" +

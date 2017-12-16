@@ -21,7 +21,7 @@ Options:
 
 ## how to lint
 ```sh
-shellcheck install lib/* test/*.sh
+./lint
 ```
 
 ## how to test
