@@ -43,3 +43,4 @@ docker run -t --rm -v "$(pwd):/dotfiles:ro" dotfiles-test
  - [ ] handle an error correctly
  - [ ] handle --dry-run correctly
  - [ ] handle changed flag correctly
+ - [ ] check existence of required command with _needs_exec
