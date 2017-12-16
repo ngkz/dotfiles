@@ -33,13 +33,13 @@ docker build -t dotfiles-test .
 docker run -t --rm -v "$(pwd):/dotfiles:ro" dotfiles-test
 ```
 
-# checklist
-## when commit
-[ ] test
-[ ] lint
-[ ] add a license header
+## checklist
+### when commit
+ - [ ] test
+ - [ ] lint
+ - [ ] add a license header
 
-## when writing a action
-[ ] handle an error correctly
-[ ] handle --dry-run correctly
-[ ] handle changed flag correctly
+### when writing a action
+ - [ ] handle an error correctly
+ - [ ] handle --dry-run correctly
+ - [ ] handle changed flag correctly
