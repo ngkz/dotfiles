@@ -3,10 +3,8 @@ my dotfiles and configuration managent tool (WIP)
 
 ## dependencies
 ```sh
-pacman -S util-linux #getopt command
-pacman -S which      #which command
-pacman -S patch      #patch command
-pacman -S rsync      #rsync command
+#minimal dependencies
+pacman -S util-linux which #getopt, which
 ```
 
 ## how to use
