@@ -66,3 +66,16 @@ EOH
     [[ $output =~ "installing tree..." ]]
     [[ $output =~ "[   OK   ] test: pacman_install multilib-devel tree" ]]
 }
+
+@test "pacman_update" {
+    rm -rf /var/lib/pacman/sync/core.db
+    echo "pacman_update" >"$work/test.df.sh"
+    run "$install" "$work/test"
+    [[ $status -eq 0 ]]
+    [[ $output = "[CHANGED ] test: pacman_update " ]]
+    [[ -e /var/lib/pacman/sync/core.db ]]
+
+    run "$install" "$work/test"
+    [[ $status -eq 0 ]]
+    [[ $output = "[   OK   ] test: pacman_update " ]]
+}

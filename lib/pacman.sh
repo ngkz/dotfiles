@@ -64,4 +64,17 @@ __pacman_install_impl() {
     return 0
 }
 
+__pacman_update_impl() {
+    _needs_exec "pacman" || return 1
+
+    local db_state_old db_state_new
+    db_state_old=$(ls -l /var/lib/pacman/sync/*.db)
+    pacman -Sy >/dev/null || return 1
+    db_state_new=$(ls -l /var/lib/pacman/sync/*.db) || return 1
+    if [[ $db_state_old != "$db_state_new" ]]; then
+        _flag_changed
+    fi
+}
+
 _define pacman_install __pacman_install_impl || exit 1
+_define pacman_update __pacman_update_impl || exit 1
