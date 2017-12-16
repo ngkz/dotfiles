@@ -91,7 +91,7 @@ _define() {
     eval "
 $action_quoted() {
     changed=0
-    [[ -t 1 ]] && _echo_nowrap -n \"           \$_script_name: $action_quoted \$*\"\$'\\r'
+    [[ -t 1 ]] && _echo_nowrap -n \"           \$_script_name: $action_quoted \$*\$_ERASE_TO_EOL\"\$'\\r'
 
     if ! $impl_quoted \"\$@\"; then
         echo \"[ \${_COLOR_FAILED}FAILED\${_COLOR_RESET} ] \$_script_name: $action_quoted \$*\"
