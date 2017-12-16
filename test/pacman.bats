@@ -50,7 +50,6 @@ EOH
 }
 
 @test "pacman_install: install package and package group" {
-    skip
     cat <<'EOH' >"$work/test.df.sh"
 # ensure that multilib-devel and tree are not installed
 pacman -Qi $(pacman -Sgq multilib-devel) tree >/dev/null 2>&1 && exit 1
