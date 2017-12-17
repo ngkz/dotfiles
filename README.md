@@ -2,12 +2,12 @@
 my dotfiles
 
 ## Usage
-### install
+### install Arch Linux
 ```
 ./bootstrap
 ```
 
-### update
+### update config
 ```
 ./setup
 ```
