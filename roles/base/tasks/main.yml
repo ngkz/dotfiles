@@ -15,3 +15,9 @@
 
 - name: set console keymap to jp106
   copy: content="KEYMAP=jp106" dest=/etc/vconsole.conf mode=0644
+
+# network
+- name: install NetworkManager
+  pacman: name=networkmanager
+- name: enable NetworkManager
+  service: name=NetworkManager enabled=yes
