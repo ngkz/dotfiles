@@ -16,6 +16,18 @@
 - name: set console keymap to jp106
   copy: content="KEYMAP=jp106" dest=/etc/vconsole.conf mode=0644
 
+# pacman
+- name: install patch
+  pacman: name=patch
+- name: enable multilib repo and ILoveCandy
+  patch: src=pacman.conf.patch dest=/etc/pacman.conf
+  register: pacman_conf
+- name: configure mirror list
+  copy: src=mirrorlist dest=/etc/pacman.d/mirrorlist mode=0644
+- name: update cache
+  pacman: update_cache=yes
+  when: pacman_conf|changed
+
 # network
 - name: install NetworkManager
   pacman: name=networkmanager
