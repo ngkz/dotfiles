@@ -2,3 +2,16 @@
 - name: set time zone
   file: src=/usr/share/zoneinfo/Japan dest=/etc/localtime state=link
   notify: write UTC current time to RTC
+
+# localization
+- name: create en_US.UTF-8 and ja_JP.UTF-8 locales
+  locale_gen: name={{ item }}
+  with_items:
+    - en_US.UTF-8
+    - ja_JP.UTF-8
+
+- name: set locale to ja_JP.UTF-8
+  copy: content="LANG=ja_JP.UTF-8" dest=/etc/locale.conf mode=0644
+
+- name: set console keymap to jp106
+  copy: content="KEYMAP=jp106" dest=/etc/vconsole.conf mode=0644
