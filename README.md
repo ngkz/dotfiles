@@ -1,7 +1,13 @@
 # ngkz/dotfiles
 my dotfiles
 
-```sh
-pacman -S ansible
-./install
+## Usage
+### install
+```
+./bootstrap
+```
+
+### update
+```
+./setup
 ```

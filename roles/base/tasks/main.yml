@@ -1,3 +1,4 @@
+# time zone
 - name: set time zone
   file: src=/usr/share/zoneinfo/Japan dest=/etc/localtime state=link
   notify: write UTC current time to RTC
