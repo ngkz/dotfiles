@@ -15,26 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-__link_impl() {
-    _parse_action_args --owner --group target link_name -- "$@" || return 1
-
-    # shellcheck disable=SC2154
-    if [[ -L "${_args[link_name]}" ]]; then
-        local current_target
-        current_target=$(readlink "${_args[link_name]}") || return 1
-        if [[ $current_target = "${_args[target]}" ]]; then
-            #OK
-            return 0
-        fi
-    fi
-
-    _flag_changed
-
-    if ! is_dry_run; then
-        ln -sf "${_args[target]}" "${_args[link_name]}" || return 1
-    fi
-
-    return 0
-}
-
-_define link __link_impl
+#Change the title to use auto-type
+echo -en "\033]0;ansible-dotfiles\007"
+ansible-playbook --inventory "$(hostname)," --connection local setup.yml "$@"
