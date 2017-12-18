@@ -1,2 +1,0 @@
-- name: write UTC current time to RTC
-  command: hwclock --systohc --utc
