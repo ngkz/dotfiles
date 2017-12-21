@@ -31,6 +31,12 @@
   pacman: update_cache=yes
   when: pacman_conf|changed
 
+# sudo
+- name: install sudo
+  pacman: name=sudo
+- name: allow user to use sudo
+  copy: content="user ALL=(ALL) ALL" dest=/etc/sudoers.d/user mode=0600
+
 # network
 - name: install NetworkManager
   pacman: name=networkmanager
