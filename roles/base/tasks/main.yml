@@ -15,6 +15,10 @@
 - name: set console keymap to jp106
   copy: content="KEYMAP=jp106" dest=/etc/vconsole.conf mode=0644
 
+# user 
+- name: add an user
+  user: name=user password={{ user_password_hashed }}
+
 # pacman
 - name: install patch
   pacman: name=patch
