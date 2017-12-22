@@ -59,3 +59,11 @@
     - linux-hardened-headers
 - name: remove default kernel
   pacman: name=linux state=absent recurse=yes
+
+# virtualbox guest extensions
+- name: install virtualbox guest extensions
+  pacman: name={{ item }}
+  with_items:
+    - virtualbox-guest-dkms
+    - virtualbox-guest-utils
+  when: is_virtualbox_guest

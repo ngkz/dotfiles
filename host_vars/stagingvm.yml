@@ -1,1 +1,2 @@
 bootloader: grub
+is_virtualbox_guest: yes
