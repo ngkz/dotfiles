@@ -67,3 +67,7 @@
     - virtualbox-guest-dkms
     - virtualbox-guest-utils
   when: is_virtualbox_guest
+
+# intel microcode update
+- name: install intel microcode update
+  pacman: name=intel-ucode
