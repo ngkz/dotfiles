@@ -1,0 +1,2 @@
+- name: update grub.cfg
+  command: grub-mkconfig -o /boot/grub/grub.cfg
