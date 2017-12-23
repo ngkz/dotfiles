@@ -45,12 +45,14 @@
 - name: enable NetworkManager
   service: name=NetworkManager enabled=yes
 
-# install grub
-- name: install grub
-  block:
-    - copy: src=98-install-grub.hook dest=/usr/share/libalpm/hooks/ mode=0644
-    - copy: src=99-configure-grub.hook dest=/usr/share/libalpm/hooks/ mode=0644
-    - pacman: name=grub
+# GRUB
+- block:
+    - name: install GRUB automatically
+      copy: src=98-install-grub.hook dest=/usr/share/libalpm/hooks/ mode=0644
+    - name: update grub.cfg when /boot/* are changed
+      copy: src=99-configure-grub.hook dest=/usr/share/libalpm/hooks/ mode=0644
+    - name: install GRUB
+      pacman: name=grub
   when: bootloader == "grub"
 
 # hardened kernel
