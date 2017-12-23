@@ -45,6 +45,34 @@
 - name: enable NetworkManager
   service: name=NetworkManager enabled=yes
 
+# tune sysctl
+- name: tune sysctl
+  sysctl: name={{ item.name }} value={{ item.value }} sysctl_file=/etc/sysctl.d/99-ansible.conf
+  with_items:
+    - { name: vm.swappiness, value: 10 }
+    - { name: vm.vfs_cache_pressure, value: 50 }
+
+# magic sysrq
+- name: configure magic sysrq
+  sysctl:
+    name: kernel.sysrq
+    #r,k  :  4 =   0x4 - enable control of keyboard (SAK, unraw)
+    #e,i,f: 64 =  0x40 - enable signalling of processes (term, kill, oom-kill)
+    #s    : 16 =  0x10 - enable sync command
+    #u    : 32 =  0x20 - enable remount read-only
+    #b,o  :128 =  0x80 - allow reboot/poweroff
+    value: 244
+    sysctl_file: /etc/sysctl.d/99-ansible.conf
+
+# hardening
+- name: install hardened kernel and its headers
+  pacman: name={{ item }}
+  with_items:
+    - linux-hardened
+    - linux-hardened-headers
+- name: remove default kernel
+  pacman: name=linux state=absent recurse=yes
+
 # GRUB
 - block:
     - name: install GRUB automatically
@@ -60,15 +88,6 @@
       copy: src=31_hold_shift dest=/etc/grub.d/31_hold_shift mode=0755
       notify: update grub.cfg
   when: bootloader == "grub"
-
-# hardened kernel
-- name: install hardened kernel and its headers
-  pacman: name={{ item }}
-  with_items:
-    - linux-hardened
-    - linux-hardened-headers
-- name: remove default kernel
-  pacman: name=linux state=absent recurse=yes
 
 # virtualbox guest extensions
 - name: install virtualbox guest extensions
@@ -86,27 +105,8 @@
 - name: install intel microcode update
   pacman: name=intel-ucode
 
-# magic sysrq
-- name: configure magic sysrq
-  sysctl:
-    name: kernel.sysrq
-    #r,k  :  4 =   0x4 - enable control of keyboard (SAK, unraw)
-    #e,i,f: 64 =  0x40 - enable signalling of processes (term, kill, oom-kill)
-    #s    : 16 =  0x10 - enable sync command
-    #u    : 32 =  0x20 - enable remount read-only
-    #b,o  :128 =  0x80 - allow reboot/poweroff
-    value: 244
-    sysctl_file: /etc/sysctl.d/99-ansible.conf
-
 # TRIM
 - name: install util-linux
   pacman: name=util-linux
 - name: trim periodically
   service: name=fstrim.timer enabled=yes
-
-# tune sysctl
-- name: tune sysctl
-  sysctl: name={{ item.name }} value={{ item.value }} sysctl_file=/etc/sysctl.d/99-ansible.conf
-  with_items:
-    - { name: vm.swappiness, value: 10 }
-    - { name: vm.vfs_cache_pressure, value: 50 }
