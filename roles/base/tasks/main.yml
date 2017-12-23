@@ -77,3 +77,15 @@
 # intel microcode update
 - name: install intel microcode update
   pacman: name=intel-ucode
+
+# magic sysrq
+- name: configure magic sysrq
+  sysctl:
+    name: kernel.sysrq
+    #r,k  :  4 =   0x4 - enable control of keyboard (SAK, unraw)
+    #e,i,f: 64 =  0x40 - enable signalling of processes (term, kill, oom-kill)
+    #s    : 16 =  0x10 - enable sync command
+    #u    : 32 =  0x20 - enable remount read-only
+    #b,o  :128 =  0x80 - allow reboot/poweroff
+    value: 244
+    sysctl_file: /etc/sysctl.d/99-ansible.conf
