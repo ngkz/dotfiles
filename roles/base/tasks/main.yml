@@ -62,10 +62,14 @@
 
 # virtualbox guest extensions
 - name: install virtualbox guest extensions
-  pacman: name={{ item }}
-  with_items:
-    - virtualbox-guest-dkms
-    - virtualbox-guest-utils
+  block:
+    - pacman: name={{ item }}
+      with_items:
+        - virtualbox-guest-dkms
+        - virtualbox-guest-utils
+    - file: path=/media mode=0755 state=directory
+    - service: name=vboxservice enabled=yes
+    - user: name=user groups=vboxsf append=yes
   when: is_virtualbox_guest
 
 # intel microcode update
