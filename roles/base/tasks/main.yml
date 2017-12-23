@@ -95,3 +95,10 @@
   pacman: name=util-linux
 - name: trim periodically
   service: name=fstrim.timer enabled=yes
+
+# tune sysctl
+- name: tune sysctl
+  sysctl: name={{ item.name }} value={{ item.value }} sysctl_file=/etc/sysctl.d/99-ansible.conf
+  with_items:
+    - { name: vm.swappiness, value: 10 }
+    - { name: vm.vfs_cache_pressure, value: 50 }
