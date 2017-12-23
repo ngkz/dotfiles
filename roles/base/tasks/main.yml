@@ -89,3 +89,9 @@
     #b,o  :128 =  0x80 - allow reboot/poweroff
     value: 244
     sysctl_file: /etc/sysctl.d/99-ansible.conf
+
+# TRIM
+- name: install util-linux
+  pacman: name=util-linux
+- name: trim periodically
+  service: name=fstrim.timer enabled=yes
