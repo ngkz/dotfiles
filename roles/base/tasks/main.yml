@@ -83,10 +83,12 @@
         - su-l
 - name: lockout a user for ten minutes after three failed login attempts
   patch: src=system-login.patch dest=/etc/pam.d/system-login
-- name: hide /boot
-  file: path=/boot state=directory mode=0700
-- name: hide /etc/iptables
-  file: path=/etc/iptables state=directory mode=0700
+- name: directory access permissions
+  file: path={{ item }} state=directory mode=0700
+  with_item:
+    - /boot
+    - /etc/iptables
+    - /etc/arptables
 - name: restrict access to kernel logs
   sysctl: name=kernel.dmesg_restrict value=1 sysctl_file=/etc/sysctl.d/99-ansible.conf
 - name: restrict access to kernel pointers in the proc filesystem
