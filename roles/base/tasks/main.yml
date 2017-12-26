@@ -81,8 +81,8 @@
       with_items:
         - su
         - su-l
-- name: lockout a user for ten minutes after three failed login attempts
-  patch: src=system-login.patch dest=/etc/pam.d/system-login
+- name: lockout a user for ten minutes after three failed login attempts + enforce a delay after a failed login attempt
+  copy: src=system-login dest=/etc/pam.d/system-login mode=0644
 - name: directory access permissions
   file: path={{ item }} state=directory mode=0700
   with_item:
