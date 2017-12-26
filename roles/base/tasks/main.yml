@@ -85,7 +85,7 @@
   copy: src=system-login dest=/etc/pam.d/system-login mode=0644
 - name: directory access permissions
   file: path={{ item }} state=directory mode=0700
-  with_item:
+  with_items:
     - /boot
     - /etc/iptables
     - /etc/arptables
