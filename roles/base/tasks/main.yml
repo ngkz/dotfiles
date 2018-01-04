@@ -89,6 +89,8 @@
     - /boot
     - /etc/iptables
     - /etc/arptables
+- name: set umask to 077
+  copy: content="umask 077" dest=/etc/profile.d/umask.sh mode=0644
 - name: restrict access to kernel logs
   sysctl: name=kernel.dmesg_restrict value=1 sysctl_file=/etc/sysctl.d/99-ansible.conf
 - name: restrict access to kernel pointers in the proc filesystem
