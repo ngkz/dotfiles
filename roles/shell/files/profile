@@ -1,0 +1,8 @@
+#!/bin/sh
+
+[[ -d ~/bin ]] && export PATH="$PATH:$HOME/bin"
+
+for profile in ~/profile.d/*.sh; do
+    [ -r "$profile" ] && . "$profile"
+done
+unset profile

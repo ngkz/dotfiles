@@ -1,0 +1,1006 @@
+# based on:
+# https://git.grml.org/?p=grml-etc-core.git;a=blob_plain;f=etc/zsh/zshrc;h=51e6c75e16cd4b1ce09c363e78da4e4d70df4231;hb=af65087851ed8d2f74bd025b5862f5222884da97
+
+CACHEDIR=${XDG_CACHE_HOME:-~/.cache}/zsh
+DATADIR=${XDG_CACHE_HOME:-~/.local/share}/zsh
+[[ ! -d ${CACHEDIR} ]] && mkdir -p "${CACHEDIR}"
+[[ ! -d ${DATADIR} ]] && mkdir -p "${DATADIR}"
+
+# import new commands from the history file also in other zsh-session
+setopt share_history
+# save each command's beginning timestamp and the duration to the history file
+setopt extended_history
+# If a new command line being added to the history list duplicates an older
+# one, the older command is removed from the list
+setopt hist_ignore_all_dups
+# remove command lines from the history list when the first character on the line is a space
+setopt hist_ignore_space
+# Whenever the user enters a line with history expansion, don't execute the line directly;
+# instead, perform history expansion and reload the line into the editing buffer.
+setopt hist_verify
+# Remove superfluous blanks from each command line being added to the history list.
+setopt hist_reduce_blanks
+# international format timestamp
+alias history='fc -il 1'
+# in order to use #, ~ and ^ for filename generation grep word
+# *~(*.gz|*.bz|*.bz2|*.zip|*.Z) -> searches for word not in compressed files
+# don't forget to quote '^', '~' and '#'!
+setopt extended_glob
+# display PID when suspending processes as well
+setopt longlistjobs
+# try to correct the spelling of commands.
+setopt correct
+# if a command is issued that can't be executed as a normal command,
+# and the command is the name of a directory, perform the cd command to that directory.
+setopt auto_cd
+# report the status of background jobs immediately, rather than waiting until
+# just before printing a prompt.
+setopt notify
+# whenever a command completion is attempted, make sure the entire command path is hashed first.
+setopt hash_list_all
+# If unset, the cursor is set to the end of the word if completion is started.
+# Otherwise it stays there and completion is done from both ends.
+setopt complete_in_word
+# make cd push the old directory onto the directory stack.
+setopt auto_pushd
+DIRSTACKSIZE=50
+# don't push the same dir twice
+#setopt pushd_ignore_dups
+# don't print the directory stack after pushd or popd.
+setopt pushd_silent
+# no c-s/c-q output freezing
+setopt no_flow_control
+# use zsh style word splitting
+setopt no_sh_word_split
+# allow use of comments in interactive code
+setopt interactive_comments
+# try to avoid the 'zsh: no matches found...'
+setopt no_nomatch
+# * shouldn't match dotfiles. ever.
+setopt no_glob_dots
+# don't error out when unset parameters are used
+setopt unset
+# perform parameter expansion, command substitution and arithmetic expansion in prompts
+setopt prompt_subst
+
+# set some variables
+export EDITOR=nvim
+export PAGER=less
+export PAGER=less
+export CCACHE_COMPILERCHECK=content
+
+# color setup
+eval $(dircolors -b)
+alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# support colors in less
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
+
+# don't check for new mail
+MAILCHECK=0
+
+# report about cpu-/system-/user-time of command if running longer than 5 seconds
+REPORTTIME=5
+
+# automatically remove duplicates from these arrays
+typeset -U path PATH cdpath CDPATH fpath FPATH manpath MANPATH
+
+#access to internal hash tables via special associative arrays.
+zmodload zsh/parameter
+#standard mathematical functions for use when evaluating mathematical formulae
+zmodload zsh/mathfunc
+#three extensions to completion listings (the ability to highlight matches in such a list,
+#the ability to scroll through long lists, a different style of menu completion.)
+zmodload zsh/complist
+
+# completion system
+autoload -Uz compinit
+compinit
+
+# allow one error for every three characters typed in approximate completer
+zstyle ':completion:*:approximate:'    max-errors 'reply=( $((($#PREFIX+$#SUFFIX)/3 )) numeric )'
+
+# don't complete backup files as executables
+zstyle ':completion:*:complete:-command-::commands' ignored-patterns '*\~'
+
+# start menu completion only if it could find no unambiguous initial string
+zstyle ':completion:*:correct:*'       insert-unambiguous true
+zstyle ':completion:*:corrections'     format $'%{\e[0;31m%}%d (errors: %e)%{\e[0m%}'
+zstyle ':completion:*:correct:*'       original true
+
+# activate color-completion
+zstyle ':completion:*:default'         list-colors ${(s.:.)LS_COLORS}
+
+# format on completion
+zstyle ':completion:*:descriptions'    format $'%{\e[0;31m%}completing %B%d%b%{\e[0m%}'
+
+# automatically complete 'cd -<tab>' and 'cd -<ctrl-d>' with menu
+# zstyle ':completion:*:*:cd:*:directory-stack' menu yes select
+
+# insert all expansions for expand completer
+zstyle ':completion:*:expand:*'        tag-order all-expansions
+zstyle ':completion:*:history-words'   list false
+
+# activate menu
+zstyle ':completion:*:history-words'   menu yes
+
+# ignore duplicate entries
+zstyle ':completion:*:history-words'   remove-all-dups yes
+zstyle ':completion:*:history-words'   stop yes
+
+# match uppercase from lowercase
+zstyle ':completion:*'                 matcher-list 'm:{a-z}={A-Z}'
+
+# separate matches into groups
+zstyle ':completion:*:matches'         group 'yes'
+zstyle ':completion:*'                 group-name ''
+
+# if there are more than 5 options allow selecting from a menu
+zstyle ':completion:*'                 menu select=5
+
+zstyle ':completion:*:messages'        format '%d'
+zstyle ':completion:*:options'         auto-description '%d'
+
+# describe options in full
+zstyle ':completion:*:options'         description 'yes'
+
+# on processes completion complete all user processes
+zstyle ':completion:*:processes'       command 'ps -au$USERNAME'
+
+# highlight PID
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+
+# offer indexes before parameters in subscripts
+zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+
+# provide verbose completion information
+zstyle ':completion:*'                 verbose true
+
+# set format for warnings
+zstyle ':completion:*:warnings'        format $'%{\e[0;31m%}No matches for:%{\e[0m%} %d'
+
+# define files to ignore for zcompile
+zstyle ':completion:*:*:zcompile:*'    ignored-patterns '(*~|*.zwc)'
+zstyle ':completion:correct:'          prompt 'correct to: %e'
+
+# Ignore completion functions for commands you don't have:
+zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'
+
+# Provide more processes in completion of programs like killall:
+zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
+
+# complete manual by their section
+zstyle ':completion:*:manuals'    separate-sections true
+zstyle ':completion:*:manuals.*'  insert-sections   true
+zstyle ':completion:*:man:*'      menu yes select
+
+# provide .. as a completion
+zstyle ':completion:*' special-dirs ..
+
+# run rehash on completion so new installed program are found automatically:
+function _force_rehash () {
+    (( CURRENT == 1 )) && rehash
+    return 1
+}
+
+## correction
+# try to be smart about when to use what completer...
+zstyle -e ':completion:*' completer '
+    if [[ $_last_try != "$HISTNO$BUFFER$CURSOR" ]] ; then
+        _last_try="$HISTNO$BUFFER$CURSOR"
+        reply=(_complete _match _ignored _prefix _files)
+    else
+        if [[ $words[1] == (rm|mv) ]] ; then
+            reply=(_complete _files)
+        else
+            reply=(_oldlist _expand _force_rehash _complete _ignored _correct _approximate _files)
+        fi
+    fi'
+
+# Some functions, like _apt and _dpkg, are very slow. We can use a cache in
+# order to speed things up
+mkdir "$CACHEDIR/completion"
+zstyle ':completion:*' use-cache  yes
+zstyle ':completion:*:complete:*' cache-path "$CACHEDIR/completion"
+
+# host completion
+[[ -r ~/.ssh/config ]] && _ssh_config_hosts=(${${(s: :)${(ps:\t:)${${(@M)${(f)"$(<$HOME/.ssh/config)"}:#Host *}#Host }}}:#*[*?]*}) || _ssh_config_hosts=()
+[[ -r ~/.ssh/known_hosts ]] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
+#[[ -r /etc/hosts ]] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
+hosts=(
+    #$(hostname)
+    "$_ssh_config_hosts[@]"
+    "$_ssh_hosts[@]"
+    #"$_etc_hosts[@]"
+    #localhost
+)
+zstyle ':completion:*:hosts' hosts $hosts
+
+# use generic completion system for programs not yet defined; (_gnu_generic works
+# with commands that provide a --help option with "standard" gnu-like output.)
+for compcom in cp deborphan df feh fetchipac gpasswd head hnb ipacsum mv \
+               pal stow uname ; do
+    [[ -z ${_comps[$compcom]} ]] && compdef _gnu_generic ${compcom}
+done; unset compcom
+
+# Keyboard setup
+# use emacs keybindings even if our EDITOR is set to vi
+bindkey -e
+
+# create a zkbd compatible hash;
+# to add other keys to this hash, see: man 5 terminfo
+typeset -A key
+key=(
+    Home     "${terminfo[khome]}"
+    End      "${terminfo[kend]}"
+    Insert   "${terminfo[kich1]}"
+    Delete   "${terminfo[kdch1]}"
+    Up       "${terminfo[kcuu1]}"
+    Down     "${terminfo[kcud1]}"
+    Left     "${terminfo[kcub1]}"
+    Right    "${terminfo[kcuf1]}"
+    PageUp   "${terminfo[kpp]}"
+    PageDown "${terminfo[knp]}"
+    BackTab  "${terminfo[kcbt]}"
+)
+
+bindkey "${key[Up]}"     up-line-or-history
+bindkey "${key[Down]}"   down-line-or-history
+bindkey "${key[Insert]}" overwrite-mode
+bindkey "${key[Delete]}" delete-char
+bindkey "${key[Left]}"   backward-char
+bindkey "${key[Right]}"  forward-char
+
+# Make sure the terminal is in application mode, when zle is
+# active. Only then are the values from $terminfo valid.
+if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
+    function zle-line-init () {
+        printf '%s' "${terminfo[smkx]}"
+    }
+    function zle-line-finish () {
+        printf '%s' "${terminfo[rmkx]}"
+    }
+    zle -N zle-line-init
+    zle -N zle-line-finish
+fi
+
+
+# accept-line wrapper
+
+# This widget prevents unwanted autocorrections from command-name
+# to _command-name, rehash automatically on enter.
+
+function accept-line () {
+    local -a cmdline
+    local cmd completion_widget_fname
+
+    cmdline=(${(z)BUFFER}) #(z) Lexical word splitting
+    cmd="${cmdline[1]}"
+    completion_widget_fname="_$cmd"
+
+    # A newly added command will may not be found or will cause false
+    # correction attempts, if you got auto-correction set. By setting the
+    # following style, we force accept-line() to rehash, if it cannot
+    # find the first word on the command line in the $command[] hash.
+    [[ -z ${commands[$cmd]} ]] && rehash
+
+    if     [[ -n $cmd                 ]]  \
+       &&  [[ -z ${reswords[(r)$cmd]} ]]  \
+       &&  [[ -z ${aliases[$cmd]}     ]]  \
+       &&  [[ -z ${functions[$cmd]}   ]]  \
+       &&  [[ -z ${builtins[$cmd]}    ]]  \
+       &&  [[ -z ${commands[$cmd]}    ]]  \
+       && ([[ -o correct              ]]  \
+           || [[ -o correctall        ]]) \
+       && [[ -n ${functions[$completion_widget_fname]} ]]; then
+        # nothing there to execute but there is a function called
+        # _command_name; a completion widget. Makes no sense to
+        # call it on the commandline, but the correct{,all} options
+        # will ask for it nevertheless, so warn the user.
+
+        if [[ $LASTWIDGET == 'accept-line' ]] ; then
+            # Okay, we warned the user before, he called us again,
+            # so have it his way.
+            zle .accept-line
+            return
+        fi
+
+        zle -M -- "$cmd will not execute and completion $completion_widget_fname exists."
+    else
+        zle .accept-line
+    fi
+}
+
+zle -N accept-line
+
+# abbreviation expansion
+# http://zshwiki.org/home/examples/zleiab for details
+declare -A abbreviations
+abbreviations=(
+#   Key    Value
+    '...'  '../..'
+    '....' '../../..'
+    'C'    '| wc -l'
+    'CA'   '|& cat -A'
+    'G'    '| grep'
+    'EG'   '|& grep'
+    'H'    '| head'
+    'Hl'   ' --help |& less -r'    # display help in pager
+    'L'    '| less'
+    'LL'   '|& less -r'
+    'N'    '&>/dev/null'
+    'E'    '>/dev/null'
+    'SL'   '| sort | less'
+    'S'    '| sort -u'
+    'T'    '| tail'
+    'TL'   '| tail -20'
+    'ET'   '|& tail'
+    'ETL'  '|& tail -20'
+    'V'    '|& vim -'
+)
+
+function magic-abbrev-expand() {
+    local MATCH
+    LBUFFER=${LBUFFER%%(#m)[.\-+:|_a-zA-Z0-9]#}
+    LBUFFER+=${abbreviations[$MATCH]:-$MATCH}
+    # also do history expansion on space
+    zle magic-space
+}
+
+function no-magic-abbrev-expand() {
+    LBUFFER+=' '
+}
+
+function help-magic-abbrev() {
+  zle -M "$(print "Available abbreviations for expansion:"; print -a -C 2 ${(kv)abbreviations})"
+}
+
+zle -N magic-abbrev-expand
+zle -N no-magic-abbrev-expand
+zle -N help-magic-abbrev
+
+bindkey            " "   magic-abbrev-expand     # perform abbreviation expansion
+bindkey            "^x " no-magic-abbrev-expand
+bindkey -M isearch " "   self-insert
+bindkey            "^xb" help-magic-abbrev       # display list of abbreviations that would expand
+
+# Create directory under cursor or the selected area
+function inplace-mkdirp() {
+    # Press ctrl-xM to create the directory under the cursor or the selected area.
+    # To select an area press ctrl-@ or ctrl-space and use the cursor.
+    # Use case: you type "mv abc ~/testa/testb/testc/" and remember that the
+    # directory does not exist yet -> press ctrl-XM and problem solved
+    local PATHTOMKDIR
+    if ((REGION_ACTIVE==1)); then
+        local F=$MARK T=$CURSOR
+        if [[ $F -gt $T ]]; then
+            F=${CURSOR}
+            T=${MARK}
+        fi
+        # get marked area from buffer and eliminate whitespace
+        PATHTOMKDIR=${BUFFER[F+1,T]%%[[:space:]]##}
+        PATHTOMKDIR=${PATHTOMKDIR##[[:space:]]##}
+    else
+        local bufwords iword
+        bufwords=(${(z)LBUFFER})
+        iword=${#bufwords}
+        bufwords=(${(z)BUFFER})
+        PATHTOMKDIR="${(Q)bufwords[iword]}"
+    fi
+    [[ -z "${PATHTOMKDIR}" ]] && return 1
+    PATHTOMKDIR=${~PATHTOMKDIR}
+    if [[ -e "${PATHTOMKDIR}" ]]; then
+        zle -M " path already exists, doing nothing"
+    else
+        zle -M "$(mkdir -p -v "${PATHTOMKDIR}")"
+        zle end-of-line
+    fi
+}
+
+# mkdir -p <dir> from string under cursor or marked area
+zle -N inplace-mkdirp
+bindkey '^xM' inplace-mkdirp
+
+# insert-files allows you type a file pattern, and see the results of the expansion at each step.
+autoload -Uz insert-files
+zle -N insert-files
+bindkey "^xf" insert-files
+
+## beginning-of-line OR beginning-of-buffer OR beginning of history
+## by: Bart Schaefer <schaefer@brasslantern.com>, Bernhard Tittelbach
+function beginning-or-end-of-somewhere () {
+    local hno=$HISTNO
+    if [[ ( "${LBUFFER[-1]}" == $'\n' && "${WIDGET}" == beginning-of* ) || \
+      ( "${RBUFFER[1]}" == $'\n' && "${WIDGET}" == end-of* ) ]]; then
+        zle .${WIDGET:s/somewhere/buffer-or-history/} "$@"
+    else
+        zle .${WIDGET:s/somewhere/line-hist/} "$@"
+        if (( HISTNO != hno )); then
+            zle .${WIDGET:s/somewhere/buffer-or-history/} "$@"
+        fi
+    fi
+}
+zle -N beginning-of-somewhere beginning-or-end-of-somewhere
+zle -N end-of-somewhere beginning-or-end-of-somewhere
+
+bindkey "${key[Home]}"   beginning-of-somewhere
+bindkey "^A"             beginning-of-somewhere
+bindkey "${key[End]}"    end-of-somewhere
+bindkey "^E"             end-of-somewhere
+
+#History search
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^P" up-line-or-beginning-search
+bindkey "^N" down-line-or-beginning-search
+
+# Kill left-side word or everything up to next slash
+function slash-backward-kill-word () {
+    local WORDCHARS="${WORDCHARS:s@/@}"
+    zle backward-kill-word
+}
+zle -N slash-backward-kill-word
+bindkey '\ev' slash-backward-kill-word
+
+# A smart shortcut for fg<enter>
+function grml-zsh-fg () {
+  if (( ${#jobstates} )); then
+    zle .push-input
+    [[ -o hist_ignore_space ]] && BUFFER=' ' || BUFFER=''
+    BUFFER="${BUFFER}fg"
+    zle .accept-line
+  else
+    zle -M 'No background jobs. Doing nothing.'
+  fi
+}
+zle -N grml-zsh-fg
+bindkey '^z' grml-zsh-fg
+
+# jump behind the first word on the cmdline.
+# useful to add options.
+function jump_after_first_word () {
+    local words
+    words=(${(z)BUFFER})
+
+    if (( ${#words} <= 1 )) ; then
+        CURSOR=${#BUFFER}
+    else
+        CURSOR=$(( ${#${words[1]}} + 1 ))
+    fi
+}
+zle -N jump_after_first_word
+bindkey '^x1' jump_after_first_word
+
+# complete word from history with menu
+zle -C hist-complete complete-word _generic
+zstyle ':completion:hist-complete:*' completer _history
+bindkey "^x^x" hist-complete
+
+# use the new *-pattern-* widgets for incremental history search
+bindkey '^R' history-incremental-pattern-search-backwaed
+bindkey '^S' history-incremental-pattern-search-forward
+
+# shift-tab perform backwards menu completion
+bindkey -M menuselect "${key[BackTab]}" reverse-menu-complete
+
+# menu selection: pick item but stay in the menu
+bindkey -M menuselect '+' accept-and-menu-complete
+bindkey -M menuselect "${key[Insert]}" accept-and-menu-complete
+
+# accept a completion and try to complete again by using menu
+# completion; very useful with completing directories
+# by using 'undo' one's got a simple file browser
+bindkey -M menuselect '^o' accept-and-infer-next-history
+
+#Alt+K -> cd ..
+#Alt+[ -> popd
+cd-undo() {
+    popd
+    zle       reset-prompt
+}
+
+cd-parent() {
+    pushd ..
+    zle      reset-prompt
+}
+
+zle -N        cd-parent
+zle -N        cd-undo
+bindkey '^[k' cd-parent
+bindkey '^[[' cd-undo
+
+#Alt+L -> ls -alF
+do-ls() {
+    echo
+    ll
+    zle      reset-prompt
+}
+zle -N do-ls
+bindkey '^[l' do-ls
+
+autoload -Uz zmv
+
+# quote URLs automatically
+autoload -U url-quote-magic
+zle -N self-insert url-quote-magic
+
+# command not found handling
+source /usr/share/doc/pkgfile/command-not-found.zsh
+
+# history
+HISTFILE=$DATADIR/history
+HISTSIZE=100000
+SAVEHIST=100000
+
+# set terminal property (used e.g. by msgid-chooser)
+export COLORTERM="yes"
+
+# freeze tty
+# When the tty is frozen, no changes made to the tty settings by external programs
+# will be honored by the shell, except for changes in the size of the screen
+ttyctl -f
+
+# Fish-like syntax highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+LOGIN_USER=$(logname 2>/dev/null)
+
+# Set up the prompt
+#
+# based on https://github.com/robbyrussell/oh-my-zsh/blob/c3b072eace1ce19a48e36c2ead5932ae2d2e06d9/themes/agnoster.zsh-theme
+# Copyright (c) 2009-2017 Robby Russell and contributors
+# https://github.com/robbyrussell/oh-my-zsh/blob/c3b072eace1ce19a48e36c2ead5932ae2d2e06d9/LICENSE.txt
+
+### Segment drawing
+# A few utility functions to make it easy and re-usable to draw segmented prompts
+
+CURRENT_LEFT_BG=''
+CURRENT_RIGHT_BG=''
+LEFT_SEGMENT_SEPARATOR=' '
+LEFT_SEGMENT_SEPARATOR_SAMEBG=' '
+RIGHT_SEGMENT_SEPARATOR=' '
+RIGHT_SEGMENT_SEPARATOR_SAMEBG=' '
+
+# Begin a left prompt segment
+# left_propt_segment FOREGROUND_COLOR BACKGROUND_COLOR CONTENT
+left_prompt_segment() {
+    local bg fg content
+    bg=$1
+    fg=$2
+    content=$3
+    if [[ -n $CURRENT_LEFT_BG ]]; then
+        if [[ $bg = $CURRENT_LEFT_BG ]]; then
+            echo -n " %{%f%}$LEFT_SEGMENT_SEPARATOR_SAMEBG%{%F{$fg}%}"
+        else
+            echo -n " %{%K{$bg}%F{$CURRENT_LEFT_BG}%}$LEFT_SEGMENT_SEPARATOR%{%F{$fg}%}"
+        fi
+    else
+        echo -n "%{%F{$fg}%K{$bg}%} "
+    fi
+    CURRENT_LEFT_BG=$bg
+    echo -n $content
+}
+
+# End the left prompt, closing any open segments
+left_prompt_end() {
+    if [[ -n $CURRENT_LEFT_BG ]]; then
+        echo -n " %{%k%F{$CURRENT_LEFT_BG}%}$LEFT_SEGMENT_SEPARATOR"
+    else
+        echo -n "%{%k%}"
+    fi
+    echo -n "%{%f%}"
+    CURRENT_LEFT_BG=''
+}
+
+# Begin a right prompt segment
+# right_propt_segment FOREGROUND_COLOR BACKGROUND_COLOR CONTENT
+right_prompt_segment() {
+    local bg fg content
+    bg=$1
+    fg=$2
+    content=$3
+    if [[ -z $CURRENT_RIGHT_BG ]]; then
+        echo -n "%{%F{$bg}%}$RIGHT_SEGMENT_SEPARATOR%{%F{$fg}%K{$bg}%} "
+    elif [[ $bg = $CURRENT_RIGHT_BG ]]; then
+        echo -n "%{%f%}$RIGHT_SEGMENT_SEPARATOR_SAMEBG%{%F{$fg}%} "
+    else
+        echo -n "%{%F{$bg}%}$RIGHT_SEGMENT_SEPARATOR%{%F{$fg}%K{$bg}%} "
+    fi
+    CURRENT_RIGHT_BG=$bg
+    echo -n "$content"
+}
+
+# End the right prompt
+right_prompt_end() {
+    [[ -n $CURRENT_RIGHT_BG ]] && echo -n " "
+    CURRENT_RIGHT_BG=''
+}
+
+### Prompt components
+# Each component will draw itself, and hide itself if no information needs to be shown
+
+# Status:
+# - was there an error
+# - am I root
+# - are there background jobs?
+left_prompt_status() {
+    local symbols
+    symbols=()
+    [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘ "
+    [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡ "
+    [[ -n $(jobs) ]] && symbols+="%{%F{cyan}%}⚙ "
+
+    [[ -n "$symbols" ]] && left_prompt_segment black default "$symbols"
+}
+
+# Virtualenv: current working virtualenv
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+left_prompt_virtualenv() {
+    if [[ -n $VIRTUAL_ENV && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
+        left_prompt_segment black yellow " $(basename $VIRTUAL_ENV)"
+    fi
+}
+
+# Context: user OR user@hostname
+left_prompt_context() {
+    if [[ -n $SSH_CLIENT ]] || [[ -n $SSH_TTY ]]; then
+        left_prompt_segment black default "$USERNAME@%M"
+    elif [[ $USERNAME != $LOGIN_USER ]] && [[ $UID -eq 0 ]]; then
+        left_prompt_segment black default "$USERNAME"
+    fi
+}
+
+# Dir: current working directory
+left_prompt_dir() {
+    left_prompt_segment yellow black '%~'
+}
+
+build_left_prompt() {
+    RETVAL=$?
+    left_prompt_status
+    left_prompt_virtualenv
+    left_prompt_context
+    left_prompt_dir
+    left_prompt_end
+}
+
+PROMPT='%{%f%b%k%}$(build_left_prompt)'
+
+# based on https://github.com/bhilburn/powerlevel9k/blob/862ff70bfc965945f07fcabfc4a4d9f5f58e4fe2/powerlevel9k.zsh-theme
+# Copyright (c) 2014-2017 Ben Hilburn <bhilburn@gmail.com>
+# License: https://github.com/bhilburn/powerlevel9k/blob/862ff70bfc965945f07fcabfc4a4d9f5f58e4fe2/LICENSE
+autoload -Uz vcs_info
+
+# VCS segment: shows the state of your repository, if you are in a folder under
+# version control
+VCS_ACTIONFORMAT_FOREGROUND="red"
+# Default: Just display the first 8 characters of our changeset-ID.
+VCS_HASH_LENGTH="8"
+
+# Load VCS_INFO
+autoload -Uz vcs_info
+
+VCS_WORKDIR_DIRTY=false
+VCS_WORKDIR_HALF_DIRTY=false
+
+function +vi-git-untracked() {
+    local FLAGS
+    FLAGS=('--porcelain')
+
+    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' && \
+            -n $(git status ${FLAGS} | \grep -E '^\?\?' 2> /dev/null | tail -n1) ]]; then
+        hook_com[unstaged]+="  "
+        VCS_WORKDIR_HALF_DIRTY=true
+    else
+        VCS_WORKDIR_HALF_DIRTY=false
+    fi
+}
+
+function +vi-git-aheadbehind() {
+    local ahead behind branch_name
+    local -a gitstatus
+
+    branch_name=$(git symbolic-ref --short HEAD 2>/dev/null)
+
+    # for git prior to 1.7
+    # ahead=$(git rev-list origin/${branch_name}..HEAD | wc -l)
+    ahead=$(git rev-list "${branch_name}"@{upstream}..HEAD 2>/dev/null | wc -l)
+    (( ahead )) && gitstatus+=( "   ${ahead// /}" )
+
+    # for git prior to 1.7
+    # behind=$(git rev-list HEAD..origin/${branch_name} | wc -l)
+    behind=$(git rev-list HEAD.."${branch_name}"@{upstream} 2>/dev/null | wc -l)
+    (( behind )) && gitstatus+=( "   ${behind// /}" )
+
+    hook_com[misc]+=${(j::)gitstatus}
+}
+
+function +vi-git-remotebranch() {
+    local remote branch_name
+
+    # Are we on a remote-tracking branch?
+    remote=${$(git rev-parse --verify HEAD@{upstream} --symbolic-full-name 2>/dev/null)/refs\/(remotes|heads)\/}
+    branch_name=$(git symbolic-ref --short HEAD 2>/dev/null)
+
+    hook_com[branch]="  ${hook_com[branch]}"
+    # Always show the remote
+    #if [[ -n ${remote} ]] ; then
+    # Only show the remote if it differs from the local
+    if [[ -n ${remote} ]] && [[ "${remote#*/}" != "${branch_name}" ]] ; then
+        hook_com[branch]+="  ${remote// /}"
+    fi
+}
+
+function +vi-git-tagname() {
+    # If we are on a tag, append the tagname to the current branch string.
+    local tag
+    tag=$(git describe --tags --exact-match HEAD 2>/dev/null)
+
+    if [[ -n "${tag}" ]] ; then
+        # There is a tag that points to our current commit. Need to determine if we
+        # are also on a branch, or are in a DETACHED_HEAD state.
+        if [[ -z $(git symbolic-ref HEAD 2>/dev/null) ]]; then
+            # DETACHED_HEAD state. We want to append the tag name to the commit hash
+            # and print it. Unfortunately, `vcs_info` blows away the hash when a tag
+            # exists, so we have to manually retrieve it and clobber the branch
+            # string.
+            local revision
+            revision=$(git rev-list -n 1 --abbrev-commit --abbrev=${VCS_HASH_LENGTH} HEAD)
+            hook_com[branch]="  ${revision}   ${tag}"
+        else
+            # We are on both a tag and a branch; print both by appending the tag name.
+            hook_com[branch]+="   ${tag}"
+        fi
+    fi
+}
+
+# Show count of stashed changes
+# Port from https://github.com/whiteinge/dotfiles/blob/5dfd08d30f7f2749cfc60bc55564c6ea239624d9/.zsh_shouse_prompt#L268
+function +vi-git-stash() {
+    local -a stashes
+
+    if [[ -s $(git rev-parse --git-dir)/refs/stash ]] ; then
+        stashes=$(git stash list 2>/dev/null | wc -l)
+        hook_com[misc]+="   ${stashes// /}"
+    fi
+}
+
+function +vi-hg-bookmarks() {
+    if [[ -n "${hgbmarks[@]}" ]]; then
+        hook_com[hg-bookmark-string]="   ${hgbmarks[@]}"
+
+        # To signal that we want to use the sting we just generated, set the special
+        # variable `ret' to something other than the default zero:
+        ret=1
+        return 0
+    fi
+}
+
+function +vi-vcs-detect-changes() {
+    if [[ "${hook_com[vcs]}" == "git" ]]; then
+
+        local remote=$(git ls-remote --get-url 2> /dev/null)
+        if [[ "$remote" =~ "github" ]] then
+            vcs_visual_identifier='  '
+        elif [[ "$remote" =~ "bitbucket" ]] then
+            vcs_visual_identifier='  '
+        elif [[ "$remote" =~ "gitlab" ]] then
+            vcs_visual_identifier='  '
+        else
+            vcs_visual_identifier='  '
+        fi
+
+    elif [[ "${hook_com[vcs]}" == "hg" ]]; then
+        vcs_visual_identifier='(Hg) '
+    elif [[ "${hook_com[vcs]}" == "svn" ]]; then
+        vcs_visual_identifier='(SVN) '
+    fi
+
+    if [[ -n "${hook_com[staged]}" ]] || [[ -n "${hook_com[unstaged]}" ]]; then
+        VCS_WORKDIR_DIRTY=true
+    else
+        VCS_WORKDIR_DIRTY=false
+    fi
+}
+
+function +vi-svn-detect-changes() {
+  local svn_status="$(svn status)"
+  if [[ -n "$(echo "$svn_status" | \grep \^\?)" ]]; then
+    hook_com[unstaged]+="  "
+    VCS_WORKDIR_HALF_DIRTY=true
+  fi
+  if [[ -n "$(echo "$svn_status" | \grep \^\M)" ]]; then
+    hook_com[unstaged]+="  "
+    VCS_WORKDIR_DIRTY=true
+  fi
+  if [[ -n "$(echo "$svn_status" | \grep \^\A)" ]]; then
+    hook_com[staged]+="  "
+    VCS_WORKDIR_DIRTY=true
+  fi
+}
+
+# The vcs segment can have three different states - defaults to 'clean'.
+typeset -gAH vcs_states
+vcs_states=(
+    'clean'       'grey'
+    'modified'    'yellow'
+    'untracked'   'grey'
+)
+
+#TODO
+zstyle ':vcs_info:*' enable git hg svn
+zstyle ':vcs_info:*' check-for-changes true
+
+VCS_DEFAULT_FORMAT="%b%c%u%m"
+zstyle ':vcs_info:*' formats "$VCS_DEFAULT_FORMAT"
+
+zstyle ':vcs_info:*' actionformats "%b %F{${VCS_ACTIONFORMAT_FOREGROUND}}| %a%f"
+
+zstyle ':vcs_info:*' stagedstr "  "
+zstyle ':vcs_info:*' unstagedstr "  "
+
+zstyle ':vcs_info:git*+set-message:*' hooks vcs-detect-changes git-untracked git-aheadbehind git-stash git-remotebranch git-tagname
+zstyle ':vcs_info:hg*+set-message:*' hooks vcs-detect-changes
+zstyle ':vcs_info:svn*+set-message:*' hooks vcs-detect-changes svn-detect-changes
+
+# For Hg, only show the branch name
+zstyle ':vcs_info:hg*:*' branchformat "  %b"
+# The `get-revision` function must be turned on for dirty-check to work for Hg
+zstyle ':vcs_info:hg*:*' get-revision true
+zstyle ':vcs_info:hg*:*' get-bookmarks true
+zstyle ':vcs_info:hg*+gen-hg-bookmark-string:*' hooks hg-bookmarks
+
+# For svn, only
+# TODO fix the %b (branch) format for svn. Using %b breaks
+# color-encoding of the foreground for the rest of the powerline.
+zstyle ':vcs_info:svn*:*' formats "%c%u"
+zstyle ':vcs_info:svn*:*' actionformats "%c%u %F{${VCS_ACTIONFORMAT_FOREGROUND}}| %a%f"
+
+right_prompt_vcs() {
+    VCS_WORKDIR_DIRTY=false
+    VCS_WORKDIR_HALF_DIRTY=false
+    local current_state=""
+
+    # Actually invoke vcs_info manually to gather all information.
+    vcs_info
+    local vcs_prompt="${vcs_info_msg_0_}"
+
+    if [[ -n "$vcs_prompt" ]]; then
+        if [[ "$VCS_WORKDIR_DIRTY" == true ]]; then
+            # $vcs_visual_identifier gets set in +vi-vcs-detect-changes in functions/vcs.zsh,
+            # as we have there access to vcs_info internal hooks.
+            current_state='modified'
+        else
+            if [[ "$VCS_WORKDIR_HALF_DIRTY" == true ]]; then
+                current_state='untracked'
+            else
+                current_state='clean'
+            fi
+        fi
+        right_prompt_segment "${vcs_states[$current_state]}" black "$vcs_visual_identifier$vcs_prompt"
+    fi
+}
+
+build_right_prompt() {
+    right_prompt_vcs
+    right_prompt_end
+}
+
+RPROMPT='%{%f%b%k%}$(build_right_prompt)'
+
+# the execution trace prompt (setopt xtrace). default: '+%N:%i>'
+PS4='+%N:%i:%_> '
+
+# some more ls aliases
+alias ll='ls -alhF'
+alias la='ls -AF'
+alias l='ls -CF'
+
+#safe rm,cp,mv
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias strings="strings -a"
+
+alias spm="sudo pacman"
+
+# cd to directory and list files
+function cl () {
+    cd $1 && ls -a
+}
+
+# Create Directory and cd to it
+function mkcd () {
+    if (( ARGC != 1 )); then
+        printf 'usage: mkcd <new-directory>\n'
+        return 1;
+    fi
+    if [[ ! -d "$1" ]]; then
+        command mkdir -p "$1"
+    else
+        printf '`%s'\'' already exists: cd-ing.\n' "$1"
+    fi
+    builtin cd "$1"
+}
+
+autoload -Uz add-zsh-hook
+
+# Terminal title
+function xterm_title_precmd () {
+    if [[ -n $SSH_CLIENT ]] || [[ -n $SSH_TTY ]]; then
+        print -Pn '\e]2;%n@%M:%~\a'
+    elif [[ $USERNAME = $LOGIN_USER ]]; then
+        print -Pn '\e]2;%~\a'
+    elif [[ $UID -eq 0 ]]; then
+        print -Pn '\e]2;%~#\a'
+    else
+        print -Pn '\e]2;%n:%~\a'
+    fi
+}
+
+function xterm_title_preexec () {
+    if [[ -n $SSH_CLIENT ]] || [[ -n $SSH_TTY ]]; then
+        print -Pn '\e]2;%n@%M:%~%# '
+    elif [[ $USERNAME = $LOGIN_USER ]] || [[ $UID -eq 0 ]]; then
+        print -Pn '\e]2;%~%# '
+    else
+        print -Pn '\e]2;%n:%~%# '
+    fi
+
+    print -n "${(q)1}\a"
+}
+
+if [[ "$TERM" == (screen*|xterm*|rxvt*) ]]; then
+    add-zsh-hook precmd xterm_title_precmd
+    add-zsh-hook preexec xterm_title_preexec
+fi
+
+# http://chneukirchen.org/blog/archive/2012/02/10-new-zsh-tricks-you-may-not-know.html
+# search zsh manpage
+zman() {
+    PAGER="less -g -s '+/^       "$1"'" man zshall
+}
+
+# cd last visited directories
+# http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#Recent-Directories
+autoload -Uz chpwd_recent_dirs cdr
+
+zstyle ':completion:*:*:cdr:*:*' menu selection
+zstyle ":chpwd:*" recent-dirs-max 500
+zstyle ":chpwd:*" recent-dirs-default true
+zstyle ':completion:*' recent-dirs-insert fallback
+zstyle ':chpwd:*' recent-dirs-file "$DATADIR/chpwd-recent-dirs"
+
+add-zsh-hook chpwd chpwd_recent_dirs
+
+# help command
+autoload -Uz run-help
+alias help=run-help
+autoload -Uz run-help-git
+autoload -Uz run-help-ip
+autoload -Uz run-help-openssl
+autoload -Uz run-help-p4
+autoload -Uz run-help-sudo
+autoload -Uz run-help-svk
+autoload -Uz run-help-svn
+
+for zshrc in $ZDOTDIR/zshrc.d/*.zsh(N); do
+    . "$zshrc"
+done
+unset zshrc

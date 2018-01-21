@@ -1,0 +1,38 @@
+- name: install zsh
+  pacman: name={{ item }}
+  with_items:
+    - zsh
+    - zsh-completions
+    - zsh-syntax-highlighting
+    - pkgfile #zshrc
+
+- name: ~/.profile
+  copy: src=profile dest=~/.profile mode=0600 backup=yes
+  become: no
+
+- name: change ZDOTDIR
+  copy: src=zshenv dest=~/.zshenv mode=0600 backup=yes
+  become: no
+
+- name: mkdir ~/.config/zsh
+  file: path=~/.config/zsh mode=0700 state=directory
+  become: no
+
+- name: zprofile
+  copy: src=zprofile dest=~/.config/zsh/.zprofile mode=0600 backup=yes
+  become: no
+
+- name: zshrc
+  copy: src=zshrc dest=~/.config/zsh/.zshrc mode=0600 backup=yes
+  become: no
+
+- name: create ~/profile.d
+  file: path=~/profile.d mode=0700 state=directory
+  become: no
+
+- name: create zshrc.d
+  file: path=~/.config/zsh/zshrc.d mode=0700 state=directory
+  become: no
+
+- name: use zsh as default shell
+  user: name=user shell=/bin/zsh

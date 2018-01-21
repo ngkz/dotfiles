@@ -1,0 +1,2 @@
+#!/bin/zsh
+emulate sh -c 'source ~/.profile'
