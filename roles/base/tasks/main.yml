@@ -95,6 +95,8 @@
   sysctl: name=kernel.dmesg_restrict value=1 sysctl_file=/etc/sysctl.d/99-ansible.conf
 - name: restrict access to kernel pointers in the proc filesystem
   sysctl: name=kernel.kptr_restrict value=2 sysctl_file=/etc/sysctl.d/99-ansible.conf
+- name: disable unprivileged BPF
+  sysctl: name=kernel.unprivileged_bpf_disabled value=1 sysctl_file=/etc/sysctl.d/99-ansible.conf
 - name: hide other users' processes from unprivileged users
   block:
     - file: path=/etc/systemd/system/systemd-logind.service.d mode=0755 state=directory
