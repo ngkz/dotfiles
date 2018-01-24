@@ -3,8 +3,8 @@
 
 CACHEDIR=${XDG_CACHE_HOME:-~/.cache}/zsh
 DATADIR=${XDG_CACHE_HOME:-~/.local/share}/zsh
-[[ ! -d ${CACHEDIR} ]] && mkdir -p "${CACHEDIR}"
-[[ ! -d ${DATADIR} ]] && mkdir -p "${DATADIR}"
+mkdir -p "$CACHEDIR"
+mkdir -p "$DATADIR"
 
 # import new commands from the history file also in other zsh-session
 setopt share_history
