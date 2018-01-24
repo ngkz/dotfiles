@@ -488,7 +488,7 @@ zstyle ':completion:hist-complete:*' completer _history
 bindkey "^x^x" hist-complete
 
 # use the new *-pattern-* widgets for incremental history search
-bindkey '^R' history-incremental-pattern-search-backwaed
+bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
 
 # shift-tab perform backwards menu completion
