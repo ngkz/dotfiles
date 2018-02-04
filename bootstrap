@@ -1,0 +1,154 @@
+#!/bin/bash
+# dotfiles
+# Copyright (C) 2017  Kazutoshi Noguchi
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+set -o pipefail
+
+run() {
+    echo "$*"
+    if ! "$@"; then
+        echo failed >&2
+        exit 1
+    fi
+}
+
+select machine in "charlie" "echo" "stagingvm" "quit"; do
+    if [ ! -z "$item" ] ; then
+        break
+    fi
+done
+
+cd "$(dirname "$0")"
+
+# Update the system clock
+run timedatectl set-ntp true
+
+case "$machine" in
+    charlie)
+        # erase disks
+        for disk in sda sdb; do
+            run hdparm --user-master u --security-set-pass p "/dev/$disk"
+            run hdparm --user-master u --security-erase p "/dev/$disk"
+        done
+
+        # partition disks
+        run parted -s /dev/sda mklabel msdos
+        run parted -s /dev/sda mkpart primary ext4 1MiB 200MiB #/boot
+        run parted -s /dev/sda mkpart primary 200MiB 100% #raid member 0
+
+        run parted -s /dev/sdb mklabel msdos
+        run parted -s /dev/sdb mkpart primary 1MiB 100% #raid member 1
+
+        echo "FIXME: Decide which filesystem to use" >&2
+        exit 1
+
+        ## setup raid
+        #run modprobe raid0
+        #chunk_size=32 #KiB #TODO tune chunk size
+        #run mdadm --create --verbose /dev/md0 --level=stripe --raid-devices=2 --chunk="$chunk_size" /dev/sda2 /dev/sdb1
+
+        ## setup lvm
+        #run modprobe dm-mod
+        #run pvcreate /dev/md0
+        #run vgcreate vg0 /dev/md0
+        #run lvcreate --name root --size 97%FREE vg0 #TODO adjust size
+
+        ## format partitions
+        #run mkfs.ext4 -L boot /dev/sda1
+
+        #block_size=4096
+        #stride=$((chunk_size * 1024 / block_size))
+        #disk_num=2
+        #stripe_width=$((disk_num * stride))
+        #run mkfs.ext4 -v -m .1 -L root -b "$block_size" -E stride="$stride",stripe-width="$stripe_width" /dev/mapper/vg0-root
+
+        ## mount the filesystems
+        #run mount LABEL=root /mnt
+        #run mkdir /mnt/boot
+        #run mount LABEL=boot /mnt/boot
+        ;;
+    echo)
+        # erase disks
+        run hdparm --user-master u --security-set-pass p /dev/sda
+        run hdparm --user-master u --security-erase p /dev/sda
+
+        # partition disks
+        run parted -s /dev/sda mklabel gpt
+        run parted -s /dev/sda mkpart primary fat16 1MiB 200MiB #ESP
+        run parted -s /dev/sda mkpart primary 200MiB 100%       #encrypted lvm pv
+
+        ## encrypt the disk
+        run cryptsetup luksFormat --use-random /dev/sda2
+        run cryptsetup luksDump /dev/sda2
+        run cryptsetup open --type luks /dev/sda2 lvm
+
+        echo "FIXME: Decide which filesystem to use" >&2
+        exit 1
+
+        ## setup lvm
+        #run modprobe dm-mod
+        #run pvcreate /dev/mapper/lvm
+        #run vgcreate vg0 /dev/mapper/lvm
+        #run lvcreate --name root --size 96%FREE vg0 #TODO adjust size
+
+        ## format partitions
+        #run mkfs.fat -F16 -n esp /dev/sda1
+        #run mkfs.ext4 -v -m .1 -L root /dev/mapper/vg0-root
+
+        ## mount the filesystems
+        #run mount LABEL=root /mnt
+        #run mkdir -p /mnt/boot/efi
+        #run mount LABEL=esp /mnt/boot/efi
+        ;;
+    stagingvm)
+        # partition disks
+        run parted -s /dev/sda mklabel msdos
+        run parted -s /dev/sda mkpart primary ext4 1MiB 100% #/
+
+        # format partitions
+        run mkfs.ext4 -v -m .1 -L root /dev/sda2
+
+        # mount the filesystems
+        run mount LABEL=root /mnt
+        ;;
+esac
+
+read
+
+# Select the mirrors
+run cp roles/base/files/mirrorlist /etc/pacman.d/mirrorlist
+
+# Install the base packages and ansible
+run pacstrap /mnt base ansible
+
+# Configure fstab
+run genfstab -L /mnt >>/mnt/etc/fstab
+
+# Hostname
+run echo "$machine" >/mnt/etc/hostname
+run echo "127.0.1.1 $machine.localdomain $machine" >>/mnt/etc/hosts
+run hostname "$machine"
+
+read
+
+run mount --bind "$(pwd)" /mnt/dotfiles
+
+read -p "run setup?" -r reply
+if [[ $reply =~ ^[Yy]([Ee][Ss])?$ ]]; then
+    run arch-chroot /mnt /dotfiles/setup
+fi
+
+run umount -R /mnt
