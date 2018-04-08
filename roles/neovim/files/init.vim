@@ -40,6 +40,9 @@ set ttimeout
 " The time in milliseconds that is waited for a key code sequence to
 " complete. (vim default: -1, neovim default: 50)
 set ttimeoutlen=100
+" Maximum column in which to search for syntax items.
+" set to sane value to avoid slowdown
+set synmaxcol=300
 
 " incremental search (vim default: off, neovim default: on)
 set incsearch
@@ -315,3 +318,9 @@ nnoremap <silent> <leader>ts :<c-u>tabs<cr>
 for n in range(1, 9)
   execute 'nnoremap <silent> <leader>t'.n  ':<C-u>tabnext'.n.'<CR>'
 endfor
+
+" split movement
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
