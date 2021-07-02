@@ -19,7 +19,7 @@
    nix-shell -p git nixFlakes
    git clone https://github.com/ngkz/dotfiles
    cd dotfiles
-   nixos-install --root /mnt --flake .#<HOSTNAME> --no-root-passwd
+   nixos-install --root /mnt --flake ".#<HOSTNAME>" --no-root-passwd
    ```
 
 ## Update system
@@ -33,13 +33,13 @@ sudo nixos-rebuild switch --flake ".#"
 
 ## Build system
 ```sh
-nix build <PATH TO DOTFILES>#nixosConfigurations.<HOSTNAME>.config.system.build.toplevel [--rebuild]
+nix build "<PATH TO DOTFILES>#nixosConfigurations.<HOSTNAME>.config.system.build.toplevel" [--rebuild]
 ```
 
 ## Apply configuration changes
 ```sh
 # build nixosConfigurations.<HOSTNAME> of ./flake.nix
-sudo nixos-rebuild switch --flake '<PATH TO DOTFILES>#'
+sudo nixos-rebuild switch --flake "<PATH TO DOTFILES>#"
 ```
 
 ## Acknowledgments
