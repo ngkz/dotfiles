@@ -1,9 +1,0 @@
-[Trigger]
-Operation = Install
-Operation = Upgrade
-Type = Package
-Target = grub
-
-[Action]
-When = PostTransaction
-Exec = /usr/bin/grub-install --target=i386-pc /dev/sda

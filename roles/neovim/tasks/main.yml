@@ -1,8 +1,0 @@
-- name: install neovim
-  pacman: name={{ item }}
-  with_items:
-    - neovim
-    - xclip #X11 clipboard integration
-- name: install init.vim
-  copy: src=init.vim dest=~/.config/nvim/init.vim
-  become: no
