@@ -22,7 +22,7 @@ cryptsetup luksFormat --type luks1 /dev/sda2
 # GRUB's PBKDF implementation is a lot slower than Linux's, because GRUB operates
 # under tighter memory constraints and doesn’t take advantage of all
 # crypto-related CPU instructions.
-# Halving the iteration count would speed up initial unlock by a factor of two.
+# Halving the iteration count would speed up initial unlock.
 cryptsetup luksDump /dev/sda2
 # ...
 # Key Slot 0: ENABLED
