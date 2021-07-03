@@ -29,6 +29,7 @@
             # https://nixos.org/manual/nixos/stable/index.html#sec-writing-modules
             ./configuration.nix
             hosts/stagingvm/configuration.nix
+            profiles/ssd.nix
             profiles/fde.nix
             profiles/portable.nix
             # profiles/sway.nix

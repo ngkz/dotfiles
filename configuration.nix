@@ -118,9 +118,6 @@
     "L /boot - - - - /nix/persist/boot"
   ];
 
-  # SSD TRIM
-  services.fstrim.enable = true;
-
   # sudo
   security.sudo = {
     execWheelOnly = true;
