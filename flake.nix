@@ -32,7 +32,6 @@
             profiles/ssd.nix
             profiles/fde.nix
             profiles/portable.nix
-            # profiles/sway.nix
             profiles/sshd.nix
             profiles/workstation.nix
             agenix.nixosModules.age
