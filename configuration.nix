@@ -71,8 +71,6 @@
     "/nix/persist/boot/efi" = {
       label = "ESP";
       fsType = "vfat";
-      # TODO enable if grub configuration world-readable
-      #options = ["mode=700"]
     };
 
     "/var/log" = {
