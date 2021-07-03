@@ -32,6 +32,7 @@
     sshKeyPaths = [ "/nix/persist/secrets/age.key" ];
   };
 
+  # User accounts
   users = {
     mutableUsers = false;
 
