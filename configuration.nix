@@ -114,6 +114,10 @@
     machine-id.source = "/nix/persist/etc/machine-id";
   };
 
+  systemd.tmpfiles.rules = [
+    "L /boot - - - - /nix/persist/boot"
+  ];
+
   # SSD TRIM
   services.fstrim.enable = true;
 
