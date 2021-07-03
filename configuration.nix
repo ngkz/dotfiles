@@ -98,7 +98,7 @@
       enable = true;
       efiSupport = true;
 
-      # grub.nix goes bananas if grub installation path or /nix are bind-mount or symlink
+      # install-grub.pl goes bananas if /boot or /nix are bind-mount or symlink
       # Relocate /boot to /nix/persist/boot
       mirroredBoots = [{
         path = "/nix/persist/boot";
