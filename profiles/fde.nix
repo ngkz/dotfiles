@@ -1,6 +1,9 @@
 # Full Disk Encryption + Secure Boot
 { config, pkgs, ... }:
 {
+  # agenix
+  age.secrets.grub-password-hash.file = ../secrets/grub-password-hash.age;
+
   boot = {
     loader = {
       grub = {

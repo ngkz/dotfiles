@@ -28,7 +28,6 @@
   # agenix
   age = {
     secrets.user-password-hash.file = ./secrets/user-password-hash.age;
-    secrets.grub-password-hash.file = ./secrets/grub-password-hash.age;
     sshKeyPaths = [ "/nix/persist/secrets/age.key" ];
   };
 
