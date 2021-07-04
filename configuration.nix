@@ -43,15 +43,10 @@
       user = {
         isNormalUser = true;
         uid = 1000;
-        group = "user";
         extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
         shell = pkgs.zsh;
         passwordFile = config.age.secrets.user-password-hash.path;
       };
-    };
-
-    groups = {
-      user.gid = 1000;
     };
   };
 
