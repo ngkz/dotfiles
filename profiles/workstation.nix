@@ -115,9 +115,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    git
     binutils
-    python
     gnome.adwaita-icon-theme
   ];
 }
