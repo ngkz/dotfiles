@@ -20,4 +20,8 @@
     "ssh/ssh_host_ed25519_key".source = "/nix/persist/etc/ssh/ssh_host_ed25519_key";
     "ssh/ssh_host_ed25519_key.pub".source = "/nix/persist/etc/ssh/ssh_host_ed25519_key.pub";
   };
+
+  systemd.tmpfiles.rules = [
+    "d /nix/persist/etc/ssh - - - -"
+  ];
 }
