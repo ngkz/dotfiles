@@ -138,4 +138,12 @@
     ungoogled-chromium
     lollypop
   ];
+
+  # install fonts
+  fonts.fonts = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji-blob-bin
+    sarasa-gothic
+  ];
 }
