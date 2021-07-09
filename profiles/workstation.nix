@@ -76,7 +76,6 @@
     extraPackages = with pkgs; [
       swaylock
       swayidle
-      termite
       dmenu
       qt5.qtwayland
     ];
@@ -114,8 +113,25 @@
     gtkUsePortal = true;
   };
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; with linuxPackages; [
     binutils
+    ethtool
+    gdb
+    inotify-tools
+    powertop
+    s-tui
+    tldr
+    turbostat
+    wl-clipboard
+
+    firefox #nixpkgs doesn't have librewolf yet
+    #gnome.dconf-editor
+    freecad
+    gimp
     gnome.adwaita-icon-theme
+    keepassxc
+    termite
+    ungoogled-chromium
+    lollypop
   ];
 }
