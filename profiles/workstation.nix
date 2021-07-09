@@ -146,4 +146,26 @@
     noto-fonts-emoji-blob-bin
     sarasa-gothic
   ];
+
+  # XDG user dirs
+  home-manager.users.user.xdg.userDirs = {
+    enable = true;
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /nix/persist/home/user 700 user users -"
+    "d /nix/persist/home/user/Desktop - user users -"
+    "L /home/user/Desktop - - - - /nix/persist/home/user/Desktop"
+    "d /nix/persist/home/user/Documents - user users -"
+    "L /home/user/Documents - - - - /nix/persist/home/user/Documents"
+    "d /nix/persist/home/user/Downloads - user users -"
+    "L /home/user/Downloads - - - - /nix/persist/home/user/Downloads"
+    "d /nix/persist/home/user/Music - user users -"
+    "L /home/user/Music - - - - /nix/persist/home/user/Music"
+    "d /nix/persist/home/user/Pictures - user users -"
+    "L /home/user/Pictures - - - - /nix/persist/home/user/Pictures"
+    # I don't use Templates and Public
+    "d /nix/persist/home/user/Videos - user users -"
+    "L /home/user/Videos - - - - /nix/persist/home/user/Videos"
+  ];
 }
