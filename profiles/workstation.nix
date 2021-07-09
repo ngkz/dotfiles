@@ -113,6 +113,10 @@
     gtkUsePortal = true;
   };
 
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    ddcci-driver # DDC/CI backlight control driver
+  ];
+
   environment.systemPackages = with pkgs; with linuxPackages; [
     binutils
     ethtool
