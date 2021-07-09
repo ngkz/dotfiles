@@ -133,10 +133,15 @@
   };
 
   # home-manager
-  home-manager.useGlobalPkgs = true;
-  #home-manager.users.user = { pkgs, ... }: {
-  #  aj
-  #};
+  home-manager.useGlobalPkgs = true; # use global nixpkgs
+  # install per-user packages to /etc/profiles to make nixos-rebuild build-vm work
+  home-manager.useUserPackages = true;
+  home-manager.users.user = { pkgs, ... }: {
+    home.stateVersion = config.system.stateVersion;
+
+    # enable ~/.config, ~/.cache and ~/.local/share management
+    xdg.enable = true;
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
