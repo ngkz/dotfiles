@@ -146,8 +146,20 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    borgbackup
+    bottom
+    fd
     git
+    htop
+    inetutils
+    iotop
+    ncdu
+    netcat-openbsd
     python
+    smartmontools #smartctl
+    tree
+    usbutils #lsusb
+    wget
   ];
 
   # This value determines the NixOS release from which the default
