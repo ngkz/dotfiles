@@ -141,10 +141,10 @@
     gimp
     gnome.adwaita-icon-theme
     keepassxc
+    lollypop
     gscan2pdf
     termite
     ungoogled-chromium
-    lollypop
     xdg-utils
   ];
 
@@ -157,12 +157,13 @@
   ];
 
   # XDG user dirs
-  home-manager.users.user.xdg.userDirs = {
-    enable = true;
-  };
+  home-manager.users.user.xdg.userDirs.enable = true;
 
+  # Persistence
   systemd.tmpfiles.rules = [
     "d /nix/persist/home/user 700 user users -"
+
+    # XDG user dirs
     "d /nix/persist/home/user/Desktop - user users -"
     "L /home/user/Desktop - - - - /nix/persist/home/user/Desktop"
     "d /nix/persist/home/user/Documents - user users -"
