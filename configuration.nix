@@ -117,6 +117,7 @@
     # Nix
     "d /nix/persist/home/user/.cache - user users -"
     "d /nix/persist/home/user/.cache/nix - user users -"
+    "d /home/user/.cache - user users -"
     "L /home/user/.cache/nix - - - - /nix/persist/home/user/.cache/nix"
   ];
 
