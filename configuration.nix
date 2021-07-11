@@ -169,8 +169,10 @@
     netcat-openbsd
     python
     ripgrep
+    s-tui
     smartmontools #smartctl
     termshark
+    tldr
     tree
     usbutils #lsusb
     wget

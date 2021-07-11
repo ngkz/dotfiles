@@ -143,8 +143,6 @@
     gdb
     inotify-tools
     powertop
-    s-tui
-    tldr
     turbostat
     wl-clipboard
 
