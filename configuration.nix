@@ -144,15 +144,19 @@
   };
 
   # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # $ nix search nixpkgs wget
   environment.systemPackages = with pkgs; [
+    bat
     borgbackup
-    bottom
+    bpytop
+    exa
     fd
     git
+    hddtemp
     htop
     inetutils
     iotop
+    lm_sensors
     ncdu
     netcat-openbsd
     python
