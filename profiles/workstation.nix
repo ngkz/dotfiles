@@ -41,7 +41,6 @@
     enable = true;
     extraBackends = with pkgs; [ sane-airscan ];
   };
-  users.users.user.extraGroups = [ "scanner" "lp" ];
 
   # greetd display manager
   environment.etc = let
@@ -160,6 +159,7 @@
     lollypop
     termite
     ungoogled-chromium
+    wireshark
     xdg-utils
     xfce.thunar
     xfce.thunar-archive-plugin
@@ -177,6 +177,9 @@
   # XDG user dirs
   home-manager.users.user.xdg.userDirs.enable = true;
 
+  # Wireshark
+  programs.wireshark.enable = true;
+
   # Persistence
   systemd.tmpfiles.rules = [
     # XDG user dirs
@@ -193,5 +196,14 @@
     # I don't use Templates and Public
     "d /nix/persist/home/user/Videos - user users -"
     "L /home/user/Videos - - - - /nix/persist/home/user/Videos"
+  ];
+
+  # Extra groups
+  users.users.user.extraGroups = [
+    # Scanner
+    "scanner" "lp"
+
+    # Wireshark
+    "wireshark"
   ];
 }
