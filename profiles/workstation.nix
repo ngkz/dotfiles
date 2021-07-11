@@ -1,10 +1,6 @@
 # configuration applied to all workstations
 
-{ config, pkgs, ... }:
-{
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
+{ config, pkgs, lib, ... }: {
   # PipeWire
   security.rtkit.enable = true;
   services.pipewire = {
@@ -21,6 +17,24 @@
     publish.enable = true;
     publish.addresses = true; # make this host accessible with <hostname>.local
   };
+
+  # Printers
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [ gutenprint ];
+  };
+  hardware.printers = {
+    ensureDefaultPrinter = "MX923";
+    ensurePrinters = [
+      {
+        description = "Canon PIXUS MX923";
+        deviceUri = "dnssd://Canon%20MX920%20series._ipp._tcp.local/?uuid=00000000-0000-1000-8000-84BA3B85F5A1";
+        model = "gutenprint.${lib.versions.majorMinor (lib.getVersion pkgs.gutenprint)}://bjc-MX920-series/expert";
+        name = "MX923";
+      }
+    ];
+  };
+  programs.system-config-printer.enable = true;
 
   # Scanners
   hardware.sane = {
