@@ -159,6 +159,7 @@
     bpytop
     exa
     fd
+    fzf
     git
     hddtemp
     htop
