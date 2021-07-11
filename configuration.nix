@@ -1,6 +1,6 @@
 # configuration applied to all hosts
 
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   # Enable experimental flakes feature
@@ -109,8 +109,15 @@
     machine-id.source = "/nix/persist/etc/machine-id";
   };
 
-  systemd.tmpfiles.rules = [
+  systemd.tmpfiles.rules = lib.mkBefore [
     "L /boot - - - - /nix/persist/boot"
+
+    "d /nix/persist/home/user 700 user users -"
+
+    # Nix
+    "d /nix/persist/home/user/.cache - user users -"
+    "d /nix/persist/home/user/.cache/nix - user users -"
+    "L /home/user/.cache/nix - - - - /nix/persist/home/user/.cache/nix"
   ];
 
   # sudo

@@ -179,8 +179,6 @@
 
   # Persistence
   systemd.tmpfiles.rules = [
-    "d /nix/persist/home/user 700 user users -"
-
     # XDG user dirs
     "d /nix/persist/home/user/Desktop - user users -"
     "L /home/user/Desktop - - - - /nix/persist/home/user/Desktop"
