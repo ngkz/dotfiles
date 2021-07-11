@@ -22,6 +22,13 @@
     publish.addresses = true; # make this host accessible with <hostname>.local
   };
 
+  # Scanners
+  hardware.sane = {
+    enable = true;
+    extraBackends = with pkgs; [ sane-airscan ];
+  };
+  users.users.user.extraGroups = [ "scanner" "lp" ];
+
   # greetd display manager
   environment.etc = let
     background = pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
@@ -134,9 +141,11 @@
     gimp
     gnome.adwaita-icon-theme
     keepassxc
+    gscan2pdf
     termite
     ungoogled-chromium
     lollypop
+    xdg-utils
   ];
 
   # install fonts
