@@ -168,7 +168,9 @@
     ncdu
     netcat-openbsd
     python
+    ripgrep
     smartmontools #smartctl
+    termshark
     tree
     usbutils #lsusb
     wget
