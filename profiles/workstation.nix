@@ -141,11 +141,15 @@
     gimp
     gnome.adwaita-icon-theme
     gscan2pdf #scanning tool
+    imv
     keepassxc
     lollypop
     termite
     ungoogled-chromium
     xdg-utils
+    xfce.thunar
+    xfce.thunar-archive-plugin
+    zathura #pdf viewer
   ];
 
   # install fonts
