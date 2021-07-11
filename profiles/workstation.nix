@@ -140,9 +140,9 @@
     freecad
     gimp
     gnome.adwaita-icon-theme
+    gscan2pdf #scanning tool
     keepassxc
     lollypop
-    gscan2pdf
     termite
     ungoogled-chromium
     xdg-utils
