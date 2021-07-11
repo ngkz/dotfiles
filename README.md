@@ -42,6 +42,18 @@ nix build "<PATH TO DOTFILES>#nixosConfigurations.<HOSTNAME>.config.system.build
 sudo nixos-rebuild switch --flake "<PATH TO DOTFILES>#"
 ```
 
+## Garbage collection
+```sh
+# Delete old generations
+sudo nix-env --delete-generations old --profile /nix/var/nix/profiles/system
+# Perform garbage collection the store
+nix store gc
+# Replace identical files in the store by hard links
+nix store optimise
+# Update boot entries
+sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
+```
+
 ## Acknowledgments
 - [Nix command/flake](https://nixos.wiki/wiki/Nix_command/flake)
 - [hlissner/dotfiles](https://github.com/hlissner/dotfiles)
