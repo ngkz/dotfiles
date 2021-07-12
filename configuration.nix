@@ -168,6 +168,7 @@
     lm_sensors
     ncdu
     netcat-openbsd
+    parted
     python
     ripgrep
     s-tui
