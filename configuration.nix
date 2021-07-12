@@ -169,7 +169,7 @@
     ncdu
     netcat-openbsd
     parted
-    python
+    python3
     ripgrep
     s-tui
     smartmontools #smartctl
