@@ -192,6 +192,7 @@
   # Control when held down, Escape when tapped
   services.interception-tools = {
     enable = true;
+    plugins = [ pkgs.unstable.interception-tools-plugins.caps2esc ];
     udevmonConfig = ''
       - JOB: "intercept -g $DEVNODE | caps2esc -m 1 | uinput -d $DEVNODE"
         DEVICE:
