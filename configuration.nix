@@ -190,7 +190,15 @@
 
   # Remap Caps Lock
   # Control when held down, Escape when tapped
-  services.interception-tools.enable = true;
+  services.interception-tools = {
+    enable = true;
+    udevmonConfig = ''
+      - JOB: "intercept -g $DEVNODE | caps2esc -m 1 | uinput -d $DEVNODE"
+        DEVICE:
+          EVENTS:
+            EV_KEY: [KEY_CAPSLOCK]
+    '';
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
