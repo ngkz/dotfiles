@@ -147,7 +147,7 @@
     wl-clipboard
 
     firefox #nixpkgs doesn't have librewolf yet
-    #gnome.dconf-editor
+    gnome.dconf-editor
     freecad
     gimp
     gnome.adwaita-icon-theme
