@@ -192,7 +192,10 @@
   # Control when held down, Escape when tapped
   services.interception-tools = {
     enable = true;
+    # Stable caps2esc doesn't support '-m' option.
+    # TODO remove below line after 21.09 upgrade
     plugins = [ pkgs.unstable.interception-tools-plugins.caps2esc ];
+    # Simple mode (No Esc to Caps)
     udevmonConfig = ''
       - JOB: "intercept -g $DEVNODE | caps2esc -m 1 | uinput -d $DEVNODE"
         DEVICE:
