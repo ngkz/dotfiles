@@ -16,7 +16,10 @@
 
   boot.initrd.luks.devices."cryptlvm".device = "/dev/sda2";
 
-  virtualisation.virtualbox.guest.enable = true;
+  virtualisation.virtualbox.guest = {
+    enable = true;
+    x11 = false;
+  };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
