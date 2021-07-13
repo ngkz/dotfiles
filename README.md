@@ -54,6 +54,13 @@ nix store optimise
 sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
 ```
 
+## REPL
+```sh
+nix repl
+nix-repl> :a (builtins.getFlake (toString ./.)).nixosConfigurations.HOSTNAME
+nix-repl> config.foo.bar
+```
+
 ## Acknowledgments
 - [Nix command/flake](https://nixos.wiki/wiki/Nix_command/flake)
 - [hlissner/dotfiles](https://github.com/hlissner/dotfiles)
