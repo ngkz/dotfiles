@@ -158,6 +158,7 @@
     termite
     ungoogled-chromium
     wireshark
+    wdisplays
     xdg-utils
     xfce.thunar
     xfce.thunar-archive-plugin
