@@ -114,10 +114,12 @@
 
     "d /nix/persist/home/user 700 user users -"
 
-    # Nix
+    # xdg cache home
     "d /nix/persist/home/user/.cache - user users -"
-    "d /nix/persist/home/user/.cache/nix - user users -"
     "d /home/user/.cache - user users -"
+
+    # Nix
+    "d /nix/persist/home/user/.cache/nix - user users -"
     "L /home/user/.cache/nix - - - - /nix/persist/home/user/.cache/nix"
   ];
 
