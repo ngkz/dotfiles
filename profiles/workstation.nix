@@ -174,27 +174,40 @@
   ];
 
   # XDG user dirs
-  home-manager.users.user.xdg.userDirs.enable = true;
+  home-manager.users.user.xdg.userDirs = {
+    enable = true;
+    desktop = "$HOME";
+    documents = "$HOME/docs";
+    download = "$HOME/dl";
+    music = "$HOME/music";
+    pictures = "$HOME/pics";
+    publicShare = "$HOME";
+    templates = "$HOME";
+    videos = "$HOME/videos";
+  };
 
   # Wireshark
   programs.wireshark.enable = true;
 
   # Persistence
   systemd.tmpfiles.rules = [
-    # XDG user dirs
-    "d /nix/persist/home/user/Desktop - user users -"
-    "L /home/user/Desktop - - - - /nix/persist/home/user/Desktop"
-    "d /nix/persist/home/user/Documents - user users -"
-    "L /home/user/Documents - - - - /nix/persist/home/user/Documents"
-    "d /nix/persist/home/user/Downloads - user users -"
-    "L /home/user/Downloads - - - - /nix/persist/home/user/Downloads"
-    "d /nix/persist/home/user/Music - user users -"
-    "L /home/user/Music - - - - /nix/persist/home/user/Music"
-    "d /nix/persist/home/user/Pictures - user users -"
-    "L /home/user/Pictures - - - - /nix/persist/home/user/Pictures"
-    # I don't use Templates and Public
-    "d /nix/persist/home/user/Videos - user users -"
-    "L /home/user/Videos - - - - /nix/persist/home/user/Videos"
+    # Home directory
+    "d /nix/persist/home/user/docs - user users -"
+    "L /home/user/docs - - - - /nix/persist/home/user/docs"
+    "d /nix/persist/home/user/dl - user users -"
+    "L /home/user/dl - - - - /nix/persist/home/user/dl"
+    "d /nix/persist/home/user/music - user users -"
+    "L /home/user/music - - - - /nix/persist/home/user/music"
+    "d /nix/persist/home/user/pics - user users -"
+    "L /home/user/pics - - - - /nix/persist/home/user/pics"
+    "d /nix/persist/home/user/videos - user users -"
+    "L /home/user/videos - - - - /nix/persist/home/user/videos"
+    "d /nix/persist/home/user/projects - user users -"
+    "L /home/user/projects - - - - /nix/persist/home/user/projects"
+    "d /nix/persist/home/user/work - user users -"
+    "L /home/user/work - - - - /nix/persist/home/user/work"
+    "d /nix/persist/home/user/misc - user users -"
+    "L /home/user/misc - - - - /nix/persist/home/user/misc"
   ];
 
   # Extra groups
