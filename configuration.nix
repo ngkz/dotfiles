@@ -162,7 +162,6 @@
     fzf
     git
     hddtemp
-    htop
     inetutils
     iotop
     lm_sensors
