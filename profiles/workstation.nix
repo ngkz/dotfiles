@@ -211,6 +211,12 @@
     "L /home/user/misc - - - - /nix/persist/home/user/misc"
   ];
 
+  # Git
+  home-manager.users.user.programs.git = {
+    enable = true;
+    delta.enable = true;
+  };
+
   # Extra groups
   users.users.user.extraGroups = [
     # Scanner

@@ -159,6 +159,15 @@
       enable = true;
       defaultCommand = "fd --type f --hidden --exclude .git";
     };
+
+    # lsd
+    programs.lsd = {
+      enable = true;
+      enableAliases = true;
+      settings = {
+        date = "+%Y-%m-%d %H:%M";
+      };
+    };
   };
 
   # List packages installed in system profile. To search, run:
@@ -167,22 +176,27 @@
     bat
     borgbackup
     bpytop
-    exa
+    #dust # modern du, does not work because of nixpkgs#72129
+    ncdu
+    dogdns # modern dig
     fd
     fzf
-    git
     hddtemp
+    httpie # modern curl
+    hyperfine # benchmarking tool
     inetutils
     iotop
+    jq
     lm_sensors
-    ncdu
     netcat-openbsd
     p7zip
     parted
     pigz
+    procs # modern ps
     python3
     ripgrep
     s-tui
+    sd #modern sed
     smartmontools #smartctl
     termshark
     tldr
