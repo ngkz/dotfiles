@@ -38,6 +38,7 @@
             }
             ./configuration.nix
             hosts/stagingvm/configuration.nix
+            modules/zsh
             profiles/ssd.nix
             profiles/fde.nix
             profiles/portable.nix

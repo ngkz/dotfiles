@@ -134,9 +134,6 @@
     '';
   };
 
-  # Z Shell
-  programs.zsh.enable = true;
-
   # neovim
   programs.neovim.enable = true;
   environment.variables = {
