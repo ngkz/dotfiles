@@ -148,6 +148,7 @@
     wl-clipboard
 
     firefox #nixpkgs doesn't have librewolf yet
+    foot
     gnome.dconf-editor
     freecad
     gimp
@@ -156,7 +157,6 @@
     imv
     keepassxc
     lollypop
-    termite
     ungoogled-chromium
     wireshark
     wdisplays
