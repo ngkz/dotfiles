@@ -32,7 +32,10 @@
           modules = [
             # https://nixos.org/manual/nixos/stable/index.html#sec-configuration-syntax
             # https://nixos.org/manual/nixos/stable/index.html#sec-writing-modules
-            { nixpkgs.overlays = overlays; }
+            {
+              nixpkgs.overlays = overlays;
+              nixpkgs.config.allowUnfree = true;
+            }
             ./configuration.nix
             hosts/stagingvm/configuration.nix
             profiles/ssd.nix

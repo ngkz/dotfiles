@@ -177,13 +177,17 @@
     lm_sensors
     ncdu
     netcat-openbsd
+    p7zip
     parted
+    pigz
     python3
     ripgrep
     s-tui
     smartmontools #smartctl
     termshark
     tldr
+    unrar
+    unzipNLS
     usbutils #lsusb
     wget
   ];
