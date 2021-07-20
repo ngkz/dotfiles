@@ -97,7 +97,6 @@
       swaylock
       swayidle
       dmenu
-      qt5.qtwayland
     ];
     extraSessionCommands = ''
       # redirect log to journal
@@ -138,6 +137,8 @@
   ];
 
   environment.systemPackages = with pkgs; with linuxPackages; [
+    qt5.qtwayland
+
     binutils
     ethtool
     gdb
