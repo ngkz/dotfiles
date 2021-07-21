@@ -156,15 +156,6 @@
       enable = true;
       defaultCommand = "fd --type f --hidden --exclude .git";
     };
-
-    # lsd
-    programs.lsd = {
-      enable = true;
-      enableAliases = true;
-      settings = {
-        date = "+%Y-%m-%d %H:%M";
-      };
-    };
   };
 
   # List packages installed in system profile. To search, run:
@@ -174,6 +165,7 @@
     borgbackup
     bpytop
     #dust # modern du, does not work because of nixpkgs#72129
+    exa
     ncdu
     dogdns # modern dig
     fd

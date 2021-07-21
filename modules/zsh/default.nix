@@ -79,6 +79,11 @@
       cat = "bat -p";
       top = "bpytop";
       dig = "dog";
+      ls = "exa --icons --time-style=iso --git";
+      ll = "ls -lgh";
+      la = "ls -a";
+      lt = "ls -lgh --tree";
+      lla = "ll -a";
 
       # safe rm,cp,mv
       rm = "rm -i";
