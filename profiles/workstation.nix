@@ -174,6 +174,9 @@
     sarasa-gothic
   ];
 
+  # Create a directory with links to all fonts in /run/current-system/sw/share/X11/fonts
+  fonts.fontDir.enable = true;
+
   # XDG user dirs
   home-manager.users.user.xdg.userDirs = {
     enable = true;
