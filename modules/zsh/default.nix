@@ -80,6 +80,7 @@
       top = "bpytop";
       dig = "dog";
       ls = "exa --icons --time-style=iso --git";
+      l = "ls";
       ll = "ls -lgh";
       la = "ls -a";
       lt = "ls -lgh --tree";
