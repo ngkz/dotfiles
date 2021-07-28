@@ -194,24 +194,16 @@
   programs.wireshark.enable = true;
 
   # Persistence
-  systemd.tmpfiles.rules = [
+  home-manager.users.user.home.persist.directories = [
     # Home directory
-    "d /nix/persist/home/user/docs - user users -"
-    "L /home/user/docs - - - - /nix/persist/home/user/docs"
-    "d /nix/persist/home/user/dl - user users -"
-    "L /home/user/dl - - - - /nix/persist/home/user/dl"
-    "d /nix/persist/home/user/music - user users -"
-    "L /home/user/music - - - - /nix/persist/home/user/music"
-    "d /nix/persist/home/user/pics - user users -"
-    "L /home/user/pics - - - - /nix/persist/home/user/pics"
-    "d /nix/persist/home/user/videos - user users -"
-    "L /home/user/videos - - - - /nix/persist/home/user/videos"
-    "d /nix/persist/home/user/projects - user users -"
-    "L /home/user/projects - - - - /nix/persist/home/user/projects"
-    "d /nix/persist/home/user/work - user users -"
-    "L /home/user/work - - - - /nix/persist/home/user/work"
-    "d /nix/persist/home/user/misc - user users -"
-    "L /home/user/misc - - - - /nix/persist/home/user/misc"
+    "docs"
+    "dl"
+    "music"
+    "pics"
+    "videos"
+    "projects"
+    "work"
+    "misc"
   ];
 
   # Git

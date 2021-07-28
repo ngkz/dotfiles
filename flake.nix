@@ -36,6 +36,7 @@
               nixpkgs.overlays = overlays;
               nixpkgs.config.allowUnfree = true;
             }
+            modules/persist.nix
             ./configuration.nix
             hosts/stagingvm/configuration.nix
             modules/zsh

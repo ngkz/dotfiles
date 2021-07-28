@@ -103,26 +103,13 @@
     };
   };
 
-  environment.etc = {
-    #nixos.source = "/nix/persist/etc/nixos";
-    adjtime.source = "/nix/persist/etc/adjtime";
-    machine-id.source = "/nix/persist/etc/machine-id";
-  };
+  persist.files = [
+    "/etc/adjtime"
+    "/etc/machine-id"
+  ];
 
-  systemd.tmpfiles.rules = lib.mkBefore [
-    "L /boot - - - - /nix/persist/boot"
-
-    "d /nix/persist/home/user 700 user users -"
-
-    # xdg data home
-    "d /nix/persist/home/user/.local - user users -"
-    "d /nix/persist/home/user/.local/share - user users -"
-    "d /home/user/.local - user users -"
-    "d /home/user/.local/share - user users -"
-
-    # Nix
-    "d /nix/persist/home/user/.local/share/nix - user users -"
-    "L /home/user/.local/share/nix - - - - /nix/persist/home/user/.local/share/nix"
+  persist.directories = [
+    "/boot"
   ];
 
   # sudo
@@ -146,6 +133,8 @@
   # install per-user packages to /etc/profiles to make nixos-rebuild build-vm work
   home-manager.useUserPackages = true;
   home-manager.users.user = { pkgs, ... }: {
+    imports = [ ./users/modules/persist-home.nix ];
+
     home.stateVersion = config.system.stateVersion;
 
     # enable ~/.config, ~/.cache and ~/.local/share management
@@ -155,6 +144,13 @@
     programs.fzf = {
       enable = true;
       defaultCommand = "fd --type f --hidden --exclude .git";
+    };
+
+    home.persist = {
+      enable = true;
+      directories = [
+        ".local/share/nix" # nix repl history
+      ];
     };
   };
 

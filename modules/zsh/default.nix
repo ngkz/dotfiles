@@ -1,8 +1,7 @@
 { config, pkgs, ... }:
 {
-  systemd.tmpfiles.rules = [
-    "d /nix/persist/home/user/.local/share/zsh - user users -"
-    "L /home/user/.local/share/zsh - - - - /nix/persist/home/user/.local/share/zsh"
+  home-manager.users.user.home.persist.directories = [
+    ".local/share/zsh"
   ];
 
   home-manager.users.user.programs.zsh = {

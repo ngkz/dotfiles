@@ -14,14 +14,10 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPQUeKD00Z5e9LmeoHR2oqlTP9i3qMLE3Pc/YEfxQoeL Kazutoshi Noguchi"
   ];
 
-  environment.etc = {
-    "ssh/ssh_host_rsa_key".source = "/nix/persist/etc/ssh/ssh_host_rsa_key";
-    "ssh/ssh_host_rsa_key.pub".source = "/nix/persist/etc/ssh/ssh_host_rsa_key.pub";
-    "ssh/ssh_host_ed25519_key".source = "/nix/persist/etc/ssh/ssh_host_ed25519_key";
-    "ssh/ssh_host_ed25519_key.pub".source = "/nix/persist/etc/ssh/ssh_host_ed25519_key.pub";
-  };
-
-  systemd.tmpfiles.rules = [
-    "d /nix/persist/etc/ssh - - - -"
+  persist.files = [
+    "/etc/ssh/ssh_host_rsa_key"
+    "/etc/ssh/ssh_host_rsa_key.pub"
+    "/etc/ssh/ssh_host_ed25519_key"
+    "/etc/ssh/ssh_host_ed25519_key.pub"
   ];
 }
