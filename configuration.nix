@@ -14,7 +14,7 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "ja_JP.UTF-8";
   console = {
-    font = "Lat2-VGA8";
+    font = "lat2-12";
     keyMap = "jp106";
   };
 
