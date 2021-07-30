@@ -70,6 +70,9 @@
 
         # Enable command auto-correction.
         ENABLE_CORRECTION="true"
+
+        # dirpersist
+        dirstack_file=${config.xdg.dataHome}/zsh/zdirs
       '';
       custom = "${config.xdg.configHome}/zsh/custom";
     };
