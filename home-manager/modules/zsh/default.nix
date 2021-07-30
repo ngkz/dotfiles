@@ -1,17 +1,17 @@
 { config, pkgs, ... }:
 {
-  home-manager.users.user.home.persist.directories = [
+  home.persist.directories = [
     ".local/share/zsh"
   ];
 
-  home-manager.users.user.programs.zsh = {
+  programs.zsh = {
     enable = true;
     autocd = true;
     dotDir = ".config/zsh";
     enableCompletion = true;
     history = {
       extended = true;
-      path = "${config.home-manager.users.user.xdg.dataHome}/zsh/history";
+      path = "${config.xdg.dataHome}/zsh/history";
       size = 100000;
       save = 100000;
     };
@@ -71,11 +71,11 @@
         # Enable command auto-correction.
         ENABLE_CORRECTION="true"
       '';
-      custom = "${config.home-manager.users.user.xdg.configHome}/zsh/custom";
+      custom = "${config.xdg.configHome}/zsh/custom";
     };
     shellAliases = {
       # modern unix commands
-      cat = "bat -p";
+      cat = "bat";
       top = "bpytop";
       dig = "dog";
       ls = "exa --icons --time-style=iso --git";
@@ -104,13 +104,11 @@
     };
   };
 
-  environment.pathsToLink = ["/share/zsh"];
-
+  # FZF
   # Ctrl+T: find and insert path
   # Alt+C: find and chdir
   # Ctrl+R: search history
-  home-manager.users.user.programs.fzf.enableZshIntegration = true;
+  programs.fzf.enableZshIntegration = true;
 
-  home-manager.users.user.xdg.configFile."zsh/custom/lib/termsupport.zsh".source = ./termsupport-patched.zsh;
-  home-manager.users.user.programs.command-not-found.enable = true;
+  xdg.configFile."zsh/custom/lib/termsupport.zsh".source = ./termsupport-patched.zsh;
 }

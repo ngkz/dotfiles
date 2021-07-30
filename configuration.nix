@@ -121,75 +121,18 @@
     '';
   };
 
-  # neovim
-  programs.neovim.enable = true;
-  environment.variables = {
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-  };
-
   # home-manager
   home-manager.useGlobalPkgs = true; # use global nixpkgs
   # install per-user packages to /etc/profiles to make nixos-rebuild build-vm work
   home-manager.useUserPackages = true;
-  home-manager.users.user = { pkgs, ... }: {
-    imports = [ ./users/modules/persist-home.nix ];
+  home-manager.users.user = import ./home-manager;
 
-    home.stateVersion = config.system.stateVersion;
-
-    # enable ~/.config, ~/.cache and ~/.local/share management
-    xdg.enable = true;
-
-    # FZF
-    programs.fzf = {
-      enable = true;
-      defaultCommand = "fd --type f --hidden --exclude .git";
-    };
-
-    home.persist = {
-      enable = true;
-      directories = [
-        ".local/share/nix" # nix repl history
-      ];
-    };
-  };
+  environment.pathsToLink = ["/share/zsh"]; #zsh
 
   # List packages installed in system profile. To search, run:
   # $ nix search nixpkgs wget
-  environment.systemPackages = with pkgs; [
-    bat
-    borgbackup
-    bpytop
-    #dust # modern du, does not work because of nixpkgs#72129
-    exa
-    ncdu
-    dogdns # modern dig
-    fd
-    fzf
-    hddtemp
-    httpie # modern curl
-    hyperfine # benchmarking tool
-    inetutils
-    iotop
-    jq
-    lm_sensors
-    netcat-openbsd
-    p7zip
-    parted
-    pigz
-    procs # modern ps
-    python3
-    ripgrep
-    s-tui
-    sd #modern sed
-    smartmontools #smartctl
-    termshark
-    tldr
-    unrar
-    unzipNLS
-    usbutils #lsusb
-    wget
-  ];
+  #environment.systemPackages = with pkgs; [
+  #];
 
   services.udev.extraRules = ''
     # set scheduler for NVMe SSD

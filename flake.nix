@@ -39,7 +39,6 @@
             modules/persist.nix
             ./configuration.nix
             hosts/stagingvm/configuration.nix
-            modules/zsh
             profiles/ssd.nix
             profiles/fde.nix
             profiles/portable.nix
@@ -47,6 +46,11 @@
             profiles/workstation.nix
             agenix.nixosModules.age
             home-manager.nixosModules.home-manager
+            {
+              home-manager.users.user.imports = [
+                home-manager/profiles/workstation.nix
+              ];
+            }
           ];
         };
       };
