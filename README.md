@@ -61,7 +61,7 @@ nix-repl> :a (builtins.getFlake (toString ./.)).nixosConfigurations.HOSTNAME
 nix-repl> config.foo.bar
 ```
 
-## Acknowledgments
+## Acknowledgements
 - [Nix command/flake](https://nixos.wiki/wiki/Nix_command/flake)
 - [Nix Flakes, Part 3: Managing NixOS systems](https://www.tweag.io/blog/2020-07-31-nixos-flakes/)
 - [hlissner/dotfiles](https://github.com/hlissner/dotfiles)
