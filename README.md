@@ -63,7 +63,9 @@ nix-repl> config.foo.bar
 
 ## Acknowledgments
 - [Nix command/flake](https://nixos.wiki/wiki/Nix_command/flake)
+- [Nix Flakes, Part 3: Managing NixOS systems](https://www.tweag.io/blog/2020-07-31-nixos-flakes/)
 - [hlissner/dotfiles](https://github.com/hlissner/dotfiles)
+- [pinpox/nixos](https://github.com/pinpox/nixos)
 - Full Disk Encryption Setup
    - [ladinu/encryptedNixos.md](https://gist.github.com/ladinu/bfebdd90a5afd45dec811296016b2a3f)
    - [Full disk encryption, including /boot: Unlocking LUKS devices from GRUB](https://cryptsetup-team.pages.debian.net/cryptsetup/encrypted-boot.html)
