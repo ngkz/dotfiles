@@ -48,6 +48,13 @@
               # Let 'nixos-version --json' know the Git revision of this flake.
               system.configurationRevision =
                 nixpkgs.lib.mkIf (self ? rev) self.rev;
+
+              # It’s often convenient to pin the nixpkgs flake to the exact version
+              # of nixpkgs used to build the system. This ensures that commands
+              # like nix shell nixpkgs#<package> work more efficiently since
+              # many or all of the dependencies of <package> will already be
+              # present.
+              nix.registry.nixpkgs.flake = nixpkgs;
             }
             modules/persist.nix
             ./configuration.nix
