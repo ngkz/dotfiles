@@ -44,6 +44,10 @@
               # and root e.g. `nix-channel --remove nixos`. `nix-channel
               # --list` should be empty for all users afterwards
               nix.nixPath = [ "nixpkgs=${nixpkgs}" ];
+
+              # Let 'nixos-version --json' know the Git revision of this flake.
+              system.configurationRevision =
+                nixpkgs.lib.mkIf (self ? rev) self.rev;
             }
             modules/persist.nix
             ./configuration.nix
