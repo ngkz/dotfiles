@@ -33,7 +33,6 @@
   programs.exa.enable = true;
 
   programs.jq.enable = true;
-  programs.command-not-found.enable = true;
 
   home.packages = with pkgs; [
     # modern unix commands
