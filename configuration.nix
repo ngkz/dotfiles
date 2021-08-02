@@ -15,7 +15,8 @@ with lib;
     # like nix shell nixpkgs#<package> work more efficiently since
     # many or all of the dependencies of <package> will already be
     # present.
-    registry.nixpkgs.flake = flakes.nixpkgs;
+    registry =  mapAttrs (_: value: { flake = value; }) (
+      filterAttrs (name: _: name != "self") flakes);
   };
 
   # Let 'nixos-version --json' know the Git revision of this flake.
