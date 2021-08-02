@@ -61,6 +61,11 @@ nix-repl> :a (builtins.getFlake (toString ./.)).nixosConfigurations.HOSTNAME
 nix-repl> config.foo.bar
 ```
 
+## Open a shell with specific packages available
+```sh
+nix shell "<flake>#<package>"
+```
+
 ## Acknowledgements
 - [Nix command/flake](https://nixos.wiki/wiki/Nix_command/flake)
 - [Nix Flakes, Part 3: Managing NixOS systems](https://www.tweag.io/blog/2020-07-31-nixos-flakes/)
