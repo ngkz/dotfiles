@@ -16,7 +16,7 @@
    ```
 3. Install NixOS
    ```sh
-   nix-shell -p git nixFlakes
+   nix-shell -p git nixUnstable
    git clone https://github.com/ngkz/dotfiles
    cd dotfiles
    nixos-install --root /mnt --flake ".#<HOSTNAME>" --no-root-passwd
