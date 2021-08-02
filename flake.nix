@@ -5,8 +5,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-21.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
-    # TODO use upstream agenix after https://github.com/ryantm/agenix/pull/49 merge
-    agenix.url = "github:ngkz/agenix";
+    agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager/release-21.05";
