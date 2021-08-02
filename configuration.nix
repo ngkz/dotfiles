@@ -1,7 +1,7 @@
 # configuration applied to all hosts
 
-{ config, lib, pkgs, ... }:
-
+{ config, lib, pkgs, flakes, ... }:
+with lib;
 {
   # Enable experimental flakes feature
   nix = {
@@ -9,7 +9,26 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+
+    # Set the $NIX_PATH entry for nixpkgs. This is necessary in
+    # this setup with flakes, otherwise commands like `nix-shell
+    # -p pkgs.htop` will keep using an old version of nixpkgs.
+    # With this entry in $NIX_PATH it is possible (and
+    # recommended) to remove the `nixos` channel for both users
+    # and root e.g. `nix-channel --remove nixos`. `nix-channel
+    # --list` should be empty for all users afterwards
+    nixPath = [ "nixpkgs=${flakes.nixpkgs}" ];
+
+    # It’s often convenient to pin the nixpkgs flake to the exact version
+    # of nixpkgs used to build the system. This ensures that commands
+    # like nix shell nixpkgs#<package> work more efficiently since
+    # many or all of the dependencies of <package> will already be
+    # present.
+    registry.nixpkgs.flake = flakes.nixpkgs;
   };
+
+  # Let 'nixos-version --json' know the Git revision of this flake.
+  system.configurationRevision = mkIf (flakes.self ? rev) flakes.self.rev;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "ja_JP.UTF-8";

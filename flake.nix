@@ -13,7 +13,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, agenix, flake-utils, home-manager }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, agenix, flake-utils, home-manager }:
     let
       # make nixos-unstable packages accessible through pkgs.unstable.package
       overlay-unstable = final: prev: {
@@ -24,6 +24,11 @@
         agenix.overlay # add agenix package
         overlay-unstable
       ];
+
+      nixpkgsOptions = {
+        inherit overlays;
+        config.allowUnfree = true;
+      };
     in {
       # Used with `nixos-rebuild --flake .#<hostname>`
       nixosConfigurations = {
@@ -32,46 +37,21 @@
           modules = [
             # https://nixos.org/manual/nixos/stable/index.html#sec-configuration-syntax
             # https://nixos.org/manual/nixos/stable/index.html#sec-writing-modules
-            {
-              nixpkgs.overlays = overlays;
-              nixpkgs.config.allowUnfree = true;
-
-              # Set the $NIX_PATH entry for nixpkgs. This is necessary in
-              # this setup with flakes, otherwise commands like `nix-shell
-              # -p pkgs.htop` will keep using an old version of nixpkgs.
-              # With this entry in $NIX_PATH it is possible (and
-              # recommended) to remove the `nixos` channel for both users
-              # and root e.g. `nix-channel --remove nixos`. `nix-channel
-              # --list` should be empty for all users afterwards
-              nix.nixPath = [ "nixpkgs=${nixpkgs}" ];
-
-              # Let 'nixos-version --json' know the Git revision of this flake.
-              system.configurationRevision =
-                nixpkgs.lib.mkIf (self ? rev) self.rev;
-
-              # It’s often convenient to pin the nixpkgs flake to the exact version
-              # of nixpkgs used to build the system. This ensures that commands
-              # like nix shell nixpkgs#<package> work more efficiently since
-              # many or all of the dependencies of <package> will already be
-              # present.
-              nix.registry.nixpkgs.flake = nixpkgs;
-            }
-            modules/persist.nix
+            { nixpkgs = nixpkgsOptions; }
+            agenix.nixosModules.age
+            home-manager.nixosModules.home-manager
             ./configuration.nix
+            modules/persist.nix
             hosts/stagingvm/configuration.nix
             profiles/ssd.nix
             profiles/fde.nix
             profiles/portable.nix
             profiles/sshd.nix
             profiles/workstation.nix
-            agenix.nixosModules.age
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.users.user.imports = [
-                home-manager/profiles/workstation.nix
-              ];
-            }
           ];
+          specialArgs = {
+            flakes = inputs;
+          };
         };
       };
     } //

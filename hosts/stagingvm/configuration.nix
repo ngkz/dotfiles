@@ -27,4 +27,8 @@
   networking.useDHCP = false;
   networking.interfaces.enp0s3.useDHCP = true;
   networking.interfaces.enp0s8.useDHCP = true;
+
+  home-manager.users.user.imports = [
+    ../../home-manager/profiles/workstation.nix
+  ];
 }
