@@ -19,13 +19,11 @@
         unstable = import nixpkgs-unstable { inherit (prev) system; };
       };
 
-      overlays = [
-        agenix.overlay # add agenix package
-        overlay-unstable
-      ];
-
       nixpkgsOptions = {
-        inherit overlays;
+        overlays = [
+          agenix.overlay # add agenix package
+          overlay-unstable
+        ];
         config.allowUnfree = true;
       };
     in {
