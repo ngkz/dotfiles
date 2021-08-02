@@ -51,6 +51,9 @@
       unalias l
       unalias ll
       unalias la
+
+      # bulk rename
+      autoload zmv
     '';
     oh-my-zsh = {
       enable = true;
