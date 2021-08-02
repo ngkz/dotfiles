@@ -144,7 +144,7 @@ with lib;
   home-manager.useGlobalPkgs = true; # use global nixpkgs
   # install per-user packages to /etc/profiles to make nixos-rebuild build-vm work
   home-manager.useUserPackages = true;
-  home-manager.users.user = import ./home-manager;
+  home-manager.users.user = import ./home;
 
   environment.pathsToLink = ["/share/zsh"]; #zsh
 
