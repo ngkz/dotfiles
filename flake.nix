@@ -58,7 +58,7 @@
       # devShell = { <system> = ./import shell.nix ... }
       flake-utils.lib.eachDefaultSystem
       (system:
-        let pkgs = import nixpkgs { inherit system overlays; }; # nixpkgs with overlays applied
+        let pkgs = import nixpkgs ({ inherit system; } // nixpkgsOptions);
         in
         {
           devShell = import ./shell.nix { inherit pkgs; };
