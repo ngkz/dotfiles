@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+  imports = [
+    ../modules/direnv.nix
+  ];
+
   # XDG user dirs
   xdg.userDirs = {
     enable = true;

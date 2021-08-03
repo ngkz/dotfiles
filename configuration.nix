@@ -8,6 +8,10 @@ with lib;
     package = pkgs.nixUnstable;
     extraOptions = ''
       experimental-features = nix-command flakes
+
+      # Keep build-time dependencies when GC
+      keep-outputs = true
+      keep-derivations = true
     '';
 
     # It’s often convenient to pin the nixpkgs flake to the exact version
