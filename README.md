@@ -56,8 +56,10 @@ sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
 
 ## REPL
 ```sh
-nix repl
-nix-repl> :a (builtins.getFlake (toString ./.)).nixosConfigurations.HOSTNAME
+# Load configuration of current host
+nix repl ./repl.nix
+# Or, load configuration of the specified host
+nix repl --argstr hostname stagingvm ./repl.nix
 nix-repl> config.foo.bar
 ```
 
@@ -71,6 +73,7 @@ nix shell "<flake>#<package>"
 - [Nix Flakes, Part 3: Managing NixOS systems](https://www.tweag.io/blog/2020-07-31-nixos-flakes/)
 - [hlissner/dotfiles](https://github.com/hlissner/dotfiles)
 - [pinpox/nixos](https://github.com/pinpox/nixos)
+- [gytis-ivaskevicius/flake-utils-plus](https://github.com/gytis-ivaskevicius/flake-utils-plus)
 - Full Disk Encryption Setup
    - [ladinu/encryptedNixos.md](https://gist.github.com/ladinu/bfebdd90a5afd45dec811296016b2a3f)
    - [Full disk encryption, including /boot: Unlocking LUKS devices from GRUB](https://cryptsetup-team.pages.debian.net/cryptsetup/encrypted-boot.html)
