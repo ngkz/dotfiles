@@ -32,26 +32,26 @@
       };
 
       inherit (lib.my) loadModuleDir;
+      inherit (builtins) attrValues readDir;
+      inherit (lib) mapAttrs;
     in {
       lib = lib.my;
 
       # Used with `nixos-rebuild --flake .#<hostname>`
-      nixosConfigurations = {
-        stagingvm = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            # https://nixos.org/manual/nixos/stable/index.html#sec-configuration-syntax
-            # https://nixos.org/manual/nixos/stable/index.html#sec-writing-modules
-            { nixpkgs = nixpkgsOptions; }
-            agenix.nixosModules.age
-            home-manager.nixosModules.home-manager
-            hosts/stagingvm/configuration.nix
-          ] ++ builtins.attrValues self.nixosModules;
-          specialArgs = {
-            inherit lib inputs;
-          };
+      nixosConfigurations = mapAttrs (name: _: nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          # https://nixos.org/manual/nixos/stable/index.html#sec-configuration-syntax
+          # https://nixos.org/manual/nixos/stable/index.html#sec-writing-modules
+          { nixpkgs = nixpkgsOptions; }
+          agenix.nixosModules.age
+          home-manager.nixosModules.home-manager
+          (./hosts + "/${name}")
+        ] ++ attrValues self.nixosModules;
+        specialArgs = {
+          inherit lib inputs;
         };
-      };
+      }) (readDir ./hosts);
 
       nixosModules = loadModuleDir ./modules;
       homeManagerModules = loadModuleDir ./home;
