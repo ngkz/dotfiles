@@ -1,8 +1,9 @@
 # configuration applied to all hosts
 
-{ config, lib, pkgs, flakes, ... }:
-with lib;
-{
+{ config, lib, pkgs, inputs, ... }:
+let
+  inherit (lib) mapAttrs filterAttrs attrValues mkIf;
+in {
   # Enable experimental flakes feature
   nix = {
     package = pkgs.nixUnstable;
@@ -20,11 +21,11 @@ with lib;
     # many or all of the dependencies of <package> will already be
     # present.
     registry =  mapAttrs (_: value: { flake = value; }) (
-      filterAttrs (name: _: name != "self") flakes);
+      filterAttrs (name: _: name != "self") inputs);
   };
 
   # Let 'nixos-version --json' know the Git revision of this flake.
-  system.configurationRevision = mkIf (flakes.self ? rev) flakes.self.rev;
+  system.configurationRevision = mkIf (inputs.self ? rev) inputs.self.rev;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "ja_JP.UTF-8";
@@ -42,7 +43,7 @@ with lib;
 
   # agenix
   age = {
-    secrets.user-password-hash.file = ./secrets/user-password-hash.age;
+    secrets.user-password-hash.file = ../secrets/user-password-hash.age;
     sshKeyPaths = [ "/nix/persist/secrets/age.key" ];
   };
 
@@ -118,12 +119,12 @@ with lib;
     };
   };
 
-  persist.files = [
+  f2l.persist.files = [
     "/etc/adjtime"
     "/etc/machine-id"
   ];
 
-  persist.directories = [
+  f2l.persist.directories = [
     "/boot"
   ];
 
@@ -140,7 +141,9 @@ with lib;
   home-manager.useGlobalPkgs = true; # use global nixpkgs
   # install per-user packages to /etc/profiles to make nixos-rebuild build-vm work
   home-manager.useUserPackages = true;
-  home-manager.users.user = import ./home;
+  home-manager.users.user = { ... }: {
+    imports = attrValues inputs.self.homeManagerModules;
+  };
 
   environment.pathsToLink = ["/share/zsh"]; #zsh
 

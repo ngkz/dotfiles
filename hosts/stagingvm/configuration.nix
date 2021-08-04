@@ -14,7 +14,16 @@
     extraModulePackages = [];
   };
 
-  boot.initrd.luks.devices."cryptlvm".device = "/dev/sda2";
+  f2l.portable = true;
+  f2l.ssd = true;
+  f2l.sshd = true;
+  f2l.workstation = true;
+  f2l.fde.cryptlvmDevice = "/dev/sda2";
+
+  home-manager.users.user = { ... }: {
+    f2l.workstation = true;
+    f2l.swayDesktop = true;
+  };
 
   virtualisation.virtualbox.guest = {
     enable = true;
@@ -27,8 +36,4 @@
   networking.useDHCP = false;
   networking.interfaces.enp0s3.useDHCP = true;
   networking.interfaces.enp0s8.useDHCP = true;
-
-  home-manager.users.user.imports = [
-    ../../home/profiles/workstation.nix
-  ];
 }

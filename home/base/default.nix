@@ -1,13 +1,12 @@
-{  pkgs, ... }: {
+{ pkgs, ... }: {
   imports = [
-    modules/persist-home.nix
-    modules/zsh
+    ./zsh
   ];
 
   # enable ~/.config, ~/.cache and ~/.local/share management
   xdg.enable = true;
 
-  home.persist = {
+  f2l.home.persist = {
     enable = true;
     directories = [
       ".local/share/nix" # nix repl history

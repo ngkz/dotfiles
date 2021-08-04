@@ -20,15 +20,17 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-{ hostname ? builtins.head (builtins.match "(.+)\n" (builtins.readFile "/etc/hostname")) }:
+
 let
-  flake = builtins.getFlake (toString ./.);
-  system = flake.nixosConfigurations.${hostname};
-  pkgs = system.pkgs;
+  inherit (builtins) getFlake head match readFile removeAttrs;
+  flake = getFlake (toString ./.);
+  hostname = head (match "(.+)\n" (readFile "/etc/hostname"));
 in
   { inherit flake; }
   // flake
+  // flake.inputs
   // builtins
-  // system
-  // pkgs.lib
-  // (builtins.removeAttrs pkgs [ "config" ])
+  // flake.inputs.nixpkgs.lib
+  // flake.lib
+  // flake.nixosConfigurations
+  // flake.nixosConfigurations.${hostname} or {}

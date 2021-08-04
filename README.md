@@ -56,10 +56,7 @@ sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
 
 ## REPL
 ```sh
-# Load configuration of current host
 nix repl ./repl.nix
-# Or, load configuration of the specified host
-nix repl --argstr hostname stagingvm ./repl.nix
 nix-repl> config.foo.bar
 ```
 

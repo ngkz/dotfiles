@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  home.persist.directories = [
+  f2l.home.persist.directories = [
     ".local/share/zsh"
   ];
 

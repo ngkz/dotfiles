@@ -1,9 +1,10 @@
 { lib, config, ... }:
-
-with lib;
-
-{
-  options.home.persist = {
+let
+  inherit (builtins) listToAttrs;
+  inherit (lib) mkIf nameValuePair hm concatStringsSep escapeShellArg mkOption
+                mkEnableOption types unique;
+in {
+  options.f2l.home.persist = {
     enable = mkEnableOption "persistent home directory";
 
     root = mkOption {
@@ -26,7 +27,7 @@ with lib;
   };
 
   config = let
-    cfg = config.home.persist;
+    cfg = config.f2l.home.persist;
     files = cfg.files;
     dirs = cfg.directories;
     root = cfg.root;

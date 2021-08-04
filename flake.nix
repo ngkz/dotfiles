@@ -14,6 +14,10 @@
 
   outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, agenix, flake-utils, home-manager }:
     let
+      lib = nixpkgs.lib.extend (final: prev: {
+        my = import ./lib.nix { lib = final; };
+      });
+
       # make nixos-unstable packages accessible through pkgs.unstable.package
       overlay-unstable = final: prev: {
         unstable = import nixpkgs-unstable { inherit (prev) system; };
@@ -26,7 +30,11 @@
         ];
         config.allowUnfree = true;
       };
+
+      inherit (lib.my) loadModuleDir;
     in {
+      lib = lib.my;
+
       # Used with `nixos-rebuild --flake .#<hostname>`
       nixosConfigurations = {
         stagingvm = nixpkgs.lib.nixosSystem {
@@ -37,20 +45,16 @@
             { nixpkgs = nixpkgsOptions; }
             agenix.nixosModules.age
             home-manager.nixosModules.home-manager
-            ./configuration.nix
-            modules/persist.nix
             hosts/stagingvm/configuration.nix
-            profiles/ssd.nix
-            profiles/fde.nix
-            profiles/portable.nix
-            profiles/sshd.nix
-            profiles/workstation.nix
-          ];
+          ] ++ builtins.attrValues self.nixosModules;
           specialArgs = {
-            flakes = inputs;
+            inherit lib inputs;
           };
         };
       };
+
+      nixosModules = loadModuleDir ./modules;
+      homeManagerModules = loadModuleDir ./home;
     } //
       # devShell = { <system> = ./import shell.nix ... }
       flake-utils.lib.eachDefaultSystem
