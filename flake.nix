@@ -18,19 +18,6 @@
         my = import ./lib.nix { lib = final; };
       });
 
-      # make nixos-unstable packages accessible through pkgs.unstable.package
-      overlay-unstable = final: prev: {
-        unstable = import nixpkgs-unstable { inherit (prev) system; };
-      };
-
-      nixpkgsOptions = {
-        overlays = [
-          agenix.overlay # add agenix package
-          overlay-unstable
-        ];
-        config.allowUnfree = true;
-      };
-
       inherit (lib.my) loadModuleDir;
       inherit (builtins) attrValues readDir;
       inherit (lib) mapAttrs;
@@ -45,11 +32,9 @@
           # https://nixos.org/manual/nixos/stable/index.html#sec-writing-modules
           {
             networking.hostName = name;
-            nixpkgs = nixpkgsOptions;
           }
           agenix.nixosModules.age
-          home-manager.nixosModules.home-manager
-          (import ./hosts + "/${name}")
+          home-manager.nixosModule
           (./hosts + "/${name}")
         ] ++ attrValues self.nixosModules;
         specialArgs = {
@@ -63,7 +48,9 @@
       # devShell = { <system> = ./import shell.nix ... }
       flake-utils.lib.eachDefaultSystem
       (system:
-        let pkgs = import nixpkgs ({ inherit system; } // nixpkgsOptions);
+        let
+          cfg = (import ./nixpkgs.nix { inherit inputs; }) // { inherit system; };
+          pkgs = import nixpkgs cfg;
         in
         {
           devShell = import ./shell.nix { inherit pkgs; };

@@ -4,6 +4,8 @@
 let
   inherit (lib) mapAttrs filterAttrs attrValues mkIf;
 in {
+  nixpkgs = import ../nixpkgs.nix { inherit inputs; };
+
   # Enable experimental flakes feature
   nix = {
     package = pkgs.nixUnstable;
