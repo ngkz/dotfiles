@@ -50,6 +50,7 @@
           agenix.nixosModules.age
           home-manager.nixosModules.home-manager
           (import ./hosts + "/${name}")
+          (./hosts + "/${name}")
         ] ++ attrValues self.nixosModules;
         specialArgs = {
           inherit lib inputs;
