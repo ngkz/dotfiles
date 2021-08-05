@@ -6,12 +6,9 @@
   # enable ~/.config, ~/.cache and ~/.local/share management
   xdg.enable = true;
 
-  f2l.home.persist = {
-    enable = true;
-    directories = [
-      ".local/share/nix" # nix repl history
-    ];
-  };
+  home.tmpfs-as-home.persistentDirs = [
+    ".local/share/nix" # nix repl history
+  ];
 
   # FZF fuzzy finder
   programs.fzf = {

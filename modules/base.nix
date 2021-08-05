@@ -8,6 +8,7 @@ in {
   imports = [
     agenix.nixosModules.age
     home-manager.nixosModule
+    self.nixosModules.tmpfs-as-root
   ];
 
   nixpkgs = import ../nixpkgs.nix { inherit inputs; };
@@ -42,7 +43,6 @@ in {
     keyMap = "jp106";
   };
 
-
   # Set your time zone.
   time.timeZone = "Asia/Tokyo";
 
@@ -74,66 +74,12 @@ in {
     };
   };
 
-  # "tmpfs as root" setup
-  fileSystems = {
-    "/" = {
-      device = "none";
-      fsType = "tmpfs";
-      options = ["size=2G" "mode=755" "noexec" "nodev" "nosuid"];
-    };
-
-    "/nix" = {
-      label = "nix";
-      fsType = "xfs";
-    };
-
-    "/nix/persist/boot/efi" = {
-      label = "ESP";
-      fsType = "vfat";
-    };
-
-    "/var/log" = {
-      device = "/nix/persist/var/log";
-      fsType = "none";
-      options = [ "bind" ];
-    };
-  };
-
   swapDevices = [
     {
       label = "swap";
       # TODO stable nixos doesn't support this yet
       #discardPolicy = "once";
     }
-  ];
-
-  boot.loader = {
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/nix/persist/boot/efi"; # ESP mount point
-    };
-
-    grub = {
-      enable = true;
-      efiSupport = true;
-
-      # install-grub.pl goes bananas if /boot or /nix are bind-mount or symlink
-      # Relocate /boot to /nix/persist/boot
-      mirroredBoots = [{
-        path = "/nix/persist/boot";
-        devices = [ "nodev" ];
-        efiSysMountPoint = config.boot.loader.efi.efiSysMountPoint;
-      }];
-    };
-  };
-
-  f2l.persist.files = [
-    "/etc/adjtime"
-    "/etc/machine-id"
-  ];
-
-  f2l.persist.directories = [
-    "/boot"
   ];
 
   # sudo
@@ -149,9 +95,7 @@ in {
   home-manager.useGlobalPkgs = true; # use global nixpkgs
   # install per-user packages to /etc/profiles to make nixos-rebuild build-vm work
   home-manager.useUserPackages = true;
-  home-manager.users.user = { ... }: {
-    imports = attrValues self.homeManagerModules;
-  };
+  home-manager.users.user = self.homeManagerModules.base;
 
   environment.pathsToLink = ["/share/zsh"]; #zsh
 

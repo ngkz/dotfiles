@@ -12,46 +12,28 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, agenix, flake-utils, home-manager }:
-    let
-      lib = nixpkgs.lib.extend (final: prev: {
-        my = import ./lib.nix { lib = final; };
-      });
-
-      inherit (lib.my) loadModuleDir;
-      inherit (builtins) attrValues readDir;
-      inherit (lib) mapAttrs;
-    in {
-      lib = lib.my;
-
-      # Used with `nixos-rebuild --flake .#<hostname>`
-      nixosConfigurations = mapAttrs (name: _: nixpkgs.lib.nixosSystem {
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, agenix, flake-utils, home-manager }: {
+    # Used with `nixos-rebuild --flake .#<hostname>`
+    nixosConfigurations =  {
+      stagingvm = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [
-          # https://nixos.org/manual/nixos/stable/index.html#sec-configuration-syntax
-          # https://nixos.org/manual/nixos/stable/index.html#sec-writing-modules
-          {
-            networking.hostName = name;
-          }
-          (./hosts + "/${name}")
-        ] ++ attrValues self.nixosModules;
-        specialArgs = {
-          inherit lib inputs;
-        };
-      }) (readDir ./hosts);
+        modules = [ ./hosts/stagingvm ];
+        specialArgs = { inherit inputs; };
+      };
+    };
 
-      nixosModules = loadModuleDir ./modules;
-      homeManagerModules = loadModuleDir ./home;
-    } //
-      # devShell = { <system> = ./import shell.nix ... }
-      flake-utils.lib.eachDefaultSystem
-      (system:
-        let
-          cfg = (import ./nixpkgs.nix { inherit inputs; }) // { inherit system; };
-          pkgs = import nixpkgs cfg;
-        in
-        {
-          devShell = import ./shell.nix { inherit pkgs; };
-        });
+    nixosModules = import ./modules;
+    homeManagerModules = import ./home;
+  } //
+    # devShell = { <system> = ./import shell.nix ... }
+    flake-utils.lib.eachDefaultSystem
+    (system:
+      let
+        cfg = (import ./nixpkgs.nix { inherit inputs; }) // { inherit system; };
+        pkgs = import nixpkgs cfg;
+      in
+      {
+        devShell = import ./shell.nix { inherit pkgs; };
+      });
 }
 

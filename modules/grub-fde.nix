@@ -1,15 +1,19 @@
-# Full Disk Encryption including /boot + Secure Boot (TODO)
-{ config, lib, ... }:
+# GRUB + Full Disk Encryption including /boot + Secure Boot (WIP)
+{ config, lib, inputs, ... }:
 let
   inherit (lib) mkOption types;
 in {
-  options.f2l.fde.cryptlvmDevice = mkOption {
+  imports = [
+    inputs.self.nixosModules.grub
+  ];
+
+  options.modules.grub-fde.cryptlvmDevice = mkOption {
     type = types.str;
     description = "Underlying device of encrypted LVM PV";
   };
 
   config = let 
-    cfg = config.f2l.fde;
+    cfg = config.modules.grub-fde;
   in {
     # agenix
     age.secrets.grub-password-hash.file = ../secrets/grub-password-hash.age;
@@ -28,13 +32,11 @@ in {
         # Early boot AES acceleration
         availableKernelModules = [ "aesni_intel" ];
 
-        luks = {
-          devices."cryptlvm" = {
-            preLVM = true;
-            keyFile = "/cryptlvm.key";
-            allowDiscards = true;
-            device = cfg.cryptlvmDevice;
-          };
+        luks.devices."cryptlvm" = {
+          preLVM = true;
+          keyFile = "/cryptlvm.key";
+          allowDiscards = true;
+          device = cfg.cryptlvmDevice;
         };
 
         secrets = {

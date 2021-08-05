@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  f2l.home.persist.directories = [
+  home.tmpfs-as-home.persistentDirs = [
     ".local/share/zsh"
   ];
 

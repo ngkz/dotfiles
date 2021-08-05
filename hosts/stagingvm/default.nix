@@ -1,7 +1,20 @@
 # configuration for stagingvm
 
-{ config, pkgs, ... }: 
-{
+{ config, pkgs, inputs, ... }:
+let
+  inherit (inputs) self;
+in {
+  networking.hostName = "stagingvm";
+
+  imports = with self.nixosModules; [
+    base
+    grub-fde
+    ssd
+    sshd
+    portable
+    workstation
+  ];
+
   boot = {
     initrd = {
       availableKernelModules = [ "ata_piix" "ohci_pci" "ehci_pci" "ahci" "sd_mod" "sr_mod" ];
@@ -12,16 +25,13 @@
     extraModulePackages = [];
   };
 
-  f2l.portable = true;
-  f2l.ssd = true;
-  f2l.sshd = true;
-  f2l.workstation = true;
-  f2l.fde.cryptlvmDevice = "/dev/sda2";
+  modules.grub-fde.cryptlvmDevice = "/dev/sda2";
 
-  home-manager.users.user = { ... }: {
-    f2l.workstation = true;
-    f2l.swayDesktop = true;
-  };
+  home-manager.users.user.imports = with self.homeManagerModules; [
+    tmpfs-as-home
+    workstation
+    sway-desktop
+  ];
 
   virtualisation.virtualbox.guest = {
     enable = true;
