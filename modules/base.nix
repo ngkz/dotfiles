@@ -3,7 +3,13 @@
 { config, lib, pkgs, inputs, ... }:
 let
   inherit (lib) mapAttrs filterAttrs attrValues mkIf;
+  inherit (inputs) self agenix home-manager;
 in {
+  imports = [
+    agenix.nixosModules.age
+    home-manager.nixosModule
+  ];
+
   nixpkgs = import ../nixpkgs.nix { inherit inputs; };
 
   # Enable experimental flakes feature
@@ -27,7 +33,7 @@ in {
   };
 
   # Let 'nixos-version --json' know the Git revision of this flake.
-  system.configurationRevision = mkIf (inputs.self ? rev) inputs.self.rev;
+  system.configurationRevision = mkIf (self ? rev) self.rev;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "ja_JP.UTF-8";
@@ -144,7 +150,7 @@ in {
   # install per-user packages to /etc/profiles to make nixos-rebuild build-vm work
   home-manager.useUserPackages = true;
   home-manager.users.user = { ... }: {
-    imports = attrValues inputs.self.homeManagerModules;
+    imports = attrValues self.homeManagerModules;
   };
 
   environment.pathsToLink = ["/share/zsh"]; #zsh

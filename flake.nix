@@ -33,8 +33,6 @@
           {
             networking.hostName = name;
           }
-          agenix.nixosModules.age
-          home-manager.nixosModule
           (./hosts + "/${name}")
         ] ++ attrValues self.nixosModules;
         specialArgs = {
