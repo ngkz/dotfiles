@@ -2,8 +2,6 @@
 
 { config, pkgs, ... }: 
 {
-  networking.hostName = "stagingvm"; # Define your hostname.
-
   boot = {
     initrd = {
       availableKernelModules = [ "ata_piix" "ohci_pci" "ehci_pci" "ahci" "sd_mod" "sr_mod" ];

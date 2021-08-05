@@ -43,10 +43,13 @@
         modules = [
           # https://nixos.org/manual/nixos/stable/index.html#sec-configuration-syntax
           # https://nixos.org/manual/nixos/stable/index.html#sec-writing-modules
-          { nixpkgs = nixpkgsOptions; }
+          {
+            networking.hostName = name;
+            nixpkgs = nixpkgsOptions;
+          }
           agenix.nixosModules.age
           home-manager.nixosModules.home-manager
-          (./hosts + "/${name}")
+          (import ./hosts + "/${name}")
         ] ++ attrValues self.nixosModules;
         specialArgs = {
           inherit lib inputs;
