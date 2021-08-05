@@ -11,9 +11,10 @@
     home-manager.url = "github:nix-community/home-manager/release-21.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    devshell.url = "github:numtide/devshell";
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, agenix, flake-utils, home-manager }: {
+  outputs = inputs @ { self, nixpkgs, flake-utils, ... }: {
     # Used with `nixos-rebuild --flake .#<hostname>`
     nixosConfigurations =  {
       stagingvm = nixpkgs.lib.nixosSystem {
@@ -27,14 +28,13 @@
     homeManagerModules = import ./home;
   } //
     # devShell = { <system> = ./import shell.nix ... }
-    flake-utils.lib.eachDefaultSystem
-    (system:
-      let
+    flake-utils.lib.eachDefaultSystem (system: {
+      devShell = let
         cfg = (import ./nixpkgs.nix { inherit inputs; }) // { inherit system; };
         pkgs = import nixpkgs cfg;
-      in
-      {
-        devShell = import ./shell.nix { inherit pkgs; };
-      });
+      in pkgs.devshell.mkShell {
+        imports = [ (pkgs.devshell.importTOML ./devshell.toml) ];
+      };
+    });
 }
 

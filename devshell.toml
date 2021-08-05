@@ -1,0 +1,95 @@
+[devshell]
+# This is the name of your environment. It should usually map to the project
+# name.
+name = "dotfiles"
+
+# Message Of The Day (MOTD) is displayed when entering the environment with an
+# interactive shell. By default it will show the project name.
+#
+# motd = ""
+
+# Add packages from nixpkgs here. Use `nix search nixpkgs <term>` to find the
+# package that you need.
+#
+# NOTE: don't forget to put commas between items! :)
+packages = [
+  "nixpkgs-fmt"
+]
+
+# Declare commands that are available in the environment.
+[[commands]]
+name = "format"
+command = 'nixpkgs-fmt "$DEVSHELL_ROOT"'
+
+[[commands]]
+package = "rage"
+category = "secret management"
+
+[[commands]]
+package = "agenix"
+category = "secret management"
+
+[[commands]]
+help = "Update all flake inputs"
+name = "update"
+command = 'nix flake update "${DEVSHELL_ROOT}"'
+category = "system maintenance"
+
+[[commands]]
+help = "Build and activate the new configuration"
+name = "switch"
+command = 'sudo nixos-rebuild switch --flake "${DEVSHELL_ROOT}#"'
+category = "system maintenance"
+
+[[commands]]
+help = "Build the new configuration, but neither activate it nor add it to the boot menu. It leaves a symlink result that points to the system derivation."
+name = "build"
+command = 'nix build "${DEVSHELL_ROOT}#nixosConfigurations.$(hostname).config.system.build.toplevel"'
+category = "system maintenance"
+
+[[commands]]
+help = "Build the new configuration, but neither activate it, nor add it to the boot menu, nor leave a symlink."
+name = "dry-build"
+command = 'nix build "${DEVSHELL_ROOT}#nixosConfigurations.$(hostname).config.system.build.toplevel" --no-link'
+category = "system maintenance"
+
+[[commands]]
+help = "Start a REPL with dotfiles preloaded"
+name = "repl"
+command = 'nix repl "${DEVSHELL_ROOT}/repl.nix"'
+category = "system maintenance"
+
+[[commands]]
+help = "Perform garbage collection"
+name = "clean"
+command = '''
+# Delete configurations older than last 5 generations.
+sudo nix-env --delete-generations +5 --profile /nix/var/nix/profiles/system
+# Perform garbage collection the store
+nix store gc
+# Replace identical files in the store by hard links
+nix store optimise
+# Clear out left-over secrets
+sudo rm -rf /run/secrets/*
+# Rebuild the boot menu and regenerate secrets
+sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
+'''
+category = "system maintenance"
+
+[[commands]]
+help = "Roll back to the previous configuration"
+name = "rollback"
+command = 'sudo nixos-rebuild switch --flake "${DEVSHELL_ROOT}#" --rollback'
+category = "system maintenance"
+
+[[commands]]
+help = "List versions of the configuration"
+name = "generations"
+command = "sudo nix-env --profile /nix/var/nix/profiles/system --list-generations"
+category = "system maintenance"
+
+[[commands]]
+help = "show the difference between each version of a configuration"
+name = "diff-generations"
+command = "nix profile diff-closures --profile /nix/var/nix/profiles/system"
+category = "system maintenance"

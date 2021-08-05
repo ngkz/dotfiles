@@ -22,42 +22,11 @@
    nixos-install --root /mnt --flake ".#<HOSTNAME>" --no-root-passwd
    ```
 
-## Update system
+## Development shell
 ```sh
-cd <PATH TO DOTFILES>
-# update all inputs in flake.nix
-nix flake update
-# build nixosConfigurations.<HOSTNAME> of ./flake.nix
-sudo nixos-rebuild switch --flake ".#"
-```
-
-## Build system
-```sh
-nix build "<PATH TO DOTFILES>#nixosConfigurations.<HOSTNAME>.config.system.build.toplevel" [--rebuild]
-```
-
-## Apply configuration changes
-```sh
-# build nixosConfigurations.<HOSTNAME> of ./flake.nix
-sudo nixos-rebuild switch --flake "<PATH TO DOTFILES>#"
-```
-
-## Garbage collection
-```sh
-# Delete old generations
-sudo nix-env --delete-generations old --profile /nix/var/nix/profiles/system
-# Perform garbage collection the store
-nix store gc
-# Replace identical files in the store by hard links
-nix store optimise
-# Update boot entries
-sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
-```
-
-## REPL
-```sh
-nix repl ./repl.nix
-nix-repl> config.foo.bar
+nix develop
+OR
+direnv allow
 ```
 
 ## Open a shell with specific packages available
