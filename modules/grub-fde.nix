@@ -15,18 +15,8 @@ in {
   config = let 
     cfg = config.modules.grub-fde;
   in {
-    # agenix
-    age.secrets.grub-password-hash.file = ../secrets/grub-password-hash.age;
-
     boot = {
-      loader = {
-        grub = {
-          enableCryptodisk = true;
-          users.root = {
-            hashedPasswordFile = config.age.secrets.grub-password-hash.path;
-          };
-        };
-      };
+      loader.grub.enableCryptodisk = true;
 
       initrd = {
         # Early boot AES acceleration

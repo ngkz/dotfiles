@@ -3,5 +3,4 @@ let
 in
 {
   "user-password-hash.age".publicKeys = keys;
-  "grub-password-hash.age".publicKeys = keys;
 }
