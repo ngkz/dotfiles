@@ -18,7 +18,7 @@ in
   nix = {
     package = pkgs.nixUnstable;
     extraOptions = ''
-      experimental-features = nix-command flakes
+      experimental-features = nix-command flakes ca-references
 
       # Keep build-time dependencies when GC
       keep-outputs = true
