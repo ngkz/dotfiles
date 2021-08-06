@@ -2,9 +2,11 @@
 # sway + gtkgreet
 { config, pkgs, ... }:
 {
-  environment.etc = let
-    background = pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
-  in {
+  environment.etc =
+    let
+      background = pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
+    in
+    {
       "greetd/sway-config".text = ''
         output * bg ${background} fill
         seat seat0 xcursor_theme Adwaita

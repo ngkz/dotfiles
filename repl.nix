@@ -26,10 +26,10 @@ let
   flake = getFlake (toString ./.);
   hostname = head (match "(.+)\n" (readFile "/etc/hostname"));
 in
-  { inherit flake; }
-  // flake
-  // flake.inputs
-  // builtins
-  // flake.inputs.nixpkgs.lib
-  // flake.nixosConfigurations
-  // flake.nixosConfigurations.${hostname} or {}
+{ inherit flake; }
+// flake
+// flake.inputs
+// builtins
+// flake.inputs.nixpkgs.lib
+// flake.nixosConfigurations
+  // flake.nixosConfigurations.${hostname} or { }

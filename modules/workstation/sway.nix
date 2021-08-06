@@ -3,7 +3,7 @@
   # Sway wayland compositor
   programs.sway = {
     enable = true;
-    extraPackages = [];
+    extraPackages = [ ];
     extraSessionCommands = ''
       # SDL:
       export SDL_VIDEODRIVER=wayland

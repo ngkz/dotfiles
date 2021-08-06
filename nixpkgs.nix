@@ -7,7 +7,8 @@ let
   overlay-unstable = final: prev: {
     unstable = import nixpkgs-unstable { inherit (prev) system; };
   };
-in {
+in
+{
   overlays = [
     agenix.overlay # add agenix package
     devshell.overlay

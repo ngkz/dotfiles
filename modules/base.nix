@@ -4,7 +4,8 @@
 let
   inherit (lib) mapAttrs filterAttrs attrValues mkIf;
   inherit (inputs) self agenix home-manager;
-in {
+in
+{
   imports = [
     agenix.nixosModules.age
     home-manager.nixosModule
@@ -29,7 +30,7 @@ in {
     # like nix shell nixpkgs#<package> work more efficiently since
     # many or all of the dependencies of <package> will already be
     # present.
-    registry =  mapAttrs (_: value: { flake = value; }) (
+    registry = mapAttrs (_: value: { flake = value; }) (
       filterAttrs (name: _: name != "self") inputs);
   };
 
@@ -97,7 +98,7 @@ in {
   home-manager.useUserPackages = true;
   home-manager.users.user = self.homeManagerModules.base;
 
-  environment.pathsToLink = ["/share/zsh"]; #zsh
+  environment.pathsToLink = [ "/share/zsh" ]; #zsh
 
   # List packages installed in system profile. To search, run:
   # $ nix search nixpkgs wget

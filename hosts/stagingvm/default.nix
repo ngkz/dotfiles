@@ -3,7 +3,8 @@
 { config, pkgs, inputs, ... }:
 let
   inherit (inputs) self;
-in {
+in
+{
   networking.hostName = "stagingvm";
 
   imports = with self.nixosModules; [
@@ -21,8 +22,8 @@ in {
       kernelModules = [ "dm-snapshot" ];
     };
 
-    kernelModules = [];
-    extraModulePackages = [];
+    kernelModules = [ ];
+    extraModulePackages = [ ];
   };
 
   modules.grub-fde.cryptlvmDevice = "/dev/sda2";

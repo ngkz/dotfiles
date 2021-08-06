@@ -32,16 +32,16 @@
 
   home.packages = with pkgs; [
     # modern unix commands
-    bpytop      # top
+    bpytop # top
     #dust       # modern du, does not work because of nixpkgs#72129
-    dogdns      # dig
-    fd          # find
-    httpie      # modern curl
-    hyperfine   # benchmarking tool
-    ncdu        # du
-    sd          #modern sed
-    procs       # modern ps
-    ripgrep     # modern grep
+    dogdns # dig
+    fd # find
+    httpie # modern curl
+    hyperfine # benchmarking tool
+    ncdu # du
+    sd #modern sed
+    procs # modern ps
+    ripgrep # modern grep
 
     binutils
     gdb

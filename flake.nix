@@ -16,7 +16,7 @@
 
   outputs = inputs @ { self, nixpkgs, flake-utils, ... }: {
     # Used with `nixos-rebuild --flake .#<hostname>`
-    nixosConfigurations =  {
+    nixosConfigurations = {
       stagingvm = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [ ./hosts/stagingvm ];
@@ -27,14 +27,16 @@
     nixosModules = import ./modules;
     homeManagerModules = import ./home;
   } //
-    # devShell = { <system> = ./import shell.nix ... }
-    flake-utils.lib.eachDefaultSystem (system: {
-      devShell = let
+  # devShell = { <system> = ./import shell.nix ... }
+  flake-utils.lib.eachDefaultSystem (system: {
+    devShell =
+      let
         cfg = (import ./nixpkgs.nix { inherit inputs; }) // { inherit system; };
         pkgs = import nixpkgs cfg;
-      in pkgs.devshell.mkShell {
+      in
+      pkgs.devshell.mkShell {
         imports = [ (pkgs.devshell.importTOML ./devshell.toml) ];
       };
-    });
+  });
 }
 

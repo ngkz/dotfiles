@@ -1,7 +1,8 @@
 { pkgs, lib, ... }:
 let
   inherit (lib) versions getVersion;
-in {
+in
+{
   services.printing = {
     enable = true;
     drivers = with pkgs; [ gutenprint ];
@@ -26,7 +27,8 @@ in {
   };
 
   users.users.user.extraGroups = [
-    "scanner" "lp"
+    "scanner"
+    "lp"
   ];
 }
 
