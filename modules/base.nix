@@ -16,6 +16,7 @@ in
 
   # Enable experimental flakes feature
   nix = {
+    # Enable flake
     package = pkgs.nixUnstable;
     extraOptions = ''
       experimental-features = nix-command flakes ca-references
@@ -24,6 +25,21 @@ in
       keep-outputs = true
       keep-derivations = true
     '';
+
+    # Only allow administrative users to connect the nix daemon
+    allowedUsers = [ "root" "@wheel" ];
+
+    trustedUsers = [ "root" ];
+
+    # Automatic nix store deduplication
+    autoOptimiseStore = true;
+
+    # Periodically remove old generations
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
 
     # It’s often convenient to pin the nixpkgs flake to the exact version
     # of nixpkgs used to build the system. This ensures that commands
