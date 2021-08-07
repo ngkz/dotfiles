@@ -66,7 +66,6 @@ in
                 --format=${grub.grubTarget} \
                 --modules "part_$(${grub}/bin/grub-probe -t partmap ${escapeShellArg realBoot})
                            $(${grub}/bin/grub-probe -t abstraction ${escapeShellArg realBoot})
-                           $(${grub}/bin/grub-probe -t fs ${escapeShellArg espMount})
                            $(${grub}/bin/grub-probe -t fs ${escapeShellArg realBoot})
                            configfile true echo sleep reboot" \
                 --output ${escapeShellArg "${espMount}/EFI/${bootloaderId}"}/grub*.efi \
