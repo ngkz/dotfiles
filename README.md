@@ -1,5 +1,5 @@
 # My NixOS configuration
-[![NixOS 21.05](https://img.shields.io/badge/NixOS-v21.05-blue.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
+[![NixOS 21.11](https://img.shields.io/badge/NixOS-v21.11-blue.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
 ## Installation
 1. Load keyboard layout
@@ -16,7 +16,7 @@
    ```
 3. Install NixOS
    ```sh
-   nix-shell -p git nixUnstable
+   nix-shell -p git nixFlakes
    git clone https://github.com/ngkz/dotfiles
    cd dotfiles
    nixos-install --root /mnt --flake ".#<HOSTNAME>" --no-root-passwd

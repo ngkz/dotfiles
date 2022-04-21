@@ -7,7 +7,7 @@ let
 in
 {
   imports = [
-    agenix.nixosModules.age
+    agenix.nixosModule
     home-manager.nixosModule
     self.nixosModules.tmpfs-as-root
   ];
@@ -17,9 +17,9 @@ in
   # Enable experimental flakes feature
   nix = {
     # Enable flake
-    package = pkgs.nixUnstable;
+    package = pkgs.nixFlakes;
     extraOptions = ''
-      experimental-features = nix-command flakes ca-references
+      experimental-features = nix-command flakes
 
       # Keep build-time dependencies when GC
       keep-outputs = true
@@ -69,7 +69,7 @@ in
   # agenix
   age = {
     secrets.user-password-hash.file = ../secrets/user-password-hash.age;
-    sshKeyPaths = [ "/nix/persist/secrets/age.key" ];
+    identityPaths = [ "/nix/persist/secrets/age.key" ];
   };
 
   # User accounts
@@ -134,9 +134,6 @@ in
   # Control when held down, Escape when tapped
   services.interception-tools = {
     enable = true;
-    # Stable caps2esc doesn't support '-m' option.
-    # TODO remove below line after 21.09 upgrade
-    plugins = [ pkgs.unstable.interception-tools-plugins.caps2esc ];
     # Simple mode (No Esc to Caps)
     udevmonConfig = ''
       - JOB: "intercept -g $DEVNODE | caps2esc -m 1 | uinput -d $DEVNODE"

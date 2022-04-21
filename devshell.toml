@@ -19,7 +19,7 @@ packages = [
 # Declare commands that are available in the environment.
 [[commands]]
 name = "format"
-command = 'nixpkgs-fmt "$DEVSHELL_ROOT"'
+command = 'nixpkgs-fmt "$PRJ_ROOT"'
 
 [[commands]]
 package = "rage"
@@ -32,31 +32,31 @@ category = "secret management"
 [[commands]]
 help = "Update all flake inputs"
 name = "update"
-command = 'nix flake update "${DEVSHELL_ROOT}"'
+command = 'nix flake update "${PRJ_ROOT}"'
 category = "system maintenance"
 
 [[commands]]
 help = "Build and activate the new configuration"
 name = "switch"
-command = 'sudo nixos-rebuild switch --flake "${DEVSHELL_ROOT}#"'
+command = 'sudo nixos-rebuild switch --flake "${PRJ_ROOT}#"'
 category = "system maintenance"
 
 [[commands]]
 help = "Build the new configuration, but neither activate it nor add it to the boot menu. It leaves a symlink result that points to the system derivation."
 name = "build"
-command = 'nix build "${DEVSHELL_ROOT}#nixosConfigurations.$(hostname).config.system.build.toplevel"'
+command = 'nix build "${PRJ_ROOT}#nixosConfigurations.$(hostname).config.system.build.toplevel"'
 category = "system maintenance"
 
 [[commands]]
 help = "Build the new configuration, but neither activate it, nor add it to the boot menu, nor leave a symlink."
 name = "dry-build"
-command = 'nix build "${DEVSHELL_ROOT}#nixosConfigurations.$(hostname).config.system.build.toplevel" --no-link'
+command = 'nix build "${PRJ_ROOT}#nixosConfigurations.$(hostname).config.system.build.toplevel" --no-link'
 category = "system maintenance"
 
 [[commands]]
 help = "Start a REPL with dotfiles preloaded"
 name = "repl"
-command = 'nix repl "${DEVSHELL_ROOT}/repl.nix"'
+command = 'nix repl "${PRJ_ROOT}/repl.nix"'
 category = "system maintenance"
 
 [[commands]]
@@ -69,8 +69,6 @@ sudo nix-env --delete-generations +5 --profile /nix/var/nix/profiles/system
 nix store gc
 # Replace identical files in the store by hard links
 nix store optimise
-# Clear out left-over secrets
-sudo rm -rf /run/secrets/*
 # Rebuild the boot menu and regenerate secrets
 sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
 '''
@@ -79,7 +77,7 @@ category = "system maintenance"
 [[commands]]
 help = "Roll back to the previous configuration"
 name = "rollback"
-command = 'sudo nixos-rebuild switch --flake "${DEVSHELL_ROOT}#" --rollback'
+command = 'sudo nixos-rebuild switch --flake "${PRJ_ROOT}#" --rollback'
 category = "system maintenance"
 
 [[commands]]
