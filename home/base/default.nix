@@ -30,7 +30,7 @@
   home.packages = with pkgs; [
     # modern unix commands
     bpytop # top
-    #dust       # modern du, does not work because of nixpkgs#72129
+    du-dust # modern du
     dogdns # dig
     fd # find
     httpie # modern curl

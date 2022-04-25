@@ -87,6 +87,7 @@
       cat = "bat";
       top = "bpytop";
       dig = "dog";
+      du = "dust";
       ls = "exa --icons --time-style=iso --git";
       l = "ls";
       ll = "ls -lgh";
