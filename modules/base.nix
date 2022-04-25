@@ -94,8 +94,7 @@ in
   swapDevices = [
     {
       label = "swap";
-      # TODO stable nixos doesn't support this yet
-      #discardPolicy = "once";
+      discardPolicy = "once";
     }
   ];
 
