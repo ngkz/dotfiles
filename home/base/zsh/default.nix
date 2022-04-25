@@ -24,8 +24,6 @@
       fi
     '';
     initExtra = ''
-      source ${./foot-integration.zsh}
-
       # fuzzy tab completion
       # fzf-tab needs to be loaded after compinit, but before plugins which will wrap widgets, such as zsh-autosuggestions or fast-syntax-highlighting!!
       source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
@@ -119,6 +117,4 @@
   # Alt+C: find and chdir
   # Ctrl+R: search history
   programs.fzf.enableZshIntegration = true;
-
-  xdg.configFile."zsh/custom/lib/termsupport.zsh".source = ./termsupport-patched.zsh;
 }
