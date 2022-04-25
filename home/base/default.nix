@@ -60,6 +60,7 @@
     unzipNLS
     usbutils #lsusb
     wget
+    monolith # Save complete web pages as a single HTML file
   ];
 
   # neovim
