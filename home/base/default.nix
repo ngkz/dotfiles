@@ -19,10 +19,7 @@
   # bat: modern cat
   programs.bat = {
     enable = true;
-    config = {
-      theme = "Monokai Extended";
-      style = "plain";
-    };
+    config.theme = "Monokai Extended";
   };
 
   # exa: modern ls
