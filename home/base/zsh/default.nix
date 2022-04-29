@@ -87,6 +87,7 @@
       dig = "dog";
       du = "dust";
       ls = "exa --icons --time-style=iso --git";
+      rg = "rg -S";
       l = "ls";
       ll = "ls -lgh";
       la = "ls -a";
@@ -102,8 +103,8 @@
       H = "| head";
       T = "| tail";
       ET = "|& tail";
-      G = "| rg";
-      EG = "|& rg";
+      G = "| rg -S";
+      EG = "|& rg -S";
       L = "| less";
       LL = "|& less -r";
       N = "&>/dev/null";
