@@ -88,5 +88,9 @@ in
         "/etc/adjtime"
         "/etc/machine-id"
       ];
+
+      modules.tmpfs-as-root.persistentDirs = [
+        "/var/lib/nixos" # NixOS keeps track of historical UIDs in here
+      ];
     };
 }
