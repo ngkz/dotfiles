@@ -1,6 +1,6 @@
 # stagingvm
 ## Overview
-VirtualBox VM
+Hyper-V VM
 
 ## Set up filesystems
 ```sh
