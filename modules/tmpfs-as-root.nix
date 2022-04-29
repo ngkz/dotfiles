@@ -7,7 +7,7 @@ in
 {
   options.modules.tmpfs-as-root = {
     storage = mkOption {
-      type = types.str;
+      type = types.nonEmptyStr;
       default = "/nix/persist";
       description = "Path of persistent storage";
     };
