@@ -4,11 +4,17 @@ let
   inherit (lib) mkOption types escapeShellArg replaceChars;
 in
 {
-  options.modules.grub-fde.cryptlvmDevice = mkOption {
-    type = types.str;
-    description = "Underlying device of encrypted LVM PV";
-  };
+  options.modules.grub-fde = {
+    cryptlvmDevice = mkOption {
+      type = types.str;
+      description = "Underlying device of encrypted LVM PV";
+    };
 
+    espDevice = mkOption {
+      type = types.str;
+      description = "Path of ESP(/boot/efi) device";
+    };
+  };
   config =
     let
       cfg = config.modules.grub-fde;
@@ -23,7 +29,7 @@ in
       ];
 
       fileSystems."${espMount}" = {
-        label = "ESP";
+        device = cfg.espDevice;
         fsType = "vfat";
       };
 

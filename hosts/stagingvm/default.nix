@@ -26,7 +26,10 @@ in
     extraModulePackages = [ ];
   };
 
-  modules.grub-fde.cryptlvmDevice = "/dev/sda2";
+  modules.grub-fde = {
+    cryptlvmDevice = "/dev/sda2";
+    espDevice = "/dev/disk/by-label/ESP";
+  };
   swapDevices = [
     {
       label = "swap";
