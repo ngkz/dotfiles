@@ -23,6 +23,11 @@
         modules = [ ./hosts/stagingvm ];
         specialArgs = { inherit inputs; };
       };
+      peregrine = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ ./hosts/peregrine ];
+        specialArgs = { inherit inputs; };
+      };
     };
 
     nixosModules = import ./modules;
