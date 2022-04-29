@@ -101,10 +101,16 @@ in
   };
 
   # home-manager
-  home-manager.useGlobalPkgs = true; # use global nixpkgs
-  # install per-user packages to /etc/profiles to make nixos-rebuild build-vm work
-  home-manager.useUserPackages = true;
-  home-manager.users.user = self.homeManagerModules.base;
+  home-manager = {
+    useGlobalPkgs = true; # use global nixpkgs
+    # install per-user packages to /etc/profiles to make nixos-rebuild build-vm work
+    useUserPackages = true;
+    users.user = self.homeManagerModules.base;
+    sharedModules = [
+      # Workaround for https://github.com/nix-community/home-manager/issues/1262 TODO
+      { manual.manpages.enable = false; }
+    ];
+  };
 
   environment.pathsToLink = [ "/share/zsh" ]; #zsh
 
