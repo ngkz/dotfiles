@@ -81,7 +81,7 @@ in
             (attrNames (filterAttrs (n: v: v ? home.tmpfs-as-home) config.home-manager.users))
         ) ++
         (map (path: "mkdir -p ${escapeShellArg path}") storageDirs) ++
-        (map (path: "ln -fs ${escapeShellArg (storage + path)} ${escapeShellArg path}") (nonEtcFiles ++ dirs))
+        (map (path: "ln -fns ${escapeShellArg (storage + path)} ${escapeShellArg path}") (nonEtcFiles ++ dirs))
       );
 
       modules.tmpfs-as-root.persistentFiles = [
