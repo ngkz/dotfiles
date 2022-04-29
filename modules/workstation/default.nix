@@ -1,9 +1,7 @@
-{ config, pkgs, lib, ... }:
-{
+{ config, pkgs, lib, ... }: {
   imports = [
     ./printing.nix
-    ./sway.nix
-    ./greetd.nix
+    ./kde.nix
   ];
 
   # PipeWire
@@ -22,10 +20,6 @@
     publish.enable = true;
     publish.addresses = true; # make this host accessible with <hostname>.local
   };
-
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    ddcci-driver # DDC/CI backlight control driver
-  ];
 
   environment.systemPackages = with pkgs; with linuxPackages; [
     turbostat

@@ -44,7 +44,6 @@ in
   home-manager.users.user.imports = with self.homeManagerModules; [
     tmpfs-as-home
     workstation
-    sway-desktop
   ];
 
   virtualisation.hypervGuest.enable = true;

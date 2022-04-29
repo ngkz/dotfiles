@@ -7,7 +7,7 @@
   # XDG user dirs
   xdg.userDirs = {
     enable = true;
-    desktop = "$HOME";
+    desktop = "$HOME/desktop";
     documents = "$HOME/docs";
     download = "$HOME/dl";
     music = "$HOME/music";
@@ -28,6 +28,7 @@
     "projects"
     "work"
     "misc"
+    "desktop"
   ];
 
   # Git
@@ -36,8 +37,22 @@
     delta.enable = true;
   };
 
+
+  #TODO
+  programs.firefox.enable = true;
+  #programs.chromium = {
+  #  enable = true;
+  #  package = pkgs.ungoogled-chromium;
+  #};
+
   home.packages = with pkgs; [
+    wl-clipboard
+    xdg-utils
     powertop
     efibootmgr
+
+    freecad
+    gimp
+    keepassxc
   ];
 }
