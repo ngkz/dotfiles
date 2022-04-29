@@ -30,6 +30,10 @@ in
     cryptlvmDevice = "/dev/sda2";
     espDevice = "/dev/disk/by-label/ESP";
   };
+  module.tmpfs-as-root.storeFS = {
+    label = "nix";
+    fsType = "xfs";
+  };
   swapDevices = [
     {
       label = "swap";
