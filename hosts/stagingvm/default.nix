@@ -27,6 +27,12 @@ in
   };
 
   modules.grub-fde.cryptlvmDevice = "/dev/sda2";
+  swapDevices = [
+    {
+      label = "swap";
+      discardPolicy = "once";
+    }
+  ];
 
   home-manager.users.user.imports = with self.homeManagerModules; [
     tmpfs-as-home

@@ -91,13 +91,6 @@ in
     };
   };
 
-  swapDevices = [
-    {
-      label = "swap";
-      discardPolicy = "once";
-    }
-  ];
-
   # sudo
   security.sudo = {
     execWheelOnly = true;
