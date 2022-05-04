@@ -5,10 +5,13 @@
     enable = true;
     layout = "jp";
     displayManager = {
-      sddm = {
-        enable = true;
-        enableHidpi = true;
-      };
+      # TODO sddm bug https://github.com/NixOS/nixpkgs/issues/152726
+      # TODO wayland sddm
+      # sddm = {
+      #   enable = true;
+      #   enableHidpi = true;
+      # };
+      lightdm.enable = true;
       defaultSession = "plasmawayland";
       autoLogin = {
         enable = true;
