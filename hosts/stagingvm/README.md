@@ -28,7 +28,7 @@ cryptsetup luksDump /dev/sda2
 # Key Slot 0: ENABLED
 #	Iterations:         	1869118
 # ...
-cryptsetup luksChangeKey --pbkdf-force-iterations 600000 /dev/sda2
+cryptsetup luksChangeKey --key-slot 0 --pbkdf-force-iterations 600000 /dev/sda2
 
 # Open LUKS partition
 cryptsetup open /dev/sda2 cryptlvm --allow-discards

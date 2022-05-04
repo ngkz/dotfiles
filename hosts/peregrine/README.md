@@ -51,7 +51,7 @@ cryptsetup luksDump /dev/nvme0n1p2
 # Key Slot 0: ENABLED
 #	Iterations:         	2394008
 # ...
-cryptsetup luksChangeKey --pbkdf-force-iterations 1197004 /dev/nvme0n1p2
+cryptsetup luksChangeKey --key-slot 0 --pbkdf-force-iterations 1197004 /dev/nvme0n1p2
 
 # Open LUKS partition
 cryptsetup open /dev/nvme0n1p2 cryptlvm --allow-discards
