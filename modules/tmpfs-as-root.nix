@@ -83,6 +83,7 @@ in
         (map (path: "mkdir -p ${escapeShellArg path}") storageDirs) ++
         (map (path: "ln -fnTs ${escapeShellArg (storage + path)} ${escapeShellArg path}") (nonEtcFiles ++ dirs))
       );
+      system.activationScripts.users.deps = [ "tmpfs-as-root" ]; # users snippet creates /var/lib/nixos
 
       modules.tmpfs-as-root.persistentFiles = [
         "/etc/adjtime"
