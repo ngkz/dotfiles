@@ -43,6 +43,7 @@ in
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.intel.updateMicrocode = true;
   hardware.bluetooth.enable = true;
+  modules.tmpfs-as-root.persistentDirs = [ "/var/lib/bluetooth" ];
 
   #TODO nixos-hardware
 
