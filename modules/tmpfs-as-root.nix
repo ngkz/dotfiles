@@ -81,7 +81,12 @@ in
             (attrNames (filterAttrs (n: v: v ? home.tmpfs-as-home) config.home-manager.users))
         ) ++
         (map (path: "mkdir -p ${escapeShellArg path}") storageDirs) ++
-        (map (path: "ln -fnTs ${escapeShellArg (storage + path)} ${escapeShellArg path}") (nonEtcFiles ++ dirs))
+        (map
+          (path: ''
+            mkdir -p $(dirname ${escapeShellArg path})
+            ln -fnTs ${escapeShellArg (storage + path)} ${escapeShellArg path}
+          '')
+          (nonEtcFiles ++ dirs))
       );
       system.activationScripts.users.deps = [ "tmpfs-as-root" ]; # users snippet creates /var/lib/nixos
 
