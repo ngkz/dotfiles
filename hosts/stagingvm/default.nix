@@ -52,6 +52,9 @@ in
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.enp0s3.useDHCP = true;
-  networking.interfaces.enp0s8.useDHCP = true;
+  networking.interfaces.eth0.useDHCP = true;
+
+  users.users.user.extraGroups = [
+    "video" # KDE wayland software-rendering
+  ];
 }
