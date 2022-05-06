@@ -49,7 +49,7 @@ mkfs.xfs -L nix -m bigtime=1 /dev/system/nix
 ## Mount filesystems
 ```sh
 # Mount tmpfs root
-mount -t tmpfs -o size=2G,mode=755 /mnt
+mount -t tmpfs -o size=2G,mode=755 none /mnt
 
 # Create mountpoints
 mkdir -p /mnt/{nix,etc,var/log}
