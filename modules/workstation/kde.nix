@@ -46,8 +46,7 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  #TODO env variables
-  #TODO IM
-  #TODO DOOM emacs
-  #TODO wayland
+  modules.tmpfs-as-root.persistentDirs = [
+    "/var/lib/upower" # battery statistics
+  ];
 }
