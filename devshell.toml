@@ -13,7 +13,8 @@ name = "dotfiles"
 #
 # NOTE: don't forget to put commas between items! :)
 packages = [
-  "nixpkgs-fmt"
+  "nixpkgs-fmt",
+  "nix-prefetch-github"
 ]
 
 # Declare commands that are available in the environment.
