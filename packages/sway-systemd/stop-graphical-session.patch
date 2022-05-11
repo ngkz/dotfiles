@@ -1,0 +1,13 @@
+diff --git a/src/session.sh b/src/session.sh
+index 24b9606..0aa03c5 100755
+--- a/src/session.sh
++++ b/src/session.sh
+@@ -122,6 +122,8 @@ fi
+ session_cleanup () {
+     # stop the session target and unset the variables
+     systemctl --user stop "$SESSION_TARGET"
++    # NixOS disables StopWhenUnneeded of graphical-session.target
++    systemctl --user stop graphical-session.target
+     if [ -n "$VARIABLES" ]; then
+         # shellcheck disable=SC2086
+         systemctl --user unset-environment $VARIABLES
