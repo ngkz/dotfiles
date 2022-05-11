@@ -141,6 +141,13 @@ in
     '';
   };
 
+  # XXX Apply home.sessionVariables. Workaround for home-manager #1011
+  environment.extraInit = ''
+    if [ -e "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh" ]; then
+      . "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh"
+    fi
+  '';
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
