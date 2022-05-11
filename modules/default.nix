@@ -6,4 +6,5 @@
   ssd = import ./ssd.nix;
   sshd = import ./sshd.nix;
   workstation = import ./workstation;
+  sway-desktop = import ./sway-desktop.nix;
 }

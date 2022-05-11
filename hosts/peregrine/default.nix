@@ -14,6 +14,7 @@ in
     sshd
     portable
     workstation
+    sway-desktop
   ];
 
   # Hardware Configuration
@@ -68,6 +69,7 @@ in
   home-manager.users.user.imports = with self.homeManagerModules; [
     tmpfs-as-home
     workstation
+    sway-desktop
   ];
 
   networking.useDHCP = false;

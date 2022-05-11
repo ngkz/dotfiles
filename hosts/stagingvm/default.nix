@@ -14,6 +14,7 @@ in
     sshd
     portable
     workstation
+    sway-desktop
   ];
 
   boot = {
@@ -49,6 +50,7 @@ in
   home-manager.users.user.imports = with self.homeManagerModules; [
     tmpfs-as-home
     workstation
+    sway-desktop
   ];
 
   virtualisation.hypervGuest.enable = true;
@@ -58,8 +60,4 @@ in
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.eth0.useDHCP = true;
-
-  users.users.user.extraGroups = [
-    "video" # KDE wayland software-rendering
-  ];
 }

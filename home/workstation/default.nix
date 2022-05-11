@@ -2,12 +2,14 @@
 {
   imports = [
     ./direnv.nix
+    ./fcitx5.nix
   ];
 
   # XDG user dirs
   xdg.userDirs = {
     enable = true;
-    desktop = "$HOME/desktop";
+    desktop = "$HOME";
+    #desktop = "$HOME/desktop";
     documents = "$HOME/docs";
     download = "$HOME/dl";
     music = "$HOME/music";
@@ -28,7 +30,7 @@
     "projects"
     "work"
     "misc"
-    "desktop"
+    #"desktop"
   ];
 
   # Git
@@ -45,14 +47,23 @@
   #  package = pkgs.ungoogled-chromium;
   #};
 
+  programs.foot.enable = true;
+  programs.zathura.enable = true; #PDF viewer
+
   home.packages = with pkgs; [
     wl-clipboard
     xdg-utils
     powertop
     efibootmgr
 
+    gnome.dconf-editor
     freecad
     gimp
+    gscan2pdf # scanning tool
+    imv
     keepassxc
+    lollypop
+    wdisplays
+    pcmanfm
   ];
 }
