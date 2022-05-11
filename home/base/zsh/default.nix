@@ -52,6 +52,15 @@
 
       # bulk rename
       autoload zmv
+
+      # Emit OSC 7. TODO Remove after oh-my-zsh PR#9914 merging.
+      function osc7 {
+        setopt localoptions extendedglob
+        input=( ''${(s::)PWD} )
+        uri=''${(j::)input/(#b)([^A-Za-z0-9_.\!~*\'\(\)-\/])/%''${(l:2::0:)$(([##16]#match))}}
+        print -n "\e]7;file://''${HOSTNAME}''${uri}\e\\"
+      }
+      add-zsh-hook -Uz chpwd osc7
     '';
     oh-my-zsh = {
       enable = true;
