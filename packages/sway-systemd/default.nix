@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, systemd, meson, ninja, pkgconfig, ... }:
+{ lib, stdenv, fetchFromGitHub, systemd, meson, ninja, pkgconfig, dbus, sway, makeWrapper, ... }:
 
 stdenv.mkDerivation rec {
   pname = "sway-systemd";
@@ -25,5 +25,10 @@ stdenv.mkDerivation rec {
     meson
     ninja
     pkgconfig
+    makeWrapper
   ];
+
+  postInstall = ''
+    wrapProgram $out/libexec/sway-systemd/session.sh --prefix PATH : ${lib.makeBinPath [ systemd dbus sway ]}
+  '';
 }
