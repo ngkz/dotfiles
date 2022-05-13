@@ -62,6 +62,7 @@
     wget
     monolith # Save complete web pages as a single HTML file
     neofetch
+    stress
   ];
 
   # neovim
