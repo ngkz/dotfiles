@@ -11,6 +11,10 @@ let
   overlay-my-packages = final: prev: {
     my = self.packages.${prev.system};
   };
+
+  overlay-sway-im = final: prev: {
+    sway-unwrapped = prev.my.sway-im-unwrapped;
+  };
 in
 {
   overlays = [
@@ -18,6 +22,7 @@ in
     devshell.overlay
     overlay-unstable
     overlay-my-packages
+    overlay-sway-im
   ];
   config.allowUnfree = true;
 }

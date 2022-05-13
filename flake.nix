@@ -48,6 +48,7 @@
       # packages.<system> = { <pkgname> = <derivation>, ... };
       packages = {
         sway-systemd = pkgs.callPackage ./packages/sway-systemd { };
+        sway-im-unwrapped = pkgs.callPackage ./packages/sway-im-unwrapped { };
       };
     }
   ));
