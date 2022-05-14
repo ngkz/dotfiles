@@ -49,6 +49,7 @@
       packages = {
         sway-systemd = pkgs.callPackage ./packages/sway-systemd { };
         sway-im-unwrapped = pkgs.callPackage ./packages/sway-im-unwrapped { };
+        fcitx5-mozc-ut = pkgs.callPackage ./packages/fcitx5-mozc-ut.nix { };
       };
     }
   ));
