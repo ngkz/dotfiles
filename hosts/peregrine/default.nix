@@ -2,12 +2,12 @@
 
 { config, pkgs, inputs, ... }:
 let
-  inherit (inputs) self;
+  inherit (inputs) self nixos-hardware;
 in
 {
   networking.hostName = "peregrine";
 
-  imports = with self.nixosModules; [
+  imports = with self.nixosModules; with nixos-hardware.nixosModules; [
     base
     grub-fde
     ssd
@@ -16,18 +16,16 @@ in
     workstation
     sway-desktop
     intel-undervolt
+
+    common-cpu-intel
+    common-pc-laptop
+    common-pc-laptop-acpi_call
   ];
 
-  # Hardware Configuration
+  # hardware configuration
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.kernelParams = [
-    # power saving
-    "pcie_aspm=force"
-  ];
-  boot.extraModulePackages = [ ];
 
+  # disk
   modules.grub-fde = {
     cryptlvmDevice = "/dev/disk/by-uuid/e0b18f6c-fd58-45bc-a552-a5eec648b34a";
     espDevice = "/dev/disk/by-uuid/AC8A-0C4E";
@@ -43,14 +41,13 @@ in
     }
   ];
 
-  powerManagement.cpuFreqGovernor = "powersave";
-
+  # intel cpu
   hardware.enableRedistributableFirmware = true;
-  hardware.cpu.intel.updateMicrocode = true;
+  boot.kernelModules = [ "kvm-intel" ];
+
+  # bluetooth
   hardware.bluetooth.enable = true;
   modules.tmpfs-as-root.persistentDirs = [ "/var/lib/bluetooth" ];
-
-  #TODO nixos-hardware
 
   # undervolting and stopping thermal/power throttling
   services.intel-undervolt = {
@@ -68,6 +65,14 @@ in
     ];
   };
 
+  # power management
+  powerManagement.cpuFreqGovernor = "powersave";
+
+  boot.kernelParams = [
+    # power saving
+    "pcie_aspm=force"
+  ];
+
   environment.systemPackages = with pkgs; [
     nvme-cli # NVMe SSD
   ];
@@ -78,6 +83,7 @@ in
     sway-desktop
   ];
 
+  # Network
   networking.useDHCP = false;
   networking.interfaces.enp4s0.useDHCP = true;
   #TODO wireless network

@@ -1,7 +1,8 @@
-{ config, lib, ... }:
+{ config, lib, inputs, ... }:
 {
-  # trim periodically
-  services.fstrim.enable = true;
+  imports = with inputs.nixos-hardware.nixosModules; [
+    common-pc-ssd
+  ];
 
   environment.etc."lvm/lvm.conf".text = ''
     devices {
