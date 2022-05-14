@@ -15,13 +15,17 @@ in
     portable
     workstation
     sway-desktop
+    intel-undervolt
   ];
 
   # Hardware Configuration
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-intel" ];
-  boot.kernelParams = [ "pcie_aspm=force" ]; # power saving
+  boot.kernelParams = [
+    # power saving
+    "pcie_aspm=force"
+  ];
   boot.extraModulePackages = [ ];
 
   modules.grub-fde = {
@@ -48,22 +52,24 @@ in
 
   #TODO nixos-hardware
 
-  # undervolting
-  # TODO
-  services.undervolt = {
+  # undervolting and stopping thermal/power throttling
+  services.intel-undervolt = {
     enable = true;
-    coreOffset = 0;
-    gpuOffset = 0;
-    analogioOffset = 0;
-    p1 = {
-      limit = 65;
-      window = 99;
-    };
+    extraConfig = builtins.readFile ./intel-undervolt.conf;
+  };
+  systemd.services.intel-undervolt-loop.enable = false;
+
+  # increase maximum fan speed
+  services.thinkfan = {
+    enable = true;
+    levels = [
+      [ "level auto" 0 70 ]
+      [ "level full-speed" 65 32767 ]
+    ];
   };
 
-  # NVMe SSD
   environment.systemPackages = with pkgs; [
-    nvme-cli
+    nvme-cli # NVMe SSD
   ];
 
   home-manager.users.user.imports = with self.homeManagerModules; [

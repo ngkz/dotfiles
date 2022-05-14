@@ -7,4 +7,5 @@
   sshd = import ./sshd.nix;
   workstation = import ./workstation;
   sway-desktop = import ./sway-desktop.nix;
+  intel-undervolt = import ./intel-undervolt.nix;
 }
