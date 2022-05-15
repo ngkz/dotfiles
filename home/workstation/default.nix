@@ -54,7 +54,8 @@
     wl-clipboard
     xdg-utils
     powertop
-    efibootmgr
+    borgbackup
+    pulseaudio
 
     gnome.dconf-editor
     freecad
@@ -65,5 +66,9 @@
     lollypop
     wdisplays
     pcmanfm
+    pavucontrol
+    gnome.gnome-clocks
+    shotwell
+    thunderbird
   ];
 }
