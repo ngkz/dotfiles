@@ -47,4 +47,10 @@
     # Wireshark
     "wireshark"
   ];
+
+  services.logind = {
+    lidSwitch = "suspend";
+    lidSwitchDocked = "suspend";
+    extraConfig = "HandlePowerKey=suspend";
+  };
 }
