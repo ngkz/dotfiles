@@ -31,8 +31,8 @@
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji-blob-bin
+      ibm-plex
       sarasa-gothic
-      #TODO plex
     ];
 
     # Create a directory with links to all fonts in /run/current-system/sw/share/X11/fonts
