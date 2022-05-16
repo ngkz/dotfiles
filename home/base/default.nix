@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./zsh
+    ./tealdeer.nix
   ];
 
   # enable ~/.config, ~/.cache and ~/.local/share management
@@ -54,7 +55,6 @@
     python3
     s-tui
     smartmontools #smartctl
-    tealdeer # C tldr client is broken
     termshark
     unrar
     unzipNLS
