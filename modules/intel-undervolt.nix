@@ -29,7 +29,9 @@ in
       packages = [ pkgs.my.intel-undervolt ];
       services = {
         intel-undervolt.wantedBy = [
-          "multi-user.target" "suspend.target" "hibernate.target"
+          "multi-user.target"
+          "suspend.target"
+          "hibernate.target"
           "hybrid-sleep.target"
         ];
         intel-undervolt-loop.wantedBy = [ "multi-user.target" ];

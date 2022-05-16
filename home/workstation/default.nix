@@ -72,34 +72,34 @@
 
         # 16 color space
         # Black, Gray, Silver, White
-        regular0  = "1d1f21";
-        bright0   = "969896";
-        regular7  = "c5c8c6";
-        bright7   = "ffffff";
+        regular0 = "1d1f21";
+        bright0 = "969896";
+        regular7 = "c5c8c6";
+        bright7 = "ffffff";
 
         # Red
-        regular1  = "cc6666";
-        bright1   = "cc6666";
+        regular1 = "cc6666";
+        bright1 = "cc6666";
 
         # Green
-        regular2  = "b5bd68";
-        bright2   = "b5bd68";
+        regular2 = "b5bd68";
+        bright2 = "b5bd68";
 
         # Yellow
-        regular3  = "f0c674";
-        bright3   = "f0c674";
+        regular3 = "f0c674";
+        bright3 = "f0c674";
 
         # Blue
-        regular4  = "81a2be";
-        bright4   = "81a2be";
+        regular4 = "81a2be";
+        bright4 = "81a2be";
 
         # Purple
-        regular5  = "b294bb";
-        bright5   = "b294bb";
+        regular5 = "b294bb";
+        bright5 = "b294bb";
 
         # Teal
-        regular6  = "8abeb7";
-        bright6   = "8abeb7";
+        regular6 = "8abeb7";
+        bright6 = "8abeb7";
       };
 
       mouse = {
