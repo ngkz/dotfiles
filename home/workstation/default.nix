@@ -52,7 +52,6 @@
       main = {
         font = "Sarasa Term J:size=8";
         #font = "Symbols Nerd Font:style=2048-em:size=9";
-        #notify = "sh -c 'notify-send -a foot -i foot \"$1\" \"$2\"; paplay ~/.local/share/sounds/__custom/bell-terminal.ogg' _ \${title} \${body}";
       };
 
       bell = {
@@ -64,42 +63,50 @@
       };
 
       colors = {
-        # Base16 Tomorrow Night
-        # Author: Chris Kempson (http://chriskempson.com)
-        foreground = "c5c8c6";
-        background = "1d1f21";
+        # Base16 Monokai
+        # Author: Wimer Hazenberg (http://www.monokai.nl)
+        foreground = "f8f8f2";
+        background = "272822";
         alpha = 0.8;
 
         # 16 color space
         # Black, Gray, Silver, White
-        regular0 = "1d1f21";
-        bright0 = "969896";
-        regular7 = "c5c8c6";
-        bright7 = "ffffff";
+        regular0 = "272822";
+        bright0 = "75715e";
+        regular7 = "f8f8f2";
+        bright7 = "f9f8f5";
 
         # Red
-        regular1 = "cc6666";
-        bright1 = "cc6666";
+        regular1 = "f92672";
+        bright1 = "f92672";
 
         # Green
-        regular2 = "b5bd68";
-        bright2 = "b5bd68";
+        regular2 = "a6e22e";
+        bright2 = "a6e22e";
 
         # Yellow
-        regular3 = "f0c674";
-        bright3 = "f0c674";
+        regular3 = "f4bf75";
+        bright3 = "f4bf75";
 
         # Blue
-        regular4 = "81a2be";
-        bright4 = "81a2be";
+        regular4 = "66d9ef";
+        bright4 = "66d9ef";
 
         # Purple
-        regular5 = "b294bb";
-        bright5 = "b294bb";
+        regular5 = "ae81ff";
+        bright5 = "ae81ff";
 
         # Teal
-        regular6 = "8abeb7";
-        bright6 = "8abeb7";
+        regular6 = "a1efe4";
+        bright6 = "a1efe4";
+
+        # Extra colors
+        "16" = "fd971f";
+        "17" = "cc66ee";
+        "18" = "383838";
+        "19" = "49483e";
+        "20" = "a59f85";
+        "21" = "f5f4f1";
       };
 
       mouse = {
