@@ -1,6 +1,6 @@
 { lib, config, pkgs, ... }:
 let
-  inherit (lib) hm;
+  inherit (lib) hm escapeShellArg;
 in
 {
   # C tldr client is broken
@@ -20,7 +20,7 @@ in
   };
 
   home.activation.create-tealdeer-cache = hm.dag.entryAfter [ "linkGeneration" "tmpfs-as-home" ] ''
-    $DRY_RUN_CMD mkdir -p ${config.home.sessionVariables.TEALDEER_CACHE_DIR}
+    $DRY_RUN_CMD mkdir -p ${escapeShellArg config.home.sessionVariables.TEALDEER_CACHE_DIR}
   '';
 
   home.tmpfs-as-home.persistentDirs = [
