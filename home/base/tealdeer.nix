@@ -1,6 +1,7 @@
 { lib, config, pkgs, ... }:
 let
   inherit (lib) hm escapeShellArg;
+  tldr_cache = "${config.xdg.cacheHome}/tealdeer/tldrpages";
 in
 {
   # C tldr client is broken
@@ -16,11 +17,11 @@ in
   # tealdeer deletes the cache directory (default: ~/.cache/tealdeer) and breaks
   # the link to the presistent storage
   home.sessionVariables = {
-    TEALDEER_CACHE_DIR = "${config.xdg.cacheHome}/tealdeer/tldrpages";
+    TEALDEER_CACHE_DIR = tldr_cache;
   };
 
   home.activation.create-tealdeer-cache = hm.dag.entryAfter [ "linkGeneration" "tmpfs-as-home" ] ''
-    $DRY_RUN_CMD mkdir -p ${escapeShellArg config.home.sessionVariables.TEALDEER_CACHE_DIR}
+    $DRY_RUN_CMD mkdir -p ${escapeShellArg tldr_cache}
   '';
 
   home.tmpfs-as-home.persistentDirs = [
