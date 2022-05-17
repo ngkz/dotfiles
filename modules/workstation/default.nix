@@ -26,17 +26,36 @@
 
   # install fonts
   fonts = {
-    enableDefaultFonts = false;
     fonts = with pkgs; [
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji-blob-bin
+      corefonts
+      dejavu_fonts
+      freefont_ttf
+      gyre-fonts # TrueType substitutes for standard PostScript fonts
+      liberation_ttf
+      unifont
       ibm-plex
       sarasa-gothic
+      my.plemoljp-nf
     ];
 
     # Create a directory with links to all fonts in /run/current-system/sw/share/X11/fonts
     fontDir.enable = true;
+
+    fontconfig = {
+      defaultFonts = {
+        sansSerif = [ "IBM Plex Sans JP" ];
+        serif = [
+          "IBM Plex Serif"
+          "Noto Serif CJK JP"
+        ];
+        emoji = [ "Bjobmoji" ];
+        monospace = [ "PremolJP Console NF" ];
+      };
+      cache32Bit = true;
+    };
   };
 
   # Wireshark

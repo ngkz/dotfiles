@@ -50,8 +50,7 @@
     enable = true;
     settings = {
       main = {
-        font = "Sarasa Term J:size=8";
-        #font = "Symbols Nerd Font:style=2048-em:size=9";
+        font = "Monospace:size=9";
       };
 
       bell = {
@@ -123,8 +122,10 @@
     powertop
     borgbackup
     pulseaudio
+    glib.bin #gsettings
 
     gnome.dconf-editor
+    gnome.gnome-font-viewer
     freecad
     gimp
     gscan2pdf # scanning tool
