@@ -54,6 +54,8 @@
         monospace = [ "Sarasa Term J Nerd Fonts" ];
       };
       cache32Bit = true;
+      # XXX Workaround for nixpkgs#46323
+      localConf = builtins.readFile "${pkgs.my.blobmoji-fontconfig}/etc/fonts/conf.d/75-blobmoji.conf";
     };
   };
 

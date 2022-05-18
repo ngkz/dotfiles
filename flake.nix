@@ -52,6 +52,7 @@
         fcitx5-mozc-ut = pkgs.callPackage ./packages/fcitx5-mozc-ut.nix { };
         intel-undervolt = pkgs.callPackage ./packages/intel-undervolt.nix { };
         sarasa-term-j-nerd-font = pkgs.callPackage ./packages/sarasa-term-j-nerd-font.nix { };
+        blobmoji-fontconfig = pkgs.callPackage ./packages/blobmoji-fontconfig.nix { };
       };
     }
   ));
