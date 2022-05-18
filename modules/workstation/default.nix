@@ -52,7 +52,7 @@
           "Noto Serif CJK JP"
         ];
         emoji = [ "Bjobmoji" ];
-        monospace = [ "PremolJP Console NF" ];
+        monospace = [ "PlemolJP Console NF" ];
       };
       cache32Bit = true;
     };
