@@ -123,6 +123,7 @@
     borgbackup
     pulseaudio
     glib.bin #gsettings
+    evtest
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
