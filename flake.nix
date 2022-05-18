@@ -51,7 +51,7 @@
         sway-im-unwrapped = pkgs.callPackage ./packages/sway-im-unwrapped { };
         fcitx5-mozc-ut = pkgs.callPackage ./packages/fcitx5-mozc-ut.nix { };
         intel-undervolt = pkgs.callPackage ./packages/intel-undervolt.nix { };
-        plemoljp-nf = pkgs.callPackage ./packages/plemoljp-nf.nix { };
+        sarasa-term-j-nerd-font = pkgs.callPackage ./packages/sarasa-term-j-nerd-font.nix { };
       };
     }
   ));

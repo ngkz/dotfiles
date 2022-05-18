@@ -37,8 +37,7 @@
       liberation_ttf
       unifont
       ibm-plex
-      sarasa-gothic
-      my.plemoljp-nf
+      my.sarasa-term-j-nerd-font
     ];
 
     # Create a directory with links to all fonts in /run/current-system/sw/share/X11/fonts
@@ -52,7 +51,7 @@
           "Noto Serif CJK JP"
         ];
         emoji = [ "Bjobmoji" ];
-        monospace = [ "PlemolJP Console NF" ];
+        monospace = [ "Sarasa Term J Nerd Fonts" ];
       };
       cache32Bit = true;
     };
