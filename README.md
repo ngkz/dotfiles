@@ -34,6 +34,11 @@ direnv allow
 nix shell "<flake>#<package>"
 ```
 
+## Locate the package providing a certain file
+```sh
+ nix-locate "<file>"
+ ```
+
 ## Acknowledgements
 - [Nix command/flake](https://nixos.wiki/wiki/Nix_command/flake)
 - [Nix Flakes, Part 3: Managing NixOS systems](https://www.tweag.io/blog/2020-07-31-nixos-flakes/)
