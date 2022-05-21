@@ -33,6 +33,12 @@ package = "agenix"
 category = "secret management"
 
 [[commands]]
+package = "nix-prefetch-git"
+
+[[commands]]
+package = "nix-prefetch-github"
+
+[[commands]]
 help = "Update all flake inputs and node packages"
 name = "update"
 command = 'nix flake update "${PRJ_ROOT}" && "${PRJ_ROOT}/packages/nodePackages/generate.sh"'
