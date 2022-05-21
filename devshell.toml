@@ -15,7 +15,8 @@ name = "dotfiles"
 packages = [
   "nixpkgs-fmt",
   "nix-prefetch-github",
-  "nix-prefetch-git"
+  "nix-prefetch-git",
+  "nodePackages.node2nix"
 ]
 
 # Declare commands that are available in the environment.
@@ -32,9 +33,9 @@ package = "agenix"
 category = "secret management"
 
 [[commands]]
-help = "Update all flake inputs"
+help = "Update all flake inputs and node packages"
 name = "update"
-command = 'nix flake update "${PRJ_ROOT}"'
+command = 'nix flake update "${PRJ_ROOT}" && "${PRJ_ROOT}/packages/nodePackages/generate.sh"'
 category = "system maintenance"
 
 [[commands]]
