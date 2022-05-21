@@ -102,6 +102,7 @@
       la = "ls -a";
       lt = "ls -lgh --tree";
       lla = "ll -a";
+      strings = "strings -a";
 
       # safe rm,cp,mv
       rm = "rm -i";
