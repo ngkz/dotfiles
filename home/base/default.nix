@@ -64,6 +64,11 @@
     neofetch
     stress
     efibootmgr
+    file
+    jq
+    zip
+    openssl
+    unixtools.xxd
   ];
 
   # neovim
