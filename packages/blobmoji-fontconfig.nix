@@ -2,7 +2,8 @@
 
 let
   rev = "5fe763d82394c4a31b88f8fad0a62d170cb18c71";
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "blobmoji-fontconfig";
   version = "1.0.0-2";
 

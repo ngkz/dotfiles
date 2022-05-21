@@ -2,7 +2,8 @@
 
 let
   version = "0.36.3";
-in fetchzip {
+in
+fetchzip {
   name = "sarasa-term-j-nerd-font-${version}";
 
   url = "https://github.com/jonz94/Sarasa-Gothic-Nerd-Fonts/releases/download/v${version}/sarasa-term-j-nerd-font.zip";
