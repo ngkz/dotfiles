@@ -48,7 +48,10 @@
       # packages.<system> = { <pkgname> = <derivation>, ... };
       packages =
         let
-          nodePackages = pkgs.callPackage ./packages/nodePackages { };
+          nodePackages = import ./packages/nodePackages {
+            inherit pkgs system;
+            inherit (pkgs) nodejs;
+          };
         in
         {
           sway-systemd = pkgs.callPackage ./packages/sway-systemd { };
