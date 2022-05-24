@@ -75,6 +75,7 @@ in
 
   environment.systemPackages = with pkgs; [
     nvme-cli # NVMe SSD
+    intel-gpu-tools # intel_gpu_top
   ];
 
   home-manager.users.user.imports = with self.homeManagerModules; [
