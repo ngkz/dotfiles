@@ -133,5 +133,6 @@
     gnome.gnome-clocks
     shotwell
     thunderbird
+    vlc
   ];
 }
