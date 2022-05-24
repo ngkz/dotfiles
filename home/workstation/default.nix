@@ -3,6 +3,7 @@
   imports = [
     ./direnv.nix
     ./fcitx5.nix
+    ./ungoogled-chromium
   ];
 
   # XDG user dirs
@@ -38,13 +39,6 @@
     enable = true;
     delta.enable = true;
   };
-
-  #TODO
-  programs.firefox.enable = true;
-  #programs.chromium = {
-  #  enable = true;
-  #  package = pkgs.ungoogled-chromium;
-  #};
 
   programs.foot = {
     enable = true;

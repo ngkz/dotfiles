@@ -47,6 +47,7 @@ nix shell "<flake>#<package>"
 - [gytis-ivaskevicius/flake-utils-plus](https://github.com/gytis-ivaskevicius/flake-utils-plus)
 - [berbiche/dotfiles](https://github.com/berbiche/dotfiles)
 - [jpas/etc-nixos](https://github.com/jpas/etc-nixos)
+- [pimeys/nixos](https://github.com/pimeys/nixos/commit/9c4306ceac36b7f69fd2ea5e2345200d7336be20)
 - Full Disk Encryption Setup
    - [ladinu/encryptedNixos.md](https://gist.github.com/ladinu/bfebdd90a5afd45dec811296016b2a3f)
    - [Full disk encryption, including /boot: Unlocking LUKS devices from GRUB](https://cryptsetup-team.pages.debian.net/cryptsetup/encrypted-boot.html)
