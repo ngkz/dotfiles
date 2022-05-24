@@ -46,21 +46,7 @@
         };
 
       # packages.<system> = { <pkgname> = <derivation>, ... };
-      packages =
-        let
-          nodePackages = import ./packages/nodePackages {
-            inherit pkgs system;
-            inherit (pkgs) nodejs;
-          };
-        in
-        {
-          sway-systemd = pkgs.callPackage ./packages/sway-systemd { };
-          sway-im-unwrapped = pkgs.callPackage ./packages/sway-im-unwrapped { };
-          fcitx5-mozc-ut = pkgs.callPackage ./packages/fcitx5-mozc-ut.nix { };
-          intel-undervolt = pkgs.callPackage ./packages/intel-undervolt.nix { };
-          sarasa-term-j-nerd-font = pkgs.callPackage ./packages/sarasa-term-j-nerd-font.nix { };
-          blobmoji-fontconfig = pkgs.callPackage ./packages/blobmoji-fontconfig.nix { };
-        } // nodePackages;
+      packages = import ./packages { inherit pkgs; };
     }
   ));
 }
