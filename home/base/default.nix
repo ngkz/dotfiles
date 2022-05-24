@@ -9,6 +9,7 @@
 
   home.tmpfs-as-home.persistentDirs = [
     ".local/share/nix" # nix repl history
+    ".cache/nix-index"
   ];
 
   # FZF fuzzy finder
@@ -69,6 +70,7 @@
     zip
     openssl
     unixtools.xxd
+    nix-index
   ];
 
   # neovim
