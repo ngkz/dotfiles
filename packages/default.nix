@@ -14,5 +14,6 @@ in
   blobmoji-fontconfig = pkgs.callPackage ./blobmoji-fontconfig.nix { };
   chromium-extension-ublock0 = pkgs.callPackage ./chromium-extension-ublock0 { };
   chromium-extension-keepassxc-browser = pkgs.callPackage ./chromium-extension-keepassxc-browser { };
+  chromium-extension-https-everywhere = pkgs.callPackage ./chromium-extension-https-everywhere { };
   chromium-extension-mouse-dictionary = pkgs.callPackage ./chromium-extension-mouse-dictionary { };
 } // nodePackages

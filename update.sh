@@ -8,3 +8,4 @@ nix flake update
 ./packages/chromium-extension-ublock0/update.sh
 ./packages/chromium-extension-keepassxc-browser/update.sh
 ./packages/chromium-extension-mouse-dictionary/update.sh
+./packages/chromium-extension-https-everywhere/update.sh
