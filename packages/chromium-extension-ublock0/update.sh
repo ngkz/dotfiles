@@ -18,6 +18,6 @@ fi
 sed -i "s/version = \"$current\"/version = \"$latest\"/" default.nix
 url=$(nix eval --raw "../..#${pname}.src.urls.0")
 newhash=$(nix-prefetch-url "$url" --unpack)
-sed -i "s/sha256 = \".*\"/sha256 = \"$newhash\"/" default.nix
+sed -i "s|sha256 = \".*\"|sha256 = \"$newhash\"|" default.nix
 
 echo "$pname updated: $current -> $latest"
