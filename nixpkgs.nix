@@ -9,7 +9,7 @@ let
   };
 
   overlay-my-packages = final: prev: {
-    my = self.packages.${prev.system};
+    my = self.packages.${prev.system} // (import ./packages/lib { pkgs = final; });
   };
 
   overlay-sway-im = final: prev: {
