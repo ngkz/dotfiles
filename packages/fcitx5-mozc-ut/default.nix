@@ -1,9 +1,9 @@
 { fcitx5-mozc, fetchurl, ... }:
 let
-  utdicver = "20220423";
+  utdicver = "20220525";
   mozcdic-ut = fetchurl {
     url = "https://osdn.net/users/utuhiro/pf/utuhiro/dl/mozcdic-ut-${utdicver}.tar.bz2";
-    sha256 = "1sa7ymz2hgk94cwx2kpfm9fwxqqa43irz89j7591r3jyhp8nrzj1";
+    sha256 = "0prlgkn1v31y6n159qx6684plflb5371hz3p0c1i2xyz1m1bfrx8";
   };
 in
 fcitx5-mozc.overrideAttrs (oldAttrs: {
