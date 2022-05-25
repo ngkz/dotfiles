@@ -15,7 +15,7 @@ fi
 
 sed -i "s/utdicver = \"$utdicver_current\"/utdicver = \"$utdicver_latest\"/" default.nix
 url=$(nix eval --raw "../..#${pname}.src.urls.0")
-newhash=$(nix-prefetch-url "$url")
+newhash=$(nix-prefetch-url --unpack "$url")
 sed -i "s|sha256 = \".*\"|sha256 = \"$newhash\"|" default.nix
 
 echo "$pname updated: $utdicver_current -> $utdicver_latest"
