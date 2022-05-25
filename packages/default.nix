@@ -10,7 +10,7 @@ in
   sway-im-unwrapped = pkgs.callPackage ./sway-im-unwrapped { };
   fcitx5-mozc-ut = pkgs.callPackage ./fcitx5-mozc-ut { };
   intel-undervolt = pkgs.callPackage ./intel-undervolt { };
-  sarasa-term-j-nerd-font = pkgs.callPackage ./sarasa-term-j-nerd-font.nix { };
+  sarasa-term-j-nerd-font = pkgs.callPackage ./sarasa-term-j-nerd-font { };
   blobmoji-fontconfig = pkgs.callPackage ./blobmoji-fontconfig.nix { };
   chromium-extension-ublock0 = pkgs.callPackage ./chromium-extension-ublock0 { };
   chromium-extension-keepassxc-browser = pkgs.callPackage ./chromium-extension-keepassxc-browser { };

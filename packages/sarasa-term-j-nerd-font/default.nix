@@ -7,7 +7,7 @@ fetchzip {
   name = "sarasa-term-j-nerd-font-${version}";
 
   url = "https://github.com/jonz94/Sarasa-Gothic-Nerd-Fonts/releases/download/v${version}/sarasa-term-j-nerd-font.zip";
-  sha256 = "sha256-1bk+AxVbozR2O4s9mq+z8ygvqvSxfPRAVXZxmGBzpR4=";
+  sha256 = "13vqiz0k9ijzz8jsq6dmbvvspcq318frcm4ra3kb14k8g18h2apf";
 
   postFetch = ''
     unzip $downloadedFile
