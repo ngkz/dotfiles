@@ -39,9 +39,9 @@ package = "nix-prefetch-git"
 package = "nix-prefetch-github"
 
 [[commands]]
-help = "Update all flake inputs and node packages"
+help = "Update all flake inputs and packages"
 name = "update"
-command = 'nix flake update "${PRJ_ROOT}" && "${PRJ_ROOT}/packages/nodePackages/generate.sh"'
+command = '${PRJ_ROOT}/update.sh'
 category = "system maintenance"
 
 [[commands]]
