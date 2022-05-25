@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "kitsunyan";
     repo = pname;
     rev = version;
-    sha256 = "1fjhjqxhcgzawqmknxhmrkq0b7hjfpw6fcigzyw6vg5yf2lws507";
+    sha256 = "BxTNqXC+vG24/y8yZ/h1Ep4F8MwVdjsr5uo/BjuWULo=";
   };
 
   nativeBuildInputs = [ pkg-config ];
