@@ -51,7 +51,7 @@
           "IBM Plex Serif"
           "Noto Serif CJK JP"
         ];
-        emoji = [ "Bjobmoji" ];
+        emoji = [ "Blobmoji" ];
         monospace = [ "Sarasa Term J Nerd Fonts" ];
       };
       cache32Bit = true;
