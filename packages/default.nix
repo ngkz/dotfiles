@@ -11,7 +11,7 @@ in
   fcitx5-mozc-ut = pkgs.callPackage ./fcitx5-mozc-ut { };
   intel-undervolt = pkgs.callPackage ./intel-undervolt { };
   sarasa-term-j-nerd-font = pkgs.callPackage ./sarasa-term-j-nerd-font { };
-  blobmoji-fontconfig = pkgs.callPackage ./blobmoji-fontconfig.nix { };
+  blobmoji-fontconfig = pkgs.callPackage ./blobmoji-fontconfig { };
   chromium-extension-ublock0 = pkgs.callPackage ./chromium-extension-ublock0 { };
   chromium-extension-keepassxc-browser = pkgs.callPackage ./chromium-extension-keepassxc-browser { };
   chromium-extension-auto-tab-discard = pkgs.callPackage ./chromium-extension-auto-tab-discard { };
