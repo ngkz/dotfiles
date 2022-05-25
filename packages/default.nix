@@ -15,6 +15,7 @@ in
   chromium-extension-ublock0 = pkgs.callPackage ./chromium-extension-ublock0 { };
   chromium-extension-keepassxc-browser = pkgs.callPackage ./chromium-extension-keepassxc-browser { };
   chromium-extension-auto-tab-discard = pkgs.callPackage ./chromium-extension-auto-tab-discard { };
+  chromium-extension-get-rss-feed-url-extension = pkgs.callPackage ./chromium-extension-get-rss-feed-url-extension { };
   chromium-extension-https-everywhere = pkgs.callPackage ./chromium-extension-https-everywhere { };
   chromium-extension-mouse-dictionary = pkgs.callPackage ./chromium-extension-mouse-dictionary { };
 } // nodePackages
