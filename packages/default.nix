@@ -12,4 +12,5 @@ in
   intel-undervolt = pkgs.callPackage ./intel-undervolt.nix { };
   sarasa-term-j-nerd-font = pkgs.callPackage ./sarasa-term-j-nerd-font.nix { };
   blobmoji-fontconfig = pkgs.callPackage ./blobmoji-fontconfig.nix { };
+  chromium-extension-ublock0 = pkgs.callPackage ./chromium-extension-ublock0 { };
 } // nodePackages
