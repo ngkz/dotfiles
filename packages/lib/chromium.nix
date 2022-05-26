@@ -49,9 +49,9 @@ in
           "external_crx": "$out/share/${prefixedName}/${name}.crx",
           "external_version": "${args.version}"
         }
+        EOF
 
         runHook postInstall
-        EOF
       '';
 
       doInstallCheck = true;
