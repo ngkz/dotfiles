@@ -16,7 +16,8 @@ packages = [
   "nixpkgs-fmt",
   "nix-prefetch-github",
   "nix-prefetch-git",
-  "nodePackages.node2nix"
+  "nodePackages.node2nix",
+  "prefetch-yarn-deps"
 ]
 
 # Declare commands that are available in the environment.
