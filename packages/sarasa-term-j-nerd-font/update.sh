@@ -16,6 +16,8 @@ if [[ $current == $latest ]]; then
     exit 0
 fi
 
-echo "update hash by hand :("
+sed -i "s/version = \"$current\"/version = \"$latest\"/" default.nix
+newhash=$(nix build "../..#${pname}" 2>&1 | sed -n "s/.*got:\s*\(.*\)/\1/p" || true)
+sed -i "s|sha256 = \".*\"|sha256 = \"$newhash\"|" default.nix
 
 echo "$pname updated: $current -> $latest"
