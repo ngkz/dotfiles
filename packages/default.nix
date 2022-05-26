@@ -21,4 +21,5 @@ in
   chromium-extension-reddit-enhancement-suite = pkgs.callPackage ./chromium-extension-reddit-enhancement-suite { };
   chromium-extension-useragent-switcher = pkgs.callPackage ./chromium-extension-useragent-switcher { };
   chromium-extension-ublacklist = pkgs.callPackage ./chromium-extension-ublacklist { };
+  chromium-extension-decentraleyes = pkgs.callPackage ./chromium-extension-decentraleyes { };
 } // nodePackages
