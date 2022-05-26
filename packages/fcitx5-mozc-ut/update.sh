@@ -14,7 +14,7 @@ if [[ $utdicver_current == $utdicver_latest ]]; then
 fi
 
 sed -i "s/utdicver = \"$utdicver_current\"/utdicver = \"$utdicver_latest\"/" default.nix
-url=$(nix eval --raw "../..#${pname}.src.urls.0")
+url=$(nix eval --raw "../..#${pname}.src.urls" --apply builtins.head)
 newhash=$(nix-prefetch-url --unpack "$url")
 sed -i "s|sha256 = \".*\"|sha256 = \"$newhash\"|" default.nix
 

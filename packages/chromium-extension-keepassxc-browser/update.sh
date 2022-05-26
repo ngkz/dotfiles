@@ -16,7 +16,7 @@ if [[ $current == $latest ]]; then
 fi
 
 sed -i "s/version = \"$current\"/version = \"$latest\"/" default.nix
-url=$(nix eval --raw "../..#${pname}.src.urls.0")
+url=$(nix eval --raw "../..#${pname}.src.urls" --apply builtins.head)
 newhash=$(nix-prefetch-url "$url" --unpack)
 sed -i "s|sha256 = \".*\"|sha256 = \"$newhash\"|" default.nix
 
