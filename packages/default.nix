@@ -20,4 +20,5 @@ in
   chromium-extension-mouse-dictionary = pkgs.callPackage ./chromium-extension-mouse-dictionary { };
   chromium-extension-reddit-enhancement-suite = pkgs.callPackage ./chromium-extension-reddit-enhancement-suite { };
   chromium-extension-useragent-switcher = pkgs.callPackage ./chromium-extension-useragent-switcher { };
+  chromium-extension-ublacklist = pkgs.callPackage ./chromium-extension-ublacklist { };
 } // nodePackages
