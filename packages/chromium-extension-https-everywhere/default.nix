@@ -5,13 +5,13 @@ let
 in
 buildChromiumExtension rec {
   pname = "https-everywhere";
-  version = "2021.7.13";
+  version = "2022.5.24";
   src = fetchFromGitHub {
     owner = "EFForg";
     repo = "https-everywhere";
     rev = version;
     fetchSubmodules = true;
-    sha256 = "GzHk2QUdQ/kfYlPzOwzCElw5tVuc/FiLmkFVoMlZTNM=";
+    sha256 = "zjtYSN8LLHbSpDTcQF7Dr5UrpygD7hS+8yp/DafcI1k=";
   };
   buildInputs = with pkgs; [ bash getopt python3 ];
   patchPhase = ''
