@@ -19,4 +19,5 @@ in
   chromium-extension-https-everywhere = pkgs.callPackage ./chromium-extension-https-everywhere { };
   chromium-extension-mouse-dictionary = pkgs.callPackage ./chromium-extension-mouse-dictionary { };
   chromium-extension-reddit-enhancement-suite = pkgs.callPackage ./chromium-extension-reddit-enhancement-suite { };
+  chromium-extension-useragent-switcher = pkgs.callPackage ./chromium-extension-useragent-switcher { };
 } // nodePackages
