@@ -18,4 +18,5 @@ in
   chromium-extension-get-rss-feed-url-extension = pkgs.callPackage ./chromium-extension-get-rss-feed-url-extension { };
   chromium-extension-https-everywhere = pkgs.callPackage ./chromium-extension-https-everywhere { };
   chromium-extension-mouse-dictionary = pkgs.callPackage ./chromium-extension-mouse-dictionary { };
+  chromium-extension-reddit-enhancement-suite = pkgs.callPackage ./chromium-extension-reddit-enhancement-suite { };
 } // nodePackages
