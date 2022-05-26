@@ -23,4 +23,5 @@ in
   chromium-extension-ublacklist = pkgs.callPackage ./chromium-extension-ublacklist { };
   chromium-extension-decentraleyes = pkgs.callPackage ./chromium-extension-decentraleyes { };
   chromium-extension-clearurls = pkgs.callPackage ./chromium-extension-clearurls { };
+  chromium-extension-vue-devtools = pkgs.callPackage ./chromium-extension-vue-devtools { };
 } // nodePackages
