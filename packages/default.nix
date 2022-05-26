@@ -22,4 +22,5 @@ in
   chromium-extension-useragent-switcher = pkgs.callPackage ./chromium-extension-useragent-switcher { };
   chromium-extension-ublacklist = pkgs.callPackage ./chromium-extension-ublacklist { };
   chromium-extension-decentraleyes = pkgs.callPackage ./chromium-extension-decentraleyes { };
+  chromium-extension-clearurls = pkgs.callPackage ./chromium-extension-clearurls { };
 } // nodePackages
