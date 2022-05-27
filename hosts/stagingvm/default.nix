@@ -28,7 +28,6 @@ in
   };
 
   # Hyper-V DRM driver
-  boot.kernelPackages = pkgs.linuxPackages_latest; # Hyper-V DRM Driver
   boot.blacklistedKernelModules = [ "hyperv_fb" ];
   environment.variables.WLR_RENDERER_ALLOW_SOFTWARE = "1";
 

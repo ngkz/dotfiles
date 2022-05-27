@@ -10,9 +10,10 @@ in
     agenix.nixosModule
     home-manager.nixosModule
     self.nixosModules.tmpfs-as-root
+    ./hardening.nix
   ];
 
-  nixpkgs = import ../nixpkgs.nix { inherit inputs; };
+  nixpkgs = import ../../nixpkgs.nix { inherit inputs; };
 
   # Enable experimental flakes feature
   nix = {
@@ -68,7 +69,7 @@ in
 
   # agenix
   age = {
-    secrets.user-password-hash.file = ../secrets/user-password-hash.age;
+    secrets.user-password-hash.file = ../../secrets/user-password-hash.age;
     identityPaths = [ "/nix/persist/secrets/age.key" ];
   };
 
@@ -160,4 +161,3 @@ in
   system.stateVersion = "21.05"; # Did you read the comment?
 
 }
-

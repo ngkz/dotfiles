@@ -89,4 +89,7 @@ in
   networking.interfaces.enp4s0.useDHCP = true;
   #TODO wireless network
   # networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
+
+  # Whiskey Lake is not affected by L1TF and Meltdown
+  modules.hardening.disableMeltdownAndL1TFMitigation = true;
 }

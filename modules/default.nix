@@ -1,5 +1,5 @@
 {
-  base = import ./base.nix;
+  base = import ./base;
   tmpfs-as-root = import ./tmpfs-as-root.nix;
   grub-fde = import ./grub-fde.nix;
   portable = import ./portable.nix;
