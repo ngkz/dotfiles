@@ -54,7 +54,7 @@ category = "system maintenance"
 [[commands]]
 help = "Build and activate the new configuration"
 name = "switch"
-command = 'nixos-rebuild switch --flake "${PRJ_ROOT}#"'
+command = 'sudo nixos-rebuild switch --flake "${PRJ_ROOT}#"'
 category = "system maintenance"
 
 [[commands]]
@@ -93,7 +93,7 @@ category = "system maintenance"
 [[commands]]
 help = "Roll back to the previous configuration"
 name = "rollback"
-command = 'nixos-rebuild switch --flake "${PRJ_ROOT}#" --rollback'
+command = 'sudo nixos-rebuild switch --flake "${PRJ_ROOT}#" --rollback'
 category = "system maintenance"
 
 [[commands]]
