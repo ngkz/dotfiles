@@ -71,6 +71,11 @@
     openssl
     unixtools.xxd
     nix-index
+    ddrescue
+    socat
+    sdparm
+    hdparm
+    ntfsprogs
   ];
 
   # neovim
