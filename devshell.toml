@@ -40,6 +40,12 @@ package = "nix-prefetch-git"
 package = "nix-prefetch-github"
 
 [[commands]]
+package = "prefetch-yarn-deps"
+
+[[commands]]
+package = "nodePackages.node2nix"
+
+[[commands]]
 help = "Update all flake inputs and packages"
 name = "update"
 command = '${PRJ_ROOT}/update.sh'
