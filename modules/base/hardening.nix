@@ -19,8 +19,10 @@ in
   config = mkMerge [
     {
       # additional hardening
+      # ccache
+      programs.ccache.packageNames = [ "linux_5_15_hardened" ];
       # XXX Use kernel >=5.14 for safer SMT and hyper-v drm driver
-      boot.kernelPackages = pkgs.linuxPackages_5_15_hardened;
+      boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux_5_15_hardened;
       boot.kernelPatches = [
         {
           name = "reenable-devmem";
