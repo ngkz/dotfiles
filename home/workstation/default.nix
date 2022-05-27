@@ -3,7 +3,7 @@
   imports = [
     ./direnv.nix
     ./fcitx5.nix
-    ./ungoogled-chromium
+    ./ungoogled-chromium.nix
   ];
 
   # XDG user dirs
