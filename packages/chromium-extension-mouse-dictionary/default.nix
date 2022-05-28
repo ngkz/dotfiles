@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  inherit (pkgs.my) buildChromiumExtension;
+  inherit (pkgs.ngkz) buildChromiumExtension;
   inherit (pkgs) fetchFromGitHub;
   nodeDependencies = (pkgs.callPackage ./node.nix { }).nodeDependencies;
 in

@@ -26,7 +26,7 @@ in
 
   config = mkIf (cfg.enable) {
     systemd = {
-      packages = [ pkgs.my.intel-undervolt ];
+      packages = [ pkgs.ngkz.intel-undervolt ];
       services = {
         intel-undervolt.wantedBy = [
           "multi-user.target"
@@ -41,7 +41,7 @@ in
       source = pkgs.writeText "intel-undervolt.conf" cfg.extraConfig;
     };
 
-    environment.systemPackages = [ pkgs.my.intel-undervolt ];
+    environment.systemPackages = [ pkgs.ngkz.intel-undervolt ];
 
     boot.kernelParams = [
       # Kernel 5.9 spams warnings whenever userspace writes to CPU MSRs.

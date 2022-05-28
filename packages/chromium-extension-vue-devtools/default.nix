@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  inherit (pkgs.my) buildChromiumExtension;
+  inherit (pkgs.ngkz) buildChromiumExtension;
   inherit (pkgs) fetchFromGitHub fetchYarnDeps fixup_yarn_lock yarn;
 
   src_sha256 = "D3BUIvB0i8piUUMEMiueE64ARezIwUNXy+19sqv/yR8=";

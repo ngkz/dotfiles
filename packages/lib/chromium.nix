@@ -27,7 +27,7 @@ in
 
       inherit configurePhase buildPhase;
 
-      nativeBuildInputs = with pkgs; [ gnutls openssl my.crx jq ] ++ nativeBuildInputs;
+      nativeBuildInputs = with pkgs; [ gnutls openssl ngkz.crx jq ] ++ nativeBuildInputs;
 
       installPhase = if installPhase != null then installPhase else ''
         runHook preInstall

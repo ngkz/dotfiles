@@ -38,7 +38,7 @@
       liberation_ttf
       unifont
       ibm-plex
-      my.sarasa-term-j-nerd-font
+      ngkz.sarasa-term-j-nerd-font
     ];
 
     # Create a directory with links to all fonts in /run/current-system/sw/share/X11/fonts
@@ -56,7 +56,7 @@
       };
       cache32Bit = true;
       # XXX Workaround for nixpkgs#46323
-      localConf = builtins.readFile "${pkgs.my.blobmoji-fontconfig}/etc/fonts/conf.d/75-blobmoji.conf";
+      localConf = builtins.readFile "${pkgs.ngkz.blobmoji-fontconfig}/etc/fonts/conf.d/75-blobmoji.conf";
     };
   };
 

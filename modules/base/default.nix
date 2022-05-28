@@ -13,7 +13,7 @@ in
     ./hardening.nix
   ];
 
-  nixpkgs = import ../../nixpkgs.nix { inherit inputs; };
+  nixpkgs = import ../../nixpkgs.nix inputs;
 
   # Enable experimental flakes feature
   nix = {

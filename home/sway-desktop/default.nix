@@ -10,10 +10,10 @@
     };
     extraConfig = ''
       # XXX workaround for home-manager #2806
-      include ${pkgs.my.sway-systemd}/etc/sway/config.d/10-systemd-session.conf
+      include ${pkgs.ngkz.sway-systemd}/etc/sway/config.d/10-systemd-session.conf
     '';
   };
 
   # XXX workaround for home-manager #2806
-  home.packages = [ pkgs.my.sway-systemd ];
+  home.packages = [ pkgs.ngkz.sway-systemd ];
 }

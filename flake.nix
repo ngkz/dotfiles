@@ -33,9 +33,11 @@
 
     nixosModules = import ./modules;
     homeManagerModules = import ./home;
+    overlays = import ./overlays.nix inputs;
+    overlay = self.overlays.packages;
   } // flake-utils.lib.eachDefaultSystem (system: (
     let
-      cfg = (import ./nixpkgs.nix { inherit inputs; }) // { inherit system; };
+      cfg = (import ./nixpkgs.nix inputs) // { inherit system; };
       pkgs = import nixpkgs cfg;
     in
     {

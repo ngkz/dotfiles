@@ -34,7 +34,7 @@ in
 
   xdg.configFile =
     let
-      extensions = with pkgs.my; [
+      extensions = with pkgs.ngkz; [
         chromium-extension-auto-tab-discard
         chromium-extension-clearurls
         chromium-extension-decentraleyes
