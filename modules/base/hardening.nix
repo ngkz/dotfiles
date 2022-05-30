@@ -34,6 +34,9 @@ in
       environment.memoryAllocator.provider = "libc";
       security.chromiumSuidSandbox.enable = true;
       services.dbus.apparmor = "enabled";
+
+      # hardened.nix disables dynamic kernel module loading
+      boot.kernelModules = [ "hid_lenovo" ];
     }
     (mkIf cfg.disableMeltdownAndL1TFMitigation {
       # hardened.nix forces flushL1DataCache and KPTI
