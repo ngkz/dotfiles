@@ -78,11 +78,16 @@ in
     intel-gpu-tools # intel_gpu_top
   ];
 
-  home-manager.users.user.imports = with self.homeManagerModules; [
-    tmpfs-as-home
-    workstation
-    sway-desktop
-  ];
+  home-manager.users.user = {
+    imports = with self.homeManagerModules; [
+      tmpfs-as-home
+      workstation
+      sway-desktop
+      ./kanshi.nix
+    ];
+
+    home.sway-desktop.internal = "eDP-1";
+  };
 
   # Network
   networking.useDHCP = false;

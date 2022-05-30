@@ -11,6 +11,8 @@
     #XXX don't forget to update HM when NixOS upgrade!
     home-manager.url = "github:nix-community/home-manager/release-21.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager-master.url = "github:nix-community/home-manager";
+    home-manager-master.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
