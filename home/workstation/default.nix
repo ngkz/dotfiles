@@ -119,6 +119,7 @@
     pulseaudio
     glib.bin #gsettings
     evtest
+    libinput.bin #libinput
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
@@ -135,5 +136,6 @@
     shotwell
     thunderbird
     vlc
+    wev
   ];
 }
