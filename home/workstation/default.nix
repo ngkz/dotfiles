@@ -45,6 +45,7 @@
     settings = {
       main = {
         font = "Monospace:size=9";
+        dpi-aware = "no";
       };
 
       bell = {
