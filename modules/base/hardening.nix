@@ -9,6 +9,7 @@ in
     disableMeltdownAndL1TFMitigation = mkOption {
       type = types.bool;
       description = "Disable mitigations unneeded for newer CPUs (Intel: >=Whiskey Lake)";
+      default = false;
     };
   };
 
