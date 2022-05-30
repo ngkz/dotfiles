@@ -129,6 +129,7 @@ in
       # Workaround for https://github.com/nix-community/home-manager/issues/1262 TODO
       { manual.manpages.enable = false; }
     ];
+    extraSpecialArgs = { inherit inputs; };
   };
 
   environment.pathsToLink = [ "/share/zsh" ]; #zsh
