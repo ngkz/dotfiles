@@ -22,20 +22,7 @@ in
       # ccache
       programs.ccache.packageNames = [ "linux_5_15_hardened" ];
       # XXX Use kernel >=5.14 for safer SMT and hyper-v drm driver
-      boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux_5_15_hardened;
-      boot.kernelPatches = [
-        {
-          name = "reenable-devmem";
-          patch = null;
-          # intel-undervolt needs /dev/mem
-          extraConfig = ''
-            DEVMEM y
-            STRICT_DEVMEM y
-            IO_STRICT_DEVMEM y
-            LOGO y
-          '';
-        }
-      ];
+      boot.kernelPackages = pkgs.linuxPackages_5_15_hardened;
       # hardened.nix disables SMT
       security.allowSimultaneousMultithreading = true;
       # security.protectKernelImage disables hibernation

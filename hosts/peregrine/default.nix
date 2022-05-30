@@ -1,6 +1,6 @@
 # configuration for peregrine
 
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let
   inherit (inputs) self nixos-hardware;
 in
@@ -55,6 +55,25 @@ in
     extraConfig = builtins.readFile ./intel-undervolt.conf;
   };
   systemd.services.intel-undervolt-loop.enable = false;
+
+  programs.ccache.packageNames = [ "linux_5_15_hardened" ];
+  # XXX Use kernel >=5.14 for safer SMT and hyper-v drm driver
+  boot.kernelPackages = lib.mkForce (pkgs.linuxPackagesFor pkgs.linux_5_15_hardened);
+  boot.kernelPatches = [
+    # intel-undervolt needs /dev/mem
+    # TODO optimize kernel build
+    {
+      name = "reenable-devmem";
+      patch = null;
+      # intel-undervolt needs /dev/mem
+      extraConfig = ''
+        DEVMEM y
+        STRICT_DEVMEM y
+        IO_STRICT_DEVMEM y
+        LOGO y
+      '';
+    }
+  ];
 
   # increase maximum fan speed
   services.thinkfan = {
