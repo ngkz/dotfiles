@@ -102,10 +102,8 @@ in
       tmpfs-as-home
       workstation
       sway-desktop
-      ./kanshi.nix
+      ./sway-desktop.nix
     ];
-
-    home.sway-desktop.internal = "eDP-1";
   };
 
   # Network

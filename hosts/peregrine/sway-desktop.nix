@@ -45,4 +45,12 @@
       };
     };
   };
+
+  home.sway-desktop.internal = "eDP-1";
+
+  wayland.windowManager.sway.config.input = {
+    "2:10:TPPS/2_Elan_TrackPoint" = {
+      pointer_accel = "0.8";
+    };
+  };
 }

@@ -106,30 +106,26 @@ in
           # If there are multiple scratchpad windows, this command cycles through them.
           "${mod}+Zenkaku_Hankaku" = "scratchpad show";
         };
-        input = {
-          "type:keyboard" = {
-            xkb_layout = "jp";
-            repeat_delay = "350";
-            repeat_rate = "30";
+        input =
+          let
+            keyboard = {
+              xkb_layout = "jp";
+              repeat_delay = "350";
+              repeat_rate = "30";
+            };
+          in
+          {
+            "type:keyboard" = keyboard;
+            "type:touchpad" = {
+              click_method = "clickfinger";
+              middle_emulation = "enabled";
+              pointer_accel = "1";
+              tap = "enabled";
+            };
+            "6127:24647:Lenovo_ThinkPad_Compact_USB_Keyboard_with_TrackPoint" = {
+              pointer_accel = "0.4";
+            } // keyboard; # workaround for issue #5943
           };
-          "2:10:TPPS/2_Elan_TrackPoint" = {
-            pointer_accel = "0.8";
-          };
-          "2:7:SynPS/2_Synaptics_TouchPad" = {
-            click_method = "clickfinger";
-            middle_emulation = "enabled";
-            pointer_accel = "1";
-            tap = "enabled";
-          };
-          "6127:24647:Lenovo_ThinkPad_Compact_USB_Keyboard_with_TrackPoint" = {
-            pointer_accel = "0.4";
-
-            # workaround for issue #5943
-            xkb_layout = "jp";
-            repeat_delay = "350";
-            repeat_rate = "30";
-          };
-        };
         output = {
           "*" = {
             bg = "${./wallpapers/DSC02942.JPG} fill";
