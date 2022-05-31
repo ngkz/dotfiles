@@ -144,11 +144,11 @@ in
         ];
       };
       extraConfig =
-        if cfg.internal != null then ''
+        (if cfg.internal != null then ''
           # clamshell mode
           bindswitch --reload --locked lid:on output ${cfg.internal} disable
           bindswitch --reload --locked lid:off output ${cfg.internal} enable
-        '' else "" + ''
+        '' else "") + ''
           # XXX workaround for home-manager #2806
           include ${pkgs.ngkz.sway-systemd}/etc/sway/config.d/10-systemd-session.conf
         '';
