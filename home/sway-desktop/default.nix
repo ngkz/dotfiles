@@ -22,7 +22,7 @@ in
 
   options.home.sway-desktop = {
     internal = mkOption {
-      type = types.str;
+      type = types.nullOr types.str;
       description = "Name of internal LCD output";
       default = null;
     };
