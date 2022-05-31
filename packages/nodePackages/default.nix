@@ -4,7 +4,7 @@
     inherit system;
   }
 , system ? builtins.currentSystem
-, nodejs ? pkgs."nodejs"
+, nodejs ? pkgs."nodejs-14_x"
 }:
 
 let

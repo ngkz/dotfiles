@@ -3,16 +3,13 @@
   description = "My NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-21.11";
-    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "nixpkgs/nixos-22.05";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
     #XXX don't forget to update HM when NixOS upgrade!
-    home-manager.url = "github:nix-community/home-manager/release-21.11";
+    home-manager.url = "github:nix-community/home-manager/release-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager-master.url = "github:nix-community/home-manager";
-    home-manager-master.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
@@ -50,7 +47,7 @@
         };
 
       # packages.<system> = { <pkgname> = <derivation>, ... };
-      packages = import ./packages { inherit pkgs; };
+      packages = import ./packages { inherit pkgs inputs; };
     }
   ));
 }

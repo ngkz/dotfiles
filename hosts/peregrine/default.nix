@@ -48,6 +48,13 @@ in
   # bluetooth
   hardware.bluetooth.enable = true;
   modules.tmpfs-as-root.persistentDirs = [ "/var/lib/bluetooth" ];
+  systemd.services.bluetooth.serviceConfig = {
+    StateDirectory = "";
+    ReadWritePaths = [
+      "/var/lib/bluetooth"
+      "${config.modules.tmpfs-as-root.storage}/var/lib/bluetooth"
+    ];
+  };
 
   # undervolting and stopping thermal/power throttling
   services.intel-undervolt = {
@@ -56,9 +63,8 @@ in
   };
   systemd.services.intel-undervolt-loop.enable = false;
 
-  programs.ccache.packageNames = [ "linux_5_15_hardened" ];
-  # XXX Use kernel >=5.14 for safer SMT and hyper-v drm driver
-  boot.kernelPackages = lib.mkForce (pkgs.linuxPackagesFor pkgs.linux_5_15_hardened);
+  programs.ccache.packageNames = [ "linux_hardened" ];
+  boot.kernelPackages = lib.mkForce (pkgs.linuxPackagesFor pkgs.linux_hardened);
   boot.kernelPatches = [
     # intel-undervolt needs /dev/mem
     # TODO optimize kernel build

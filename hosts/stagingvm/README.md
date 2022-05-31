@@ -43,7 +43,7 @@ mkswap -L swap /dev/system/swap
 
 # Create encrypted /nix
 lvcreate -l 100%FREE system -n nix
-mkfs.xfs -L nix -m bigtime=1 /dev/system/nix
+mkfs.xfs -L nix /dev/system/nix
 ```
 
 ## Mount filesystems

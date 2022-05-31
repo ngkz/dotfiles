@@ -172,7 +172,7 @@ let
       version = "1.0.0";
       src = fetchurl {
         url = "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz";
-        sha1 = "1504ad2523158caa40db4a2787cb01411994ea4f";
+        sha512 = "OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==";
       };
     };
     "glob-7.2.3" = {
@@ -208,7 +208,7 @@ let
       version = "1.0.6";
       src = fetchurl {
         url = "https://registry.npmjs.org/inflight/-/inflight-1.0.6.tgz";
-        sha1 = "49bd6331d7d02d0c09bc910a1075ba8165b56df9";
+        sha512 = "k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==";
       };
     };
     "inherits-2.0.4" = {
@@ -226,7 +226,7 @@ let
       version = "1.0.0";
       src = fetchurl {
         url = "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz";
-        sha1 = "bb935d48582cba168c06834957a54a3e07124f11";
+        sha512 = "VLghIWNM6ELQzo7zwmcg0NmTVyWKYjvIeM83yjp0wRDTmUnrM678fQbcKBo6n2CJEF0szoG//ytg+TKla89ALQ==";
       };
     };
     "lazystream-1.0.1" = {
@@ -253,7 +253,7 @@ let
       version = "4.2.0";
       src = fetchurl {
         url = "https://registry.npmjs.org/lodash.defaults/-/lodash.defaults-4.2.0.tgz";
-        sha1 = "d09178716ffea4dde9e5fb7b37f6f0802274580c";
+        sha512 = "qjxPLHd3r5DnsdGacqOMU6pb/avJzdh9tFX2ymgoZE27BmjXrNy/y4LoaiTeAb+O3gL8AfpJGtqfX/ae2leYYQ==";
       };
     };
     "lodash.difference-4.5.0" = {
@@ -262,7 +262,7 @@ let
       version = "4.5.0";
       src = fetchurl {
         url = "https://registry.npmjs.org/lodash.difference/-/lodash.difference-4.5.0.tgz";
-        sha1 = "9ccb4e505d486b91651345772885a2df27fd017c";
+        sha512 = "dS2j+W26TQ7taQBGN8Lbbq04ssV3emRw4NY58WErlTO29pIqS0HmoT5aJ9+TUQ1N3G+JOZSji4eugsWwGp9yPA==";
       };
     };
     "lodash.flatten-4.4.0" = {
@@ -271,7 +271,7 @@ let
       version = "4.4.0";
       src = fetchurl {
         url = "https://registry.npmjs.org/lodash.flatten/-/lodash.flatten-4.4.0.tgz";
-        sha1 = "f31c22225a9632d2bbf8e4addbef240aa765a61f";
+        sha512 = "C5N2Z3DgnnKr0LOpv/hKCgKdb7ZZwafIrsesve6lmzvZIRZRGaZ/l6Q8+2W7NaT+ZwO3fFlSCzCzrDCFdJfZ4g==";
       };
     };
     "lodash.isplainobject-4.0.6" = {
@@ -280,7 +280,7 @@ let
       version = "4.0.6";
       src = fetchurl {
         url = "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz";
-        sha1 = "7c526a52d89b45c45cc690b88163be0497f550cb";
+        sha512 = "oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==";
       };
     };
     "lodash.union-4.6.0" = {
@@ -289,7 +289,7 @@ let
       version = "4.6.0";
       src = fetchurl {
         url = "https://registry.npmjs.org/lodash.union/-/lodash.union-4.6.0.tgz";
-        sha1 = "48bb5088409f16f1821666641c44dd1aaae3cd88";
+        sha512 = "c4pB2CdGrGdjMKYLA+XiRDO7Y0PRQbm/Gzg8qMj+QH+pFVAoTp5sBpO0odL3FjoPCGjK96p6qsP+yQoiLoOBcw==";
       };
     };
     "minimatch-3.1.2" = {

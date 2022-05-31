@@ -1,4 +1,4 @@
-#!/usr/bin/env -S nix shell nixpkgs#bash nixpkgs#curl nixpkgs#nodePackages.node2nix nixpkgs#nix-prefetch-github nixpkgs#jq -c bash
+#!/usr/bin/env -S nix shell nixpkgs#bash nixpkgs#curl nixpkgs#nix-prefetch-github nixpkgs#jq -c bash
 set -euo pipefail
 
 cd "$(dirname "${BASH_SOURCE[0]}")"

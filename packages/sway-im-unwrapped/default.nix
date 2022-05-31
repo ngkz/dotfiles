@@ -1,8 +1,8 @@
-{ unstable, ... }:
+{ sway-unwrapped, ... }:
 
-unstable.sway-unwrapped.overrideAttrs (oldAttrs: {
+sway-unwrapped.overrideAttrs (finalAttrs: previousAttrs: {
   pname = "sway-im-unwrapped";
-  patches = oldAttrs.patches ++ [
+  patches = previousAttrs.patches ++ [
     ./0001-text_input-Implement-input-method-popups.patch
   ];
 })

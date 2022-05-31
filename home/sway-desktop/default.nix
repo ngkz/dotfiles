@@ -15,11 +15,6 @@ let
   cfg = config.home.sway-desktop;
 in
 {
-  imports = [
-    # XXX remove below after home-manager upgrade
-    "${inputs.home-manager-master}/modules/services/swayidle.nix"
-  ];
-
   options.home.sway-desktop = {
     internal = mkOption {
       type = types.nullOr types.str;

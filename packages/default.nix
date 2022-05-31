@@ -1,8 +1,8 @@
-{ pkgs }:
+{ inputs, pkgs }:
 let
   nodePackages = import ./nodePackages {
     inherit pkgs;
-    inherit (pkgs) system nodejs;
+    inherit (pkgs) system;
   };
 in
 {

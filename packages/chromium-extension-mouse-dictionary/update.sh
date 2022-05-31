@@ -32,6 +32,6 @@ node2nix \
     --development \
     --no-copy-node-env \
     --node-env ../nodePackages/node-env.nix \
-    --pkg-name nodejs
+    --pkg-name nodejs-14_x #XXX workaround for node2nix#236
 
 echo "$pname updated: $current -> $latest"

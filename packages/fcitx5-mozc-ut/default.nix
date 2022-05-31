@@ -6,11 +6,11 @@ let
     sha256 = "1951wwyq5gcfdnfx1k8qdvydh8xv0nhn00jhkn5jxpkk4ng1bskh";
   };
 in
-fcitx5-mozc.overrideAttrs (oldAttrs: {
+fcitx5-mozc.overrideAttrs (finalAttrs: previousAttrs: {
   pname = "fcitx5-mozc-ut";
-  version = "${oldAttrs.version}.${utdicver}";
+  version = "${previousAttrs.version}.${utdicver}";
 
-  postUnpack = oldAttrs.postUnpack + ''
+  postUnpack = previousAttrs.postUnpack + ''
     cat ${mozcdic-ut}/mozcdic-ut-${utdicver}.txt >> $sourceRoot/src/data/dictionary_oss/dictionary00.txt
   '';
 })

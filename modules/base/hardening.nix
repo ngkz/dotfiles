@@ -20,18 +20,15 @@ in
   config = mkMerge [
     {
       # additional hardening
-      # ccache
-      programs.ccache.packageNames = [ "linux_5_15_hardened" ];
-      # XXX Use kernel >=5.14 for safer SMT and hyper-v drm driver
-      boot.kernelPackages = pkgs.linuxPackages_5_15_hardened;
       # hardened.nix disables SMT
+      # kernel >=5.14 supports safer SMT
       security.allowSimultaneousMultithreading = true;
       # security.protectKernelImage disables hibernation
       security.protectKernelImage = false;
       # Prevent replacing the running kernel image w/o reboot
       boot.kernel.sysctl."kernel.kexec_load_disabled" = true;
-      # XXX custom allocator doesn't work with unstable packages
-      environment.memoryAllocator.provider = "libc";
+      # custom allocator doesn't work with unstable packages
+      #environment.memoryAllocator.provider = "libc";
       security.chromiumSuidSandbox.enable = true;
       services.dbus.apparmor = "enabled";
 
