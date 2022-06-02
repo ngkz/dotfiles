@@ -63,7 +63,7 @@ in
   };
   systemd.services.intel-undervolt-loop.enable = false;
 
-  programs.ccache.packageNames = [ "linux_hardened" ];
+  modules.ccache.packagePaths = [ [ "linux_hardened" ] ];
   boot.kernelPackages = lib.mkForce (pkgs.linuxPackagesFor pkgs.linux_hardened);
   boot.kernelPatches = [
     # intel-undervolt needs /dev/mem

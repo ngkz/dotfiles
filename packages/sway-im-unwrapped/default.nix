@@ -1,6 +1,8 @@
-{ sway-unwrapped, ... }:
+{ sway-unwrapped, stdenv, ... }:
 
-sway-unwrapped.overrideAttrs (finalAttrs: previousAttrs: {
+(sway-unwrapped.override {
+  inherit stdenv; # make stdenv overridable
+}).overrideAttrs (finalAttrs: previousAttrs: {
   pname = "sway-im-unwrapped";
   patches = previousAttrs.patches ++ [
     ./0001-text_input-Implement-input-method-popups.patch

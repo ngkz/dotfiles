@@ -1,9 +1,8 @@
 { self, nixpkgs, ... } @ inputs:
 {
   packages = final: prev: {
-    ngkz = self.packages.${prev.system} // (import ./packages/lib { pkgs = final; });
+    ngkz = (import ./packages { pkgs = final; }) // (import ./packages/lib { pkgs = final; });
   };
-
 
   sway-im = final: prev: {
     sway = prev.sway.override {

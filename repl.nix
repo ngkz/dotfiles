@@ -31,5 +31,6 @@ in
 // flake.inputs
 // builtins
 // flake.inputs.nixpkgs.lib
+// flake.lib
 // flake.nixosConfigurations
   // flake.nixosConfigurations.${hostname} or { }

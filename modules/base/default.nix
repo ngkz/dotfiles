@@ -11,6 +11,7 @@ in
     home-manager.nixosModule
     self.nixosModules.tmpfs-as-root
     ./hardening.nix
+    ./ccache.nix
   ];
 
   nixpkgs = import ../../nixpkgs.nix inputs;
@@ -56,21 +57,6 @@ in
 
   # build packages on the disk
   systemd.services.nix-daemon.environment.TMPDIR = "/nix/tmp";
-
-  programs.ccache = {
-    enable = true;
-    cacheDir = "/nix/persist/var/cache/ccache";
-  };
-  nix.sandboxPaths = [ config.programs.ccache.cacheDir ];
-
-  systemd.tmpfiles.rules = [
-    "d /nix/tmp 1775 root root 1d"
-    "L /nix/persist/var/cache/ccache/ccache.conf - - - - ${./ccache.conf}"
-  ];
-
-  modules.tmpfs-as-root.persistentDirs = [
-    "/var/cache/ccache"
-  ];
 
   # Select internationalisation properties.
   i18n.defaultLocale = "ja_JP.UTF-8";

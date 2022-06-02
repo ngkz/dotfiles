@@ -1,4 +1,4 @@
-{ fcitx5-mozc, fetchzip, ... }:
+{ clangStdenv, fcitx5-mozc, fetchzip, ... }:
 let
   utdicver = "20220525";
   mozcdic-ut = fetchzip {
@@ -6,7 +6,9 @@ let
     sha256 = "1951wwyq5gcfdnfx1k8qdvydh8xv0nhn00jhkn5jxpkk4ng1bskh";
   };
 in
-fcitx5-mozc.overrideAttrs (finalAttrs: previousAttrs: {
+(fcitx5-mozc.override {
+  inherit clangStdenv; # make clangStdenv overridable
+}).overrideAttrs (finalAttrs: previousAttrs: {
   pname = "fcitx5-mozc-ut";
   version = "${previousAttrs.version}.${utdicver}";
 
