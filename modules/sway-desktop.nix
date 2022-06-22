@@ -108,10 +108,6 @@
     qt5.qtwayland
   ];
 
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    ddcci-driver # DDC/CI backlight control driver
-  ];
-
   # XDG Portal
   xdg.portal = {
     enable = true;
