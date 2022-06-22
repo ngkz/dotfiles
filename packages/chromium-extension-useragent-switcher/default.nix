@@ -1,9 +1,5 @@
-{ pkgs, lib, ... }:
-let
-  inherit (pkgs.ngkz) buildChromiumExtension;
-  inherit (pkgs) fetchFromGitHub;
-in
-buildChromiumExtension rec {
+{ fetchFromGitHub, ngkz, lib, ... }:
+ngkz.buildChromiumExtension rec {
   pname = "useragent-switcher";
   version = "0.4.8";
   src = fetchFromGitHub {

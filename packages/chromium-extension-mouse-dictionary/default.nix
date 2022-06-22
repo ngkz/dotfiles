@@ -1,10 +1,8 @@
-{ pkgs, lib, ... }:
+{ callPackage, fetchFromGitHub, ngkz, lib, nodejs, ... }:
 let
-  inherit (pkgs.ngkz) buildChromiumExtension;
-  inherit (pkgs) fetchFromGitHub;
-  nodeDependencies = (pkgs.callPackage ./node.nix { }).nodeDependencies;
+  nodeDependencies = (callPackage ./node.nix { }).nodeDependencies;
 in
-buildChromiumExtension rec {
+ngkz.buildChromiumExtension rec {
   pname = "mouse-dictionary";
   version = "1.6.3";
   src = fetchFromGitHub {
@@ -13,7 +11,7 @@ buildChromiumExtension rec {
     rev = "v${version}";
     sha256 = "zmsOkyN9Z1DoOLw+g9rOVNeUiGYZhEnJAq4pxgMJv7Q=";
   };
-  buildInputs = with pkgs; [ nodejs ];
+  buildInputs = [ nodejs ];
   buildPhase = ''
     ln -s ${nodeDependencies}/lib/node_modules ./node_modules
     export PATH="${nodeDependencies}/bin:$PATH"

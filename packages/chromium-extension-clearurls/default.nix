@@ -1,9 +1,5 @@
-{ pkgs, lib, ... }:
-let
-  inherit (pkgs.ngkz) buildChromiumExtension;
-  inherit (pkgs) fetchzip;
-in
-buildChromiumExtension rec {
+{ fetchzip, ngkz, lib, ... }:
+ngkz.buildChromiumExtension rec {
   pname = "clearurls";
   version = "1.23.1";
   src = fetchzip {

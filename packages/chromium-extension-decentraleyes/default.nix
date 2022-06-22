@@ -1,10 +1,9 @@
-{ pkgs, ... }:
+{ stdenvNoCC, fetchurl, ... }:
 let
   inherit (builtins) hashString;
-  inherit (pkgs) stdenv fetchurl;
   id = "ldpochfccmkkmhdbclfhpagapcfdljkj";
 in
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   pname = "chromium-extension-decentraleyes";
   version = "2.0.17";
   src = fetchurl {

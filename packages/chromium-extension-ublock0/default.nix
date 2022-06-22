@@ -1,9 +1,5 @@
-{ pkgs, lib, ... }:
-let
-  inherit (pkgs.ngkz) buildChromiumExtension;
-  inherit (pkgs) fetchzip;
-in
-buildChromiumExtension rec {
+{ fetchzip, ngkz, lib, ... }:
+ngkz.buildChromiumExtension rec {
   pname = "ublock0";
   version = "1.43.0";
   src = fetchzip {

@@ -1,9 +1,5 @@
-{ pkgs, lib, ... }:
-let
-  inherit (pkgs.ngkz) buildChromiumExtension;
-  inherit (pkgs) fetchzip;
-in
-buildChromiumExtension rec {
+{ fetchzip, ngkz, lib, ... }:
+ngkz.buildChromiumExtension rec {
   pname = "auto-tab-discard";
   version = "0.6.1";
   src = fetchzip {

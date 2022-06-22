@@ -1,9 +1,5 @@
-{ pkgs, lib, ... }:
-let
-  inherit (pkgs.ngkz) buildChromiumExtension;
-  inherit (pkgs) fetchzip;
-in
-buildChromiumExtension rec {
+{ fetchzip, ngkz, lib, ... }:
+ngkz.buildChromiumExtension rec {
   pname = "reddit-enhancement-suite";
   version = "5.22.10";
   src = fetchzip {

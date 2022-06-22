@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchgit, ... }:
-stdenv.mkDerivation rec {
+{ lib, stdenvNoCC, fetchgit, ... }:
+stdenvNoCC.mkDerivation rec {
   pname = "blobmoji-fontconfig";
   version = "1.0.0-2";
 

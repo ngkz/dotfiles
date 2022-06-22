@@ -1,12 +1,9 @@
-{ pkgs, lib, ... }:
+{ fetchFromGitHub, fetchYarnDeps, fixup_yarn_lock, yarn, nodejs, ngkz, lib, ... }:
 let
-  inherit (pkgs.ngkz) buildChromiumExtension;
-  inherit (pkgs) fetchFromGitHub fetchYarnDeps fixup_yarn_lock yarn;
-
   src_sha256 = "D3BUIvB0i8piUUMEMiueE64ARezIwUNXy+19sqv/yR8=";
   yarn_sha256 = "1ra9g9ysxyv8phgxazpij2pj5nkinp5rarb75wnsapxm2b89z0am";
 in
-buildChromiumExtension rec {
+ngkz.buildChromiumExtension rec {
   pname = "vue-devtools";
   version = "6.1.4";
 
@@ -22,7 +19,7 @@ buildChromiumExtension rec {
     sha256 = yarn_sha256;
   };
 
-  buildInputs = with pkgs; [ fixup_yarn_lock yarn nodejs ];
+  buildInputs = [ fixup_yarn_lock yarn nodejs ];
 
   configurePhase = ''
     chmod u+w . ./yarn.lock
