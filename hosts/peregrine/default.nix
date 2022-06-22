@@ -76,7 +76,6 @@ in
         DEVMEM y
         STRICT_DEVMEM y
         IO_STRICT_DEVMEM y
-        LOGO y
       '';
     }
   ];
