@@ -115,6 +115,4 @@
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
     gtkUsePortal = true;
   };
-
-  modules.ccache.packagePaths = [["xwayland"]];
 }
