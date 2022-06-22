@@ -63,10 +63,18 @@ in
             }
           ));
         in
-        lib.ngkz.overlayPaths prev cfg.packagePaths (pkg: pkg.override {
-          stdenv = builtins.trace "with ccache: ${pkg.name}" ccacheStdenv;
-          clangStdenv = builtins.trace "with ccache: ${pkg.name}" ccacheClangStdenv;
-        })
+        lib.ngkz.overlayPaths prev cfg.packagePaths (
+          pkg: pkg.override (
+            old: (
+              if old ? stdenv then {
+                stdenv = builtins.trace "with ccache: ${pkg.name}" ccacheStdenv;
+              } else {}
+            ) // (
+              if old ? clangStdenv then {
+                clangStdenv = builtins.trace "with ccache: ${pkg.name}" ccacheClangStdenv;
+              } else {}
+            )
+        ))
       )
     ];
   };
