@@ -68,13 +68,14 @@ in
             old: (
               if old ? stdenv then {
                 stdenv = builtins.trace "with ccache: ${pkg.name}" ccacheStdenv;
-              } else {}
+              } else { }
             ) // (
               if old ? clangStdenv then {
                 clangStdenv = builtins.trace "with ccache: ${pkg.name}" ccacheClangStdenv;
-              } else {}
+              } else { }
             )
-        ))
+          )
+        )
       )
     ];
   };
