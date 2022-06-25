@@ -63,22 +63,7 @@ in
   };
   systemd.services.intel-undervolt-loop.enable = false;
 
-  modules.ccache.packagePaths = [ [ "linux_hardened" ] ];
-  boot.kernelPackages = lib.mkForce (pkgs.linuxPackagesFor pkgs.linux_hardened);
-  boot.kernelPatches = [
-    # intel-undervolt needs /dev/mem
-    # TODO optimize kernel build
-    {
-      name = "reenable-devmem";
-      patch = null;
-      # intel-undervolt needs /dev/mem
-      extraConfig = ''
-        DEVMEM y
-        STRICT_DEVMEM y
-        IO_STRICT_DEVMEM y
-      '';
-    }
-  ];
+  boot.kernelPackages = lib.mkForce (pkgs.linuxPackagesFor pkgs.ngkz.linux-hardened-peregrine);
 
   # increase maximum fan speed
   services.thinkfan = {
