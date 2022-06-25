@@ -80,6 +80,8 @@ in
         "usbserial"
         "xor"
         "zstd_compress"
+        "des"
+        "des3_ede"
       ];
     }
     (mkIf cfg.disableMeltdownAndL1TFMitigation {
