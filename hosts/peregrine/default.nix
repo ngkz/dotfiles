@@ -15,7 +15,7 @@ in
     portable
     workstation
     sway-desktop
-    intel-undervolt
+    undervolt
 
     common-cpu-intel
     common-pc-laptop
@@ -55,15 +55,6 @@ in
       "${config.modules.tmpfs-as-root.storage}/var/lib/bluetooth"
     ];
   };
-
-  # undervolting and stopping thermal/power throttling
-  services.intel-undervolt = {
-    enable = true;
-    extraConfig = builtins.readFile ./intel-undervolt.conf;
-  };
-  systemd.services.intel-undervolt-loop.enable = false;
-
-  boot.kernelPackages = lib.mkForce (pkgs.linuxPackagesFor pkgs.ngkz.linux-hardened-peregrine);
 
   # increase maximum fan speed
   services.thinkfan = {

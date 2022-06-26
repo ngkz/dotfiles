@@ -9,7 +9,6 @@ in
   sway-systemd = pkgs.callPackage ./sway-systemd { };
   sway-im-unwrapped = pkgs.callPackage ./sway-im-unwrapped { };
   fcitx5-mozc-ut = pkgs.callPackage ./fcitx5-mozc-ut { };
-  intel-undervolt = pkgs.callPackage ./intel-undervolt { };
   sarasa-term-j-nerd-font = pkgs.callPackage ./sarasa-term-j-nerd-font { };
   blobmoji-fontconfig = pkgs.callPackage ./blobmoji-fontconfig { };
   chromium-extension-ublock0 = pkgs.callPackage ./chromium-extension-ublock0 { };
@@ -24,5 +23,4 @@ in
   chromium-extension-decentraleyes = pkgs.callPackage ./chromium-extension-decentraleyes { };
   chromium-extension-clearurls = pkgs.callPackage ./chromium-extension-clearurls { };
   chromium-extension-vue-devtools = pkgs.callPackage ./chromium-extension-vue-devtools { };
-  linux-hardened-peregrine = pkgs.callPackage ./linux-hardened-peregrine { };
 } // nodePackages

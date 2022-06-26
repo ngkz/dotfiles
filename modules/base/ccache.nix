@@ -28,9 +28,7 @@ in
 
     modules.ccache.packagePaths = [
       [ "ngkz" "fcitx5-mozc-ut" ]
-      [ "ngkz" "intel-undervolt" ]
       [ "ngkz" "sway-im-unwrapped" ]
-      [ "ngkz" "linux-hardened-peregrine" ]
     ];
 
     # apply after other overlays
