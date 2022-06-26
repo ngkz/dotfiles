@@ -3,4 +3,8 @@ let
 in
 {
   "user-password-hash.age".publicKeys = keys;
+  "parents-home-1f-a.nmconnection.age".publicKeys = keys;
+  "parents-home-1f-g.nmconnection.age".publicKeys = keys;
+  "parents-home-2f.nmconnection.age".publicKeys = keys;
+  "phone.nmconnection.age".publicKeys = keys;
 }

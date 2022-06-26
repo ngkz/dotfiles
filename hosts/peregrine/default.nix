@@ -16,6 +16,7 @@ in
     workstation
     sway-desktop
     undervolt
+    nm-config-home
 
     common-cpu-intel
     common-pc-laptop
@@ -86,12 +87,6 @@ in
       ./sway-desktop.nix
     ];
   };
-
-  # Network
-  networking.useDHCP = false;
-  networking.interfaces.enp4s0.useDHCP = true;
-  #TODO wireless network
-  # networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
 
   # Whiskey Lake is not affected by L1TF and Meltdown
   modules.hardening.disableMeltdownAndL1TFMitigation = true;

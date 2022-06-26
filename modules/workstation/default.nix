@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }: {
   imports = [
     ./printing.nix
+    ./network-manager.nix
   ];
 
   # PipeWire
