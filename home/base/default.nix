@@ -76,6 +76,7 @@
     sdparm
     hdparm
     ntfsprogs
+    bc
   ];
 
   # neovim
