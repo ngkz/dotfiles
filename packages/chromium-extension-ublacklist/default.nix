@@ -1,10 +1,10 @@
 { fetchzip, ngkz, lib, ... }:
 ngkz.buildChromiumExtension rec {
   pname = "ublacklist";
-  version = "7.7.0";
+  version = "7.8.0";
   src = fetchzip {
     url = "https://github.com/iorate/ublacklist/releases/download/v${version}/ublacklist-v${version}-chrome.zip";
-    sha256 = "0h58c9fa7vw821mvlr0rinnz8jcqds5dj05z50wika4q2023s235";
+    sha256 = "0lh6f0db1pjsdgwrgapk8jp4043bvnfv9cy0v5aylqqcanjsb1d6";
     stripRoot = false;
   };
 }
