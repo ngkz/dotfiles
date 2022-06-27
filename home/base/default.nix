@@ -77,6 +77,8 @@
     hdparm
     ntfsprogs
     bc
+    pciutils #lspci
+    lshw
   ];
 
   # neovim
