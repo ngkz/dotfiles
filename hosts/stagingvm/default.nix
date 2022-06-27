@@ -53,4 +53,10 @@ in
   ];
 
   virtualisation.hypervGuest.enable = true;
+
+  # Hyper-V NIC doesn't support MAC raodnomization
+  environment.etc."NetworkManager/system-connections/eth0.nmconnection" = {
+    source = ./eth0.nmconnection;
+    mode = "0400";
+  };
 }
