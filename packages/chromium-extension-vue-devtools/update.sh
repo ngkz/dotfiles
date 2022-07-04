@@ -24,6 +24,6 @@ trap 'rm -f source' EXIT
 # download source
 nix build -o source "../../#${pname}.src"
 yarn_hash=$(prefetch-yarn-deps source/yarn.lock)
-sed -i "s|yarn_sha256 = \".*\"|yarn_sha256 = \"$newhash\"|" default.nix
+sed -i "s|yarn_sha256 = \".*\"|yarn_sha256 = \"$yarn_hash\"|" default.nix
 
 echo "$pname updated: $current -> $latest"
