@@ -1,11 +1,11 @@
 { fetchFromGitHub, fetchYarnDeps, fixup_yarn_lock, yarn, nodejs, ngkz, lib, ... }:
 let
-  src_sha256 = "8WTHj7u8yukcxxpZbfMfqylzaRCFdHMdZMrTZNEG52k=";
+  src_sha256 = "EN5WqXww8lzZcZFNA1OyQVF2Hub4doLl6DcJbJVc9SY=";
   yarn_sha256 = "1ra9g9ysxyv8phgxazpij2pj5nkinp5rarb75wnsapxm2b89z0am";
 in
 ngkz.buildChromiumExtension rec {
   pname = "vue-devtools";
-  version = "6.2.0";
+  version = "6.2.1";
 
   src = fetchFromGitHub {
     owner = "vuejs";
