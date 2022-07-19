@@ -9,6 +9,9 @@ let
   swaylock = "${pkgs.swaylock}/bin/swaylock";
   swaymsg = "${pkgs.sway-unwrapped}/bin/swaymsg";
   pgrep = "${pkgs.procps}/bin/pgrep";
+  systemctl = "${pkgs.systemd}/bin/systemctl";
+  loginctl  = "${pkgs.systemd}/bin/loginctl";
+  cat = "${pkgs.coreutils}/bin/cat";
   sway = config.wayland.windowManager.sway.config;
   mod = sway.modifier;
   inherit (sway) left right up down;
@@ -189,7 +192,7 @@ in
         }
         {
           event = "before-sleep";
-          command = "loginctl lock-session";
+          command = "${loginctl} lock-session";
         }
       ];
       timeouts = [
@@ -205,18 +208,18 @@ in
         }
         {
           timeout = 310;
-          command = "loginctl lock-session";
+          command = "${loginctl} lock-session";
         }
         {
           timeout = 600;
-          command = "[ $(cat /sys/class/power_supply/AC/online) = 0 ] && systemctl suspend";
+          command = "[ $(${cat} /sys/class/power_supply/AC/online) = 0 ] && ${systemctl} suspend";
         }
       ];
     };
 
-    # XXX Workaround for home-manager #2811
+    # XXX Remove after home-manager #2811 merge
     systemd.user.services.swayidle.Service.Environment = [
-      "PATH=${pkgs.bash}/bin:${pkgs.coreutils}/bin:${pkgs.systemd}/bin"
+      "PATH=${pkgs.bash}/bin"
     ];
 
     services.gammastep = {
