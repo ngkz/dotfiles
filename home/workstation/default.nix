@@ -137,5 +137,6 @@
     thunderbird
     vlc
     wev
+    gnome.gnome-power-manager
   ];
 }
