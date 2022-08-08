@@ -76,4 +76,14 @@
     lidSwitchDocked = "suspend";
     extraConfig = "HandlePowerKey=suspend";
   };
+
+  services.upower.enable = true;
+  modules.tmpfs-as-root.persistentDirs = [ "/var/lib/upower" ];
+  systemd.services.upower.serviceConfig = {
+    StateDirectory = "";
+    ReadWritePaths = [
+      "/var/lib/upower"
+      "${config.modules.tmpfs-as-root.storage}/var/lib/upower"
+    ];
+  };
 }
