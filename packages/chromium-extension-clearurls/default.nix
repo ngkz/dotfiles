@@ -1,10 +1,10 @@
 { fetchzip, ngkz, lib, ... }:
 ngkz.buildChromiumExtension rec {
   pname = "clearurls";
-  version = "1.23.1";
+  version = "1.25.0";
   src = fetchzip {
     url = "https://github.com/ClearURLs/Addon/releases/download/${version}/ClearURLs-${version}-chrome.zip";
-    sha256 = "1k2m7fkj5ysfcgpl7xnhmd0i797axd7z71p4jnrsngf19rdqsjd5";
+    sha256 = "011rywxfijigpigv9sjnzdbk321bqpxy3pib2qm88izv9arxfy30";
     stripRoot = false;
   };
 }
