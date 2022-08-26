@@ -4,12 +4,12 @@ let
 in
 ngkz.buildChromiumExtension rec {
   pname = "mouse-dictionary";
-  version = "1.6.3";
+  version = "1.6.4";
   src = fetchFromGitHub {
     owner = "wtetsu";
     repo = "mouse-dictionary";
     rev = "v${version}";
-    sha256 = "zmsOkyN9Z1DoOLw+g9rOVNeUiGYZhEnJAq4pxgMJv7Q=";
+    sha256 = "ImUXyPTSZ7LdkumzGOv2AvAI3twbhiav1O7f7ZQD9Es=";
   };
   buildInputs = [ nodejs ];
   buildPhase = ''
