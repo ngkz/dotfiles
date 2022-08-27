@@ -57,8 +57,6 @@
     s-tui
     smartmontools #smartctl
     termshark
-    unrar
-    unzipNLS
     usbutils #lsusb
     wget
     monolith # Save complete web pages as a single HTML file
@@ -67,7 +65,6 @@
     efibootmgr
     file
     jq
-    zip
     openssl
     unixtools.xxd
     nix-index
