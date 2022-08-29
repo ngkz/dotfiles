@@ -54,7 +54,7 @@
           "Noto Serif CJK JP"
         ];
         emoji = [ "Blobmoji" ];
-        monospace = [ "Sarasa Term J Nerd Fonts" ];
+        monospace = [ "Sarasa Term J Nerd Font" ];
       };
       cache32Bit = true;
       # XXX Workaround for nixpkgs#46323
