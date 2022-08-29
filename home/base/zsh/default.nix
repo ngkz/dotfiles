@@ -92,7 +92,7 @@
     shellAliases = {
       # modern unix commands
       cat = "bat";
-      top = "bpytop";
+      top = "btop";
       dig = "dog";
       du = "dust";
       ls = "exa --icons --time-style=iso --git";

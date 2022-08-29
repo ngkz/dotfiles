@@ -31,7 +31,7 @@
 
   home.packages = with pkgs; [
     # modern unix commands
-    bpytop # top
+    btop # top
     du-dust # modern du
     dogdns # dig
     fd # find
