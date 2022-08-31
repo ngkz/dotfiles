@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  iniFormat = pkgs.formats.ini { };
+in
 {
   imports = [
     ./direnv.nix
@@ -111,6 +114,18 @@
 
   programs.zathura.enable = true; #PDF viewer
 
+  # networkmanager_dmenu
+  xdg.configFile."networkmanager-dmenu/config.ini".source = iniFormat.generate "config.ini" {
+    dmenu = {
+      dmenu_command = "bemenu -in -l 25";
+      wifi_chars = "▂▄▆█";
+    };
+
+    dmenu_passphrase = {
+      obscure = "True";
+    };
+  };
+
   home.packages = with pkgs; [
     wl-clipboard
     xdg-utils
@@ -120,6 +135,7 @@
     glib.bin #gsettings
     evtest
     libinput.bin #libinput
+    libnotify #notify-send
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
@@ -138,5 +154,8 @@
     vlc
     wev
     gnome.gnome-power-manager
+    networkmanagerapplet
+    ngkz.networkmanager_dmenu
+    bemenu
   ];
 }

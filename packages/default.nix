@@ -23,4 +23,5 @@ in
   chromium-extension-decentraleyes = pkgs.callPackage ./chromium-extension-decentraleyes { };
   chromium-extension-clearurls = pkgs.callPackage ./chromium-extension-clearurls { };
   chromium-extension-vue-devtools = pkgs.callPackage ./chromium-extension-vue-devtools { };
+  networkmanager_dmenu = pkgs.callPackage ./networkmanager_dmenu { };
 } // nodePackages
