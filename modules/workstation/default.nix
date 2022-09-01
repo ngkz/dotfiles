@@ -86,4 +86,6 @@
       "${config.modules.tmpfs-as-root.storage}/var/lib/upower"
     ];
   };
+
+  services.blueman.enable = true;
 }

@@ -118,6 +118,8 @@ in
   services.network-manager-applet.enable = true;
   xsession.preferStatusNotifierItem = true;
 
+  services.blueman-applet.enable = true;
+
   home.packages = with pkgs; [
     wl-clipboard
     xdg-utils
