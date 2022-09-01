@@ -116,7 +116,7 @@ in
 
   #nm-applet
   services.network-manager-applet.enable = true;
-  xsession.preferStatusNotifierItem = true;
+  xsession.preferStatusNotifierItems = true;
 
   services.blueman-applet.enable = true;
 
