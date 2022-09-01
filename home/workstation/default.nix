@@ -114,17 +114,9 @@ in
 
   programs.zathura.enable = true; #PDF viewer
 
-  # networkmanager_dmenu
-  xdg.configFile."networkmanager-dmenu/config.ini".source = iniFormat.generate "config.ini" {
-    dmenu = {
-      dmenu_command = "bemenu -in -l 25";
-      wifi_chars = "▂▄▆█";
-    };
-
-    dmenu_passphrase = {
-      obscure = "True";
-    };
-  };
+  #nm-applet
+  services.network-manager-applet.enable = true;
+  xsession.preferStatusNotifierItem = true;
 
   home.packages = with pkgs; [
     wl-clipboard
@@ -155,7 +147,5 @@ in
     wev
     gnome.gnome-power-manager
     networkmanagerapplet
-    ngkz.networkmanager_dmenu
-    bemenu
   ];
 }
