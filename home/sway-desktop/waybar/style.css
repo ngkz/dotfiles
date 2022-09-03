@@ -1,0 +1,66 @@
+window#waybar {
+  background: transparent;
+  color: white;
+}
+
+#custom-scratchpad, #workspaces, #mode, #window, #custom-swaync, #temperature, #cpu,
+#memory, #disk, #pulseaudio, #battery, #clock, tooltip {
+  font-family:   "Sarasa Term J Nerd Font";
+  font-size:     13px;
+}
+
+#custom-scratchpad, #workspaces, #window, #custom-swaync, #temperature, #cpu, #memory,
+#disk, #pulseaudio, #battery, #clock {
+  font-weight: bold;
+  text-shadow: black 0px 2px 2px;
+}
+
+#workspaces button {
+  background: transparent;
+  color: white;
+  padding: 0 5px;
+  border: 0;
+  border-top: 3px solid transparent;
+  border-radius: 0;
+  min-height: 0;
+}
+
+#workspaces button.visible {
+  color: #e02334;
+  text-shadow: #600 -1px 1px 2px, #600 1px 1px 2px, #600 -1px -1px 2px, #600 1px -1px 2px;
+}
+
+#workspaces button.focused {
+  border-top: 3px solid #e02334;
+}
+
+#workspaces button.urgent {
+  color: #ff3;
+  text-shadow: #550 -1px 1px 2px, #550 1px 1px 2px, #550 -1px -1px 2px, #550 1px -1px 2px;
+}
+
+#custom-scratchpad, #mode, #tray, #custom-swaync, #temperature, #cpu, #memory, #disk,
+#pulseaudio, #battery, #clock {
+  padding: 0 2px;
+  margin: 0 3px;
+}
+
+#mode {
+  border-top: 3px solid #e02334;
+  background: #a0000e;
+}
+
+#tray > widget > image {
+  /* tray icon */
+  -gtk-icon-shadow: #444 0px 2px 2px;
+}
+
+#battery.warning:not(.charging), #memory.warning, #disk.warning {
+  color: #ff3;
+  text-shadow: #550 -1px 1px 2px, #550 1px 1px 2px, #550 -1px -1px 2px, #550 1px -1px 2px;
+}
+
+#battery.critical:not(.charging), #memory.critical, #temperature.critical, #disk.critical {
+  color: #f66;
+  text-shadow: #600 -1px 1px 2px, #600 1px 1px 2px, #600 -1px -1px 2px, #600 1px -1px 2px;
+}

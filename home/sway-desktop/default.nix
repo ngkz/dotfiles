@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, config, ... }:
+{ pkgs, lib, config, ... }:
 let
   inherit (lib) mkOption mkOptionDefault types concatStringsSep;
 
@@ -10,7 +10,7 @@ let
   swaymsg = "${pkgs.sway-unwrapped}/bin/swaymsg";
   pgrep = "${pkgs.procps}/bin/pgrep";
   systemctl = "${pkgs.systemd}/bin/systemctl";
-  loginctl  = "${pkgs.systemd}/bin/loginctl";
+  loginctl = "${pkgs.systemd}/bin/loginctl";
   cat = "${pkgs.coreutils}/bin/cat";
   sway = config.wayland.windowManager.sway.config;
   mod = sway.modifier;
@@ -25,6 +25,10 @@ in
       default = null;
     };
   };
+
+  imports = [
+    ./waybar
+  ];
 
   config = {
     # Sway configuration
