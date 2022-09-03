@@ -90,4 +90,9 @@ in
 
   # Whiskey Lake is not affected by L1TF and Meltdown
   modules.hardening.disableMeltdownAndL1TFMitigation = true;
+
+  hardware.trackpoint = {
+    enable = true;
+    speed = 255;
+  };
 }
