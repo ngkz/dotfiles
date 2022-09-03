@@ -68,7 +68,7 @@ let
         },
         "cpu": {
           "format": "",
-          "format-load": "{max_frequency:0.1f}GHz {usage}% $(for i in $(seq $(nproc)); do echo -n "{icon$((i - 1))}"; done)",
+          "format-load": " {max_frequency:0.1f}GHz {usage}% $(for i in $(seq $(nproc)); do echo -n "{icon$((i - 1))}"; done)",
           "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
           "interval": 2,
           "on-click": "${foot} -e ${btop}",
@@ -159,8 +159,8 @@ let
           "bat": "BAT2"
         },
         "clock": {
-          "format": "{:%R}",
-          "format-alt": "{:%Y-%m-%d %a %H:%M}",
+          "format": " {:%R}",
+          "format-alt": " {:%Y-%m-%d %a %H:%M}",
           "interval": 10,
           "locale": "C",
           "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>"
