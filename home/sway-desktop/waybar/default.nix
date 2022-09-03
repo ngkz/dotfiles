@@ -48,8 +48,8 @@ let
           "return-type": "json",
           "exec": "${swaymsg} -t get_tree | ${jq} --unbuffered --compact-output '(recurse(.nodes[]) | select(.name == \\"__i3_scratch\\") | .focus) as \$scratch_ids | [..  | (.nodes? + .floating_nodes?) // empty | .[] | select(.id |IN(\$scratch_ids[]))] as \$scratch_nodes | if (\$scratch_nodes|length) > 0 then { text: \\"\\\\(\$scratch_nodes | length)\\", tooltip: \$scratch_nodes | map(\\"\\\\(.app_id // .window_properties.class) (\\\\(.id)): \\\\(.name)\\") | join(\\"\\\\n\\") } else empty end'",
           "format": "缾 {}",
-          "on-click": "exec swaymsg 'scratchpad show'",
-          "on-click-right": "exec swaymsg 'move scratchpad'"
+          "on-click": "${swaymsg} 'scratchpad show'",
+          "on-click-right": "${swaymsg} 'move scratchpad'"
         },
         "sway/workspaces": {
           "smooth-scrolling-threshold": 3,
