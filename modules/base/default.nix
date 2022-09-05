@@ -33,15 +33,7 @@ in
 
     trustedUsers = [ "root" ];
 
-    # Automatic nix store deduplication
-    autoOptimiseStore = true;
-
-    # Periodically remove old generations
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
+    # turned autoOptimiseStore and gc.automatic off due to slowdown
 
     # It’s often convenient to pin the nixpkgs flake to the exact version
     # of nixpkgs used to build the system. This ensures that commands
