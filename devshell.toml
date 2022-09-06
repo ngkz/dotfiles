@@ -17,7 +17,8 @@ packages = [
   "nix-prefetch-github",
   "nix-prefetch-git",
   "nodePackages.node2nix",
-  "prefetch-yarn-deps"
+  "prefetch-yarn-deps",
+  "nvd"
 ]
 
 # Declare commands that are available in the environment.
@@ -46,6 +47,9 @@ package = "prefetch-yarn-deps"
 package = "nodePackages.node2nix"
 
 [[commands]]
+package = "nvd"
+
+[[commands]]
 help = "Update all flake inputs and packages"
 name = "update"
 command = '${PRJ_ROOT}/update.sh'
@@ -54,7 +58,11 @@ category = "system maintenance"
 [[commands]]
 help = "Build and activate the new configuration"
 name = "switch"
-command = 'sudo sh -c "[ -e /nix/tmp ] && export TMPDIR=/nix/tmp; nixos-rebuild switch --flake \"${PRJ_ROOT}#\" $@"'
+command = '''
+prev=$(readlink /run/current-system)
+sudo sh -c "[ -e /nix/tmp ] && export TMPDIR=/nix/tmp; nixos-rebuild switch --flake \"${PRJ_ROOT}#\" $@"
+nvd diff "$prev" /run/current-system
+'''
 category = "system maintenance"
 
 [[commands]]
