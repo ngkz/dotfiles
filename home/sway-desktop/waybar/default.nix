@@ -7,6 +7,7 @@ let
   gnome-power-statistics = "${pkgs.gnome.gnome-power-manager}/bin/gnome-power-statistics";
   swaymsg = "${pkgs.sway}/bin/swaymsg";
   jq = "${pkgs.jq}/bin/jq";
+  swaync-client = "${pkgs.ngkz.swaynotificationcenter-unstable}/bin/swaync-client";
   generateWaybarConfig = pkgs.writeShellScript "generate-waybar-config" ''
     set -euo pipefail
 
@@ -32,6 +33,7 @@ let
         ],
         "modules-right": [
           "tray",
+          "custom/notification",
           $(if [ -n "$hwmon_path" ]; then echo '"temperature",'; fi)
           "cpu",
           "memory",
@@ -57,6 +59,20 @@ let
         "tray": {
           "icon-size": 16,
           "spacing": 5
+        },
+        "custom/notification": {
+          "format": "{icon}",
+          "format-icons": {
+            "notification": " <span foreground='red'><sup></sup></span>",
+            "none": "",
+            "dnd-notification": " <span foreground='red'><sup></sup></span>",
+            "dnd-none": "  "
+          },
+          "return-type": "json",
+          "exec": "${swaync-client} -swb",
+          "on-click": "${swaync-client} -t -sw",
+          "on-click-right": "${swaync-client} -d -sw",
+          "escape": true
         },
         "temperature": {
           "hwmon-path": "$hwmon_path",

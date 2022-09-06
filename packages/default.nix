@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, inputs }:
 let
   nodePackages = import ./nodePackages {
     inherit pkgs;
@@ -23,4 +23,5 @@ in
   chromium-extension-decentraleyes = pkgs.callPackage ./chromium-extension-decentraleyes { };
   chromium-extension-clearurls = pkgs.callPackage ./chromium-extension-clearurls { };
   chromium-extension-vue-devtools = pkgs.callPackage ./chromium-extension-vue-devtools { };
+  swaynotificationcenter-unstable = pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/applications/misc/swaynotificationcenter/default.nix" { }; #TODO
 } // nodePackages

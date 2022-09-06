@@ -236,9 +236,20 @@ in
       };
     };
 
+    #swaync
+    xdg.configFile."swaync/config.json".text = builtins.toJSON {
+      scripts = {
+        sound = {
+          exec = "${pkgs.pulseaudio}/bin/paplay ${./airplane-announcement.ogg}";
+        };
+      };
+    };
+
     home.packages = with pkgs; [
       # XXX workaround for home-manager #2806
       ngkz.sway-systemd
+
+      ngkz.swaynotificationcenter-unstable
     ];
   };
 }

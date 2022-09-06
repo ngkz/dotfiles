@@ -4,6 +4,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-22.05";
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
@@ -54,7 +55,7 @@
           };
 
         # packages.<system> = { <pkgname> = <derivation>, ... };
-        packages = import ./packages { inherit pkgs; };
+        packages = import ./packages { inherit pkgs; inherit inputs; };
       }
     ));
 }
