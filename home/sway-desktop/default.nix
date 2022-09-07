@@ -12,6 +12,7 @@ let
   systemctl = "${pkgs.systemd}/bin/systemctl";
   loginctl = "${pkgs.systemd}/bin/loginctl";
   cat = "${pkgs.coreutils}/bin/cat";
+  swaync-client = "${pkgs.ngkz.swaynotificationcenter-unstable}/bin/swaync-client";
   hotkey = import ./hotkey.nix { inherit pkgs lib; };
   sway = config.wayland.windowManager.sway.config;
   mod = sway.modifier;
@@ -113,6 +114,10 @@ in
           "XF86AudioRaiseVolume" = "exec ${hotkey.volume} up";
           "XF86AudioLowerVolume" = "exec ${hotkey.volume} down";
           "XF86AudioMute" = "exec ${hotkey.volume} mute";
+
+          # notification
+          "${mod}+Shift+n" = "exec ${swaync-client} --toggle-panel --skip-wait";
+          "${mod}+n" = "exec ${swaync-client} --close-latest --skip-wait";
         };
         input =
           let
