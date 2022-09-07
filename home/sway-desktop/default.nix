@@ -12,6 +12,7 @@ let
   systemctl = "${pkgs.systemd}/bin/systemctl";
   loginctl = "${pkgs.systemd}/bin/loginctl";
   cat = "${pkgs.coreutils}/bin/cat";
+  hotkey = import ./hotkey.nix { inherit pkgs lib; };
   sway = config.wayland.windowManager.sway.config;
   mod = sway.modifier;
   inherit (sway) left right up down;
@@ -107,6 +108,11 @@ in
           # Show the next scratchpad window or hide the focused scratchpad window.
           # If there are multiple scratchpad windows, this command cycles through them.
           "${mod}+Zenkaku_Hankaku" = "scratchpad show";
+
+          # media keys
+          "XF86AudioRaiseVolume" = "exec ${hotkey.volume} up";
+          "XF86AudioLowerVolume" = "exec ${hotkey.volume} down";
+          "XF86AudioMute" = "exec ${hotkey.volume} mute";
         };
         input =
           let
@@ -244,6 +250,7 @@ in
     xdg.configFile."swaync/config.json".text = builtins.toJSON {
       scripts = {
         sound = {
+          app-name = "^(?!volume).*$";
           exec = "${pkgs.pulseaudio}/bin/paplay ${./airplane-announcement.ogg}";
         };
       };

@@ -8,6 +8,7 @@ let
   swaymsg = "${pkgs.sway}/bin/swaymsg";
   jq = "${pkgs.jq}/bin/jq";
   swaync-client = "${pkgs.ngkz.swaynotificationcenter-unstable}/bin/swaync-client";
+  volume = (import ../hotkey.nix { inherit pkgs lib; }).volume;
   generateWaybarConfig = pkgs.writeShellScript "generate-waybar-config" ''
     set -euo pipefail
 
@@ -155,7 +156,8 @@ let
             "portable": ""
           },
           "format-muted": "ﱝ",
-          "on-click": "${pavucontrol}"
+          "on-click": "${pavucontrol}",
+          "on-click-middle": "${volume} mute"
         },
         "battery": {
           "format": "{icon} {capacity}%",
