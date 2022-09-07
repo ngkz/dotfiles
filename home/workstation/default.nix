@@ -52,6 +52,7 @@ in
       };
 
       bell = {
+        urgent = "yes";
         notify = "yes";
       };
 
