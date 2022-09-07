@@ -114,6 +114,7 @@ in
           "XF86AudioRaiseVolume" = "exec ${hotkey.volume} up";
           "XF86AudioLowerVolume" = "exec ${hotkey.volume} down";
           "XF86AudioMute" = "exec ${hotkey.volume} mute";
+          "XF86AudioMicMute" = "exec ${hotkey.micmute}";
 
           # notification
           "${mod}+Shift+n" = "exec ${swaync-client} --toggle-panel --skip-wait";
