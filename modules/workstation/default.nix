@@ -62,13 +62,16 @@
     };
   };
 
-  # Wireshark
   programs.wireshark.enable = true;
+  programs.light.enable = true;
 
   # Extra groups
   users.users.user.extraGroups = [
     # Wireshark
     "wireshark"
+
+    # light
+    "video"
   ];
 
   services.logind = {

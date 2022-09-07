@@ -82,4 +82,25 @@
 
     notify-send -a volume -i "$icon" $vol_opt -h string:synchronous:volume -t 3000 -e "$summary" "$body"
   '';
+
+  brightness = pkgs.writeShellScript "brightness" ''
+    set -euo pipefail
+
+    PATH=${lib.makeBinPath (with pkgs; [ light libnotify coreutils ])}
+
+    case "$1" in
+    up)
+      light -A 5
+      summary="Brightness up"
+      ;;
+    down)
+      light -U 5
+      summary="Brightness down"
+      ;;
+    esac
+
+    brightness=$(light -G | cut -d. -f1)
+    body="''${brightness}%"
+    notify-send -a brightness -i display-brightness-symbolic -h "int:value:$brightness" -h string:synchronous:brightness -t 3000 -e "$summary" "$body"
+  '';
 }

@@ -115,6 +115,8 @@ in
           "XF86AudioLowerVolume" = "exec ${hotkey.volume} down";
           "XF86AudioMute" = "exec ${hotkey.volume} mute";
           "XF86AudioMicMute" = "exec ${hotkey.micmute}";
+          "XF86MonBrightnessUp" = "exec ${hotkey.brightness} up";
+          "XF86MonBrightnessDown" = "exec ${hotkey.brightness} down";
 
           # notification
           "${mod}+Shift+n" = "exec ${swaync-client} --toggle-panel --skip-wait";
@@ -256,7 +258,7 @@ in
     xdg.configFile."swaync/config.json".text = builtins.toJSON {
       scripts = {
         sound = {
-          app-name = "^(?!volume).*$";
+          app-name = "^(?!volume|brightness).*$";
           summary = "^(?!Command completed in ).*$";
           exec = "${pkgs.pulseaudio}/bin/paplay ${./airplane-announcement.ogg}";
         };
