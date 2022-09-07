@@ -1,10 +1,10 @@
 { fetchzip, ngkz, lib, ... }:
 ngkz.buildChromiumExtension rec {
   pname = "auto-tab-discard";
-  version = "0.6.1";
+  version = "0.6.2";
   src = fetchzip {
-    url = "https://github.com/rNeomy/auto-tab-discard/archive/refs/tags/v${version}.zip";
-    sha256 = "1x3jym7p48hwljwycvpj47l1wa07rn1wd5vg3s43l6nfcwl6803f";
+    url = "https://github.com/rNeomy/auto-tab-discard/archive/refs/tags/${version}.zip";
+    sha256 = "1qk8cxli9fp0bagyjk92c91bjs7zymx87r47myl603h3c274zsl9";
   };
   sourceRoot = "source/v3";
 }

@@ -9,7 +9,7 @@ repo=auto-tab-discard
 
 current=$(nix eval --raw "../..#${pname}.version")
 latest_tag=$(curl -s "https://api.github.com/repos/$owner/$repo/releases/latest" | jq -r ".tag_name")
-latest=$(echo "$latest_tag" | cut -c2-)
+latest=$(echo "$latest_tag")
 
 if [[ $current == $latest ]]; then
     echo "$pname is up-to-date: $latest"
