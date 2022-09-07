@@ -86,6 +86,9 @@
 
         # dirpersist
         dirstack_file=${config.xdg.dataHome}/zsh/zdirs
+
+        # zbell
+        zbell_use_notify_send=false
       '';
       custom = "${config.xdg.configHome}/zsh/custom";
     };
