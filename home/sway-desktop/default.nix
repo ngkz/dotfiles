@@ -6,7 +6,7 @@ let
   grimshot = "${pkgs.sway-contrib.grimshot}/bin/grimshot";
   wlogout = "${pkgs.wlogout}/bin/wlogout";
   i3-wk-switch = "${pkgs.i3-wk-switch}/bin/i3-wk-switch";
-  swaylock = "${pkgs.swaylock}/bin/swaylock";
+  swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
   swaymsg = "${pkgs.sway-unwrapped}/bin/swaymsg";
   pgrep = "${pkgs.procps}/bin/pgrep";
   systemctl = "${pkgs.systemd}/bin/systemctl";
@@ -167,8 +167,12 @@ in
         {
           event = "lock";
           command = concatStringsSep " " [
+            "LC_TIME=C"
             swaylock
             "--daemonize"
+            "--indicator"
+            "--clock"
+            "--datestr \"%%Y-%%m-%%d %%a\""
             "--image ${./wallpapers/DSC01320.JPG}"
             "--indicator-radius 200"
             "--indicator-thickness 10"
@@ -250,6 +254,7 @@ in
       ngkz.sway-systemd
 
       ngkz.swaynotificationcenter-unstable
+      swaylock-effects
     ];
   };
 }
