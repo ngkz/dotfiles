@@ -86,9 +86,6 @@
 
         # dirpersist
         dirstack_file=${config.xdg.dataHome}/zsh/zdirs
-
-        # zbell
-        zbell_use_notify_send=false
       '';
       custom = "${config.xdg.configHome}/zsh/custom";
     };
@@ -125,6 +122,9 @@
       NE = "2>/dev/null";
     };
   };
+
+  # patch zbell plugin
+  xdg.configFile."zsh/custom/plugins/zbell/zbell.plugin.zsh".source = ./zbell.plugin.zsh;
 
   # FZF
   # Ctrl+T: find and insert path

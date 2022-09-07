@@ -1,6 +1,7 @@
 { pkgs, ... }:
 let
   iniFormat = pkgs.formats.ini { };
+  paplay = "${pkgs.pulseaudio}/bin/paplay";
 in
 {
   imports = [
@@ -53,7 +54,8 @@ in
 
       bell = {
         urgent = "yes";
-        notify = "yes";
+        command = "${paplay} ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/complete.oga";
+        command-focused = "yes";
       };
 
       scrollback = {
