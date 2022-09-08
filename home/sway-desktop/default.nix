@@ -5,7 +5,6 @@ let
   xdg-user-dir = "${pkgs.xdg-user-dirs}/bin/xdg-user-dir";
   grimshot = "${pkgs.sway-contrib.grimshot}/bin/grimshot";
   wlogout = "${pkgs.wlogout}/bin/wlogout";
-  i3-wk-switch = "${pkgs.i3-wk-switch}/bin/i3-wk-switch";
   swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
   swaymsg = "${pkgs.sway-unwrapped}/bin/swaymsg";
   pgrep = "${pkgs.procps}/bin/pgrep";
@@ -18,6 +17,10 @@ let
   mod = sway.modifier;
   inherit (sway) left right up down;
   cfg = config.home.sway-desktop;
+  output-left = "u";
+  output-down = "i";
+  output-up = "o";
+  output-right = "p";
 in
 {
   options.home.sway-desktop = {
@@ -56,26 +59,34 @@ in
           childBorder = "#e02334";
         };
         keybindings = mkOptionDefault {
-          # xmonad-style workspace switching + additional workspace
-          "${mod}+1" = "exec ${i3-wk-switch} 1";
-          "${mod}+2" = "exec ${i3-wk-switch} 2";
-          "${mod}+3" = "exec ${i3-wk-switch} 3";
-          "${mod}+4" = "exec ${i3-wk-switch} 4";
-          "${mod}+5" = "exec ${i3-wk-switch} 5";
-          "${mod}+6" = "exec ${i3-wk-switch} 6";
-          "${mod}+7" = "exec ${i3-wk-switch} 7";
-          "${mod}+8" = "exec ${i3-wk-switch} 8";
-          "${mod}+9" = "exec ${i3-wk-switch} 9";
-          "${mod}+0" = "exec ${i3-wk-switch} 10";
-          "${mod}+minus" = "exec ${i3-wk-switch} 11";
-          "${mod}+asciicircum" = "exec ${i3-wk-switch} 12";
-          "${mod}+backslash" = "exec ${i3-wk-switch} 13";
-          "${mod}+BackSpace" = "exec ${i3-wk-switch} 14";
+          # additional workspaces
+          "${mod}+minus" = "workspace number 11";
+          "${mod}+asciicircum" = "workspace number 12";
+          "${mod}+backslash" = "workspace numbeer 13";
+          "${mod}+BackSpace" = "workspace number 14";
 
           "${mod}+Shift+minus" = "move container to workspace number 11";
           "${mod}+Shift+asciicircum" = "move container to workspace number 12";
           "${mod}+Shift+backslash" = "move container to workspace number 13";
           "${mod}+Shift+BackSpace" = "move container to workspace number 14";
+
+          # switch monitor
+          "${mod}+${output-left}" = "focus output left";
+          "${mod}+${output-down}" = "focus output down";
+          "${mod}+${output-up}" = "focus output up";
+          "${mod}+${output-right}" = "focus output right";
+
+          # move container to another monitor
+          "${mod}+Shift+${output-left}" = "move container to output left";
+          "${mod}+Shift+${output-down}" = "move container to output down";
+          "${mod}+Shift+${output-up}" = "move container to output up";
+          "${mod}+Shift+${output-right}" = "move container to output right";
+
+          # move workspace to another monitor
+          "${mod}+Control+${output-left}" = "move workspace to output left";
+          "${mod}+Control+${output-down}" = "move workspace to output down";
+          "${mod}+Control+${output-up}" = "move workspace to output up";
+          "${mod}+Control+${output-right}" = "move workspace to output right";
 
           # quick resize
           "${mod}+Control+${left}" = "resize shrink width 40px";
