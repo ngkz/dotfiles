@@ -13,6 +13,7 @@ let
   cat = "${pkgs.coreutils}/bin/cat";
   swaync-client = "${pkgs.ngkz.swaynotificationcenter-unstable}/bin/swaync-client";
   foot = "${pkgs.foot}/bin/foot";
+  wofi = "${pkgs.wofi}/bin/wofi";
   hotkey = import ./hotkey.nix { inherit pkgs lib; };
   sway = config.wayland.windowManager.sway.config;
   mod = sway.modifier;
@@ -50,6 +51,7 @@ in
       config = {
         modifier = "Mod4"; # Super
         terminal = foot;
+        menu = "${wofi} --show drun --allow-images --columns 3 --lines 15 --cache-file ${config.xdg.cacheHome}/wofi/drun";
         fonts = {
           names = [ "Sans-Serif" ];
           style = "Regular";
@@ -300,12 +302,17 @@ in
       Install = { WantedBy = [ "sway-session.target" ]; };
     };
 
+    home.tmpfs-as-home.persistentDirs = [
+      ".cache/wofi"
+    ];
+
     home.packages = with pkgs; [
       # XXX workaround for home-manager #2806
       ngkz.sway-systemd
 
       ngkz.swaynotificationcenter-unstable
       swaylock-effects
+      pkgs.wofi
     ];
   };
 }
