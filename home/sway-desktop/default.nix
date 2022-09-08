@@ -265,6 +265,22 @@ in
       };
     };
 
+    # polkit authentication agent
+    systemd.user.services.polkit-gnome = {
+      Unit = {
+        Description = "PolicyKit Authentication Agent";
+        PartOf = [ "graphical-session.target" ];
+        After = [ "graphical-session.target" ];
+      };
+
+      Service = {
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "always";
+      };
+
+      Install = { WantedBy = [ "sway-session.target" ]; };
+    };
+
     home.packages = with pkgs; [
       # XXX workaround for home-manager #2806
       ngkz.sway-systemd
