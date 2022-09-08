@@ -55,6 +55,7 @@ let
           "on-click-right": "${swaymsg} 'move scratchpad'"
         },
         "sway/workspaces": {
+          "format": "{name}",
           "smooth-scrolling-threshold": 3,
         },
         "tray": {

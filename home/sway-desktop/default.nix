@@ -21,6 +21,11 @@ let
   output-down = "i";
   output-up = "o";
   output-right = "p";
+  ws10 = "10:0";
+  ws11 = "11:-";
+  ws12 = "12:^";
+  ws13 = "13:∖";
+  ws14 = "14:←";
 in
 {
   options.home.sway-desktop = {
@@ -60,15 +65,17 @@ in
         };
         keybindings = mkOptionDefault {
           # additional workspaces
-          "${mod}+minus" = "workspace number 11";
-          "${mod}+asciicircum" = "workspace number 12";
-          "${mod}+backslash" = "workspace numbeer 13";
-          "${mod}+BackSpace" = "workspace number 14";
+          "${mod}+0" = "workspace number ${ws10}";
+          "${mod}+minus" = "workspace number ${ws11}";
+          "${mod}+asciicircum" = "workspace number ${ws12}";
+          "${mod}+backslash" = "workspace number ${ws13}";
+          "${mod}+BackSpace" = "workspace number ${ws14}";
 
-          "${mod}+Shift+minus" = "move container to workspace number 11";
-          "${mod}+Shift+asciicircum" = "move container to workspace number 12";
-          "${mod}+Shift+backslash" = "move container to workspace number 13";
-          "${mod}+Shift+BackSpace" = "move container to workspace number 14";
+          "${mod}+Shift+0" = "move container to workspace number ${ws10}";
+          "${mod}+Shift+minus" = "move container to workspace number ${ws11}";
+          "${mod}+Shift+asciicircum" = "move container to workspace number ${ws12}";
+          "${mod}+Shift+backslash" = "move container to workspace number ${ws13}";
+          "${mod}+Shift+BackSpace" = "move container to workspace number ${ws14}";
 
           # switch monitor
           "${mod}+${output-left}" = "focus output left";
