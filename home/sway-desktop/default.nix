@@ -12,6 +12,7 @@ let
   loginctl = "${pkgs.systemd}/bin/loginctl";
   cat = "${pkgs.coreutils}/bin/cat";
   swaync-client = "${pkgs.ngkz.swaynotificationcenter-unstable}/bin/swaync-client";
+  foot = "${pkgs.foot}/bin/foot";
   hotkey = import ./hotkey.nix { inherit pkgs lib; };
   sway = config.wayland.windowManager.sway.config;
   mod = sway.modifier;
@@ -48,7 +49,7 @@ in
       package = null; # use system sway package
       config = {
         modifier = "Mod4"; # Super
-        terminal = "foot";
+        terminal = foot;
         fonts = {
           names = [ "Sans-Serif" ];
           style = "Regular";
