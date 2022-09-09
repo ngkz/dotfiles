@@ -192,6 +192,9 @@ in
         '' else "") + ''
           # XXX workaround for home-manager #2806
           include ${pkgs.ngkz.sway-systemd}/etc/sway/config.d/10-systemd-session.conf
+
+          # initial workspace
+          workspace number 1
         '';
     };
 
