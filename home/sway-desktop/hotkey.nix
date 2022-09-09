@@ -103,4 +103,34 @@
     body="''${brightness}%"
     notify-send -a brightness -i display-brightness-symbolic -h "int:value:$brightness" -h string:synchronous:brightness -t 3000 -e "$summary" "$body"
   '';
+
+  power-menu = pkgs.writeShellScript "power-menu" ''
+    set -euo pipefail
+
+    PATH=${lib.makeBinPath (with pkgs; [ coreutils wofi gawk systemd sway ])}
+
+    op=$(cat <<EOS | wofi -p "Power" -i --dmenu --width 250 --height 210 --cache-file /dev/null | awk '{ print tolower($2) }'
+     Poweroff
+    ‎ﰇ Reboot
+     Suspend
+     Hibernate
+     Lock
+     Logout
+    EOS
+    )
+    case "$op" in
+    poweroff)
+      systemctl poweroff -i
+      ;;
+    reboot|suspend|hibernate)
+      systemctl "$op"
+      ;;
+    lock)
+      loginctl lock-session
+      ;;
+    logout)
+      swaymsg exit
+      ;;
+    esac
+  '';
 }

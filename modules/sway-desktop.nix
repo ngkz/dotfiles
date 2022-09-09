@@ -1,5 +1,5 @@
 # sway + greetd
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   # Sway wayland tiling compositor
   programs.sway = {
@@ -37,13 +37,35 @@
   environment.etc =
     let
       background = pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
+      power-menu = pkgs.writeShellScript "power-menu" ''
+        set -euo pipefail
+
+        PATH=${lib.makeBinPath (with pkgs; [ coreutils wofi gawk systemd sway ])}
+
+        op=$(cat <<EOS | wofi -p "Power" -G --style ${../home/sway-desktop/wofi.css} -i --dmenu --width 250 --height 210 --cache-file /dev/null | awk '{ print tolower($2) }'
+         Poweroff
+        ‎ﰇ Reboot
+         Suspend
+         Hibernate
+        EOS
+        )
+        case "$op" in
+        poweroff)
+          systemctl poweroff -i
+          ;;
+        reboot|suspend|hibernate)
+          systemctl "$op"
+          ;;
+        esac
+      '';
     in
     {
       "greetd/sway-config".text = ''
         output * bg ${background} fill
         seat seat0 xcursor_theme Adwaita
-        exec "GTK_THEME=Adwaita:dark ${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -s /etc/greetd/gtkgreet.css; swaymsg exit"
-        bindsym Mod4+shift+e exec "GTK_THEME=Adwaita:dark ${pkgs.wlogout}/bin/wlogout -l /etc/greetd/wlogout-layout -b 2 -p layer-shell"
+        exec "GTK_THEME=Adwaita:dark ${pkgs.greetd.gtkgreet}/bin/gtkgreet -s /etc/greetd/gtkgreet.css; swaymsg exit"
+        bindsym Mod4+shift+e exec ${power-menu}
+        default_border none
         include /etc/sway/config.d/*
       '';
 
@@ -58,33 +80,6 @@
           background-image: url("file://${background}");
           background-size: cover;
           background-position: center;
-        }
-      '';
-
-      "greetd/wlogout-layout".text = ''
-        {
-            "label" : "suspend",
-            "action" : "systemctl suspend",
-            "text" : "Suspend",
-            "keybind" : "u"
-        }
-        {
-            "label" : "hibernate",
-            "action" : "systemctl hibernate",
-            "text" : "Hibernate",
-            "keybind" : "h"
-        }
-        {
-            "label" : "shutdown",
-            "action" : "systemctl poweroff",
-            "text" : "Shutdown",
-            "keybind" : "s"
-        }
-        {
-            "label" : "reboot",
-            "action" : "systemctl reboot",
-            "text" : "Reboot",
-            "keybind" : "r"
         }
       '';
     };

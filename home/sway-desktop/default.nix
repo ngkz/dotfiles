@@ -4,7 +4,6 @@ let
 
   xdg-user-dir = "${pkgs.xdg-user-dirs}/bin/xdg-user-dir";
   grimshot = "${pkgs.sway-contrib.grimshot}/bin/grimshot";
-  wlogout = "${pkgs.wlogout}/bin/wlogout";
   swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
   swaymsg = "${pkgs.sway-unwrapped}/bin/swaymsg";
   pgrep = "${pkgs.procps}/bin/pgrep";
@@ -113,7 +112,7 @@ in
 
           #"${mod}+d" = "";
           "${mod}+Shift+Return" = "exec ${sway.terminal} --app-id=foot-floating"; # spawn flaoting terminal
-          "${mod}+Shift+e" = "exec ${wlogout}";
+          "${mod}+Shift+e" = "exec ${hotkey.power-menu}";
           "${mod}+Escape" = "exec loginctl lock-session";
 
           # screenshot
@@ -302,6 +301,8 @@ in
       Install = { WantedBy = [ "sway-session.target" ]; };
     };
 
+    # wofi
+    xdg.configFile."wofi/style.css".source = ./wofi.css;
     home.tmpfs-as-home.persistentDirs = [
       ".cache/wofi"
     ];
