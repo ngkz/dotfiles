@@ -109,7 +109,7 @@
 
     PATH=${lib.makeBinPath (with pkgs; [ coreutils wofi gawk systemd sway ])}
 
-    op=$(cat <<EOS | wofi -p "Power" -i --dmenu --width 250 --height 210 --cache-file /dev/null | awk '{ print tolower($2) }'
+    op=$(wofi -p "Power" -i --dmenu --width 250 --height 210 --cache-file /dev/null <<EOS | awk '{ print tolower($2) }'
      Poweroff
     ‎ﰇ Reboot
      Suspend
