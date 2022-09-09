@@ -2,8 +2,6 @@
 let
   inherit (lib) mkOption mkOptionDefault types concatStringsSep;
 
-  xdg-user-dir = "${pkgs.xdg-user-dirs}/bin/xdg-user-dir";
-  grimshot = "${pkgs.sway-contrib.grimshot}/bin/grimshot";
   swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
   swaymsg = "${pkgs.sway-unwrapped}/bin/swaymsg";
   pgrep = "${pkgs.procps}/bin/pgrep";
@@ -116,13 +114,7 @@ in
           "${mod}+Escape" = "exec loginctl lock-session";
 
           # screenshot
-          "Print" = "exec ${grimshot} --notify save screen $(${xdg-user-dir} PICTURES)/Screenshot_$(date +'%Y-%m-%d_%H:%M:%S.png')";
-          "Alt+Print" = "exec ${grimshot} --notify save window $(${xdg-user-dir} PICTURES)/Screenshot_$(date +'%Y-%m-%d_%H:%M:%S.png')";
-          "Control+Print" = "exec ${grimshot} --notify save area $(${xdg-user-dir} PICTURES)/Screenshot_$(date +'%Y-%m-%d_%H:%M:%S.png')";
-
-          "Shift+Print" = "exec ${grimshot} --notify copy screen";
-          "Shift+Alt+Print" = "exec ${grimshot} --notify copy window";
-          "Shift+Control+Print" = "exec ${grimshot} --notify copy area";
+          "Print" = "exec ${hotkey.screenshot}";
 
           # Move the currently focused window to the scratchpad
           "${mod}+Shift+Zenkaku_Hankaku" = "move scratchpad";
@@ -310,6 +302,13 @@ in
       ".cache/wofi"
     ];
 
+    # screenshot
+    xdg.configFile."swappy/config".text = ''
+      [Default]
+      save_dir=${config.xdg.userDirs.pictures}
+      save_filename_format=Screenshot_%Y-%m-%d_%H:%M:%S.png
+    '';
+
     home.packages = with pkgs; [
       # XXX workaround for home-manager #2806
       ngkz.sway-systemd
@@ -317,6 +316,9 @@ in
       ngkz.swaynotificationcenter-unstable
       swaylock-effects
       pkgs.wofi
+      grim
+      slurp
+      swappy
     ];
   };
 }

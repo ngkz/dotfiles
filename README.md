@@ -51,6 +51,7 @@ nix shell "<flake>#<package>"
 - [leanprover/lean4](https://github.com/leanprover/lean4/blob/master/nix/packages.nix)
 - [erpalma/throttled](https://github.com/erpalma/throttled)
 - [mihic/linux-intel-undervolt](https://github.com/mihic/linux-intel-undervolt)
+- [swaywm/sway](https://github.com/swaywm/sway)
 - Full Disk Encryption Setup
    - [ladinu/encryptedNixos.md](https://gist.github.com/ladinu/bfebdd90a5afd45dec811296016b2a3f)
    - [Full disk encryption, including /boot: Unlocking LUKS devices from GRUB](https://cryptsetup-team.pages.debian.net/cryptsetup/encrypted-boot.html)
