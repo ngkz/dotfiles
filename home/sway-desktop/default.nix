@@ -12,6 +12,8 @@ let
   foot = "${pkgs.foot}/bin/foot";
   wofi = "${pkgs.wofi}/bin/wofi";
   hotkey = import ./hotkey.nix { inherit pkgs lib; };
+  autoname-workspaces = pkgs.writers.writePython3 "autoname-workspaces.py"
+    { libraries = [ pkgs.python3Packages.i3ipc ]; } ./autoname-workspaces.py;
   sway = config.wayland.windowManager.sway.config;
   mod = sway.modifier;
   inherit (sway) left right up down;
@@ -309,6 +311,22 @@ in
       save_dir=${config.xdg.userDirs.pictures}
       save_filename_format=Screenshot_%Y-%m-%d_%H:%M:%S.png
     '';
+
+    # auto workspace renaming
+    systemd.user.services.autoname-workspace = {
+      Unit = {
+        Description = "automatic workspace rename";
+        PartOf = [ "graphical-session.target" ];
+        After = [ "graphical-session.target" ];
+      };
+
+      Service = {
+        ExecStart = "${autoname-workspaces} --duplicate";
+        Restart = "always";
+      };
+
+      Install = { WantedBy = [ "sway-session.target" ]; };
+    };
 
     home.packages = with pkgs; [
       # XXX workaround for home-manager #2806
