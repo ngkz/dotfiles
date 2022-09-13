@@ -118,7 +118,8 @@ in
         # media keys
         "XF86AudioRaiseVolume" = "exec ${hotkey.volume} up";
         "XF86AudioLowerVolume" = "exec ${hotkey.volume} down";
-        "XF86AudioMute" = "exec ${hotkey.volume} mute"; "XF86AudioMicMute" = "exec ${hotkey.micmute}";
+        "XF86AudioMute" = "exec ${hotkey.volume} mute";
+        "XF86AudioMicMute" = "exec ${hotkey.micmute}";
         "XF86MonBrightnessUp" = "exec ${hotkey.brightness} up";
         "XF86MonBrightnessDown" = "exec ${hotkey.brightness} down";
 
