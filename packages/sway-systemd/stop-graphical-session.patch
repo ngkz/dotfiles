@@ -7,7 +7,7 @@ index 24b9606..0aa03c5 100755
      # stop the session target and unset the variables
      systemctl --user stop "$SESSION_TARGET"
 +    # NixOS disables StopWhenUnneeded of graphical-session.target
-+    systemctl --user stop graphical-session.target
++    systemctl --user stop graphical-session.target graphical-session-pre.target
      if [ -n "$VARIABLES" ]; then
          # shellcheck disable=SC2086
          systemctl --user unset-environment $VARIABLES
