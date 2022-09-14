@@ -276,8 +276,8 @@ in
   systemd.user.services.polkit-gnome = {
     Unit = {
       Description = "PolicyKit Authentication Agent";
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
+      After = [ "graphical-session-pre.target" ];
+      PartOf = [ "sway-session.target" ];
     };
 
     Service = {
@@ -305,8 +305,8 @@ in
   systemd.user.services.autoname-workspace = {
     Unit = {
       Description = "automatic workspace rename";
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
+      After = [ "graphical-session-pre.target" ];
+      PartOf = [ "sway-session.target" ];
     };
 
     Service = {

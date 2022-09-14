@@ -240,8 +240,8 @@ in
       Description =
         "Highly customizable Wayland bar for Sway and Wlroots based compositors.";
       Documentation = "https://github.com/Alexays/Waybar/wiki";
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
+      PartOf = [ "sway-session.target" ];
+      Before = [ "tray.target" ];
       X-Restart-Triggers = [
         "${config.xdg.configFile."waybar/style.css".source}"
         "${generateWaybarConfig}"
@@ -252,6 +252,14 @@ in
       ExecStart = "${pkgs.waybar}/bin/waybar";
       Restart = "on-failure";
       KillMode = "process";
+
+      Envioronment = [
+        "XDG_CURRENT_DESKTOP=Unity"
+      ];
+
+      # wait until tray ready
+      Type = "dbus";
+      BusName = "org.kde.StatusNotifierWatcher";
     };
 
     Install = { WantedBy = [ "sway-session.target" ]; };
