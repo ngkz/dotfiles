@@ -123,6 +123,42 @@ in
 
   services.blueman-applet.enable = true;
 
+  #ssh
+  programs.ssh.enable = true;
+  systemd.user.services.ssh-agent = {
+    Unit = {
+      Description = "OpenSSH authentication agent";
+    };
+
+    Install = { WantedBy = [ "default.target" ]; };
+
+    Service = {
+      ExecStart = "${pkgs.openssh}/bin/ssh-agent -D -a %t/ssh-agent.sock";
+      Restart = "on-failure";
+    };
+  };
+  systemd.user.sessionVariables.SSH_AUTH_SOCK = "\${SSH_AUTH_SOCK:-$XDG_RUNTIME_DIR/ssh-agent.sock}";
+  home.sessionVariables.SSH_AUTH_SOCK = "\${SSH_AUTH_SOCK:-$XDG_RUNTIME_DIR/ssh-agent.sock}";
+
+  # KeePassXC
+  systemd.user.services.keepassxc = {
+    Unit = {
+      Description = "KeePassXC password manager";
+      Requires = [ "ssh-agent.service" "tray.target" ];
+      After = [ "graphical-session-pre.target" "ssh-agent.service" "tray.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+
+    Install = { WantedBy = [ "graphical-session.target" ]; };
+
+    Service = {
+      ExecStart = "${pkgs.keepassxc}/bin/keepassxc";
+      Restart = "on-failure";
+    };
+  };
+
+  home.file.".config/keepassxc/keepassxc.ini".source = ./keepassxc.ini;
+
   home.packages = with pkgs; [
     wl-clipboard
     xdg-utils

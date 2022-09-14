@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  inherit (builtins) listToAttrs attrNames readDir concatLists;
+  inherit (builtins) listToAttrs attrNames readDir concatLists toJSON;
 in
 {
   programs.chromium = {
@@ -49,20 +49,31 @@ in
         chromium-extension-vue-devtools
       ];
     in
-    listToAttrs (
-      concatLists (
-        map
-          (ext:
-            map
-              (name: {
-                name = "chromium/External Extensions/${name}";
-                value.source = "${ext}/share/chromium/extensions/${name}";
-              })
-              (attrNames (readDir "${ext}/share/chromium/extensions"))
-          )
-          extensions
-      )
-    );
+    listToAttrs
+      (
+        concatLists (
+          map
+            (ext:
+              map
+                (name: {
+                  name = "chromium/External Extensions/${name}";
+                  value.source = "${ext}/share/chromium/extensions/${name}";
+                })
+                (attrNames (readDir "${ext}/share/chromium/extensions"))
+            )
+            extensions
+        )
+      ) // {
+      "chromium/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json".text = toJSON {
+        allowed_origins = [
+          "chrome-extension://gjpojkmafkgjcemfboghepopildlpooc/" # chromium-extension-keepassxc-browser
+        ];
+        name = "org.keepassxc.keepassxc_browser";
+        description = "KeePassXC integration with native messaging support";
+        path = "${pkgs.keepassxc}/bin/keepassxc-proxy";
+        type = "stdio";
+      };
+    };
 
   home.tmpfs-as-home.persistentDirs = [
     ".config/chromium/Default"

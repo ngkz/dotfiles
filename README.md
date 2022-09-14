@@ -52,6 +52,7 @@ nix shell "<flake>#<package>"
 - [erpalma/throttled](https://github.com/erpalma/throttled)
 - [mihic/linux-intel-undervolt](https://github.com/mihic/linux-intel-undervolt)
 - [swaywm/sway](https://github.com/swaywm/sway)
+- [Melkor333/milkOS](https://github.com/Melkor333/milkOS)
 - Full Disk Encryption Setup
    - [ladinu/encryptedNixos.md](https://gist.github.com/ladinu/bfebdd90a5afd45dec811296016b2a3f)
    - [Full disk encryption, including /boot: Unlocking LUKS devices from GRUB](https://cryptsetup-team.pages.debian.net/cryptsetup/encrypted-boot.html)
