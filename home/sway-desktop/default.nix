@@ -327,5 +327,6 @@ in
     grim
     slurp
     swappy
+    i3-swallow
   ];
 }
