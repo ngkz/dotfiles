@@ -253,7 +253,7 @@ in
       Restart = "on-failure";
       KillMode = "process";
 
-      Envioronment = [
+      Environment = [
         "XDG_CURRENT_DESKTOP=Unity"
       ];
 
