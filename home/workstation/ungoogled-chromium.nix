@@ -66,7 +66,7 @@ in
       ) // {
       "chromium/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json".text = toJSON {
         allowed_origins = [
-          "chrome-extension://gjpojkmafkgjcemfboghepopildlpooc/" # chromium-extension-keepassxc-browser
+          "chrome-extension://aagogodjfilkindafjogmjjpeoflafop/" # chromium-extension-keepassxc-browser
         ];
         name = "org.keepassxc.keepassxc_browser";
         description = "KeePassXC integration with native messaging support";

@@ -34,7 +34,7 @@ in
 
         # generate deterministic key from package name
         key=$(mktemp -t XXXXXXXX.pem)
-        certtool --generate-privkey --pkcs8 --key-type=rsa --empty-password --sec-param=low --seed=${hashString "sha256" name} --provable | openssl pkcs8 -out "$key" -passin pass:
+        certtool --generate-privkey --pkcs8 --key-type=rsa --empty-password --sec-param=low --seed=${hashString "sha256" pname} --provable | openssl pkcs8 -out "$key" -passin pass:
         pubkey=$(openssl rsa -in $key -pubout -outform DER | base64 -w0)
         id=$(echo $pubkey | base64 -d | sha256sum | head -c32 | tr '0-9a-f' 'a-p')
 
