@@ -1,6 +1,6 @@
 { pkgs, lib, inputs, config, ... }:
 let
-  inherit (lib) mkOption types mkMerge mkIf;
+  inherit (lib) mkOption types mkMerge mkIf mkForce;
   inherit (inputs) nixpkgs;
   cfg = config.modules.hardening;
 in
@@ -32,7 +32,13 @@ in
       security.chromiumSuidSandbox.enable = true;
       services.dbus.apparmor = "enabled";
       # this fucking sucks
-      security.lockKernelModules = lib.mkForce false;
+      security.lockKernelModules = mkForce false;
+
+      security.unprivilegedUsernsClone = false;
+      # allow attaching debugger
+      boot.kernel.sysctl."kernel.yama.ptrace_scope" = mkForce 2;
+      # scudo causes greetd slowdown
+      environment.memoryAllocator.provider = "libc";
     }
     (mkIf cfg.disableMeltdownAndL1TFMitigation {
       # hardened.nix forces flushL1DataCache and KPTI
