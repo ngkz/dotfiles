@@ -110,6 +110,18 @@
     enable = true;
     wlr.enable = true;
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-    gtkUsePortal = true;
+    gtkUsePortal = false; #XXX nixpkgs#179204
   };
+
+  # systemd.user.services.xdg-desktop-portal.serviceConfig.ExecStart = lib.mkForce [
+  #   # Empty ExecStart value to override the field
+  #   ""
+  #   "${pkgs.xdg-desktop-portal}/libexec/xdg-desktop-portal -v"
+  # ];
+
+  # systemd.user.services.xdg-desktop-portal-wlr.serviceConfig.ExecStart = lib.mkForce [
+  #   # Empty ExecStart value to override the field
+  #   ""
+  #   "${pkgs.xdg-desktop-portal-wlr}/libexec/xdg-desktop-portal-wlr -l DEBUG"
+  # ];
 }
