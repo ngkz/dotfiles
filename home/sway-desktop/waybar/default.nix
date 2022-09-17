@@ -250,7 +250,7 @@ in
 
     Service = {
       ExecStart = "${pkgs.waybar}/bin/waybar";
-      Restart = "on-failure";
+      Restart = "always";
       KillMode = "process";
 
       Environment = [
