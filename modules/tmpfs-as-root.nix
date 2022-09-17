@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ pkgs, lib, config, ... }:
 let
   inherit (builtins) listToAttrs filter attrNames;
   inherit (lib) nameValuePair hasPrefix removePrefix concatStringsSep
@@ -97,6 +97,10 @@ in
 
       modules.tmpfs-as-root.persistentDirs = [
         "/var/lib/nixos" # NixOS keeps track of historical UIDs in here
+        "/var/lib/systemd"
       ];
+
+      # journalctl: Failed to create parent directoties of /var/lib/systemd/catalog/database: Not a directory
+      systemd.services.systemd-journal-catalog-update.preStart = "${pkgs.coreutils}/bin/mkdir -p /var/lib/systemd/catalog";
     };
 }
