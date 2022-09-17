@@ -21,6 +21,7 @@ WINDOW_ICONS = {
     "org.gnome.nautilus": ' ',
     "pcmanfm": ' ',
     "foot": " ",
+    "foot-floating": " ",
     "org.pwmt.zathura": ' ',
     "org.freecadweb.freecad": " ",
     "gimp-2.10": " ",
