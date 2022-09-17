@@ -40,7 +40,7 @@ in
     config = {
       modifier = "Mod4"; # Super
       terminal = foot;
-      menu = "${wofi} --show drun --allow-images --columns 3 --lines 15 --cache-file ${config.xdg.cacheHome}/wofi/drun";
+      menu = "${wofi} --show drun --allow-images --columns 3 --lines 15 --cache-file ${config.xdg.cacheHome}/wofi/drun --insensitive";
       fonts = {
         names = [ "Sans-Serif" ];
         style = "Regular";
