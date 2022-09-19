@@ -91,4 +91,20 @@
   };
 
   services.blueman.enable = true;
+
+  # increase maximum fan speed
+  services.thinkfan = {
+    enable = true;
+    levels = [
+      [ "level auto" 0 70 ]
+      [ "level full-speed" 65 32767 ]
+    ];
+  };
+  systemd.services.thinkfan.unitConfig.ConditionPathExists = [ "/proc/acpi/ibm/fan" ];
+
+  hardware.trackpoint = {
+    enable = true;
+    speed = 255;
+    device = "TPPS/2 Elan Trackpoint";
+  };
 }

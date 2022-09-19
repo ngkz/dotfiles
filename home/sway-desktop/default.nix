@@ -146,6 +146,10 @@ in
           "6127:24647:Lenovo_ThinkPad_Compact_USB_Keyboard_with_TrackPoint" = {
             pointer_accel = "0.4";
           } // keyboard; # workaround for issue #5943
+          # internal TrackPoint
+          "2:10:TPPS/2_Elan_TrackPoint" = {
+            pointer_accel = "0.8";
+          };
         };
       output = {
         "*" = {
@@ -267,6 +271,52 @@ in
   systemd.user.services.swayidle.Service.Environment = [
     "PATH=${pkgs.bash}/bin"
   ];
+
+  services.kanshi = {
+    enable = true;
+    profiles = {
+      peregrine-undocked = {
+        outputs = [{
+          criteria = "Chimei Innolux Corporation 0x14F3 0x00000000";
+          scale = 1.0;
+        }];
+      };
+      peregrine-hdmi = {
+        outputs = [
+          {
+            criteria = "Chimei Innolux Corporation 0x14F3 0x00000000";
+            mode = "1920x1080@60Hz";
+            position = "0,0";
+            scale = 1.25;
+          }
+          {
+            criteria = "HDMI-A-1";
+            position = "1920,0";
+          }
+        ];
+      };
+      peregrine-docked = {
+        outputs = [
+          {
+            criteria = "Chimei Innolux Corporation 0x14F3 0x00000000";
+            mode = "1920x1080@60Hz";
+            position = "0,1080";
+            scale = 1.25;
+          }
+          {
+            criteria = "ViewSonic Corporation VX3211-4K VJJ201920351";
+            mode = "3840x2160@30Hz";
+            position = "1920,0";
+          }
+          {
+            criteria = "Unknown UHD HDMI 0x00000000";
+            mode = "3840x2160@30Hz";
+            position = "5760,0";
+          }
+        ];
+      };
+    };
+  };
 
   services.gammastep = {
     enable = true;

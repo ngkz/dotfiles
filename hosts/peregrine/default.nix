@@ -57,15 +57,6 @@ in
     ];
   };
 
-  # increase maximum fan speed
-  services.thinkfan = {
-    enable = true;
-    levels = [
-      [ "level auto" 0 70 ]
-      [ "level full-speed" 65 32767 ]
-    ];
-  };
-
   # power management
   powerManagement.cpuFreqGovernor = "powersave";
 
@@ -84,15 +75,9 @@ in
       tmpfs-as-home
       workstation
       sway-desktop
-      ./sway-desktop.nix
     ];
   };
 
   # Whiskey Lake is not affected by L1TF and Meltdown
   modules.hardening.disableMeltdownAndL1TFMitigation = true;
-
-  hardware.trackpoint = {
-    enable = true;
-    speed = 255;
-  };
 }
