@@ -24,4 +24,5 @@ in
   chromium-extension-clearurls = pkgs.callPackage ./chromium-extension-clearurls { };
   chromium-extension-vue-devtools = pkgs.callPackage ./chromium-extension-vue-devtools { };
   swaynotificationcenter-unstable = pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/applications/misc/swaynotificationcenter/default.nix" { }; #TODO
+  crx3-creator = pkgs.callPackage ./crx3-creator { };
 } // nodePackages
