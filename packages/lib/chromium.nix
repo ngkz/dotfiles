@@ -27,7 +27,7 @@ in
 
       inherit configurePhase buildPhase;
 
-      nativeBuildInputs = with pkgs; [ gnutls openssl ngkz.crx jq ] ++ nativeBuildInputs;
+      nativeBuildInputs = with pkgs; [ gnutls openssl ngkz.crx3-creator jq ] ++ nativeBuildInputs;
 
       installPhase = if installPhase != null then installPhase else ''
         runHook preInstall
@@ -42,7 +42,8 @@ in
         mv manifest.json.new manifest.json
 
         mkdir -p "$out/share/${prefixedName}"
-        crx pack . -o "$out/share/${prefixedName}/${name}.crx" -p "$key"
+        find . -exec touch --date="1980-01-01 00:00:00 UTC" {} +
+        crx3-creator -o "$out/share/${prefixedName}/${name}.crx" -pem "$key" .
         mkdir -p "$out/share/chromium/extensions"
         cat <<EOF >"$out/share/chromium/extensions/$id.json"
         {
@@ -52,11 +53,6 @@ in
         EOF
 
         runHook postInstall
-      '';
-
-      doInstallCheck = true;
-      installCheckPhase = ''
-        test -e "$out/share/${prefixedName}/${name}.crx" || (echo crx build failed && exit 1)
       '';
     });
 }
