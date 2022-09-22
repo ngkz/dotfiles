@@ -107,4 +107,7 @@
     speed = 255;
     device = "TPPS/2 Elan Trackpoint";
   };
+
+  # install debug symbols
+  environment.enableDebugInfo = true;
 }

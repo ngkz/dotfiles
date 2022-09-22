@@ -172,7 +172,11 @@ in
     };
   };
 
+  home.enableDebugInfo = true;
+
   home.packages = with pkgs; [
+    binutils
+    gdb
     wl-clipboard
     xdg-utils
     powertop

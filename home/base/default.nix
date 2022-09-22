@@ -42,8 +42,6 @@
     procs # modern ps
     ripgrep # modern grep
 
-    binutils
-    gdb
     hddtemp
     inetutils
     inotify-tools
