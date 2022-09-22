@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, python3Packages }:
-with python3Packages;
+{ lib
+, fetchFromGitHub
+, python
+, buildPythonApplication
+, cffi
+, cryptography
+, protobuf
+, pycparser
+, six
+}:
 buildPythonApplication rec {
   pname = "crx3-creator";
   version = "unstable-2022-02-11";

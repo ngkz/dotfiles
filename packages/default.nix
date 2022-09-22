@@ -23,6 +23,7 @@ in
   chromium-extension-decentraleyes = pkgs.callPackage ./chromium-extension-decentraleyes { };
   chromium-extension-clearurls = pkgs.callPackage ./chromium-extension-clearurls { };
   chromium-extension-vue-devtools = pkgs.callPackage ./chromium-extension-vue-devtools { };
-  swaynotificationcenter-unstable = pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/applications/misc/swaynotificationcenter/default.nix" { }; #TODO
-  crx3-creator = pkgs.callPackage ./crx3-creator { };
+  crx3-creator = pkgs.python3Packages.callPackage ./crx3-creator { };
+  # XXX use main repo package after NixOS 21.11 upgrade
+  swaynotificationcenter-unstable = pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/applications/misc/swaynotificationcenter/default.nix" { };
 } // nodePackages
