@@ -26,4 +26,5 @@ in
   crx3-creator = pkgs.python3Packages.callPackage ./crx3-creator { };
   # XXX use main repo package after NixOS 21.11 upgrade
   swaynotificationcenter-unstable = pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/applications/misc/swaynotificationcenter/default.nix" { };
+  hyfetch-unstable = pkgs.python3Packages.callPackage "${inputs.nixpkgs-unstable}/pkgs/tools/misc/hyfetch/default.nix" { };
 } // nodePackages

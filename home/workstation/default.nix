@@ -159,6 +159,19 @@ in
 
   home.file.".config/keepassxc/keepassxc.ini".source = ./keepassxc.ini;
 
+  #hyfetch
+  xdg.configFile."hyfetch.json".text = builtins.toJSON {
+    preset = "queer";
+    mode = "rgb";
+    light_dark = "dark";
+    lightness = 0.5;
+    color_align = {
+      mode = "horizontal";
+      custom_colors = [];
+      fore_back = null;
+    };
+  };
+
   home.packages = with pkgs; [
     wl-clipboard
     xdg-utils
