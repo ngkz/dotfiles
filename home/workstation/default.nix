@@ -15,7 +15,6 @@ in
   xdg.userDirs = {
     enable = true;
     desktop = "$HOME";
-    #desktop = "$HOME/desktop";
     documents = "$HOME/docs";
     download = "$HOME/dl";
     music = "$HOME/music";
@@ -36,7 +35,6 @@ in
     "projects"
     "work"
     "misc"
-    #"desktop"
   ];
 
   # Git
@@ -168,7 +166,7 @@ in
     lightness = 0.5;
     color_align = {
       mode = "horizontal";
-      custom_colors = [];
+      custom_colors = [ ];
       fore_back = null;
     };
   };
