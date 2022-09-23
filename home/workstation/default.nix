@@ -8,6 +8,7 @@ in
     ./direnv.nix
     ./fcitx5.nix
     ./ungoogled-chromium.nix
+    ./syncthing.nix
   ];
 
   # XDG user dirs

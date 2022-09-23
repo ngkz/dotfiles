@@ -7,4 +7,5 @@ in
   "parents-home-1f-g.nmconnection.age".publicKeys = keys;
   "parents-home-2f.nmconnection.age".publicKeys = keys;
   "phone.nmconnection.age".publicKeys = keys;
+  "syncthing.json.age".publicKeys = keys;
 }
