@@ -36,7 +36,7 @@ in
 
       security.unprivilegedUsernsClone = false;
       # allow attaching debugger
-      boot.kernel.sysctl."kernel.yama.ptrace_scope" = mkForce 2;
+      boot.kernel.sysctl."kernel.yama.ptrace_scope" = mkForce 1;
       # scudo causes greetd slowdown
       environment.memoryAllocator.provider = "libc";
     }
