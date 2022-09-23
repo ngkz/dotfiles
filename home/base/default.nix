@@ -41,6 +41,7 @@
     sd #modern sed
     procs # modern ps
     ripgrep # modern grep
+    choose # modern cut
 
     hddtemp
     inetutils
