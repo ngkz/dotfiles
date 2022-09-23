@@ -63,7 +63,7 @@
     stress
     efibootmgr
     file
-    jq
+    python3Packages.yq
     openssl
     unixtools.xxd
     nix-index
