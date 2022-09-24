@@ -185,6 +185,7 @@ in
     evtest
     libinput.bin #libinput
     libnotify #notify-send
+    picocom
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
