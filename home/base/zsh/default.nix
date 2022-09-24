@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, osConfig, pkgs, ... }:
 {
   home.tmpfs-as-home.persistentDirs = [
     ".local/share/zsh"
@@ -61,6 +61,9 @@
         print -n "\e]7;file://''${HOSTNAME}''${uri}\e\\"
       }
       add-zsh-hook -Uz chpwd osc7
+
+      # foot dereferences symlink when Ctrl-Shift-N. workaround for this
+      cd ''${PWD/${builtins.replaceStrings ["/"] ["\\/"] osConfig.modules.tmpfs-as-root.storage}/}
     '';
     oh-my-zsh = {
       enable = true;
