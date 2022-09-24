@@ -4,6 +4,7 @@ let
   xq = "${pkgs.python3Packages.yq}/bin/xq";
   syncthing = "${pkgs.syncthing}/bin/syncthing";
   syncthingCfg = "${config.xdg.configHome}/syncthing/config.xml";
+  syncthingTrayCfg = "${config.xdg.configHome}/syncthingtray.ini";
 in
 {
   # Syncthing
@@ -180,6 +181,9 @@ in
           fi
         fi
       fi
+      unset newConfig
+      unset folders
+      unset devices
 
       # update stignore
       ${jq} -c --arg hostname "$(hostname)" '.[]|select(.devices|contains([$hostname]))' <<<'${builtins.toJSON folders}' | while read -r folder_json; do
@@ -196,6 +200,7 @@ in
           ${jq} -r ".ignore" <<<"$folder_json" >"$path/.stignore"
         fi
       done
+      unset path
 
       if [ -n "$needRestart" ]; then
         if [ -v VERBOSE ]; then
@@ -205,12 +210,20 @@ in
           $DRY_RUN_CMD ${syncthing} cli operations restart
         fi
       fi
-
-      unset path
       unset needRestart
+
+      # update syngthingtray.ini
+      newConfig=$(sed "s/@apiKey@/$(${xq} -r ".configuration.gui.apikey" ${syncthingCfg})/g" ${./syncthingtray.ini})
+      if [ ! -e ${syncthingTrayCfg} ] || [ "$(<${syncthingTrayCfg})" != "$newConfig" ]; then
+        if [ -v DRY_RUN ]; then
+          echo echo "$newConfig" ">${syncthingTrayCfg}"
+        else
+          echo "$newConfig" >${syncthingTrayCfg}
+        fi
+
+        $DRY_RUN_CMD systemctl restart --user syncthingtray.service
+      fi
       unset newConfig
-      unset folders
-      unset devices
     '';
 
   home.tmpfs-as-home.persistentDirs = [
