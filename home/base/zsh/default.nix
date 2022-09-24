@@ -64,6 +64,15 @@
 
       # foot dereferences symlink when Ctrl-Shift-N. workaround for this
       cd ''${PWD/${builtins.replaceStrings ["/"] ["\\/"] osConfig.modules.tmpfs-as-root.storage}/}
+
+      # Hide user and host when it is unnecessary
+      if [[ -n $SSH_CONNECTION ]]; then
+        ZSH_THEME_TERM_TITLE_IDLE="%n@%M:%~"
+      elif [[ $LOGNAME != $USERNAME ]]; then
+        ZSH_THEME_TERM_TITLE_IDLE="%n:%~"
+      else
+        ZSH_THEME_TERM_TITLE_IDLE="%~"
+      fi
     '';
     oh-my-zsh = {
       enable = true;
