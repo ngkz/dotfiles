@@ -205,5 +205,6 @@ in
     wev
     gnome.gnome-power-manager
     networkmanagerapplet
+    #wxmaxima
   ];
 }
