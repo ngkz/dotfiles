@@ -10,6 +10,8 @@
   home.tmpfs-as-home.persistentDirs = [
     ".local/share/nix" # nix repl history
     ".cache/nix-index"
+    ".local/share/nvim"
+    ".local/share/state" # less, etc
   ];
 
   # FZF fuzzy finder
