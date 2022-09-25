@@ -6,6 +6,7 @@
     devshell.overlay
     packages
     sway-im
+    fcitx5
   ];
   config.allowUnfree = true;
 }

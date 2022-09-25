@@ -10,4 +10,8 @@
       sway-unwrapped = final.ngkz.sway-im-unwrapped;
     };
   };
+
+  fcitx5 = final: prev: {
+    fcitx5-with-addons = final.ngkz.fcitx5-with-addons;
+  };
 }
