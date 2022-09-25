@@ -28,11 +28,18 @@ in
           id = "docs";
           label = "~/docs";
           path = "${config.home.tmpfs-as-home.storage}/docs";
-          devices = pcs;
+          devices = personal-pcs;
           ignore = ''
             /all
             /local
+            /otg
           '';
+        }
+        {
+          id = "docs-otg";
+          label = "~/docs/otg";
+          path = "${config.home.tmpfs-as-home.storage}/docs/otg";
+          devices = pcs;
         }
         {
           id = "docs-all";
@@ -50,10 +57,17 @@ in
           id = "pics";
           label = "~/pics";
           path = "${config.home.tmpfs-as-home.storage}/pics";
-          devices = pcs;
+          devices = personal-pcs;
           ignore = ''
             /phone
+            /otg
           '';
+        }
+        {
+          id = "pics-otg";
+          label = "~/pics/otg";
+          path = "${config.home.tmpfs-as-home.storage}/pics/otg";
+          devices = pcs;
         }
         {
           id = "pics-phone";
@@ -74,10 +88,17 @@ in
           id = "projects";
           label = "~/projects";
           path = "${config.home.tmpfs-as-home.storage}/projects";
-          devices = pcs;
+          devices = personal-pcs;
           ignore = ''
             /local
+            /otg
           '';
+        }
+        {
+          id = "projects-otg";
+          label = "~/projects/otg";
+          path = "${config.home.tmpfs-as-home.storage}/projects/otg";
+          devices = pcs;
         }
         {
           id = "work";
@@ -92,11 +113,18 @@ in
           id = "misc";
           label = "~/misc";
           path = "${config.home.tmpfs-as-home.storage}/misc";
-          devices = pcs;
+          devices = personal-pcs;
           ignore = ''
             /local
             /all
+            /otg
           '';
+        }
+        {
+          id = "misc-otg";
+          label = "~/misc/otg";
+          path = "${config.home.tmpfs-as-home.storage}/misc/otg";
+          devices = pcs;
         }
         {
           id = "misc-all";
