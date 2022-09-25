@@ -176,6 +176,8 @@ in
   home.packages = with pkgs; [
     binutils
     gdb
+    strace
+    ltrace
     wl-clipboard
     xdg-utils
     powertop
