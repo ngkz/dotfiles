@@ -73,7 +73,7 @@ in
           id = "pics-phone";
           label = "~/pics/phone";
           path = "${config.home.tmpfs-as-home.storage}/pics/phone";
-          devices = all;
+          devices = personal;
         }
         {
           id = "videos";
