@@ -188,6 +188,7 @@ in
     libinput.bin #libinput
     libnotify #notify-send
     picocom
+    hashcat
 
     gnome.dconf-editor
     gnome.gnome-font-viewer

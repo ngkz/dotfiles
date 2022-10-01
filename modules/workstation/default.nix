@@ -123,4 +123,9 @@
     group = "users";
     mode = "0400";
   };
+
+  hardware.opengl.extraPackages = with pkgs; [
+    intel-compute-runtime
+    intel-ocl
+  ];
 }
