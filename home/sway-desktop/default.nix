@@ -148,7 +148,7 @@ in
           } // keyboard; # workaround for issue #5943
           # internal TrackPoint
           "2:10:TPPS/2_Elan_TrackPoint" = {
-            pointer_accel = "0.8";
+            pointer_accel = "1.0";
           };
         };
       output = {
