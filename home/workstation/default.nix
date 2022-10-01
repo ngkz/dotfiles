@@ -188,6 +188,7 @@ in
     libinput.bin #libinput
     libnotify #notify-send
     picocom
+    binwalk
     hashcat
 
     gnome.dconf-editor
