@@ -47,7 +47,7 @@ in
     enable = true;
     settings = {
       main = {
-        font = "Monospace:size=9";
+        font = "Monospace:size=10.5";
         dpi-aware = "no";
       };
 
