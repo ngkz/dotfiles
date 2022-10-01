@@ -243,6 +243,9 @@ in
       # update syngthingtray.ini
       newConfig=$(sed "s/@apiKey@/$(${xq} -r ".configuration.gui.apikey" ${syncthingCfg})/g" ${./syncthingtray.ini})
       if [ ! -e ${syncthingTrayCfg} ] || [ "$(<${syncthingTrayCfg})" != "$newConfig" ]; then
+        if [ -v VERBOSE ]; then
+          echo updating syncthingtray config
+        fi
         if [ -v DRY_RUN ]; then
           echo echo "$newConfig" ">${syncthingTrayCfg}"
         else
