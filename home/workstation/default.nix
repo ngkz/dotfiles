@@ -208,5 +208,6 @@ in
     gnome.gnome-power-manager
     networkmanagerapplet
     #wxmaxima
+    libreoffice
   ];
 }

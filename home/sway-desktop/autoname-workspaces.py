@@ -41,6 +41,11 @@ WINDOW_ICONS = {
     "org.gnome.font-viewer": " ",
     "system-config-printer": "ﰅ ",
     ".blueman-manager-wrapped": " ",
+    "libreoffice-calc": " ",
+    "libreoffice-writer": " ",
+    "libreoffice-draw": "ﴯ ",
+    "libreoffice-impress": " ",
+    "libreoffice-math": "√x",
 }
 
 DEFAULT_ICON = "ﬓ "
