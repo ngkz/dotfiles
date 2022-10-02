@@ -6,7 +6,7 @@ in
 {
   imports = [
     ./direnv.nix
-    ./fcitx5.nix
+    ./fcitx5
     ./ungoogled-chromium.nix
     ./syncthing.nix
   ];
