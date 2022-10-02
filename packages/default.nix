@@ -27,7 +27,7 @@ in
   fcitx5-with-addons = pkgs.libsForQt5.callPackage ./fcitx5-with-addons-patched.nix {
     kcmSupport = false;
   };
-  fcitx5-themes = pkgs.callPackage ./fcitx5-themes {};
+  fcitx5-themes = pkgs.callPackage ./fcitx5-themes { };
   # XXX use main repo package after NixOS 21.11 upgrade
   swaynotificationcenter-unstable = pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/applications/misc/swaynotificationcenter/default.nix" { };
   hyfetch-unstable = pkgs.python3Packages.callPackage "${inputs.nixpkgs-unstable}/pkgs/tools/misc/hyfetch/default.nix" { };
