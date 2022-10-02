@@ -124,6 +124,8 @@
     mode = "0400";
   };
 
+  boot.kernel.sysctl."fs.inotify.max_user_watches" = 524288;
+
   hardware.opengl.extraPackages = with pkgs; [
     intel-compute-runtime
     intel-ocl
