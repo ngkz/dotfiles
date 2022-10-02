@@ -6,7 +6,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 pname=fcitx5-mozc-ut
 
 utdicver_current=$(sed -n 's/.*utdicver = "\(.*\)";.*/\1/p' default.nix)
-utdicver_latest=$(curl -s "https://osdn.net/users/utuhiro/pf/utuhiro/files/?action=simple_list" | sed -n "s/.*mozcdic-ut-\(\w\+\).tar.bz2.*/\1/p")
+utdicver_latest=$(curl -sf "https://osdn.net/users/utuhiro/pf/utuhiro/files/?action=simple_list" | sed -n "s/.*mozcdic-ut-\(\w\+\).tar.bz2.*/\1/p")
 
 if [[ $utdicver_current == $utdicver_latest ]]; then
     echo "$pname is up-to-date: $utdicver_latest"

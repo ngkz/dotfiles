@@ -8,7 +8,7 @@ owner=shevabam
 repo=get-rss-feed-url-extension
 
 current=$(nix eval --raw "../..#${pname}.version")
-latest_tag=$(curl -s "https://api.github.com/repos/$owner/$repo/releases/latest" | jq -r ".tag_name")
+latest_tag=$(curl -sf "https://api.github.com/repos/$owner/$repo/releases/latest" | jq -r ".tag_name")
 latest=$(echo "$latest_tag" | cut -c2-)
 
 if [[ $current == $latest ]]; then

@@ -8,14 +8,14 @@ owner=ray-lothian
 repo=UserAgent-Switcher
 
 current=$(nix eval --raw "../..#${pname}.src.rev")
-latest=$(curl -s https://api.github.com/repos/$owner/$repo/commits/master | jq -r .sha)
+latest=$(curl -sf https://api.github.com/repos/$owner/$repo/commits/master | jq -r .sha)
 
 if [[ $current == $latest ]]; then
     echo "$pname is up-to-date: $latest"
     exit 0
 fi
 
-version=$(curl -s https://raw.githubusercontent.com/$owner/$repo/$latest/extension/chrome/manifest.json | jq -r ".version")
+version=$(curl -sf https://raw.githubusercontent.com/$owner/$repo/$latest/extension/chrome/manifest.json | jq -r ".version")
 newhash=$(nix-prefetch-github --json "$owner" "$repo" --rev "$latest" | jq -r .sha256)
 sed -i "s/version = \".*\"/version = \"$version\"/" default.nix
 sed -i "s|rev = \".*\"|rev = \"$latest\"|" default.nix
