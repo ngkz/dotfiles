@@ -14,6 +14,7 @@ in
   };
   # doesn't work with security.unprivilegedUsernsClone = false;
   systemd.user.services.syncthing.Service.PrivateUsers = lib.mkForce false;
+  systemd.user.services.syncthingtray.Service.Restart = "on-failure";
 
   home.activation.syncthing-config =
     let
