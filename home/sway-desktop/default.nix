@@ -174,7 +174,7 @@ in
         {
           criteria = {
             app_id = "org.keepassxc.KeePassXC$";
-            title = "KeePassXC - ブラウザーのアクセス要求";
+            title = "KeePassXC - (ブラウザーの)?アクセス要求";
           };
           command = "floating enable";
         }

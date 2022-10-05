@@ -2,6 +2,7 @@
   imports = [
     ./printing.nix
     ./network-manager.nix
+    ./gpg.nix
   ];
 
   # PipeWire
