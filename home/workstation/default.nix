@@ -123,21 +123,46 @@ in
   services.blueman-applet.enable = true;
 
   #ssh
-  programs.ssh.enable = true;
-  systemd.user.services.ssh-agent = {
-    Unit = {
-      Description = "OpenSSH authentication agent";
-    };
-
-    Install = { WantedBy = [ "default.target" ]; };
-
-    Service = {
-      ExecStart = "${pkgs.openssh}/bin/ssh-agent -D -a %t/ssh-agent.sock";
-      Restart = "on-failure";
+  programs.ssh = {
+    enable = true;
+    serverAliveInterval = 60;
+    #https://qiita.com/tango110/items/c8194d43b46fa2a712d1
+    extraConfig = ''
+      IPQoS none
+    '';
+    matchBlocks = {
+      "github.com" = {
+        user = "git";
+      };
+      "gitlab.com" = {
+        user = "git";
+      };
+      niwase = {
+        hostname = "tsukuba.niwase.net";
+        user = "ngkz";
+        port = 49224;
+      };
+      peregrine = {
+        hostname = "peregrine.local";
+        user = "user";
+        port = 35822;
+      };
+      prairie = {
+        hostname = "prairie.local";
+        user = "user";
+        port = 35822;
+      };
+      seychelles = {
+        hostname = "seychelles.local";
+        user = "manjaro";
+        port = 35822;
+      };
+      laggar = {
+        hostname = "laggar.local";
+        user = "pi";
+      };
     };
   };
-  systemd.user.sessionVariables.SSH_AUTH_SOCK = "\${SSH_AUTH_SOCK:-$XDG_RUNTIME_DIR/ssh-agent.sock}";
-  home.sessionVariables.SSH_AUTH_SOCK = "\${SSH_AUTH_SOCK:-$XDG_RUNTIME_DIR/ssh-agent.sock}";
 
   # KeePassXC
   systemd.user.services.keepassxc = {
@@ -151,8 +176,11 @@ in
     Install = { WantedBy = [ "graphical-session.target" ]; };
 
     Service = {
-      ExecStart = "${pkgs.keepassxc}/bin/keepassxc";
+      ExecStart = "${pkgs.keepassxc}/bin/keepassxc %h/misc/all/db.kdbx";
       Restart = "on-failure";
+      Environment = [
+        "SSH_AUTH_SOCK=%t/ssh-agent"
+      ];
     };
   };
 
