@@ -41,6 +41,14 @@ in
   programs.git = {
     enable = true;
     delta.enable = true;
+    userName = "Kazutoshi Noguchi";
+    userEmail = "noguchi.kazutosi+Az0Gjft4@gmail.com";
+    signing.key = "BC6DCFE03513A9FA4F55D70206B8106665DD36F3";
+    extraConfig = {
+      init.defaultBranch = "main";
+      diff.tool = "nvimdiff";
+      merge.tool = "nvimdiff";
+    };
   };
 
   programs.foot = {
