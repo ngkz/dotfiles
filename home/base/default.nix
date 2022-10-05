@@ -83,7 +83,7 @@
   programs.neovim = {
     enable = true;
     plugins = with pkgs.vimPlugins; [
-      nvim-base16
+      base16-vim
       indentLine
       nerdtree
       nerdtree-git-plugin

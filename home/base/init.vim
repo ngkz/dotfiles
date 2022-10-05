@@ -263,13 +263,13 @@ function! s:check_exec(exec) "{{{
     endif
 endfunction "}}}
 
-" highlight trailing spaces {{{
-match ErrorMsg '\s\+$'
-" }}}
-
 " colorscheme {{{
 set termguicolors
 colorscheme base16-monokai
+
+" highlight trailing spaces
+call g:Base16hi('ExtraWhitespace', '', g:base16_gui08, '', g:base16_cterm08)
+match ExtraWhitespace '\s\+$'
 " }}}
 "
 " sh.vim config {{{
