@@ -265,6 +265,19 @@ endfunction "}}}
 
 " colorscheme {{{
 set termguicolors
+let base16colorspace=256
+
+function! s:base16_customize() abort
+    " improve readability
+    call g:Base16hi("Comment", g:base16_gui04, "", g:base16_cterm04, "", "", "")
+    call g:Base16hi("Folded",  g:base16_gui04, g:base16_gui01, g:base16_cterm04, g:base16_cterm01, "", "")
+endfunction
+
+augroup on_change_colorschema
+  autocmd!
+  autocmd ColorScheme base16-monokai call s:base16_customize()
+augroup END
+
 colorscheme base16-monokai
 
 " highlight trailing spaces
