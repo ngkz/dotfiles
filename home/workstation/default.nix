@@ -169,6 +169,51 @@ in
         hostname = "laggar.local";
         user = "pi";
       };
+      ifc-ntnx-node1  = {
+        hostname = "172.16.34.2";
+        user = "root";
+      };
+      ifc-ntnx-cvm1 = {
+        hostname = "172.16.34.3";
+        user = "nutanix";
+      };
+      ifc-ntnx-node2  = {
+        hostname = "172.16.34.4";
+        user = "root";
+      };
+      ifc-ntnx-cvm2 = {
+        hostname = "172.16.34.5";
+        user = "nutanix";
+      };
+      ifc-ntnx-node3  = {
+        hostname = "172.16.34.6";
+        user = "root";
+      };
+      ifc-ntnx-cvm3 = {
+        hostname = "172.16.34.7";
+        user = "nutanix";
+      };
+      ifc-ntnx-node-spare = {
+        hostname = "172.16.34.8";
+        user = "root";
+      };
+      ifc-ntnx-cvm-spare = {
+        hostname = "172.16.34.9";
+        user = "nutanix";
+      };
+      ifc-dns = {
+        hostname = "10.1.1.10";
+        user = "ifc-user";
+      };
+      edeli-dns = {
+        hostname = "10.1.1.6";
+        user = "ifc-user";
+      };
+      feap-testing = {
+        hostname = "172.16.34.91";
+        port = 10022;
+        user = "ifc-user";
+      };
     };
   };
 
