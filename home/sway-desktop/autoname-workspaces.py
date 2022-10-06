@@ -46,6 +46,8 @@ WINDOW_ICONS = {
     "libreoffice-draw": "ﴯ ",
     "libreoffice-impress": " ",
     "libreoffice-math": "√x",
+    "gcr-prompter": " ",
+    "gnome-ssh-askpass3": " ",
 }
 
 DEFAULT_ICON = "ﬓ "
