@@ -1,5 +1,6 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 let
+  inherit (lib.ngkz) rot13;
   iniFormat = pkgs.formats.ini { };
   paplay = "${pkgs.pulseaudio}/bin/paplay";
 in
@@ -42,7 +43,7 @@ in
     enable = true;
     delta.enable = true;
     userName = "Kazutoshi Noguchi";
-    userEmail = "noguchi.kazutosi+Az0Gjft4@gmail.com";
+    userEmail = rot13 "abthpuv.xnmhgbfv+Am0Gwsg4@tznvy.pbz";
     signing.key = "BC6DCFE03513A9FA4F55D70206B8106665DD36F3";
     extraConfig = {
       init.defaultBranch = "main";
@@ -146,7 +147,7 @@ in
         user = "git";
       };
       niwase = {
-        hostname = "tsukuba.niwase.net";
+        hostname = rot13 "gfhxhon.avjnfr.arg";
         user = "ngkz";
         port = 49224;
       };
@@ -169,50 +170,50 @@ in
         hostname = "laggar.local";
         user = "pi";
       };
-      ifc-ntnx-node1  = {
+      "${rot13 "vsp-agak-abqr1"}"  = {
         hostname = "172.16.34.2";
         user = "root";
       };
-      ifc-ntnx-cvm1 = {
+      "${rot13 "vsp-agak-piz1"}" = {
         hostname = "172.16.34.3";
         user = "nutanix";
       };
-      ifc-ntnx-node2  = {
+      "${rot13 "vsp-agak-abqr2"}"  = {
         hostname = "172.16.34.4";
         user = "root";
       };
-      ifc-ntnx-cvm2 = {
+      "${rot13 "vsp-agak-piz2"}" = {
         hostname = "172.16.34.5";
         user = "nutanix";
       };
-      ifc-ntnx-node3  = {
+      "${rot13 "vsp-agak-abqr3"}"  = {
         hostname = "172.16.34.6";
         user = "root";
       };
-      ifc-ntnx-cvm3 = {
+      "${rot13 "vsp-agak-piz3"}" = {
         hostname = "172.16.34.7";
         user = "nutanix";
       };
-      ifc-ntnx-node-spare = {
+      "${rot13 "vsp-agak-abqr-fcner"}" = {
         hostname = "172.16.34.8";
         user = "root";
       };
-      ifc-ntnx-cvm-spare = {
+      "${rot13 "vsp-agak-piz-fcner"}" = {
         hostname = "172.16.34.9";
         user = "nutanix";
       };
-      ifc-dns = {
+      "${rot13 "vsp-qaf"}" = {
         hostname = "10.1.1.10";
-        user = "ifc-user";
+        user = rot13 "vsp-hfre";
       };
-      edeli-dns = {
+      "${rot13 "rqryv-qaf"}" = {
         hostname = "10.1.1.6";
-        user = "ifc-user";
+        user = rot13 "vsp-hfre";
       };
-      feap-testing = {
+      "${rot13 "srnc-grfgvat"}" = {
         hostname = "172.16.34.91";
         port = 10022;
-        user = "ifc-user";
+        user = rot13 "vsp-hfre";
       };
     };
   };
