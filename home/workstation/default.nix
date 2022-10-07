@@ -170,7 +170,7 @@ in
         hostname = "laggar.local";
         user = "pi";
       };
-      "${rot13 "vsp-agak-abqr1"}"  = {
+      "${rot13 "vsp-agak-abqr1"}" = {
         hostname = "172.16.34.2";
         user = "root";
       };
@@ -178,7 +178,7 @@ in
         hostname = "172.16.34.3";
         user = "nutanix";
       };
-      "${rot13 "vsp-agak-abqr2"}"  = {
+      "${rot13 "vsp-agak-abqr2"}" = {
         hostname = "172.16.34.4";
         user = "root";
       };
@@ -186,7 +186,7 @@ in
         hostname = "172.16.34.5";
         user = "nutanix";
       };
-      "${rot13 "vsp-agak-abqr3"}"  = {
+      "${rot13 "vsp-agak-abqr3"}" = {
         hostname = "172.16.34.6";
         user = "root";
       };
