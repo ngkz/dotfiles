@@ -61,10 +61,15 @@ def icon_for_window(window):
         name = window.window_class.lower()
 
     if name in WINDOW_ICONS:
-        return WINDOW_ICONS[name]
+        icon = WINDOW_ICONS[name]
+    else:
+        logging.info("No icon available for window with name: %s" % str(name))
+        icon = DEFAULT_ICON
 
-    logging.info("No icon available for window with name: %s" % str(name))
-    return DEFAULT_ICON
+    if window.ipc_data["shell"] == "xwayland":
+        icon += "<sub>𝕏</sub>"
+
+    return icon
 
 
 def rename_workspaces(ipc):
