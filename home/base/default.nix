@@ -61,6 +61,7 @@
     usbutils #lsusb
     wget
     monolith # Save complete web pages as a single HTML file
+    neofetch
     ngkz.hyfetch-unstable
     stress
     efibootmgr

@@ -343,5 +343,6 @@ in
     networkmanagerapplet
     #wxmaxima
     libreoffice
+    xorg.xlsclients
   ];
 }
