@@ -135,7 +135,7 @@
   programs.ssh =
     let
       askPassword = "${pkgs.ngkz.gnome-ssh-askpass3}/libexec/gnome-ssh-askpass3";
-      #XXX makeshift
+      #XXX https://github.com/NixOS/nixpkgs/pull/195377
       askPasswordWrapper2 = pkgs.writeScript "ssh-askpass-wrapper2"
         ''
           #! ${pkgs.runtimeShell} -e
