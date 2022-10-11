@@ -7,7 +7,7 @@ pname=chromium-extension-useragent-switcher
 owner=ray-lothian
 repo=UserAgent-Switcher
 
-current=$(nix eval --raw "../..#${pname}.src.rev")
+current=$(nix eval --no-warn-dirty --raw "../..#${pname}.src.rev")
 latest=$(curl -sf https://api.github.com/repos/$owner/$repo/commits/master | jq -r .sha)
 
 if [[ $current == $latest ]]; then

@@ -4,7 +4,7 @@ set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 pname=chromium-extension-decentraleyes
-current=$(nix eval --raw "../..#${pname}.version")
+current=$(nix eval --no-warn-dirty --raw "../..#${pname}.version")
 
 project_id=$(curl -sf https://git.synz.io/api/v4/projects | jq -r '.[] | select(.path_with_namespace == "Synzvato/decentraleyes") | .id')
 curl -sf -o releases.json "https://git.synz.io/api/v4/projects/${project_id}/releases"

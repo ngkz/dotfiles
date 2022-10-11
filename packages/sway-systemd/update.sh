@@ -7,7 +7,7 @@ pname=sway-systemd
 owner=alebastr
 repo=$pname
 
-current=$(nix eval --raw "../..#${pname}.version")
+current=$(nix eval --no-warn-dirty --raw "../..#${pname}.version")
 latest_tag=$(curl -sf "https://api.github.com/repos/$owner/$repo/releases/latest" | jq -r ".tag_name")
 latest=$(echo "$latest_tag" | cut -c2-)
 

@@ -7,7 +7,7 @@ pname=crx3-creator
 owner=pawliczka
 repo=CRX3-Creator
 
-current=$(nix eval --raw "../..#${pname}.src.rev")
+current=$(nix eval --no-warn-dirty --raw "../..#${pname}.src.rev")
 commit=$(curl -sf https://api.github.com/repos/$owner/$repo/commits/master)
 latest=$(jq -r .sha <<<"$commit")
 

@@ -7,7 +7,7 @@ pname=chromium-extension-https-everywhere
 owner=EFForg
 repo=https-everywhere
 
-current=$(nix eval --raw "../..#${pname}.version")
+current=$(nix eval --no-warn-dirty --raw "../..#${pname}.version")
 latest=$(curl -sf "https://api.github.com/repos/$owner/$repo/releases/latest" | jq -r ".tag_name")
 
 if [[ $current == $latest ]]; then

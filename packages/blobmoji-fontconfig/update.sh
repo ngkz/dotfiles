@@ -4,7 +4,7 @@ set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 pname=blobmoji-fontconfig
-current=$(nix eval --raw "../..#${pname}.version")
+current=$(nix eval --no-warn-dirty --raw "../..#${pname}.version")
 
 curl -sL -o .SRCINFO "https://aur.archlinux.org/cgit/aur.git/plain/.SRCINFO?h=blobmoji-fontconfig"
 latest="$(sed -n "s/.*pkgver = \(.*\+\).*/\1/p" .SRCINFO)-$(sed -n "s/.*pkgrel = \(.*\+\).*/\1/p" .SRCINFO)"
@@ -15,7 +15,7 @@ if [[ $current == $latest ]]; then
     exit 0
 fi
 
-url=$(nix eval --raw "../..#${pname}.src.url")
+url=$(nix eval --no-warn-dirty --raw "../..#${pname}.src.url")
 nix-prefetch-git "$url" >git.json
 newrev=$(jq -r .rev <git.json)
 newhash=$(jq -r .sha256 <git.json)

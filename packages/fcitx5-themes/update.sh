@@ -7,7 +7,7 @@ pname=fcitx5-themes
 owner=thep0y
 repo=fcitx5-themes
 
-current=$(nix eval --raw "../..#${pname}.rev")
+current=$(nix eval --no-warn-dirty --raw "../..#${pname}.rev")
 commit=$(curl -sf https://api.github.com/repos/$owner/$repo/commits/main)
 latest=$(jq -r .sha <<<"$commit")
 
