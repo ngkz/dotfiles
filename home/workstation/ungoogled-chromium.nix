@@ -46,7 +46,6 @@ in
         chromium-extension-ublacklist
         chromium-extension-ublock0
         chromium-extension-useragent-switcher
-        chromium-extension-vue-devtools
       ];
     in
     listToAttrs
