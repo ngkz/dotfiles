@@ -109,8 +109,8 @@ let
         "disk": {
           "path": "/",
           "format": "",
-          "format-warning": "{path} {percentage_used}%",
-          "format-critical": "{path} {percentage_used}%",
+          "format-warning": " {path} {percentage_used}%",
+          "format-critical": " {path} {percentage_used}%",
           "states": {
             "critical": 90,
             "warning": 80,
@@ -120,8 +120,8 @@ let
         "disk#nix": {
           "path": "/nix",
           "format": "",
-          "format-warning": "{path} {percentage_used}%",
-          "format-critical": "{path} {percentage_used}%",
+          "format-warning": " {path} {percentage_used}%",
+          "format-critical": " {path} {percentage_used}%",
           "states": {
             "critical": 90,
             "warning": 80,
@@ -131,8 +131,8 @@ let
         "disk#tmp": {
           "path": "/tmp",
           "format": "",
-          "format-warning": "{path} {percentage_used}%",
-          "format-critical": "{path} {percentage_used}%",
+          "format-warning": " {path} {percentage_used}%",
+          "format-critical": " {path} {percentage_used}%",
           "states": {
             "critical": 90,
             "warning": 80,
