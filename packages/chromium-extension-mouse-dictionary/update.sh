@@ -30,8 +30,6 @@ node2nix \
     --lock package-lock.json \
     --composition node.nix \
     --development \
-    --no-copy-node-env \
-    --node-env ../nodePackages/node-env.nix \
-    --pkg-name nodejs-14_x #XXX workaround for node2nix#236
+    --pkg-name nodejs
 
 echo "$pname updated: $current -> $latest"
