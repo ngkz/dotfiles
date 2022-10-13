@@ -70,6 +70,8 @@
   users.users.user.extraGroups = [
     # Wireshark
     "wireshark"
+    # adb
+    "adbusers"
 
     # light
     "video"
@@ -163,4 +165,6 @@
         "172.16.34.8".publicKey = "172.16.34.8 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCzDLUNdcvEUrz2cxk17ky+U+n/qAseH3hCLlZcGMEPvoVRsBdhRTDuMjluvPsueOGptykxKx8LzzwXMVTA8Bh8ZqifA5Ps1uxhMcurjEbQIxF6CtR6JsOuBroKfQg7JL72WwytCsZ3o99rLvnXse3qHIMVlIza31wGDPNHcQ+p8XB8SsSXah185yHUphhq10b7fGUtD7eMqms+VgcFyOfMoTHl4wbJYhLPNniiKaI4r8htYXwkUC8JLtCltz2M06jtl//GspCdAfNqYsFd+idWGrlcj/bDQ8BuxdXMF9Cx11sNCu4MvjvxpcMLhicQAvkaogMeOlfcPvKQVr51caHH";
       };
     };
+
+  programs.adb.enable = true;
 }
