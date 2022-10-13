@@ -68,3 +68,5 @@ DisabledAddons=
 # Preload input method to be used by default
 PreloadInputMethod=True
 
+[Behavior/DisabledAddons]
+0=clipboard
