@@ -9,9 +9,9 @@ in
       commandLineArgs = [
         # XXX ozone-wayland doesn't support text-input-v3 protocol yet
         # https://bugs.chromium.org/p/chromium/issues/detail?id=1039161
-        #"--ozone-platform-hint=auto"
-        # XXX VA-API hardware video decoding doesn't work
-        # TODO https://bbs.archlinux.org/viewtopic.php?id=244031&p=27
+        # XXX VA-API hardware video decoding doesn't work on Wayland
+        # XXX VA-API hardware video decoding causes slowdown on X11
+        "--ozone-platform=x11"
         "--enable-features=VaapiVideoEncoder,VaapiVideoDecoder,CanvasOopRasterization"
         "--use-gl=egl"
         "--enable-oop-rasterization"
