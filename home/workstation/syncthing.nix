@@ -15,6 +15,9 @@ in
   # doesn't work with security.unprivilegedUsernsClone = false;
   systemd.user.services.syncthing.Service.PrivateUsers = lib.mkForce false;
   systemd.user.services.syncthingtray.Service.Restart = "on-failure";
+  systemd.user.services.syncthingtray.Service.Environment = [
+    "PATH=/etc/profiles/per-user/%u/bin" # Qt find plugins from PATH
+  ];
 
   home.activation.syncthing-config =
     let
