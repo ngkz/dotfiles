@@ -179,7 +179,7 @@ in
           command = "floating enable";
         }
         {
-          # do not show media sharing indicator
+          # XXX do not show media sharing indicator https://bugzilla.mozilla.org/show_bug.cgi?id=1628431
           criteria = {
             app_id = "librewolf$";
             title = "LibreWolf — Sharing Indicator$";
@@ -187,7 +187,7 @@ in
           command = "kill";
         }
         {
-          # FreeCAD splash
+          # XXX FreeCAD splash
           criteria = {
             app_id = "org.freecadweb.FreeCAD$";
             title = "FreeCAD$";

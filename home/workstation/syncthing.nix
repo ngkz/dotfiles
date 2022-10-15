@@ -16,7 +16,7 @@ in
   systemd.user.services.syncthing.Service.PrivateUsers = lib.mkForce false;
   systemd.user.services.syncthingtray.Service.Restart = "on-failure";
   systemd.user.services.syncthingtray.Service.Environment = [
-    "PATH=/etc/profiles/per-user/%u/bin" # Qt find plugins from PATH
+    "PATH=/etc/profiles/per-user/%u/bin" # XXX Qt find plugins from PATH
   ];
 
   home.activation.syncthing-config =

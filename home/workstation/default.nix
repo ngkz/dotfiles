@@ -235,7 +235,7 @@ in
       Restart = "on-failure";
       Environment = [
         "SSH_AUTH_SOCK=%t/ssh-agent"
-        "PATH=/etc/profiles/per-user/%u/bin" # Qt find plugins from PATH
+        "PATH=/etc/profiles/per-user/%u/bin" # XXX Qt find plugins from PATH
       ];
     };
   };
