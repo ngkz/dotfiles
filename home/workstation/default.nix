@@ -37,6 +37,8 @@ in
     "projects"
     "work"
     "misc"
+    # adb
+    ".android"
   ];
 
   # Git
