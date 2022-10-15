@@ -14,7 +14,8 @@ import signal
 import sys
 
 WINDOW_ICONS = {
-    "firefox": " ",
+    "firefox": " ",
+    "librewolf": " ",
     "thunderbird": " ",
     "chromium-browser": " ",
     "org.keepassxc.keepassxc": " ",

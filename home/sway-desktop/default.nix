@@ -178,6 +178,14 @@ in
           };
           command = "floating enable";
         }
+        {
+          # do not show media sharing indicator
+          criteria = {
+            app_id = "librewolf";
+            title = "LibreWolf — Sharing Indicator";
+          };
+          command = "kill";
+        }
       ];
     };
     extraConfig = ''

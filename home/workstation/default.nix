@@ -344,5 +344,6 @@ in
     #wxmaxima
     libreoffice
     xorg.xlsclients
+    librewolf
   ];
 }
