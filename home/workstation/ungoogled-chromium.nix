@@ -17,7 +17,7 @@ in
         "--enable-oop-rasterization"
         "--enable-raw-draw"
 
-        "--disable-reading-from-canvas"
+        #"--disable-reading-from-canvas" # Cloudflare doesn't like this
         "--ignore-gpu-blocklist"
         "--enable-gpu-rasterization"
         "--disable-gpu-driver-bug-workarounds"
