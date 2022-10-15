@@ -137,7 +137,7 @@
   programs.ssh =
     let
       askPassword = "${pkgs.ngkz.gnome-ssh-askpass3}/libexec/gnome-ssh-askpass3";
-      #XXX https://github.com/NixOS/nixpkgs/pull/195377
+      #XXX nixpkgs#195377. remove this after NixOS 21.11 upgrade
       askPasswordWrapper2 = pkgs.writeScript "ssh-askpass-wrapper2"
         ''
           #! ${pkgs.runtimeShell} -e
