@@ -10,6 +10,7 @@ in
     ./fcitx5
     ./ungoogled-chromium.nix
     ./syncthing.nix
+    ./librewolf
   ];
 
   # XDG user dirs
@@ -344,6 +345,5 @@ in
     #wxmaxima
     libreoffice
     xorg.xlsclients
-    librewolf
   ];
 }
