@@ -8,10 +8,6 @@
     extraSessionCommands = ''
       # SDL:
       export SDL_VIDEODRIVER=wayland
-      # Qt (needs qt5.qtwayland in systemPackages):
-      export QT_QPA_PLATFORM="wayland;xcb"
-      #export QT_WAYLAND_FORCE_DPI=physical
-      export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
       # Fix for some Java AWT applications (e.g. Android Studio),
       # use this if they aren't displayed properly:
       export _JAVA_AWT_WM_NONREPARENTING=1
@@ -19,7 +15,6 @@
       export CLUTTER_BACKEND=wayland
       # Firefox:
       export MOZ_ENABLE_WAYLAND=1
-      export MOZ_WEBRENDER=1
       # Chromium / Electron (experimental):
       export NIXOS_OZONE_WL=1
 
