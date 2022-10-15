@@ -186,6 +186,14 @@ in
           };
           command = "kill";
         }
+        {
+          # FreeCAD splash
+          criteria = {
+            app_id = "org.freecadweb.FreeCAD$";
+            title = "FreeCAD$";
+          };
+          command = "floating enable";
+        }
       ];
     };
     extraConfig = ''
