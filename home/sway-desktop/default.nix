@@ -174,15 +174,15 @@ in
         {
           criteria = {
             app_id = "org.keepassxc.KeePassXC$";
-            title = "KeePassXC - (ブラウザーの)?アクセス要求";
+            title = "KeePassXC - (ブラウザーの)?アクセス要求$";
           };
           command = "floating enable";
         }
         {
           # do not show media sharing indicator
           criteria = {
-            app_id = "librewolf";
-            title = "LibreWolf — Sharing Indicator";
+            app_id = "librewolf$";
+            title = "LibreWolf — Sharing Indicator$";
           };
           command = "kill";
         }
