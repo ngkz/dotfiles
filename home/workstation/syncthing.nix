@@ -22,7 +22,7 @@ in
   home.activation.syncthing-config =
     let
       pcs = [ "noguchi-pc-win" "chibinof" "peregrine" ];
-      phones = [ "seychelles" ];
+      phones = [ "barbet" ];
       all = pcs ++ phones;
       personal = builtins.filter (x: x != "noguchi-pc-win") all;
       personal-pcs = builtins.filter (x: x != "noguchi-pc-win") pcs;
@@ -64,6 +64,7 @@ in
           devices = personal-pcs;
           ignore = ''
             /phone
+            /phone-dcim
             /otg
           '';
         }
@@ -80,10 +81,16 @@ in
           devices = personal;
         }
         {
+          id = "pics-phone-dcim";
+          label = "~/pics/phone-dcim";
+          path = "${config.home.tmpfs-as-home.storage}/pics/phone-dcim";
+          devices = personal;
+        }
+        {
           id = "videos";
           label = "~/videos";
           path = "${config.home.tmpfs-as-home.storage}/videos";
-          devices = personal-pcs;
+          devices = personal;
           ignore = ''
             /local
           '';
@@ -142,7 +149,7 @@ in
 
       devices = {
         noguchi-pc-win = { };
-        seychelles = {
+        barbet = {
           compression = "always";
         };
         chibinof = { };
