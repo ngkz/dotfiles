@@ -326,6 +326,8 @@ in
     binwalk
     hashcat
     libsecret # secret-tool
+    zbar
+    qrencode
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
