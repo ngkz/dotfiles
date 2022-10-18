@@ -103,10 +103,6 @@ in
     # install per-user packages to /etc/profiles to make nixos-rebuild build-vm work
     useUserPackages = true;
     users.user = self.homeManagerModules.base;
-    sharedModules = [
-      # Workaround for https://github.com/nix-community/home-manager/issues/1262 TODO
-      { manual.manpages.enable = false; }
-    ];
     extraSpecialArgs = {
       inherit inputs;
       lib = lib.extend (_: _: home-manager.lib);
