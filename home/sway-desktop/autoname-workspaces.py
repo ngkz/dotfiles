@@ -164,7 +164,7 @@ if __name__ == "__main__":
         signal.signal(sig, lambda signal, frame: undo_window_renaming(ipc))
 
     def window_event_handler(ipc, e):
-        if e.change in ["new", "close", "move"]:
+        if e.change in ["new", "close", "move", "title"]:
             rename_workspaces(ipc)
 
     ipc.on("window", window_event_handler)
