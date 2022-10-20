@@ -49,6 +49,8 @@ WINDOW_ICONS = {
     "libreoffice-math": "√x",
     "gcr-prompter": " ",
     "gnome-ssh-askpass3": " ",
+    "luakit": " ",
+    "nvim": " ",
 }
 
 DEFAULT_ICON = "ﬓ "
@@ -60,6 +62,10 @@ def icon_for_window(window):
         name = window.app_id.lower()
     elif window.window_class is not None and len(window.window_class) > 0:
         name = window.window_class.lower()
+
+    if (name == "foot" or name == "foot-floating") and \
+            window.name.endswith(" - NVIM"):
+        name = "nvim"
 
     if name in WINDOW_ICONS:
         icon = WINDOW_ICONS[name]
