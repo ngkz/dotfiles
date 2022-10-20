@@ -50,10 +50,16 @@ WINDOW_ICONS = {
     "gcr-prompter": " ",
     "gnome-ssh-askpass3": " ",
     "luakit": " ",
-    "nvim": " ",
 }
 
 DEFAULT_ICON = "ﬓ "
+
+TERMINAL = ["foot", "foot-floating"]
+
+TERMINAL_APP_ICONS = {
+    " - NVIM$": " ",
+    "^btop$": " ",
+}
 
 
 def icon_for_window(window):
@@ -63,12 +69,13 @@ def icon_for_window(window):
     elif window.window_class is not None and len(window.window_class) > 0:
         name = window.window_class.lower()
 
-    if (name == "foot" or name == "foot-floating") and \
-            window.name.endswith(" - NVIM"):
-        name = "nvim"
-
     if name in WINDOW_ICONS:
         icon = WINDOW_ICONS[name]
+        if name in TERMINAL:
+            for pat, appicon in TERMINAL_APP_ICONS.items():
+                if re.search(pat, window.name):
+                    icon = appicon
+                    break
     else:
         logging.info("No icon available for window with name: %s" % str(name))
         icon = DEFAULT_ICON
