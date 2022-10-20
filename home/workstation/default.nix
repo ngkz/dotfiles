@@ -10,7 +10,7 @@ in
     ./fcitx5
     ./ungoogled-chromium.nix
     ./syncthing.nix
-    ./librewolf
+    ./luakit
   ];
 
   # XDG user dirs
