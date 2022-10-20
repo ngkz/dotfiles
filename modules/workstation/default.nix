@@ -168,4 +168,9 @@
 
   programs.adb.enable = true;
   services.gvfs.enable = true;
+
+  environment.variables = {
+    # Enable Gstreamer hardware decoding
+    GST_PLUGIN_FEATURE_RANK = "vampeg2dec:MAX,vah264dec:MAX,vah265dec:MAX,vavp8dec:MAX,vavp9dec:MAX,vaav1dec:MAX";
+  };
 }
