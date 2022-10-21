@@ -495,6 +495,10 @@ in
 
       # thunderbird
       "x-scheme-handler/mailto" = "thunderbird.desktop";
+
+      # inkscape
+      "image/svg+xml" = "org.inkscape.Inkscape.desktop";
+      "image/svg+xml-compressed" = "org.inkscape.Inkscape.desktop";
     };
   };
 
@@ -525,6 +529,7 @@ in
     gimp
     gscan2pdf # scanning tool
     imv
+    inkscape
     keepassxc
     lollypop
     wdisplays
