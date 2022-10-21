@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  inherit (builtins) listToAttrs attrNames readDir concatLists toJSON;
+  inherit (builtins) toJSON;
 in
 {
   programs.chromium = {
@@ -32,39 +32,29 @@ in
     });
   };
 
-  xdg.configFile =
+  xdg.configFile."chromium/External Extensions".source =
     let
-      extensions = with pkgs.ngkz; [
-        chromium-extension-keepassxc-browser
-        chromium-extension-ublock0
-        chromium-extension-useragent-switcher
-      ];
-    in
-    listToAttrs
-      (
-        concatLists (
-          map
-            (ext:
-              map
-                (name: {
-                  name = "chromium/External Extensions/${name}";
-                  value.source = "${ext}/share/chromium/extensions/${name}";
-                })
-                (attrNames (readDir "${ext}/share/chromium/extensions"))
-            )
-            extensions
-        )
-      ) // {
-      "chromium/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json".text = toJSON {
-        allowed_origins = [
-          "chrome-extension://aagogodjfilkindafjogmjjpeoflafop/" # chromium-extension-keepassxc-browser
+      env = pkgs.buildEnv {
+        name = "chromium-extensions";
+        paths = with pkgs.ngkz; [
+          chromium-extension-keepassxc-browser
+          chromium-extension-ublock0
+          chromium-extension-useragent-switcher
         ];
-        name = "org.keepassxc.keepassxc_browser";
-        description = "KeePassXC integration with native messaging support";
-        path = "${pkgs.keepassxc}/bin/keepassxc-proxy";
-        type = "stdio";
+        pathsToLink = "/share/chromium/extensions";
       };
-    };
+    in
+    "${env}/share/chromium/extensions";
+
+  xdg.configFile."chromium/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json".text = toJSON {
+    allowed_origins = [
+      "chrome-extension://aagogodjfilkindafjogmjjpeoflafop/" # chromium-extension-keepassxc-browser
+    ];
+    name = "org.keepassxc.keepassxc_browser";
+    description = "KeePassXC integration with native messaging support";
+    path = "${pkgs.keepassxc}/bin/keepassxc-proxy";
+    type = "stdio";
+  };
 
   home.tmpfs-as-home.persistentDirs = [
     ".config/chromium/Default"
