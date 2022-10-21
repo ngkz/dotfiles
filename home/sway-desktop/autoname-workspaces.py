@@ -50,6 +50,7 @@ WINDOW_ICONS = {
     "gcr-prompter": " ",
     "gnome-ssh-askpass3": " ",
     "luakit": " ",
+    "nemo": ' ',
 }
 
 DEFAULT_ICON = "ﬓ "

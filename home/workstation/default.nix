@@ -338,7 +338,6 @@ in
     keepassxc
     lollypop
     wdisplays
-    pcmanfm
     pavucontrol
     gnome.gnome-clocks
     shotwell
@@ -350,5 +349,6 @@ in
     #wxmaxima
     libreoffice
     xorg.xlsclients
+    cinnamon.nemo
   ];
 }
