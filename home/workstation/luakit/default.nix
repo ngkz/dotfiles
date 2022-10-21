@@ -39,4 +39,16 @@
     ".local/share/luakit/styles"
     ".local/share/luakit/session"
   ];
+
+  xdg.mimeApps.defaultApplications = {
+    "text/html" = "luakit.desktop";
+    "text/xml" = "luakit.desktop";
+    "application/xhtml+xml" = "luakit.desktop";
+    "application/xhtml_xml" = "luakit.desktop";
+    "application/xml" = "luakit.desktop";
+    "application/rdf+xml" = "luakit.desktop";
+    "application/rss+xml" = "luakit.desktop";
+    "x-scheme-handler/http" = "luakit.desktop";
+    "x-scheme-handler/https" = "luakit.desktop";
+  };
 }
