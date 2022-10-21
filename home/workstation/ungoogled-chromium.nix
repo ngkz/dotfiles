@@ -35,15 +35,7 @@ in
   xdg.configFile =
     let
       extensions = with pkgs.ngkz; [
-        chromium-extension-auto-tab-discard
-        chromium-extension-clearurls
-        chromium-extension-decentraleyes
-        chromium-extension-get-rss-feed-url-extension
-        chromium-extension-https-everywhere
         chromium-extension-keepassxc-browser
-        chromium-extension-mouse-dictionary
-        chromium-extension-reddit-enhancement-suite
-        chromium-extension-ublacklist
         chromium-extension-ublock0
         chromium-extension-useragent-switcher
       ];
