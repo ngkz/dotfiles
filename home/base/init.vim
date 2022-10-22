@@ -552,10 +552,6 @@ nnoremap <silent> <leader>bd :<c-u>bdelete<cr>
 nnoremap <silent> <leader>bc :<c-u>Bclose<cr>
 nnoremap <silent> <leader>bk :<c-u>bdelete!<cr>
 
-" exiting
-nnoremap <leader>qq :q<CR>
-nnoremap <leader>qw :wq<CR>
-
 " vp doesn't replace paste buffer
 function! RestoreRegister()
   let @" = s:restore_reg
