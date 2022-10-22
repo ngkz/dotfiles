@@ -520,6 +520,8 @@ in
     libreoffice
     xorg.xlsclients
     cinnamon.nemo
+    ffmpegthumbnailer #video thumbnailer
+    gnome.totem #audio/video thumbnailer
     gnome.gnome-disk-utility
     gnome.file-roller
   ];
