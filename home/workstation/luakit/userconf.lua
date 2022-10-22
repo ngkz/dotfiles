@@ -8,11 +8,11 @@ local engines = settings.window.search_engines
 engines.default = engines.duckduckgo
 
 modes = require "modes"
--- modes.add_binds("normal", {
---     { "y", "Copy selected text.", function() 
---         luakit.selection.clipboard = luakit.selection.primary
---     end},
--- })
+modes.add_binds("normal", {
+    { "y", "Copy selected text to clipboard.", function() 
+        luakit.selection.clipboard = luakit.selection.primary
+    end},
+})
 
 session = require "session"
 session.session_file = luakit.data_dir .. "/session/session"
