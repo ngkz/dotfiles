@@ -540,6 +540,9 @@ in
     libsecret # secret-tool
     zbar
     qrencode
+    youtube-dl
+    mp3gain
+    aacgain
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
