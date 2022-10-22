@@ -167,6 +167,7 @@
     };
 
   programs.adb.enable = true;
+  # XXX windows network browsing function doesn't work due to https://gitlab.gnome.org/GNOME/gvfs/-/issues/506
   services.gvfs.enable = true;
 
   environment.variables = {
