@@ -492,6 +492,22 @@ in
       # inkscape
       "image/svg+xml" = "org.inkscape.Inkscape.desktop";
       "image/svg+xml-compressed" = "org.inkscape.Inkscape.desktop";
+      "application/vnd.corel-draw" = "org.inkscape.Inkscape.desktop";
+      "application/illustrator" = "org.inkscape.Inkscape.desktop";
+      "image/cgm" = "org.inkscape.Inkscape.desktop";
+      "image/x-wmf" = "org.inkscape.Inkscape.desktop";
+      "application/x-xccx" = "org.inkscape.Inkscape.desktop";
+      "application/x-xcgm" = "org.inkscape.Inkscape.desktop";
+      "application/x-xcdt" = "org.inkscape.Inkscape.desktop";
+      "application/x-xsk1" = "org.inkscape.Inkscape.desktop";
+      "application/x-xcmx" = "org.inkscape.Inkscape.desktop";
+      "image/x-xcdr" = "org.inkscape.Inkscape.desktop";
+      "application/visio" = "org.inkscape.Inkscape.desktop";
+      "application/x-visio" = "org.inkscape.Inkscape.desktop";
+      "application/visio.drawing" = "org.inkscape.Inkscape.desktop";
+      "application/vsd" = "org.inkscape.Inkscape.desktop";
+      "application/x-vsd" = "org.inkscape.Inkscape.desktop";
+      "image/x-vsd" = "org.inkscape.Inkscape.desktop";
     };
   };
 
