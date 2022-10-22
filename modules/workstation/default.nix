@@ -40,7 +40,6 @@
       gyre-fonts # TrueType substitutes for standard PostScript fonts
       liberation_ttf
       unifont
-      ibm-plex
       ngkz.sarasa-term-j-nerd-font
     ];
 
@@ -49,11 +48,8 @@
 
     fontconfig = {
       defaultFonts = {
-        sansSerif = [ "IBM Plex Sans JP" ];
-        serif = [
-          "IBM Plex Serif"
-          "Noto Serif CJK JP"
-        ];
+        sansSerif = [ "Noto Sans CJK JP" ];
+        serif = [ "Noto Serif CJK JP" ];
         emoji = [ "Blobmoji" ];
         monospace = [ "Sarasa Term J Nerd Font" ];
       };
