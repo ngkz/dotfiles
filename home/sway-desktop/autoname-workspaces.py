@@ -52,6 +52,7 @@ WINDOW_ICONS = {
     "luakit": " ",
     "nemo": ' ',
     "mpv": " ",
+    "evince": ' ',
 }
 
 DEFAULT_ICON = "ﬓ "
