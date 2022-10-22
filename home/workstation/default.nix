@@ -39,6 +39,8 @@ in
     "misc"
     # adb
     ".android"
+    # tauon
+    ".local/share/TauonMusicBox"
   ];
 
   # Git
@@ -547,7 +549,7 @@ in
     imv
     inkscape
     keepassxc
-    lollypop
+    tauon
     wdisplays
     pavucontrol
     gnome.gnome-clocks

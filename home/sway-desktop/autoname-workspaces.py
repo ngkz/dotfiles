@@ -53,6 +53,7 @@ WINDOW_ICONS = {
     "nemo": ' ',
     "mpv": " ",
     "evince": ' ',
+    "tauon music box": " ",
 }
 
 DEFAULT_ICON = "ﬓ "
