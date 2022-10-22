@@ -260,7 +260,6 @@ in
           "--text-caps-lock-color d00029"
           "--text-wrong-color ffb039"
           "--text-clear-color 8abeb7"
-          "--font 'IBM Plex Mono'"
         ];
       }
       {
