@@ -51,6 +51,7 @@ WINDOW_ICONS = {
     "gnome-ssh-askpass3": " ",
     "luakit": " ",
     "nemo": ' ',
+    "mpv": " ",
 }
 
 DEFAULT_ICON = "ﬓ "
