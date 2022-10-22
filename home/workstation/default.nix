@@ -545,5 +545,7 @@ in
     libreoffice
     xorg.xlsclients
     cinnamon.nemo
+    gnome.gnome-disk-utility
+    gnome.file-roller
   ];
 }
