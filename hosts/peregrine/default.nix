@@ -48,7 +48,6 @@ in
 
   # bluetooth
   hardware.bluetooth.enable = true;
-  modules.tmpfs-as-root.persistentDirs = [ "/var/lib/bluetooth" ];
   systemd.services.bluetooth.serviceConfig = {
     StateDirectory = "";
     ReadWritePaths = [
@@ -59,11 +58,6 @@ in
 
   # power management
   powerManagement.cpuFreqGovernor = "powersave";
-
-  boot.kernelParams = [
-    # power saving
-    "pcie_aspm=force"
-  ];
 
   environment.systemPackages = with pkgs; [
     nvme-cli # NVMe SSD
@@ -80,4 +74,49 @@ in
 
   # Whiskey Lake is not affected by L1TF and Meltdown
   modules.hardening.disableMeltdownAndL1TFMitigation = true;
+
+  # tlp
+  boot.kernelParams = [
+    # enable ASPM
+    "pcie_aspm=force"
+  ];
+
+  services.tlp.settings = {
+    START_CHARGE_THRESH_BAT0 = 70;
+    STOP_CHARGE_THRESH_BAT0 = 80;
+
+    DISK_DEVICES = "nvme0n1";
+    SATA_LINKPWR_ON_AC = "max_performance";
+
+    PLATFORM_PROFILE_ON_AC = "performance";
+    PLATFORM_PROFILE_ON_BAT = "low-power";
+
+    CPU_ENERGY_PERF_POLICY_ON_AC = "performance"; # to achieve 4.6GHz single-core boost clock
+    CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
+    CPU_HWP_DYN_BOOST_ON_AC = 1;
+    CPU_HWP_DYN_BOOST_ON_BAT = 0;
+
+    RESTORE_DEVICE_STATE_ON_STARTUP = 1; # TLP masks systemd-rfkill
+    DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "bluetooth wifi wwan";
+
+    RUNTIME_PM_DRIVER_DENYLIST = "";
+    PCIE_ASPM_ON_AC = "performance";
+    PCIE_ASPM_ON_BAT = "powersupersave";
+  };
+
+  boot.extraModprobeConfig = ''
+    options iwlwifi power_save=1 uapsd_disable=0
+    options iwlmvm power_scheme=3
+    #options iwldvm force_cam=0
+
+    options i915 enable_dc=2 enable_fbc=1 enable_psr=1 enable_guc=3 enable_psr2_sel_fetch=1 enable_dpcd_backlight=1
+    options drm vblankoffdelay=1
+  '';
+
+  modules.tmpfs-as-root.persistentDirs = [
+    # bluetooth
+    "/var/lib/bluetooth"
+    # tlp
+    "/var/lib/tlp"
+  ];
 }
