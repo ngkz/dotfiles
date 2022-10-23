@@ -78,6 +78,7 @@
     bc
     pciutils #lspci
     lshw
+    sysfsutils #systool
   ];
 
   # neovim
