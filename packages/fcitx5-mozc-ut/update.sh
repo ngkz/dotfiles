@@ -14,7 +14,7 @@ if [[ $utdicver_current == $utdicver_latest ]]; then
 fi
 
 sed -i "s/utdicver = \"$utdicver_current\"/utdicver = \"$utdicver_latest\"/" default.nix
-newhash=$(nix build "../..#${pname}" 2>&1 | sed -n "s/.*got:\s*\(.*\)/\1/p" || true)
+newhash=$(nix-prefetch-url --unpack https://osdn.net/users/utuhiro/pf/utuhiro/dl/mozcdic-ut-${utdicver_latest}.tar.bz2)
 sed -i "s|sha256 = \".*\"|sha256 = \"$newhash\"|" default.nix
 
 echo "$pname updated: $utdicver_current -> $utdicver_latest"
