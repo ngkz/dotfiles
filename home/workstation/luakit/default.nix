@@ -4,6 +4,9 @@
   ];
 
   xdg.configFile."luakit/userconf.lua".source = ./userconf.lua;
+  xdg.configFile."luakit/theme.lua".text = builtins.replaceStrings
+    [ "@luakit@" ] [ "${pkgs.luakit}" ]
+    (builtins.readFile ./theme.lua);
 
   home.file.".local/share/luakit/adblock/easylist.txt".source = pkgs.fetchurl {
     url = "https://easylist.to/easylist/easylist.txt";
