@@ -520,6 +520,50 @@ in
     };
   };
 
+  dconf.settings = {
+    "ca/desrt/dconf-editor" = {
+      show-warning = false;
+    };
+
+    # nemo
+    "org/cinnamon/desktop/applications/terminal" = {
+      exec = "foot";
+      exec-args = "--";
+    };
+
+    "org/nemo/list-view" = {
+      default-column-order = lib.hm.gvariant.mkTuple [ "name" "size" "type" "date_modified" "octal_permissions" "mime_type" "date_accessed" "group" "permissions" "date_created_with_time" "date_created" "where" "owner" "detailed_type" "date_modified_with_time" ];
+      default-visible-columns = lib.hm.gvariant.mkTuple [ "name" "size" "type" "date_modified" "permissions" ];
+    };
+
+    "org/nemo/preferences" = {
+      date-format = "iso";
+      quick-renames-with-pause-in-between = true;
+      show-advanced-permissions = true;
+      thumbnail-limit = 1073741824;
+    };
+
+    "org/nemo/preferences/menu-config" = {
+      background-menu-open-as-root = false;
+      selection-menu-open-as-root = false;
+    };
+
+    "org/nemo/window-state" = {
+      sidebar-bookmark-breakpoint = 8;
+    };
+  };
+
+  gtk.gtk3.bookmarks = [
+    "file:///home/user/docs docs"
+    "file:///home/user/pics pics"
+    "file:///home/user/music music"
+    "file:///home/user/videos videos"
+    "file:///home/user/dl dl"
+    "file:///home/user/projects projects"
+    "file:///home/user/work work"
+    "file:///home/user/misc misc"
+  ];
+
   home.packages = with pkgs; [
     binutils
     gdb
