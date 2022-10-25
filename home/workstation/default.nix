@@ -587,6 +587,7 @@ in
     youtube-dl
     mp3gain
     aacgain
+    ffmpeg
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
