@@ -354,8 +354,8 @@ in
   xdg.configFile."swaync/config.json".text = builtins.toJSON {
     scripts = {
       sound = {
-        app-name = "^(?!volume|brightness).*$";
-        summary = "^(?!Command completed in ).*$";
+        app-name = "^(?!volume|brightness|Tauon Music Box)$";
+        summary = "^(?!Command completed in )";
         exec = "${pkgs.pulseaudio}/bin/paplay ${./airplane-announcement.ogg}";
       };
     };
