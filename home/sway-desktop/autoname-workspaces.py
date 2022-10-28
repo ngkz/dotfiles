@@ -18,7 +18,7 @@ WINDOW_ICONS = {
     "librewolf": " ",
     "thunderbird": " ",
     "chromium-browser": " ",
-    "org.keepassxc.keepassxc": " ",
+    "org.keepassxc.keepassxc": " ",
     "org.gnome.nautilus": ' ',
     "pcmanfm": ' ',
     "foot": " ",
