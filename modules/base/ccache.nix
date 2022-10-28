@@ -29,6 +29,7 @@ in
     modules.ccache.packagePaths = [
       [ "ngkz" "fcitx5-mozc-ut" ]
       [ "ngkz" "sway-im-unwrapped" ]
+      [ "ngkz" "emacs-pgtk-nativecomp" ]
     ];
 
     # apply after other overlays
