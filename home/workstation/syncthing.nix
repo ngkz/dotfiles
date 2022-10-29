@@ -245,7 +245,7 @@ in
         if [ -v VERBOSE ]; then
           echo restarting syncthing
         fi
-        if pgrep -x syncthing >/dev/null; then
+        if pgrep -u $(id -u) -x syncthing >/dev/null; then
           $DRY_RUN_CMD ${syncthing} cli operations restart
         fi
       fi
@@ -263,7 +263,12 @@ in
           echo "$newConfig" >${syncthingTrayCfg}
         fi
 
-        $DRY_RUN_CMD systemctl restart --user syncthingtray.service
+        if pgrep -u $(id -u) syncthingtray >/dev/null; then
+          if [ -v VERBOSE ]; then
+            echo restarting syncthingtray
+          fi
+          $DRY_RUN_CMD systemctl restart --user syncthingtray.service
+        fi
       fi
       unset newConfig
     '';
