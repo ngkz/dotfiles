@@ -2,7 +2,7 @@
 
 { config, lib, pkgs, inputs, ... }:
 let
-  inherit (lib) mapAttrs filterAttrs attrValues mkIf;
+  inherit (lib) mapAttrs filterAttrs mapAttrsToList mkIf;
   inherit (inputs) self agenix home-manager;
 in
 {
@@ -17,32 +17,41 @@ in
   nixpkgs = import ../../nixpkgs.nix inputs;
 
   # Enable experimental flakes feature
-  nix = {
-    # Enable flake
-    package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
+  nix =
+    let
+      filteredInputs = filterAttrs (n: _: n != "self") inputs;
+      nixPathInputs = mapAttrsToList (n: v: "${n}=${v}") filteredInputs;
+      registryInputs = mapAttrs (_: v: { flake = v; }) filteredInputs;
+    in
+    {
+      # Enable flake
+      package = pkgs.nixFlakes;
+      extraOptions = ''
+        experimental-features = nix-command flakes
 
-      # Keep build-time dependencies when GC
-      keep-outputs = true
-      keep-derivations = true
-    '';
+        # Keep build-time dependencies when GC
+        keep-outputs = true
+        keep-derivations = true
+      '';
 
-    # Only allow administrative users to connect the nix daemon
-    allowedUsers = [ "root" "@wheel" ];
+      # Only allow administrative users to connect the nix daemon
+      allowedUsers = [ "root" "@wheel" ];
 
-    trustedUsers = [ "root" ];
+      trustedUsers = [ "root" ];
 
-    # turned autoOptimiseStore and gc.automatic off due to slowdown
+      # turned autoOptimiseStore and gc.automatic off due to slowdown
 
-    # It’s often convenient to pin the nixpkgs flake to the exact version
-    # of nixpkgs used to build the system. This ensures that commands
-    # like nix shell nixpkgs#<package> work more efficiently since
-    # many or all of the dependencies of <package> will already be
-    # present.
-    registry = mapAttrs (_: value: { flake = value; }) (
-      filterAttrs (name: _: name != "self") inputs);
-  };
+      # It’s often convenient to pin the nixpkgs flake to the exact version
+      # of nixpkgs used to build the system. This ensures that commands
+      # like nix shell nixpkgs#<package> work more efficiently since
+      # many or all of the dependencies of <package> will already be
+      # present.
+      registry = registryInputs // { dotfiles.flake = inputs.self; };
+
+      nixPath = nixPathInputs ++ [
+        "dotfiles=${inputs.self}"
+      ];
+    };
 
   # Let 'nixos-version --json' know the Git revision of this flake.
   system.configurationRevision = mkIf (self ? rev) self.rev;
