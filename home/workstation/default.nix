@@ -41,6 +41,8 @@ in
     ".android"
     # tauon
     ".local/share/TauonMusicBox"
+    # libreoffice
+    ".config/libreoffice"
   ];
 
   # Git
