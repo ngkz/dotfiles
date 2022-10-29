@@ -54,7 +54,7 @@ WINDOW_ICONS = {
     "mpv": " ",
     "evince": ' ',
     "tauon music box": " ",
-    "emacs": " ",
+    "emacs": " ",
 }
 
 DEFAULT_ICON = "ﬓ "
