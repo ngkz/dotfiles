@@ -10,7 +10,7 @@
 
   home.file.".local/share/luakit/adblock/easylist.txt".source = pkgs.fetchurl {
     url = "https://easylist.to/easylist/easylist.txt";
-    sha256 = "1r2bdqc2flnlljsydxspc8pj2idvrv0scs6h8ah6p9yww39dhw2s";
+    sha256 = "1x028i7pb66yvin1rmjgldx45p36k4c28m0viqg7kyd3nymcn2zr";
   };
   home.file.".local/share/luakit/adblock/easyprivacy.txt".source = pkgs.fetchurl {
     url = "https://easylist.to/easylist/easyprivacy.txt";
