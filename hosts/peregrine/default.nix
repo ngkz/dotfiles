@@ -86,7 +86,7 @@ in
     STOP_CHARGE_THRESH_BAT0 = 80;
 
     DISK_DEVICES = "nvme0n1";
-    SATA_LINKPWR_ON_AC = "max_performance";
+    #SATA_LINKPWR_ON_AC = "max_performance";
 
     PLATFORM_PROFILE_ON_AC = "performance";
     PLATFORM_PROFILE_ON_BAT = "low-power";
@@ -100,7 +100,7 @@ in
     DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "bluetooth wifi wwan";
 
     RUNTIME_PM_DRIVER_DENYLIST = "";
-    PCIE_ASPM_ON_AC = "performance";
+    PCIE_ASPM_ON_AC = "default";
     PCIE_ASPM_ON_BAT = "powersupersave";
   };
 
