@@ -55,6 +55,7 @@ WINDOW_ICONS = {
     "evince": ' ',
     "tauon music box": " ",
     "emacs": " ",
+    "transmission-gtk": " ",
 }
 
 DEFAULT_ICON = "ﬓ "

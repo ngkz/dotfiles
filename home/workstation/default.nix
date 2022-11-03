@@ -43,6 +43,8 @@ in
     ".local/share/TauonMusicBox"
     # libreoffice
     ".config/libreoffice"
+    # transmission
+    ".config/transmission"
   ];
 
   # Git
@@ -620,6 +622,6 @@ in
     gnome.gnome-disk-utility
     gnome.file-roller
     gnome.evince #pdf viewer/thumbnailer
-    transmission
+    transmission-gtk
   ];
 }
