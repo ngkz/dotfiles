@@ -620,5 +620,6 @@ in
     gnome.gnome-disk-utility
     gnome.file-roller
     gnome.evince #pdf viewer/thumbnailer
+    transmission
   ];
 }
