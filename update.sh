@@ -8,3 +8,4 @@ for updater in packages/*/update.sh; do
     "$updater"
 done
 ./home/workstation/luakit/update.sh
+./home/workstation/doom-emacs/update.sh
