@@ -596,6 +596,7 @@ in
     mp3gain
     aacgain
     ffmpeg
+    manix # nix documentation searcher
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
