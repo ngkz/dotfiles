@@ -8,8 +8,8 @@
   src = fetchFromGitHub {
     owner = "flatwhatson";
     repo = "emacs";
-    rev = "e8938d599ef0cd43ee9ef11d811f91a5b0fbc4c4"; # pgtk-nativecomp-dev
-    sha256 = "2ojKi5x66wUXTNvMbZOdJwVZIQ9FgLQs7+JNm5GjzLU=";
+    rev = "91394b03a1de09b5908a4fdfd9411feed8ec2c18"; # pgtk-nativecomp-dev
+    sha256 = "nAUh2m9s5tFk29Rgdq/+d22ybpLTgLW0traxW9OK3ew=";
   };
   patches = [ ];
   # from: https://github.com/nix-community/emacs-overlay/blob/c1143602cb97fa717bacdf5668ceca1bb487918d/overlays/emacs.nix
