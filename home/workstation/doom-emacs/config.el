@@ -201,3 +201,7 @@
 
 ;; https://stackoverflow.com/questions/20164918/how-to-untick-checkboxes-in-org-mode-for-the-next-cyclic-repetitive-task
 ; (require 'org-checklist)
+
+; use main workspace for emacsclient sessions
+(after! persp-mode
+  (setq persp-emacsclient-init-frame-behaviour-override "main"))

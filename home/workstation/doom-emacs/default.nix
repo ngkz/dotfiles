@@ -63,6 +63,29 @@ in
     ]);
   };
 
+  services.emacs = {
+    enable = true;
+    client.enable = true;
+  };
+
+  xdg.mimeApps.defaultApplications = {
+    "text/english" = "emacsclient.desktop";
+    "text/plain" = "emacsclient.desktop";
+    "text/x-makefile" = "emacsclient.desktop";
+    "text/x-c++hdr" = "emacsclient.desktop";
+    "text/x-c++src" = "emacsclient.desktop";
+    "text/x-chdr" = "emacsclient.desktop";
+    "text/x-csrc" = "emacsclient.desktop";
+    "text/x-java" = "emacsclient.desktop";
+    "text/x-moc" = "emacsclient.desktop";
+    "text/x-pascal" = "emacsclient.desktop";
+    "text/x-tcl" = "emacsclient.desktop";
+    "text/x-tex" = "emacsclient.desktop";
+    "application/x-shellscript" = "emacsclient.desktop";
+    "text/x-c" = "emacsclient.desktop";
+    "text/x-c++" = "emacsclient.desktop";
+  };
+
   home.packages = with pkgs; [
     # required dependencies
     git
