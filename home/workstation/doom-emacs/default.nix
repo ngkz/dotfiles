@@ -11,6 +11,7 @@ in
   };
 
   xdg.configFile =
+    # FIXME environemnt is differnt from the sway session
     let
       sync = "${pkgs.writeShellScript "doom-change" ''
       export DOOMDIR="${config.home.sessionVariables.DOOMDIR}"
