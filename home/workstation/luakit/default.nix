@@ -10,15 +10,15 @@
 
   home.file.".local/share/luakit/adblock/easylist.txt".source = pkgs.fetchurl {
     url = "https://easylist.to/easylist/easylist.txt";
-    sha256 = "1xgks9ilznmvzm2z70rh4h6x1j58qrv47sfvnzy047zbd15ay2sa";
+    sha256 = "15waqd9z1bzqfbhi2gzdab1sy8hn7xz3nb5w2g5wbk40j2gab0xv";
   };
   home.file.".local/share/luakit/adblock/easyprivacy.txt".source = pkgs.fetchurl {
     url = "https://easylist.to/easylist/easyprivacy.txt";
-    sha256 = "0ihlg1qnqgvq821pyf4r1vds1fxa1aq76zspanqgcsjz5byb3418";
+    sha256 = "05psrlq5mwfkrfch2w3nikvzwk53ij16lvl2jyl032a13q9035mc";
   };
   home.file.".local/share/luakit/adblock/fanboy-cookiemonster.txt".source = pkgs.fetchurl {
     url = "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt";
-    sha256 = "0d2bymn8v7czlkindpynq0jrg7ain57mjx9v0fmv34jy25iwq0vx";
+    sha256 = "0imx79864l4wx0anyr8rvl0c2qihfql6l0qhxzl2skm05dp7aaqm";
   };
   home.file.".local/share/luakit/adblock/adguard-japanese-filter.txt".source = pkgs.fetchurl {
     url = "https://filters.adtidy.org/extension/ublock/filters/7.txt";
