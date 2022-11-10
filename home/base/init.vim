@@ -458,10 +458,6 @@ let g:rooter_cd_cmd = 'lcd'
 let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/', 'Cargo.toml', 'setup.py', 'env/', 'Gemfile']
 " }}}
 
-" fcitx-vim config {{{
-let g:fcitx5_remote = '@fcitx5-remote@'
-" }}}
-
 " keymap {{{
 
 " make CTRL-U and CTRL-W undoable

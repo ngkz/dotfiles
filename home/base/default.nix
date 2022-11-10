@@ -118,7 +118,7 @@
       })
       fzf-vim
       vim-surround
-      fcitx-vim
+      bclose-vim
     ];
     extraPackages = with pkgs; [
       fzf
@@ -128,8 +128,7 @@
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
-    extraConfig = builtins.replaceStrings [ "@fcitx5-remote@" ] [ "${pkgs.fcitx5}/bin/fcitx5-remote" ]
-      (builtins.readFile ./init.vim);
+    extraConfig = builtins.readFile ./init.vim;
   };
   home.sessionVariables = {
     EDITOR = "nvim";
