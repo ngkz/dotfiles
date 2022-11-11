@@ -313,6 +313,33 @@ in
 
   home.enableDebugInfo = true;
 
+  # patch neovim desktop entry
+  xdg.desktopEntries.nvim = {
+    name = "Neovim";
+    genericName = "Text Editor";
+    exec = "${pkgs.foot}/bin/foot -- ${pkgs.neovim}/bin/nvim";
+    terminal = false;
+    icon = "nvim";
+    startupNotify = false;
+    mimeType = [
+      "text/english"
+      "text/plain"
+      "text/x-makefile"
+      "text/x-c++hdr"
+      "text/x-c++src"
+      "text/x-chdr"
+      "text/x-csrc"
+      "text/x-java"
+      "text/x-moc"
+      "text/x-pascal"
+      "text/x-tcl"
+      "text/x-tex"
+      "application/x-shellscript"
+      "text/x-c"
+      "text/x-c++"
+    ];
+  };
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
@@ -515,6 +542,23 @@ in
       "application/vsd" = "org.inkscape.Inkscape.desktop";
       "application/x-vsd" = "org.inkscape.Inkscape.desktop";
       "image/x-vsd" = "org.inkscape.Inkscape.desktop";
+
+      # neovim
+      "text/english" = "nvim.desktop";
+      "text/plain" = "nvim.desktop";
+      "text/x-makefile" = "nvim.desktop";
+      "text/x-c++hdr" = "nvim.desktop";
+      "text/x-c++src" = "nvim.desktop";
+      "text/x-chdr" = "nvim.desktop";
+      "text/x-csrc" = "nvim.desktop";
+      "text/x-java" = "nvim.desktop";
+      "text/x-moc" = "nvim.desktop";
+      "text/x-pascal" = "nvim.desktop";
+      "text/x-tcl" = "nvim.desktop";
+      "text/x-tex" = "nvim.desktop";
+      "application/x-shellscript" = "nvim.desktop";
+      "text/x-c" = "nvim.desktop";
+      "text/x-c++" = "nvim.desktop";
     };
   };
 
