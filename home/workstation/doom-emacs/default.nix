@@ -74,6 +74,18 @@ in
     fd
     llvmPackages.clang-unwrapped
 
+    # editor/format
+    asmfmt
+    nodePackages.prettier
+    #cmake-format
+    dockfmt
+    #html-tidy
+    nodePackages.lua-fmt
+    #nixfmt
+    black
+    shfmt
+    nodePackages.prettier-plugin-toml
+
     # lang/cc
     cmake-language-server
     bear
