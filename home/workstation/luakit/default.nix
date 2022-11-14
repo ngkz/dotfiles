@@ -10,11 +10,11 @@
 
   home.file.".local/share/luakit/adblock/easylist.txt".source = pkgs.fetchurl {
     url = "https://easylist.to/easylist/easylist.txt";
-    sha256 = "1rf7yliy7lqmzm7yf18ynaqpn1pv31387an8v6ziz1ifpckfa51j";
+    sha256 = "0259hqwyrp003awf8z69j5gy1lw6qkymcmmgsc52qmm53x409y90";
   };
   home.file.".local/share/luakit/adblock/easyprivacy.txt".source = pkgs.fetchurl {
     url = "https://easylist.to/easylist/easyprivacy.txt";
-    sha256 = "03zqs4z9wc5994lp2ii13iydmc4x4iac8mhvkh8xs93fpwgl9a57";
+    sha256 = "1nav511476c3yv01ndfyms815y7vs1smwrr8lr1n2vyxqbwkpn26";
   };
   home.file.".local/share/luakit/adblock/fanboy-cookiemonster.txt".source = pkgs.fetchurl {
     url = "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt";
@@ -22,7 +22,7 @@
   };
   home.file.".local/share/luakit/adblock/adguard-japanese-filter.txt".source = pkgs.fetchurl {
     url = "https://filters.adtidy.org/extension/ublock/filters/7.txt";
-    sha256 = "03var8alf5hwzkni9wnr6f3n03ja6avq140ixmzai5r923c0jakc";
+    sha256 = "05hf23099g5a577n5dm0r64a8n7irzaknadciw9nkccbnvywgpk6";
   };
 
   home.file.".local/share/luakit/bookmarks.db".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/misc/otg/luakit-bookmarks.db";
