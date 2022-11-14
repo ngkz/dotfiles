@@ -7,7 +7,6 @@
   blobmoji-fontconfig = pkgs.callPackage ./blobmoji-fontconfig { };
   chromium-extension-ublock0 = pkgs.callPackage ./chromium-extension-ublock0 { };
   chromium-extension-keepassxc-browser = pkgs.callPackage ./chromium-extension-keepassxc-browser { };
-  chromium-extension-useragent-switcher = pkgs.callPackage ./chromium-extension-useragent-switcher { };
   crx3-creator = pkgs.python3Packages.callPackage ./crx3-creator { };
   fcitx5-with-addons = pkgs.libsForQt5.callPackage ./fcitx5-with-addons-patched.nix {
     kcmSupport = false;

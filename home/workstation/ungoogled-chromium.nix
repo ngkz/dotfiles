@@ -39,7 +39,6 @@ in
         paths = with pkgs.ngkz; [
           chromium-extension-keepassxc-browser
           chromium-extension-ublock0
-          chromium-extension-useragent-switcher
         ];
         pathsToLink = "/share/chromium/extensions";
       };
