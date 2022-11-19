@@ -310,11 +310,11 @@ in
             criteria = "Chimei Innolux Corporation 0x14F3 0x00000000";
             mode = "1920x1080@60Hz";
             position = "0,0";
-            scale = 1.25;
           }
           {
             criteria = "HDMI-A-1";
             position = "1920,0";
+            status = "enable";
           }
         ];
       };
@@ -323,18 +323,22 @@ in
           {
             criteria = "Chimei Innolux Corporation 0x14F3 0x00000000";
             mode = "1920x1080@60Hz";
-            position = "0,1080";
+            position = "0,864";
             scale = 1.25;
-          }
-          {
-            criteria = "ViewSonic Corporation VX3211-4K VJJ201920351";
-            mode = "3840x2160@30Hz";
-            position = "1920,0";
           }
           {
             criteria = "Unknown UHD HDMI 0x00000000";
             mode = "3840x2160@30Hz";
-            position = "5760,0";
+            position = "1536,0";
+            scale = 1.25;
+            status = "enable";
+          }
+          {
+            criteria = "ViewSonic Corporation VX3211-4K VJJ201920351";
+            mode = "3840x2160@29.981Hz";
+            position = "4608,0";
+            scale = 1.25;
+            status = "enable";
           }
         ];
       };
