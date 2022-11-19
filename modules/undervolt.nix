@@ -2,11 +2,11 @@
 let
   inherit (builtins) toString floor;
 
-  cpu = -120;
-  gpu = -80;
-  cpuCache = -80;
-  gpuUnslice = -80;
-  systemAgent = -30;
+  cpu = -115;
+  gpu = -75;
+  cpuCache = -75;
+  gpuUnslice = -75;
+  systemAgent = -25;
 
   pl1 = 65;
   pl1TimeWindow = 28;
