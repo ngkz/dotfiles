@@ -144,7 +144,7 @@ in
             tap = "enabled";
           };
           "6127:24647:Lenovo_ThinkPad_Compact_USB_Keyboard_with_TrackPoint" = {
-            pointer_accel = "0.4";
+            pointer_accel = "1.0";
           } // keyboard; # workaround for issue #5943
           # internal TrackPoint
           "2:10:TPPS/2_Elan_TrackPoint" = {
