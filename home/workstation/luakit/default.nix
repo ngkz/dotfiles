@@ -10,19 +10,19 @@
 
   home.file.".local/share/luakit/adblock/easylist.txt".source = pkgs.fetchurl {
     url = "https://easylist.to/easylist/easylist.txt";
-    sha256 = "1pgx0153vs9iayc60flv5c7dd1f7kl25wk559l4m8bf8p9r4cdr0";
+    sha256 = "0hq124ndl9zayif7yri20489ymnfl843injiq0wijlyl26zp2bzy";
   };
   home.file.".local/share/luakit/adblock/easyprivacy.txt".source = pkgs.fetchurl {
     url = "https://easylist.to/easylist/easyprivacy.txt";
-    sha256 = "0jyi0m7wy92qswwi7p7lcs64vsv51scbszrclwdiqjr1i2n86qcn";
+    sha256 = "0zhnnfyzhzc6vmvfz4y0w28ifvc4ar5gqiwqla8sb7grdhzn0l4g";
   };
   home.file.".local/share/luakit/adblock/fanboy-cookiemonster.txt".source = pkgs.fetchurl {
     url = "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt";
-    sha256 = "1qw3p8ixhnji1qrv9cv6x3490rq63a80c0km61h1mrg109ppnm60";
+    sha256 = "1fyrw00jlcxc9h9pf4r7psacn7rn7h54jyiirfiv4wfhnm3nvrsw";
   };
   home.file.".local/share/luakit/adblock/adguard-japanese-filter.txt".source = pkgs.fetchurl {
     url = "https://filters.adtidy.org/extension/ublock/filters/7.txt";
-    sha256 = "1lljwyp5vfavs81xf1xm9j1glfvvzhwfccdy29vn88g9ll0jvy6p";
+    sha256 = "1m0dw3slqm00fxk0wbhjc1jp2vd4p9mm7xz7n5wyam3a5ar625px";
   };
 
   home.file.".local/share/luakit/bookmarks.db".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/misc/otg/luakit-bookmarks.db";
