@@ -30,8 +30,8 @@ in
         experimental-features = nix-command flakes
 
         # Keep build-time dependencies when GC
-        keep-outputs = true
-        keep-derivations = true
+        # keep-outputs = true
+        # keep-derivations = true
       '';
 
       # Only allow administrative users to connect the nix daemon
