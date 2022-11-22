@@ -12,6 +12,7 @@ let
   generateWaybarConfig = pkgs.writeShellScript "generate-waybar-config" ''
     set -euo pipefail
 
+    shopt -s nullglob
     hwmon_path=
     for path in /sys/class/hwmon/hwmon*/temp*_input; do 
         if [ "$(<$(dirname "$path")/name)" = coretemp ] && [ "$(<''${path%_*}_label)" = "Package id 0" ]; then
