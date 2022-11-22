@@ -87,6 +87,8 @@ category = "system maintenance"
 help = "Perform garbage collection"
 name = "clean"
 command = '''
+# Delete all auto gc roots
+sudo rm /nix/var/nix/gcroots/auto/*
 # Delete configurations older than last 5 generations.
 sudo nix-env --delete-generations +5 --profile /nix/var/nix/profiles/system
 # Perform garbage collection the store
