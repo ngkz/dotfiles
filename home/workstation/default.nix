@@ -11,7 +11,7 @@ in
     ./ungoogled-chromium.nix
     ./syncthing.nix
     ./doom-emacs
-    ./luakit
+    ./librewolf
   ];
 
   # XDG user dirs
