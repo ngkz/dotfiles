@@ -47,7 +47,6 @@ in
         size = 10.0;
       };
       bars = [ ];
-      gaps.smartBorders = "on";
       colors.focused = {
         border = "#e02334";
         background = "#a0000e";
