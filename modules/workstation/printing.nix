@@ -5,16 +5,16 @@ in
 {
   services.printing = {
     enable = true;
-    drivers = with pkgs; [ gutenprint ];
+    drivers = with pkgs; [ epson-escpr2 ];
   };
   hardware.printers = {
-    ensureDefaultPrinter = "MX923";
+    ensureDefaultPrinter = "EPSON-EW-M754T-Series";
     ensurePrinters = [
       {
-        description = "Canon PIXUS MX923";
-        deviceUri = "dnssd://Canon%20MX920%20series._ipp._tcp.local/?uuid=00000000-0000-1000-8000-84BA3B85F5A1";
-        model = "gutenprint.${versions.majorMinor (getVersion pkgs.gutenprint)}://bjc-MX920-series/expert";
-        name = "MX923";
+        description = "EPSON EW-M754T Series";
+        deviceUri = "dnssd://EPSON%20EW-M754T%20Series._ipp._tcp.local/?uuid=cfe92100-67c4-11d4-a45f-381a526218ab";
+        model = "epson-inkjet-printer-escpr2/Epson-EW-M754T_Series-epson-escpr2-en.ppd";
+        name = "EPSON-EW-M754T-Series";
       }
     ];
   };
