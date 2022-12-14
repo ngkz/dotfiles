@@ -1,13 +1,13 @@
 { lib, fetchzip }:
 
 let
-  version = "0.37.4-1";
+  version = "0.38.0-0";
 in
 fetchzip {
   name = "sarasa-term-j-nerd-font-${version}";
 
   url = "https://github.com/jonz94/Sarasa-Gothic-Nerd-Fonts/releases/download/v${version}/sarasa-term-j-nerd-font.zip";
-  sha256 = "sha256-Ezh7awgLwbUNhc84j4IKUDtsMRtqMwe8p23hrb9dGyo=";
+  sha256 = "sha256-rNxCG6culn3aq05k12EVoWYpExgx2+F2+Vmv9zvfBfM=";
 
   stripRoot = false;
 
