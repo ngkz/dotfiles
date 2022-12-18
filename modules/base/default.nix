@@ -124,8 +124,9 @@ in
 
   # List packages installed in system profile. To search, run:
   # $ nix search nixpkgs wget
-  #environment.systemPackages = with pkgs; [
-  #];
+  environment.systemPackages = with pkgs; [
+    btrfs-progs
+  ];
 
   services.udev.extraRules = ''
     # set scheduler for NVMe SSD
