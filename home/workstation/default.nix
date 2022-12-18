@@ -669,5 +669,6 @@ in
     gnome.file-roller
     gnome.evince #pdf viewer/thumbnailer
     transmission-gtk
+    filezilla
   ];
 }
