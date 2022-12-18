@@ -38,4 +38,13 @@
   home.tmpfs-as-home.persistentDirs = [
     ".librewolf/default"
   ];
+
+  xdg.mimeApps.defaultApplications = {
+    "text/html" = "librewolf.desktop";
+    "text/xml" = "librewolf.desktop";
+    "application/xhtml+xml" = "librewolf.desktop";
+    "application/vnd.mozilla.xul+xml" = "librewolf.desktop";
+    "x-scheme-handler/http" = "librewolf.desktop";
+    "x-scheme-handler/https" = "librewolf.desktop";
+  };
 }
