@@ -98,6 +98,7 @@ in
       modules.tmpfs-as-root.persistentDirs = [
         "/var/lib/nixos" # NixOS keeps track of historical UIDs in here
         "/var/lib/systemd"
+        "/var/tmp"
       ];
 
       # journalctl: Failed to create parent directoties of /var/lib/systemd/catalog/database: Not a directory
