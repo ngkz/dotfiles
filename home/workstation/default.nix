@@ -641,6 +641,7 @@ in
     aacgain
     ffmpeg
     manix # nix documentation searcher
+    psmisc
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
