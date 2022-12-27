@@ -14,7 +14,8 @@ let
     '') prefs)}
   '';
 
-in {
+in
+{
   meta.maintainers = [ maintainers.onny ];
 
   options.programs.librewolf = {
