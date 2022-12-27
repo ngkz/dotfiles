@@ -26,6 +26,8 @@
       "browser.startup.page" = 3;
       # disable RFP
       "privacy.resistFingerprinting" = false;
+
+      "signon.rememberSignons" = false;
     };
   };
 
