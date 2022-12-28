@@ -1,0 +1,395 @@
+#!@bash@/bin/bash
+
+set -uo pipefail
+
+export PATH=@bash@/bin:@coreutils@/bin:@borgbackup@/bin:@lvm2Bin@/bin:@cryptsetup@/bin:@rsync@/bin:@libsecret@/bin:@gawk@/bin:@findutils@/bin:@gnused@/bin:@nettools@/bin:@udisks@/bin:@gnugrep@/bin:/run/wrappers/bin:@utilLinux@/bin
+
+SCRIPT=$(readlink -f "$0")
+ROOT=$(dirname "$SCRIPT")
+
+TMPDIR=/run/backup
+DEST_UUID="0fc9e5dd-c4d2-4d81-bcc6-99d00e10f32e"
+DEST_MOUNTPOINT=$TMPDIR/bkupdisk
+export BORG_REPO="$DEST_MOUNTPOINT/borg"
+PERSIST_ARCHIVE_PREFIX="$(hostname)_"
+STORAGE_ARCHIVE_PREFIX="storage_"
+PRUNE_CONFIG="--keep-within=7d --keep-daily=7 --keep-weekly=2 --keep-monthly=-1 --list"
+MOUNT_MOUNTPOINT=$TMPDIR/backup
+DETACH_DEST=0
+VERIFY=0
+AFTER=nop
+CHECK=0
+COMPRESSION=zstd,5
+SNAPSHOT_NAME=backup-snapshot-nix
+SNAPSHOT_MOUNTPOINT=$TMPDIR/snapshot
+LOGGER_PIPE=$TMPDIR/logger
+EXCLUDES_PERSIST=(
+    boot
+    var/cache
+    var/tmp
+    "home/*/.cache"
+    root/.cache
+    "home/*/.local/var/pmbootstrap"
+    "home/*/.local/share/syncthing"
+)
+
+log() {
+    echo "[$(date "+%Y/%m/%d %H:%M:%S")] $1"
+}
+
+disk_from_partition() {
+    local part disk
+    part=$(readlink -f "$1")
+    part=${part#/dev/}
+    disk=$(readlink /sys/class/block/$part)
+    disk=${disk%/*}
+    disk=/dev/${disk##*/}
+    echo "$disk"
+}
+
+umount_retry() {
+    local progress=0
+    local err
+
+    while ! err=$(LC_MESSAGES=C umount "$1" 2>&1); do
+        if ! grep ": target is busy\.$" <<<"$err" >/dev/null; then
+            [[ "$progress" -eq 1 ]] && echo
+            echo "$err" >&2
+            return 1
+        fi
+        if [[ "$progress" -eq 0 ]]; then
+            echo -n "[$(date "+%Y/%m/%d %H:%M:%S")] unmounting $1"
+            progress=1
+        else
+            echo -n "."
+        fi
+        sleep 1
+    done
+
+    [[ "$progress" -eq 1 ]] && echo
+    return 0
+}
+
+mount_dest() {
+    if [[ ! -e "/dev/disk/by-uuid/$DEST_UUID" ]]; then
+        log "connect the backup disk."
+        while [[ ! -e "/dev/disk/by-uuid/$DEST_UUID" ]]; do
+            sleep 1
+        done
+    fi
+
+    if [[ ! -e /dev/mapper/backup ]]; then
+        if ! echo -n "$DEST_LUKS_PASSPHRASE" | cryptsetup open --key-file - "UUID=$DEST_UUID" backup; then
+            return 1
+        fi
+    fi
+
+    if ! mkdir "$DEST_MOUNTPOINT"; then
+        cryptsetup close backup
+        return 1
+    fi
+
+    if ! mount /dev/mapper/backup "$DEST_MOUNTPOINT"; then
+        rmdir "$DEST_MOUNTPOINT"
+        cryptsetup close backup
+        return 1
+    fi
+}
+
+umount_dest() {
+    local rc=0
+
+    umount_retry "$DEST_MOUNTPOINT" || rc=1
+    rmdir "$DEST_MOUNTPOINT" || rc=1
+    cryptsetup close backup || rc=1
+
+    if [[ $DETACH_DEST == 1 ]]; then
+        if ! udisksctl power-off -b "$(disk_from_partition "/dev/disk/by-uuid/$DEST_UUID")"; then
+            log "warning: could not power off the disk"
+        fi
+    fi
+
+    return "$rc"
+}
+
+log_output() {
+    mkfifo "$LOGGER_PIPE" || return 1
+    logger -t backup <"$LOGGER_PIPE" &
+    LOGGER_PID=$!
+    exec 3>&1 4>&2 > >(tee "$LOGGER_PIPE") 2> >(tee "$LOGGER_PIPE" >&2)
+}
+
+log_output_stop() {
+    exec 1>&3 2>&4 3>&- 4>&-
+    wait "$LOGGER_PID" # wait until tees flush the buffer and exit
+    rm -f "$LOGGER_PIPE"
+}
+
+take_snapshot() {
+    if ! lvcreate -l 100%FREE -sqq -n "$SNAPSHOT_NAME" /dev/system/nix 3>&- 4>&-; then
+        log "can't take the snapshot"
+        return 1
+    fi
+
+    if ! mkdir "$SNAPSHOT_MOUNTPOINT"; then
+        lvremove -qqy "/dev/system/$SNAPSHOT_NAME" 3>&- 4>&-
+        return 1
+    fi
+
+    if ! mount -o ro,nouuid "/dev/system/$SNAPSHOT_NAME" "$SNAPSHOT_MOUNTPOINT"; then
+        rmdir "$SNAPSHOT_MOUNTPOINT"
+        lvremove -qqy "/dev/system/$SNAPSHOT_NAME" 3>&- 4>&-
+        return 1
+    fi
+}
+
+rm_snapshot() {
+    local rc=0
+
+    umount_retry  "$SNAPSHOT_MOUNTPOINT" || rc=1
+    rmdir "$SNAPSHOT_MOUNTPOINT" || rc=1
+    if ! lvremove -qqy "/dev/system/$SNAPSHOT_NAME" 3>&- 4>&-; then
+        log "can't remove the snapshot"
+        rc=1
+    fi
+
+    return "$rc"
+}
+
+backup() {
+    local ARCHIVE_DATE=$(date +%Y-%m-%d_%H-%M-%S)
+
+    log_output
+
+    if ! mount_dest; then
+        log_output_stop
+        return 1
+    fi
+
+    if ! take_snapshot; then
+        umount_dest
+        log_output_stop
+        return 1
+    fi
+
+    local PERSIST="$SNAPSHOT_MOUNTPOINT/persist"
+
+    local EXCLUDES_PERSIST_BORG=$TMPDIR/exclude-persist-borg
+    local EXCLUDES_PERSIST_RSYNC=$TMPDIR/exclude-persist-rsync
+
+    for path in "${EXCLUDES_PERSIST[@]}"; do
+        echo "sh:$path" >>"$EXCLUDES_PERSIST_BORG"
+        echo "/$path" >>"$EXCLUDES_PERSIST_RSYNC"
+    done
+    # cache directories
+    (cd "$PERSIST" && find -name CACHEDIR.TAG -type f | sed -E 's|^\./(.*)/[^/]*$|\1|') | while read -r path; do
+        # TODO escape meta characters
+        echo "pf:$path" >>"$EXCLUDES_PERSIST_BORG"
+        echo "/$path" >>"$EXCLUDES_PERSIST_RSYNC"
+    done
+
+    local ARCHIVE_PERSIST_PREV=$(borg list --glob-archives "${PERSIST_ARCHIVE_PREFIX}*" --format "{archive}{NL}" --sort-by timestamp --last 1 ::)
+
+    log "starting backup"
+    local ARCHIVE_PERSIST=$PERSIST_ARCHIVE_PREFIX$ARCHIVE_DATE
+    if ! (cd "$PERSIST" && borg create --stats --compression "$COMPRESSION" --exclude-from "$EXCLUDES_PERSIST_BORG" "::$ARCHIVE_PERSIST" .); then
+        rm_snapshot
+        umount_dest
+        log_output_stop
+        return 1
+    fi
+
+    if [[ $VERIFY -ne 0 ]]; then
+        if ! verify "$ARCHIVE_PERSIST" "$PERSIST" "$EXCLUDES_PERSIST_RSYNC"; then
+            rm_snapshot
+            umount_dest
+            log_output_stop
+            return 1
+        fi
+    fi
+
+    rm -f "$EXCLUDES_PERSIST_RSYNC"
+    rm -f "$EXCLUDES_PERSIST_BORG"
+    if ! rm_snapshot; then
+        umount_dest
+        log_output_stop
+        return 1
+    fi
+
+    if [[ -n "$ARCHIVE_PERSIST_PREV" ]]; then
+        log "$ARCHIVE_PERSIST_PREV -> $ARCHIVE_PERSIST diff:"
+        if ! borg diff "::$ARCHIVE_PERSIST_PREV" "$ARCHIVE_PERSIST" --sort; then
+            umount_dest
+            log_output_stop
+            return 1
+        fi
+    fi
+
+    if [[ $CHECK -ne 0 ]]; then
+        log "checking repository"
+        if ! borg check ::; then
+            umount_dest
+            log_output_stop
+            return 1
+        fi
+    fi
+
+    log "deleting old backups"
+    if ! borg prune --list --glob-archives "${PERSIST_ARCHIVE_PREFIX}*" $PRUNE_CONFIG ::; then
+        umount_dest
+        log_output_stop
+        return 1
+    fi
+
+    if ! borg compact ::; then
+        umount_dest
+        log_output_stop
+        return 1
+    fi
+
+    if [[ $(LC_MESSAGES=C df -h "$DEST_MOUNTPOINT" | awk '!/Filesystem/ { sub(/%/, "", $5); print $5 }') -ge 95 ]]; then
+        log "warning: the backup disk is almost full"
+        df -h "$DEST_MOUNTPOINT"
+    fi
+
+    local rc=0
+    umount_dest || rc=1
+    log_output_stop || rc=1
+    return "$rc"
+}
+
+# verify ARCHIVE TARGET EXCLUDES
+verify() {
+    local archive=$1
+    local target=$2
+    local excludes=$3
+
+    log "verifying $archive"
+
+    mkdir "$MOUNT_MOUNTPOINT" || return 1
+    if ! borg mount --numeric-ids "::$archive" "$MOUNT_MOUNTPOINT"; then
+        rmdir "$MOUNT_MOUNTPOINT"
+        return 1
+    fi
+
+    local rc=0
+    # borg mount does not support ACL
+    if ! rsync --numeric-ids -aHXvc --delete --dry-run --exclude-from="$excludes" "$target/" "$MOUNT_MOUNTPOINT"; then
+        log "couldn't verify $archive"
+        rc=1
+    fi
+
+    umount_retry "$MOUNT_MOUNTPOINT" || rc=1
+    rmdir "$MOUNT_MOUNTPOINT" || rc=1
+    return "$rc"
+}
+
+mount_repository() {
+    log "mounting the repository at $MOUNT_MOUNTPOINT"
+
+    mount_dest || return 1
+    if ! mkdir "$MOUNT_MOUNTPOINT"; then
+        umount_dest
+        return 1
+    fi
+
+    local rc=0
+    if ! borg mount -o allow_other -f :: "$MOUNT_MOUNTPOINT"; then
+        log "can't mount $BORG_REPO to $MOUNT_MOUNTPOINT"
+        rc=1
+    fi
+
+    rmdir "$MOUNT_MOUNTPOINT" || rc=1
+    umount_dest || rc=1
+    return "$rc"
+}
+
+shell() {
+    mount_dest || return 1
+
+    export DEST_MOUNTPOINT
+    export PERSIST_ARCHIVE_PREFIX
+    #export STORAGE_ARCHIVE_PREFIX
+    export PRUNE_CONFIG
+
+    echo "BORG_PASSPHRASE=(hidden)"
+    echo "BORG_REPO=$BORG_REPO"
+    echo "DEST_MOUNTPOINT=$DEST_MOUNTPOINT"
+    echo "PERSIST_ARCHIVE_PREFIX=$PERSIST_ARCHIVE_PREFIX"
+    #echo "STORAGE_ARCHIVE_PREFIX=$STORAGE_ARCHIVE_PREFIX"
+    echo "PRUNE_CONFIG=$PRUNE_CONFIG"
+
+    (cd "$DEST_MOUNTPOINT" && @bashInteractive@/bin/bash)
+
+    umount_dest
+}
+
+usage() {
+    local name=$(basename "$0")
+    echo "Usage:" >&2
+    echo "$name backup [--verify] [--no-detach] [--check] [suspend|hibernate|poweroff]" >&2
+    echo "$name mount" >&2
+    echo "$name shell" >&2
+}
+
+[[ $# -lt 1 ]] && usage_exit
+
+if [[ ! -v BORG_PASSPHRASE ]] && [[ ! -v DEST_LUKS_PASSPHRASE ]]; then
+    if ! BORG_PASSPHRASE=$(secret-tool lookup backup borg); then
+        log "can't lookup borg repository passphrase"
+        exit 1
+    fi
+    if ! DEST_LUKS_PASSPHRASE=$(secret-tool lookup backup luks); then
+        log "can't lookup luks passphrase"
+        exit 1
+    fi
+    BORG_PASSPHRASE="$BORG_PASSPHRASE" DEST_LUKS_PASSPHRASE="$DEST_LUKS_PASSPHRASE" exec sudo --preserve-env=BORG_PASSPHRASE --preserve-env=DEST_LUKS_PASSPHRASE "$SCRIPT" "$@"
+fi
+
+mkdir "$TMPDIR" || exit 1
+
+rc=0
+
+case "$1" in
+backup)
+    DETACH_DEST=1
+
+    shift
+    while [[ $# -ge 1 ]]; do
+        case "$1" in
+        --verify) VERIFY=1 ;;
+        --no-detach) DETACH_DEST=0 ;;
+        --check) CHECK=1 ;;
+        suspend | hibernate | poweroff) AFTER=$1 ;;
+        *)
+            usage
+            rm -rf --one-file-system "$TMPDIR"
+            exit 1
+            ;;
+        esac
+        shift
+    done
+
+    backup || rc=1
+    ;;
+mount)
+    mount_repository || rc=1
+    ;;
+shell)
+    shell || rc=1
+    ;;
+*) 
+    usage
+    rc=1
+    ;;
+esac
+
+rm -rf --one-file-system "$TMPDIR" || rc=1
+
+case "$AFTER" in
+poweroff) poweroff || rc=1 ;;
+hibernate) systemctl hibernate || rc=1 ;;
+suspend) systemctl suspend || rc=1 ;;
+esac
+
+exit "$rc"

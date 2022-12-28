@@ -3,6 +3,7 @@
     ./printing.nix
     ./network-manager.nix
     ./gpg.nix
+    ./backup
   ];
 
   # PipeWire

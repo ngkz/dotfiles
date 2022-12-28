@@ -623,7 +623,6 @@ in
     wl-clipboard
     xdg-utils
     powertop
-    borgbackup
     pulseaudio
     glib.bin #gsettings
     evtest
