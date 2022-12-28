@@ -7,4 +7,3 @@ nix flake update --no-warn-dirty
 for updater in packages/*/update.sh; do
     "$updater"
 done
-./home/workstation/doom-emacs/update.sh

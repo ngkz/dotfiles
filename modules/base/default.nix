@@ -119,8 +119,6 @@ in
   };
 
   environment.pathsToLink = [ "/share/zsh" ]; #zsh
-  # doom install takes long time
-  systemd.services.home-manager-user.serviceConfig.TimeoutStartSec = lib.mkForce (60 * 60);
 
   # List packages installed in system profile. To search, run:
   # $ nix search nixpkgs wget

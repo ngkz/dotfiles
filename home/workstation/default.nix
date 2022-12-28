@@ -10,7 +10,6 @@ in
     ./fcitx5
     ./ungoogled-chromium.nix
     ./syncthing.nix
-    ./doom-emacs
     ./librewolf
   ];
 
