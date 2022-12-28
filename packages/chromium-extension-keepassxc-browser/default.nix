@@ -1,10 +1,10 @@
 { fetchzip, ngkz, lib, ... }:
 ngkz.buildChromiumExtension rec {
   pname = "keepassxc-browser";
-  version = "1.8.3.1";
+  version = "1.8.4";
   src = fetchzip {
     url = "https://github.com/keepassxreboot/keepassxc-browser/releases/download/${version}/keepassxc-browser_${version}_chromium.zip";
-    sha256 = "0sk2lqhlwzaigv25ny33m9cxs8n9wwkslfivrnafr50p04dwansd";
+    sha256 = "1hq08v9grfxpwv9yz3rcvxw5a6qinblh1a8a3l8mfxid2rb79fm4";
     stripRoot = false;
   };
 }
