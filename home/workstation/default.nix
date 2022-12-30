@@ -635,7 +635,7 @@ in
     libsecret # secret-tool
     zbar
     qrencode
-    youtube-dl
+    yt-dlp
     mp3gain
     aacgain
     ffmpeg
