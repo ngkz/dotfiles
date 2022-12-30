@@ -47,8 +47,10 @@ WINDOW_ICONS = {
     "libreoffice-draw": "ﴯ ",
     "libreoffice-impress": " ",
     "libreoffice-math": "√x",
+    "soffice": " ",
     "gcr-prompter": " ",
     "gnome-ssh-askpass3": " ",
+    "polkit-gnome-authentication-agent-1": " ",
     "luakit": " ",
     "nemo": ' ',
     "mpv": " ",
@@ -56,6 +58,7 @@ WINDOW_ICONS = {
     "tauon music box": " ",
     "emacs": " ",
     "transmission-gtk": " ",
+    "gnome-disks": " ",
 }
 
 DEFAULT_ICON = "ﬓ "
