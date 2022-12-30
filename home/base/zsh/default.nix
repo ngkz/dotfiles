@@ -106,7 +106,7 @@
       cat = "bat";
       top = "btop";
       dig = "dog";
-      du = "dust";
+      # du = "dust";
       ls = "exa --icons --time-style=iso --git";
       rg = "rg -S";
       l = "ls";
