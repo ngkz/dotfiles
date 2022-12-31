@@ -12,7 +12,6 @@ DEST_UUID="0fc9e5dd-c4d2-4d81-bcc6-99d00e10f32e"
 DEST_MOUNTPOINT=$TMPDIR/bkupdisk
 export BORG_REPO="$DEST_MOUNTPOINT/borg"
 PERSIST_ARCHIVE_PREFIX="$(hostname)_"
-STORAGE_ARCHIVE_PREFIX="storage_"
 PRUNE_CONFIG="--keep-within=7d --keep-daily=7 --keep-weekly=2 --keep-monthly=-1 --list"
 MOUNT_MOUNTPOINT=$TMPDIR/backup
 DETACH_DEST=0
@@ -309,14 +308,12 @@ shell() {
 
     export DEST_MOUNTPOINT
     export PERSIST_ARCHIVE_PREFIX
-    #export STORAGE_ARCHIVE_PREFIX
     export PRUNE_CONFIG
 
     echo "BORG_PASSPHRASE=(hidden)"
     echo "BORG_REPO=$BORG_REPO"
     echo "DEST_MOUNTPOINT=$DEST_MOUNTPOINT"
     echo "PERSIST_ARCHIVE_PREFIX=$PERSIST_ARCHIVE_PREFIX"
-    #echo "STORAGE_ARCHIVE_PREFIX=$STORAGE_ARCHIVE_PREFIX"
     echo "PRUNE_CONFIG=$PRUNE_CONFIG"
 
     (cd "$DEST_MOUNTPOINT" && @bashInteractive@/bin/bash)
