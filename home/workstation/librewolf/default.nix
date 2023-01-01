@@ -1,8 +1,4 @@
 { pkgs, ... }: {
-  imports = [
-    ./hm-librewolf.nix #XXX remove this after 22.11 upgrade
-  ];
-
   programs.librewolf = {
     enable = true;
     settings = {

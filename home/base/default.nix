@@ -61,7 +61,7 @@
     usbutils #lsusb
     wget
     monolith # Save complete web pages as a single HTML file
-    ngkz.hyfetch-unstable
+    hyfetch
     stress
     efibootmgr
     file
@@ -143,5 +143,5 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "22.05";
+  home.stateVersion = "22.11";
 }

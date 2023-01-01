@@ -87,7 +87,6 @@
     enable = true;
     wlr.enable = true;
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-    gtkUsePortal = false; #XXX nixpkgs#179204. remove this after NixOS 21.11 upgrade
   };
 
   # systemd.user.services.xdg-desktop-portal.serviceConfig.ExecStart = lib.mkForce [

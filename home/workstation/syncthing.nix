@@ -5,6 +5,9 @@ let
   syncthing = "${pkgs.syncthing}/bin/syncthing";
   syncthingCfg = "${config.xdg.configHome}/syncthing/config.xml";
   syncthingTrayCfg = "${config.xdg.configHome}/syncthingtray.ini";
+  hostname = "${pkgs.inetutils}/bin/hostname";
+  pgrep = "${pkgs.procps}/bin/pgrep";
+  systemctl = "${pkgs.systemd}/bin/systemctl";
 in
 {
   # Syncthing
@@ -164,7 +167,7 @@ in
       fi
       if [ -e ${syncthingCfg} ]; then
         folders=$(${jq} --argjson secrets "$(<"${secretsFile}")" \
-                        --arg hostname "$(hostname)" \
+                        --arg hostname "$(${hostname})" \
                         --argjson defaults "$(${xq} ".configuration.defaults.folder" ${syncthingCfg})" '
           map(
             select(.devices|contains([$hostname])) |
@@ -225,7 +228,7 @@ in
       unset devices
 
       # update stignore
-      ${jq} -c --arg hostname "$(hostname)" '.[]|select(.devices|contains([$hostname]))' <<<'${builtins.toJSON folders}' | while read -r folder_json; do
+      ${jq} -c --arg hostname "$(${hostname})" '.[]|select(.devices|contains([$hostname]))' <<<'${builtins.toJSON folders}' | while read -r folder_json; do
         path=$(${jq} -r '.path' <<<"$folder_json")
         if [ -v VERBOSE ]; then
           echo "writing $path/.stignore"
@@ -245,7 +248,7 @@ in
         if [ -v VERBOSE ]; then
           echo restarting syncthing
         fi
-        if pgrep -u $(id -u) -x syncthing >/dev/null; then
+        if ${pgrep} -u $(id -u) -x syncthing >/dev/null; then
           $DRY_RUN_CMD ${syncthing} cli operations restart
         fi
       fi
@@ -263,11 +266,11 @@ in
           echo "$newConfig" >${syncthingTrayCfg}
         fi
 
-        if pgrep -u $(id -u) syncthingtray >/dev/null; then
+        if ${pgrep} -u $(id -u) syncthingtray >/dev/null; then
           if [ -v VERBOSE ]; then
             echo restarting syncthingtray
           fi
-          $DRY_RUN_CMD systemctl restart --user syncthingtray.service
+          $DRY_RUN_CMD ${systemctl} restart --user syncthingtray.service
         fi
       fi
       unset newConfig

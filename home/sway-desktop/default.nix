@@ -8,7 +8,7 @@ let
   systemctl = "${pkgs.systemd}/bin/systemctl";
   loginctl = "${pkgs.systemd}/bin/loginctl";
   cat = "${pkgs.coreutils}/bin/cat";
-  swaync-client = "${pkgs.ngkz.swaynotificationcenter-unstable}/bin/swaync-client";
+  swaync-client = "${pkgs.swaynotificationcenter}/bin/swaync-client";
   foot = "${pkgs.foot}/bin/foot";
   wofi = "${pkgs.wofi}/bin/wofi";
   autoname-workspaces = pkgs.writers.writePython3 "autoname-workspaces.py"
@@ -288,11 +288,6 @@ in
     ];
   };
 
-  # XXX Remove after home-manager #2811 merge
-  systemd.user.services.swayidle.Service.Environment = [
-    "PATH=${pkgs.bash}/bin"
-  ];
-
   services.kanshi = {
     enable = true;
     profiles = {
@@ -413,7 +408,7 @@ in
     # XXX workaround for home-manager #2806
     ngkz.sway-systemd
 
-    ngkz.swaynotificationcenter-unstable
+    swaynotificationcenter
     swaylock-effects
     pkgs.wofi
     grim

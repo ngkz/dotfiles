@@ -7,13 +7,13 @@ let
   gnome-power-statistics = "${pkgs.gnome.gnome-power-manager}/bin/gnome-power-statistics";
   swaymsg = "${pkgs.sway}/bin/swaymsg";
   jq = "${pkgs.jq}/bin/jq";
-  swaync-client = "${pkgs.ngkz.swaynotificationcenter-unstable}/bin/swaync-client";
+  swaync-client = "${pkgs.swaynotificationcenter}/bin/swaync-client";
   generateWaybarConfig = pkgs.writeShellScript "generate-waybar-config" ''
     set -euo pipefail
 
     shopt -s nullglob
     hwmon_path=
-    for path in /sys/class/hwmon/hwmon*/temp*_input; do 
+    for path in /sys/class/hwmon/hwmon*/temp*_input; do
         if [ "$(<$(dirname "$path")/name)" = coretemp ] && [ "$(<''${path%_*}_label)" = "Package id 0" ]; then
             hwmon_path=$path
             break

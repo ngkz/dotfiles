@@ -15,7 +15,7 @@ in
       cacheDir = "/nix/persist/var/cache/ccache";
     };
 
-    nix.sandboxPaths = [ config.programs.ccache.cacheDir ];
+    nix.settings.extra-sandbox-paths = [ config.programs.ccache.cacheDir ];
 
     systemd.tmpfiles.rules = [
       "d /nix/tmp 1775 root root 1d"
