@@ -11,7 +11,6 @@ let
   swaync-client = "${pkgs.ngkz.swaynotificationcenter-unstable}/bin/swaync-client";
   foot = "${pkgs.foot}/bin/foot";
   wofi = "${pkgs.wofi}/bin/wofi";
-  hotkey = import ./hotkey.nix { inherit pkgs lib; };
   autoname-workspaces = pkgs.writers.writePython3 "autoname-workspaces.py"
     { libraries = [ pkgs.python3Packages.i3ipc ]; } ./autoname-workspaces.py;
   sway = config.wayland.windowManager.sway.config;
@@ -93,7 +92,7 @@ in
         "${mod}+Control+${right}" = "resize grow width 40px";
 
         "${mod}+Tab" = "workspace back_and_forth";
-        "${mod}+Shift+Tab" = "exec ${hotkey.switch-window}";
+        "${mod}+Shift+Tab" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/switch-window";
         "${mod}+Shift+a" = "focus child";
         "${mod}+q" = "split none";
 
@@ -102,11 +101,11 @@ in
 
         #"${mod}+d" = "";
         "${mod}+Shift+Return" = "exec ${sway.terminal} --app-id=foot-floating"; # spawn flaoting terminal
-        "${mod}+Shift+e" = "exec ${hotkey.power-menu}";
+        "${mod}+Shift+e" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/powermenu";
         "${mod}+Escape" = "exec loginctl lock-session";
 
         # screenshot
-        "Print" = "exec ${hotkey.screenshot}";
+        "Print" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/screenshot";
 
         # Move the currently focused window to the scratchpad
         "${mod}+Shift+Zenkaku_Hankaku" = "move scratchpad";
@@ -115,12 +114,12 @@ in
         "${mod}+Zenkaku_Hankaku" = "scratchpad show";
 
         # media keys
-        "XF86AudioRaiseVolume" = "exec ${hotkey.volume} up";
-        "XF86AudioLowerVolume" = "exec ${hotkey.volume} down";
-        "XF86AudioMute" = "exec ${hotkey.volume} mute";
-        "XF86AudioMicMute" = "exec ${hotkey.micmute}";
-        "XF86MonBrightnessUp" = "exec ${hotkey.brightness} up";
-        "XF86MonBrightnessDown" = "exec ${hotkey.brightness} down";
+        "XF86AudioRaiseVolume" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/volume up";
+        "XF86AudioLowerVolume" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/volume down";
+        "XF86AudioMute" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/volume mute";
+        "XF86AudioMicMute" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/micmute";
+        "XF86MonBrightnessUp" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/brightness up";
+        "XF86MonBrightnessDown" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/brightness down";
 
         # notification
         "${mod}+Shift+n" = "exec ${swaync-client} --toggle-panel --skip-wait";

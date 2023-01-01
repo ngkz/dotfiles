@@ -35,34 +35,13 @@
   environment.etc =
     let
       background = pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
-      power-menu = pkgs.writeShellScript "power-menu" ''
-        set -euo pipefail
-
-        PATH=${lib.makeBinPath (with pkgs; [ coreutils wofi gawk systemd sway ])}
-
-        op=$(cat <<EOS | wofi -p "Power" -G --style ${../home/sway-desktop/wofi.css} -i --dmenu --width 250 --height 210 --cache-file /dev/null | awk '{ print tolower($2) }'
-         Poweroff
-        ‎ﰇ Reboot
-         Suspend
-         Hibernate
-        EOS
-        )
-        case "$op" in
-        poweroff)
-          systemctl poweroff -i
-          ;;
-        reboot|suspend|hibernate)
-          systemctl "$op"
-          ;;
-        esac
-      '';
     in
     {
       "greetd/sway-config".text = ''
         output * bg ${background} fill
         seat seat0 xcursor_theme Adwaita
         exec "GTK_THEME=Adwaita:dark ${pkgs.greetd.gtkgreet}/bin/gtkgreet -s /etc/greetd/gtkgreet.css; swaymsg exit"
-        bindsym Mod4+shift+e exec ${power-menu}
+        bindsym Mod4+shift+e exec ${pkgs.ngkz.hotkey-scripts}/bin/powermenu greeter
         default_border none
         include /etc/sway/config.d/*
       '';

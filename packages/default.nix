@@ -18,4 +18,5 @@
   hyfetch-unstable = pkgs.python3Packages.callPackage "${inputs.nixpkgs-unstable}/pkgs/tools/misc/hyfetch/default.nix" { };
 
   backup = pkgs.callPackage ./backup { };
+  hotkey-scripts = pkgs.callPackage ./hotkey-scripts { };
 }
