@@ -62,7 +62,7 @@
       }
       add-zsh-hook -Uz chpwd osc7
 
-      # foot dereferences symlink when Ctrl-Shift-N. workaround for this
+      # XXX foot dereferences symlink when Ctrl-Shift-N. workaround for this
       cd ''${PWD/${builtins.replaceStrings ["/"] ["\\/"] osConfig.modules.tmpfs-as-root.storage}/}
 
       # Hide user and host when it is unnecessary
