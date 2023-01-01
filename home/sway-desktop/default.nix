@@ -92,8 +92,8 @@ in
         "${mod}+Control+${up}" = "resize shrink height 40px";
         "${mod}+Control+${right}" = "resize grow width 40px";
 
-        "${mod}+Tab" = "exec ${hotkey.switch-window}";
-        "${mod}+Alt+Tab" = "workspace back_and_forth";
+        "${mod}+Tab" = "workspace back_and_forth";
+        "${mod}+Shift+Tab" = "exec ${hotkey.switch-window}";
         "${mod}+Shift+a" = "focus child";
         "${mod}+q" = "split none";
 
