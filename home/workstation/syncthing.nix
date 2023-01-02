@@ -15,7 +15,7 @@ in
     enable = true;
     tray.enable = true;
   };
-  # doesn't work with security.unprivilegedUsernsClone = false;
+  # XXX doesn't work with security.unprivilegedUsernsClone = false;
   systemd.user.services.syncthing.Service.PrivateUsers = lib.mkForce false;
   systemd.user.services.syncthingtray.Service.Restart = "on-failure";
   systemd.user.services.syncthingtray.Service.Environment = [
