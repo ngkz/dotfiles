@@ -119,4 +119,7 @@ in
     # tlp
     "/var/lib/tlp"
   ];
+
+  # XXX workaround for swaywm/sway #6962
+  environment.variables.WLR_DRM_NO_MODIFIERS = "1";
 }
