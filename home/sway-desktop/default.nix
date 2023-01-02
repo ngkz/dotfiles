@@ -16,10 +16,10 @@ let
   sway = config.wayland.windowManager.sway.config;
   mod = sway.modifier;
   inherit (sway) left right up down;
-  output-left = "u";
-  output-down = "i";
-  output-up = "o";
-  output-right = "p";
+  output0 = "u";
+  output1 = "i";
+  output2 = "o";
+  output3 = "p";
   ws10 = "10:0";
   ws11 = "11:-";
   ws12 = "12:^";
@@ -55,11 +55,20 @@ in
       };
       keybindings = mkOptionDefault {
         # additional workspaces
-        "${mod}+0" = "workspace number ${ws10}";
-        "${mod}+minus" = "workspace number ${ws11}";
-        "${mod}+asciicircum" = "workspace number ${ws12}";
-        "${mod}+backslash" = "workspace number ${ws13}";
-        "${mod}+BackSpace" = "workspace number ${ws14}";
+        "${mod}+1" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/workspace 1";
+        "${mod}+2" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/workspace 2";
+        "${mod}+3" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/workspace 3";
+        "${mod}+4" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/workspace 4";
+        "${mod}+5" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/workspace 5";
+        "${mod}+6" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/workspace 6";
+        "${mod}+7" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/workspace 7";
+        "${mod}+8" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/workspace 8";
+        "${mod}+9" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/workspace 9";
+        "${mod}+0" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/workspace ${ws10}";
+        "${mod}+minus" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/workspace ${ws11}";
+        "${mod}+asciicircum" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/workspace ${ws12}";
+        "${mod}+backslash" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/workspace ${ws13}";
+        "${mod}+BackSpace" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/workspace ${ws14}";
 
         "${mod}+Shift+0" = "move container to workspace number ${ws10}";
         "${mod}+Shift+minus" = "move container to workspace number ${ws11}";
@@ -68,22 +77,16 @@ in
         "${mod}+Shift+BackSpace" = "move container to workspace number ${ws14}";
 
         # switch monitor
-        "${mod}+${output-left}" = "focus output left";
-        "${mod}+${output-down}" = "focus output down";
-        "${mod}+${output-up}" = "focus output up";
-        "${mod}+${output-right}" = "focus output right";
+        "${mod}+${output0}" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/multihead focus 0";
+        "${mod}+${output1}" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/multihead focus 1";
+        "${mod}+${output2}" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/multihead focus 2";
+        "${mod}+${output3}" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/multihead focus 3";
 
         # move container to another monitor
-        "${mod}+Shift+${output-left}" = "move container to output left";
-        "${mod}+Shift+${output-down}" = "move container to output down";
-        "${mod}+Shift+${output-up}" = "move container to output up";
-        "${mod}+Shift+${output-right}" = "move container to output right";
-
-        # move workspace to another monitor
-        "${mod}+Control+${output-left}" = "move workspace to output left";
-        "${mod}+Control+${output-down}" = "move workspace to output down";
-        "${mod}+Control+${output-up}" = "move workspace to output up";
-        "${mod}+Control+${output-right}" = "move workspace to output right";
+        "${mod}+Shift+${output0}" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/multihead move 0";
+        "${mod}+Shift+${output1}" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/multihead move 1";
+        "${mod}+Shift+${output2}" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/multihead move 2";
+        "${mod}+Shift+${output3}" = "exec ${pkgs.ngkz.hotkey-scripts}/bin/multihead move 3";
 
         # quick resize
         "${mod}+Control+${left}" = "resize shrink width 40px";

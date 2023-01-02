@@ -38,6 +38,8 @@ stdenvNoCC.mkDerivation rec {
     substituteAll ${./powermenu.sh} $out/bin/powermenu
     substituteAll ${./screenshot.sh} $out/bin/screenshot
     substituteAll ${./switch-window.sh} $out/bin/switch-window
+    substituteAll ${./multihead.sh} $out/bin/multihead
+    substituteAll ${./workspace.sh} $out/bin/workspace
     chmod a+x $out/bin/*
   '';
 }
