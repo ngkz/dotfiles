@@ -33,8 +33,8 @@ in
       services.dbus.apparmor = "enabled";
       # this fucking sucks
       security.lockKernelModules = mkForce false;
-
-      security.unprivilegedUsernsClone = false;
+      # firefox/librewolf sandbox needs unprivileged user ns
+      security.unprivilegedUsernsClone = true;
       # allow attaching debugger
       boot.kernel.sysctl."kernel.yama.ptrace_scope" = mkForce 1;
       # scudo causes greetd slowdown
