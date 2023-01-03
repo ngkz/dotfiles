@@ -640,6 +640,7 @@ in
     ffmpeg
     manix # nix documentation searcher
     psmisc
+    hugo
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
