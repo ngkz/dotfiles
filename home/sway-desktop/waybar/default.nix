@@ -260,6 +260,7 @@ in
     Install = { WantedBy = [ "sway-session.target" ]; };
   };
 
+  # XXX syncthingtray complains and keepassxc silently breaks if the tray is not ready
   systemd.user.services.wait-tray-ready = {
     Unit = {
       Description ="Wait the status icon tray ready";
