@@ -1,9 +1,9 @@
 { clangStdenv, fcitx5-mozc, fetchzip, ... }:
 let
-  utdicver = "20221230";
+  utdicver = "20230107";
   mozcdic-ut = fetchzip {
     url = "https://osdn.net/users/utuhiro/pf/utuhiro/dl/mozcdic-ut-${utdicver}.tar.bz2";
-    sha256 = "080qa31i3prx4lcpc47k7svk0ylmgradxz58rksd6kyaixgdcqr0";
+    sha256 = "1n9j7wxaclknx2qkmw7fsgxmzrwwmqhg4gpb6267z0asw0cwav94";
   };
 in
 (fcitx5-mozc.override {
