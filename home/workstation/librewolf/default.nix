@@ -20,8 +20,6 @@
       "browser.tabs.warnOnClose" = true;
       # turn on open previous windows and tabs
       "browser.startup.page" = 3;
-      # disable RFP
-      "privacy.resistFingerprinting" = false;
 
       "signon.rememberSignons" = false;
     };
