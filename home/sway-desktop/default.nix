@@ -132,6 +132,7 @@ in
         let
           keyboard = {
             xkb_layout = "jp";
+            xkb_options = "ctrl:nocaps";
             repeat_delay = "350";
             repeat_rate = "30";
           };

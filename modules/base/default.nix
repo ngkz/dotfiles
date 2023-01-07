@@ -65,7 +65,12 @@ in
   i18n.defaultLocale = "ja_JP.UTF-8";
   console = {
     font = "lat2-12";
-    keyMap = "jp106";
+    useXkbConfig = true;
+  };
+
+  services.xserver = {
+    layout = "jp";
+    xkbOptions = "ctrl:nocaps"; # Remap Caps Lock To Ctrl
   };
 
   # Set your time zone.
@@ -139,19 +144,6 @@ in
     # disable usb keyboard wakeup
     ATTR{idProduct}=="6047",ATTR{idVendor}=="17ef",ATTR{power/wakeup}="disabled"
   '';
-
-  # Remap Caps Lock
-  # Control when held down, Escape when tapped
-  services.interception-tools = {
-    enable = true;
-    # Simple mode (No Esc to Caps)
-    udevmonConfig = ''
-      - JOB: "${pkgs.interception-tools}/bin/intercept -g $DEVNODE | ${pkgs.interception-tools-plugins.caps2esc}/bin/caps2esc -m 1 | ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
-        DEVICE:
-          EVENTS:
-            EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
-    '';
-  };
 
   # XXX Apply home.sessionPath when logined via ssh
   programs.zsh.enable = true;
