@@ -111,9 +111,9 @@
       rg = "rg -S";
       l = "ls";
       ll = "ls -lgh";
-      la = "ls -a";
+      la = "ls -aa";
       lt = "ls -lgh --tree";
-      lla = "ll -a";
+      lla = "ll -aa";
       strings = "strings -a";
 
       # safe rm,cp,mv
