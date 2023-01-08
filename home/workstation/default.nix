@@ -47,6 +47,9 @@ in
     ".config/transmission"
   ];
 
+  # shotwell
+  xdg.dataFile."shotwell".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/misc/shotwell";
+
   # Git
   programs.git = {
     enable = true;
