@@ -17,6 +17,7 @@ in
     sway-desktop
     undervolt
     nm-config-home
+    vm
 
     common-cpu-intel
     common-pc-laptop

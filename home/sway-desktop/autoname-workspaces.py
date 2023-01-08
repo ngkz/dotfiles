@@ -59,6 +59,7 @@ WINDOW_ICONS = {
     "emacs": " ",
     "transmission-gtk": " ",
     "gnome-disks": " ",
+    "virt-manager": " ",
 }
 
 DEFAULT_ICON = "ﬓ "

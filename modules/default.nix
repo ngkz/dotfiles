@@ -9,4 +9,5 @@
   sway-desktop = import ./sway-desktop.nix;
   undervolt = import ./undervolt.nix;
   nm-config-home = import ./nm-config-home.nix;
+  vm = import ./vm.nix;
 }
