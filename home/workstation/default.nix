@@ -644,6 +644,8 @@ in
     manix # nix documentation searcher
     psmisc
     hugo
+    sqlite
+    exiftool
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
