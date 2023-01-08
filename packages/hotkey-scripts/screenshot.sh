@@ -66,7 +66,8 @@ EOS
 
 case "$choice" in
 Save)
-  out=$(xdg-user-dir PICTURES)/Screenshot_$(date +'%Y-%m-%d_%H:%M:%S.png')
+  out=$(xdg-user-dir PICTURES)/$(date +'%Y/%m/%d/Screenshot_%Y-%m-%d_%H:%M:%S.png')
+  mkdir -p "$(dirname "$out")"
   cp "$tmp" "$out"
   if [ "$(notify-send -u low -e -A "show=Show" "Screenshot taken" "$out")" = show ]; then
     imv "$out"
