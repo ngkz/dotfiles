@@ -30,6 +30,8 @@ EXCLUDES_PERSIST=(
     root/.cache
     "home/*/.local/var/pmbootstrap"
     "home/*/.local/share/syncthing"
+    "var/lib/systemd/random-seed"
+    "var/lib/systemd/coredump"
 )
 
 log() {
