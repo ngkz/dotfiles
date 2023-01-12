@@ -1,10 +1,6 @@
 { clangStdenv, fcitx5-mozc, fetchzip, ... }:
 let
   utdicver = "20230107";
-  mozcdic-ut = fetchzip {
-    url = "https://osdn.net/users/utuhiro/pf/utuhiro/dl/mozcdic-ut-${utdicver}.tar.bz2";
-    sha256 = "1n9j7wxaclknx2qkmw7fsgxmzrwwmqhg4gpb6267z0asw0cwav94";
-  };
 in
 (fcitx5-mozc.override {
   inherit clangStdenv; # make clangStdenv overridable
@@ -13,6 +9,7 @@ in
   version = "${previousAttrs.version}.${utdicver}";
 
   postUnpack = previousAttrs.postUnpack + ''
-    cat ${mozcdic-ut}/mozcdic-ut-${utdicver}.txt >> $sourceRoot/src/data/dictionary_oss/dictionary00.txt
+    tar -xf ${./mozcdic-ut-20230107.tar.bz2}
+    cat mozcdic-ut-${utdicver}/mozcdic-ut-${utdicver}.txt >> $sourceRoot/src/data/dictionary_oss/dictionary00.txt
   '';
 })
