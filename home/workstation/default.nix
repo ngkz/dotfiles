@@ -646,6 +646,7 @@ in
     hugo
     sqlite
     exiftool
+    bsdgames
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
