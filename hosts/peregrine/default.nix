@@ -12,7 +12,6 @@ in
     grub-fde
     ssd
     sshd
-    portable
     workstation
     sway-desktop
     undervolt
