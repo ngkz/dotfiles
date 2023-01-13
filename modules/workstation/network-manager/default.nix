@@ -1,4 +1,4 @@
-{ config, lib, ... }: {
+{ config, pkgs, lib, ... }: {
   # NetworkManager
   networking.useDHCP = false;
   networking.networkmanager = {
@@ -20,6 +20,13 @@
       # unique DUID per connection
       "ipv6.dhcp-duid" = "stable-uuid";
     };
+  };
+
+  environment.etc."NetworkManager/dispatcher.d/10-dhcp-ntp".source = pkgs.substituteAll {
+    src = ./dhcp-ntp.sh;
+    isExecutable = true;
+    inherit (pkgs) bash;
+    path = with pkgs; [ coreutils util-linux systemd ];
   };
 
   users.users.user.extraGroups = [

@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }: {
   imports = [
     ./printing.nix
-    ./network-manager.nix
+    ./network-manager
     ./gpg.nix
     ./backup
   ];
