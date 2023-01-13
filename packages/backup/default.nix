@@ -5,9 +5,8 @@ stdenvNoCC.mkDerivation rec {
   preferLocalBuild = true;
   phases = "installPhase";
 
-  inherit bash coreutils borgbackup cryptsetup rsync libsecret gawk gnused findutils nettools udisks gnugrep bashInteractive;
-  utilLinux = util-linux;
-  lvm2Bin = lvm2.bin;
+  inherit bash bashInteractive;
+  path = [ bash coreutils borgbackup lvm2.bin cryptsetup rsync libsecret gawk findutils gnused nettools udisks gnugrep util-linux ];
 
   installPhase = ''
     mkdir -p $out/bin

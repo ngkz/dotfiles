@@ -2,7 +2,8 @@
 
 set -uo pipefail
 
-export PATH=@bash@/bin:@coreutils@/bin:@borgbackup@/bin:@lvm2Bin@/bin:@cryptsetup@/bin:@rsync@/bin:@libsecret@/bin:@gawk@/bin:@findutils@/bin:@gnused@/bin:@nettools@/bin:@udisks@/bin:@gnugrep@/bin:/run/wrappers/bin:@utilLinux@/bin
+export PATH=/empty
+for i in @path@; do PATH=$PATH:$i/bin; done
 
 SCRIPT=$(readlink -f "$0")
 ROOT=$(dirname "$SCRIPT")
