@@ -53,7 +53,7 @@ in
         "/nix" = storeFS;
 
         "/var/log" = {
-          device = "/nix/persist/var/log";
+          device = "${cfg.storage}/var/log";
           fsType = "none";
           options = [ "bind" ];
         };

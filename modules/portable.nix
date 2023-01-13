@@ -5,6 +5,6 @@
   services.timesyncd.enable = false;
   services.chrony = {
     enable = true;
-    directory = "/nix/persist/var/lib/chrony";
+    directory = "${config.modules.tmpfs-as-root.storage}/var/lib/chrony";
   };
 }

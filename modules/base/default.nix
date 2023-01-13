@@ -82,7 +82,7 @@ in
   # agenix
   age = {
     secrets.user-password-hash.file = ../../secrets/user-password-hash.age;
-    identityPaths = [ "/nix/persist/secrets/age.key" ];
+    identityPaths = [ "${config.modules.tmpfs-as-root.storage}/secrets/age.key" ];
   };
 
   # User accounts

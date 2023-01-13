@@ -12,14 +12,14 @@ in
   config = {
     programs.ccache = {
       enable = true;
-      cacheDir = "/nix/persist/var/cache/ccache";
+      cacheDir = "${config.modules.tmpfs-as-root.storage}/var/cache/ccache";
     };
 
     nix.settings.extra-sandbox-paths = [ config.programs.ccache.cacheDir ];
 
     systemd.tmpfiles.rules = [
       "d /nix/tmp 1775 root root 1d"
-      "L /nix/persist/var/cache/ccache/ccache.conf - - - - ${./ccache.conf}"
+      "L ${config.modules.tmpfs-as-root.storage}/var/cache/ccache/ccache.conf - - - - ${./ccache.conf}"
     ];
 
     modules.tmpfs-as-root.persistentDirs = [
