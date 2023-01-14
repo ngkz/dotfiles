@@ -53,7 +53,9 @@ chown root:root *
     5. `Reset to Setup Mode`
     6. `Platform Mode` should be `Setup Mode` and `Secure Boot Mode` should be `Custom Mode` now.
 
-2. Install keys
+2. Enroll keys
+- Replaces default manufacturer/microsoft keys with custom personal key.
+- **This might brick some machines!** Some devices need a microsoft-signed firmware to operate.
 
     ```sh
     nix shell nixpkgs#efitools
