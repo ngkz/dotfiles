@@ -35,7 +35,7 @@
     # modern unix commands
     btop # top
     du-dust # modern du
-    dogdns # dig
+    doggo #dig
     fd # find
     httpie # modern curl
     hyperfine # benchmarking tool

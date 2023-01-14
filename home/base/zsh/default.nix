@@ -105,7 +105,7 @@
       # modern unix commands
       cat = "bat";
       top = "btop";
-      dig = "dog";
+      dig = "doggo";
       # du = "dust";
       ls = "exa --icons --time-style=iso --git";
       rg = "rg -S";
