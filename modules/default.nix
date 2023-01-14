@@ -1,7 +1,6 @@
 {
   base = import ./base;
   tmpfs-as-root = import ./tmpfs-as-root.nix;
-  grub-fde = import ./grub-fde.nix;
   ssd = import ./ssd.nix;
   sshd = import ./sshd.nix;
   workstation = import ./workstation;
@@ -9,4 +8,5 @@
   undervolt = import ./undervolt.nix;
   nm-config-home = import ./nm-config-home.nix;
   vm = import ./vm.nix;
+  efistub-secureboot = import ./efistub-secureboot;
 }

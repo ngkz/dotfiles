@@ -9,7 +9,7 @@ in
 
   imports = with self.nixosModules; with nixos-hardware.nixosModules; [
     base
-    grub-fde
+    efistub-secureboot
     ssd
     sshd
     workstation
@@ -24,17 +24,34 @@ in
   ];
 
   # hardware configuration
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci" "nvme"
+
+    # LUKS Early boot AES acceleration
+    "aesni_intel"
+    "cryptd"
+  ];
 
   # disk
-  modules.grub-fde = {
-    cryptlvmDevice = "/dev/disk/by-uuid/e0b18f6c-fd58-45bc-a552-a5eec648b34a";
-    espDevice = "/dev/disk/by-uuid/AC8A-0C4E";
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.luks.devices."cryptlvm" = {
+    preLVM = true;
+    allowDiscards = true;
+    bypassWorkqueues = true;
+    device = "/dev/disk/by-uuid/e0b18f6c-fd58-45bc-a552-a5eec648b34a";
   };
-  modules.tmpfs-as-root.storeFS = {
-    device = "/dev/disk/by-uuid/d3fd2c64-440a-49a3-9299-eeee16da500e";
-    fsType = "xfs";
+
+  fileSystems = {
+    "/boot" = {
+      device = "/dev/disk/by-uuid/AC8A-0C4E";
+      fsType = "vfat";
+    };
+    "/nix" = {
+      device = "/dev/disk/by-uuid/d3fd2c64-440a-49a3-9299-eeee16da500e";
+      fsType = "xfs";
+    };
   };
+
   swapDevices = [
     {
       device = "/dev/disk/by-uuid/bf4f7d52-b93c-4318-8c9f-f5c50f492084";

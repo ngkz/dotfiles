@@ -2,8 +2,6 @@
 [![NixOS 22.11](https://img.shields.io/badge/NixOS-v22.11-blue.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
 ## Installation
-1. Load keyboard layout
-   `loadkeys jp106`
 2. Set up and mount filesystems
    Set up FDE
    See `hosts/<HOSTNAME>/README.md`.
@@ -13,13 +11,23 @@
    (age secret key)
    EOS
    chmod 400 /mnt/nix/persist/secrets/age.key
+
+   cat <<'EOS' >/mnt/nix/persist/secrets/db.crt
+   (secure boot signature database certificate)
+   EOS
+   chmod 400 /mnt/nix/persist/secrets/db.crt
+
+   cat <<'EOS' >/mnt/nix/persist/secrets/db.key
+   (secure boot signature database key)
+   EOS
+   chmod 400 /mnt/nix/persist/secrets/db.key
    ```
 3. Install NixOS
    ```sh
    nix-shell -p git nixFlakes
    git clone https://github.com/ngkz/dotfiles
    cd dotfiles
-   nixos-install --root /mnt --flake ".#<HOSTNAME>" --no-root-passwd
+   nixos-install --root /mnt --flake ".#<HOSTNAME>" --no-root-passwd --impure
    ```
 
 ## Development shell
@@ -53,9 +61,9 @@ nix shell "<flake>#<package>"
 - [mihic/linux-intel-undervolt](https://github.com/mihic/linux-intel-undervolt)
 - [swaywm/sway](https://github.com/swaywm/sway)
 - [Melkor333/milkOS](https://github.com/Melkor333/milkOS)
-- Full Disk Encryption Setup
-   - [ladinu/encryptedNixos.md](https://gist.github.com/ladinu/bfebdd90a5afd45dec811296016b2a3f)
-   - [Full disk encryption, including /boot: Unlocking LUKS devices from GRUB](https://cryptsetup-team.pages.debian.net/cryptsetup/encrypted-boot.html)
+- Secure Boot
+    - [Secure Boot - ArchWiki](https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot#Using_your_own_keys)
+    - [Sakaki's EFI Install Guide/Configuring Secure Boot under OpenRC](https://wiki.gentoo.org/wiki/User:Sakaki/Sakaki%27s_EFI_Install_Guide/Configuring_Secure_Boot_under_OpenRC)
 - tmpfs as root setup
    - [Erase your darlings: immutable infrastructure for mutable systems - Graham Christensen](https://grahamc.com/blog/erase-your-darlings)
    - [NixOS ❄: tmpfs as root](https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/)

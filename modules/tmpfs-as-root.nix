@@ -23,11 +23,6 @@ in
       default = [ ];
       description = "Files which should be stored in the persistent storage.";
     };
-
-    storeFS = mkOption {
-      type = with types; attrsOf anything;
-      description = "/nix mount point configuration";
-    };
   };
 
   config =
@@ -39,7 +34,6 @@ in
       storageDirs = map (path: storage + path) (unique ((map dirOf files) ++ dirs));
       nonEtcFiles = filter (path: !hasPrefix "/etc/" path) files;
       etcFiles = filter (hasPrefix "/etc/") files;
-      storeFS = cfg.storeFS;
     in
     {
       # "tmpfs as root" setup
@@ -49,8 +43,6 @@ in
           fsType = "tmpfs";
           options = [ "size=2G" "mode=755" "noexec" "nodev" "nosuid" ];
         };
-
-        "/nix" = storeFS;
 
         "/var/log" = {
           device = "${cfg.storage}/var/log";
