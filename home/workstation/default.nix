@@ -647,6 +647,7 @@ in
     sqlite
     exiftool
     bsdgames
+    geteltorito
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
