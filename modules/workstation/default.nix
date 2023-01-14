@@ -162,4 +162,6 @@
   };
 
   fonts.fontconfig.enable = true;
+
+  services.fwupd.enable = true;
 }
