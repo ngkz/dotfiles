@@ -26,6 +26,7 @@
   environment.systemPackages = with pkgs; with linuxPackages; [
     turbostat
     libva-utils
+    efitools
   ];
 
   # install fonts
