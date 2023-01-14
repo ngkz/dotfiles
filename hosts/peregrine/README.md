@@ -128,21 +128,7 @@ parted /dev/nvme0n1 -- mkpart primary 512MiB -64GiB
 mkfs.fat -n ESP -F32 /dev/nvme0n1p1
 
 # Format LUKS partition
-# GRUB supported luks2 recently, but grub-install on LUKS2 partition doesn't work yet.
-# Also, it doesn't support argon2i KDF yet.
-cryptsetup luksFormat --type luks1 /dev/nvme0n1p2
-
-# Halve PBKDF iteration count
-# GRUB's PBKDF implementation is a lot slower than Linux's, because GRUB operates
-# under tighter memory constraints and doesn’t take advantage of all
-# crypto-related CPU instructions.
-# Reducing the iteration count would speed up initial unlock.
-cryptsetup luksDump /dev/nvme0n1p2
-# ...
-# Key Slot 0: ENABLED
-#	Iterations:         	2394008
-# ...
-cryptsetup luksChangeKey --key-slot 0 --pbkdf-force-iterations 798002 /dev/nvme0n1p2
+cryptsetup luksFormat /dev/nvme0n1p2
 
 # Open LUKS partition
 cryptsetup open /dev/nvme0n1p2 cryptlvm --allow-discards
