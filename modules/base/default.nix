@@ -63,14 +63,12 @@ in
 
   # Select internationalisation properties.
   i18n.defaultLocale = "ja_JP.UTF-8";
-  console = {
-    font = "lat2-12";
-    useXkbConfig = true;
-  };
 
+  # Remap Caps Lock To Ctrl
+  console.useXkbConfig = true;
   services.xserver = {
     layout = "jp";
-    xkbOptions = "ctrl:nocaps"; # Remap Caps Lock To Ctrl
+    xkbOptions = "ctrl:nocaps";
   };
 
   # Set your time zone.
