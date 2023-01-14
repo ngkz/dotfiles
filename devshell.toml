@@ -84,8 +84,20 @@ command = 'nix repl "${PRJ_ROOT}/repl.nix"'
 category = "system maintenance"
 
 [[commands]]
-help = "Perform garbage collection"
+help = "Remove old configurations"
 name = "clean"
+command = '''
+# Delete configurations older than last 5 generations.
+sudo nix-env --delete-generations +5 --profile /nix/var/nix/profiles/system
+# Rebuild the boot menu and regenerate secrets
+sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
+'''
+category = "system maintenance"
+
+
+[[commands]]
+help = "Remove old configurations and perform garbage collection"
+name = "deepclean"
 command = '''
 # Delete all auto gc roots
 sudo rm /nix/var/nix/gcroots/auto/*
