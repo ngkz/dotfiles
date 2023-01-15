@@ -353,14 +353,23 @@ in
   };
 
   #swaync
-  xdg.configFile."swaync/config.json".text = builtins.toJSON {
-    scripts = {
-      sound = {
-        app-name = "^(?!volume|brightness|Tauon Music Box)$";
-        summary = "^(?!Command completed in )";
-        exec = "${pkgs.pulseaudio}/bin/paplay ${./airplane-announcement.ogg}";
+  xdg.configFile."swaync/config.json" = {
+    text = builtins.toJSON {
+      notification-visibility = {
+        bluetooth = {
+          state = "transient";
+          app-name = "blueman";
+        };
+      };
+      scripts = {
+        sound = {
+          app-name = "^(?!volume|brightness|Tauon Music Box)$";
+          summary = "^(?!Command completed in )";
+          exec = "${pkgs.pulseaudio}/bin/paplay ${./airplane-announcement.ogg}";
+        };
       };
     };
+    onChange = "${swaync-client} --reload-config";
   };
 
   # polkit authentication agent
