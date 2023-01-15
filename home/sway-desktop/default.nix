@@ -369,7 +369,11 @@ in
         };
       };
     };
-    onChange = "${swaync-client} --reload-config";
+    onChange = ''
+      if ${pgrep} -u $(id -u) -x swaync; then
+        ${swaync-client} --reload-config
+      fi
+    '';
   };
 
   # polkit authentication agent
