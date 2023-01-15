@@ -25,7 +25,8 @@ in
 
   # hardware configuration
   boot.initrd.availableKernelModules = [
-    "xhci_pci" "nvme"
+    "xhci_pci"
+    "nvme"
 
     # LUKS Early boot AES acceleration
     "aesni_intel"

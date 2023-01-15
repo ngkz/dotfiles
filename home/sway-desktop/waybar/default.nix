@@ -263,7 +263,7 @@ in
   # XXX syncthingtray complains and keepassxc silently breaks if the tray is not ready
   systemd.user.services.wait-tray-ready = {
     Unit = {
-      Description ="Wait the status icon tray ready";
+      Description = "Wait the status icon tray ready";
       PartOf = [ "sway-session.target" ];
       Wants = [ "waybar.service" ];
       Before = [ "tray.target" ];
