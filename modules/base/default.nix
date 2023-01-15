@@ -129,6 +129,7 @@ in
   # $ nix search nixpkgs wget
   environment.systemPackages = with pkgs; [
     btrfs-progs
+    ntfs3g
   ];
 
   services.udev.extraRules = ''

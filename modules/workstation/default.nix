@@ -27,6 +27,7 @@
     turbostat
     libva-utils
     efitools
+    sbsigntool
   ];
 
   # install fonts
