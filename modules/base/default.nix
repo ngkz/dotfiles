@@ -10,7 +10,6 @@ in
     agenix.nixosModule
     home-manager.nixosModule
     self.nixosModules.tmpfs-as-root
-    ./hardening.nix
     ./ccache.nix
   ];
 
