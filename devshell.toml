@@ -18,7 +18,9 @@ packages = [
   "nix-prefetch-git",
   "nodePackages.node2nix",
   "prefetch-yarn-deps",
-  "nvd"
+  "nvd",
+  "agenix",
+  "libsecret"
 ]
 
 # Declare commands that are available in the environment.
@@ -31,7 +33,24 @@ package = "rage"
 category = "secret management"
 
 [[commands]]
-package = "agenix"
+help = "manage age-encrypted secrets"
+name = "agenix-keepass"
+command = '''
+need_identity=
+for arg in "$@"; do
+    if [ "$arg" = "-e" ] || [ "$arg" = "-r" ]; then
+        need_identity=1
+    fi
+done
+if [ "$need_identity" ]; then
+    identity=$(mktemp -t age.XXXXXXXX)
+    trap "rm -f $identity" EXIT
+    secret-tool lookup agenix client > "$identity"
+    agenix -i "$identity" "$@"
+else
+    agenix "$@"
+fi
+'''
 category = "secret management"
 
 [[commands]]
