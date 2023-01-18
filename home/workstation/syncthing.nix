@@ -161,7 +161,7 @@ in
       # update config.xml
       needRestart=1
       if [ ! -e ${syncthingCfg} ]; then
-        $DRY_RUN_CMD ${syncthing} generate --skip-port-probing
+        $DRY_RUN_CMD ${syncthing} generate --skip-port-probing >/dev/null
       fi
       if [ -e ${syncthingCfg} ]; then
         folders=$(${jq} --argjson secrets "$(<"${secretsFile}")" \
