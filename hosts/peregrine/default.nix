@@ -64,7 +64,6 @@ in
   # intel cpu
   hardware.enableRedistributableFirmware = true;
   boot.kernelModules = [ "kvm-intel" ];
-  powerManagement.cpuFreqGovernor = "powersave";
 
   # bluetooth
   hardware.bluetooth.enable = true;
