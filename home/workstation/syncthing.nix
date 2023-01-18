@@ -22,7 +22,7 @@ in
 
   home.activation.syncthing-config =
     let
-      pcs = [ "noguchi-pc-win" "chibinof" "peregrine" ];
+      pcs = [ "noguchi-pc-win" "peregrine" "prairie" ];
       phones = [ "barbet" ];
       all = pcs ++ phones;
       personal = builtins.filter (x: x != "noguchi-pc-win") all;
@@ -153,8 +153,8 @@ in
         barbet = {
           compression = "always";
         };
-        chibinof = { };
         peregrine = { };
+        prairie = { };
       };
     in
     lib.hm.dag.entryBetween [ "reloadSystemd" ] [ "linkGeneration" "tmpfs-as-home" ] ''

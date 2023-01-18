@@ -35,6 +35,11 @@
           modules = [ ./hosts/peregrine ];
           specialArgs = { inherit inputs lib; };
         };
+        prairie = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [ ./hosts/prairie ];
+          specialArgs = { inherit inputs lib; };
+        };
       };
 
       nixosModules = import ./modules;
