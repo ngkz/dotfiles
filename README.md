@@ -2,33 +2,7 @@
 [![NixOS 22.11](https://img.shields.io/badge/NixOS-v22.11-blue.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
 ## Installation
-2. Set up and mount filesystems
-   Set up FDE
-   See `hosts/<HOSTNAME>/README.md`.
-3. Install age secret key
-   ```sh
-   cat <<'EOS' >/mnt/nix/persist/secrets/age.key
-   (age secret key)
-   EOS
-   chmod 400 /mnt/nix/persist/secrets/age.key
-
-   cat <<'EOS' >/mnt/nix/persist/secrets/db.crt
-   (secure boot signature database certificate)
-   EOS
-   chmod 400 /mnt/nix/persist/secrets/db.crt
-
-   cat <<'EOS' >/mnt/nix/persist/secrets/db.key
-   (secure boot signature database key)
-   EOS
-   chmod 400 /mnt/nix/persist/secrets/db.key
-   ```
-3. Install NixOS
-   ```sh
-   nix-shell -p git nixFlakes
-   git clone https://github.com/ngkz/dotfiles
-   cd dotfiles
-   nixos-install --root /mnt --flake ".#<HOSTNAME>" --no-root-passwd --impure
-   ```
+See `hosts/<HOSTNAME>/README.md`.
 
 ## Development shell
 ```sh

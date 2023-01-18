@@ -8,7 +8,9 @@ Core i7-8565U, 16GB RAM, JIS keyboard, No dGPU, No fingerprint reader, Intel Wir
 Peripherals: ThinkPad USB-C Dock Gen 2, ThinkPad Compact USB Keyboard with TrackPoint(JIS), 2x 4K monitors, Amp and stereo speakers, 1x FHD monitor via FL2000 adapter(TODO)
 
 ## Installation
-### Backup stock keys
+### Setup Secure boot
+#### Backup stock keys
+- Do once
 ```sh
 nix shell nixpkgs#efitools
 efi-readvar -v PK -o old_PK.esl
@@ -17,7 +19,7 @@ efi-readvar -v db -o old_db.esl
 efi-readvar -v dbx -o old_dbx.esl
 ```
 
-### Create Secure Boot keys
+#### Create Secure Boot keys
 - Do once
 ```sh
 nix shell nixpkgs#openssl nixpkgs#efitools
@@ -43,7 +45,7 @@ chmod 400 *.key
 chown root:root *
 ```
 
-### Install secure boot keys
+#### Install secure boot keys
 1. Put the firmware in Setup Mode
 
     1. Enter firmware setup
@@ -94,6 +96,9 @@ chown root:root *
     ...
     Variable MokList has no entries
     ```
+
+### Boot with NixOS ISO
+- Disable Secure Boot and boot a NixOS installer ISO
 
 ### Load keyboard layout
 ```sh
@@ -171,3 +176,34 @@ mount --bind /mnt/{nix/persist,}/var/log
 # Enable swap
 swapon -d /dev/system/swap
 ```
+
+### Install secret keys
+```sh
+mkdir /mnt/nix/persist/secrets
+
+cat <<'EOS' >/mnt/nix/persist/secrets/age.key
+(age secret key)
+EOS
+
+cat <<'EOS' >/mnt/nix/persist/secrets/db.crt
+(secure boot signature database certificate)
+EOS
+
+cat <<'EOS' >/mnt/nix/persist/secrets/db.key
+(secure boot signature database key)
+EOS
+
+chmod 400 /mnt/nix/persist/secrets/*
+```
+
+### Install NixOS
+```sh
+nix-shell -p git nixFlakes
+git clone https://github.com/ngkz/dotfiles
+cd dotfiles
+vim hosts/peregrine/default.nix
+(Update filesystems UUIDs)
+nixos-install --root /mnt --flake ".#peregrine" --no-root-passwd --impure
+```
+
+### Re-enable Secure Boot
