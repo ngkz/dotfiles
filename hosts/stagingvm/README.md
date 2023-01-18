@@ -41,7 +41,7 @@ chown root:root *
     efi-updatevar -e -f old_dbx.esl dbx
     efi-updatevar -e -f db.esl db
     efi-updatevar -e -f KEK.esl KEK
-    efi-udpatevar -f PK.auth PK
+    efi-updatevar -f PK.auth PK
     efi-readvar
     ```
 
