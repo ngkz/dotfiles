@@ -34,6 +34,7 @@ EXCLUDES_PERSIST=(
     "home/*/.local/share/syncthing"
     "var/lib/systemd/random-seed"
     "var/lib/systemd/coredump"
+    "home/*/.local/share/TauonMusicBox/scaled-icons"
 )
 
 log() {
