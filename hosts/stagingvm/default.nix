@@ -9,41 +9,79 @@ in
 
   imports = with self.nixosModules; [
     base
-    grub-fde
+    efistub-secureboot
     ssd
     sshd
     workstation
     sway-desktop
+
+    "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
   ];
 
   boot = {
     initrd = {
-      availableKernelModules = [ "ata_piix" "ohci_pci" "ehci_pci" "ahci" "sd_mod" "sr_mod" ];
-      kernelModules = [ "dm-snapshot" ];
+      availableKernelModules = [
+        "ata_piix"
+        "ohci_pci"
+        "ehci_pci"
+        "ahci"
+        "sd_mod"
+        "sr_mod"
+
+        # Early boot AES acceleration
+        "aesni_intel"
+        "cryptd"
+        # Btrfs CRC hardware acceleration
+        "crc32c-intel"
+      ];
     };
 
     kernelModules = [ ];
     extraModulePackages = [ ];
   };
 
-  # Hyper-V DRM driver
-  boot.blacklistedKernelModules = [ "hyperv_fb" ];
-  environment.variables.WLR_RENDERER_ALLOW_SOFTWARE = "1";
-
-  modules.grub-fde = {
-    cryptlvmDevice = "/dev/sda2";
-    espDevice = "/dev/disk/by-label/ESP";
+  # disk
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.luks.devices."cryptroot" = {
+    allowDiscards = true;
+    bypassWorkqueues = true;
+    device = "/dev/disk/by-partlabel/NixOS";
   };
-  modules.tmpfs-as-root.storeFS = {
-    label = "nix";
-    fsType = "xfs";
+  fileSystems = {
+    "/boot" = {
+      label = "ESP";
+      fsType = "vfat";
+    };
+    "/nix" = {
+      device = "/dev/mapper/cryptroot";
+      fsType = "btrfs";
+      # only options in first mounted subvolume will take effect
+      options = [ "compress=zstd" "subvol=nix" ];
+    };
+    "/var/persist" = {
+      device = "/dev/mapper/cryptroot";
+      fsType = "btrfs";
+      neededForBoot = true;
+      options = [ "compress=zstd" "subvol=persist" ];
+    };
+    "/var/swap" = {
+      device = "/dev/mapper/cryptroot";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "subvol=swap" ];
+    };
+    "/var/snapshots" = {
+      device = "/dev/mapper/cryptroot";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "subvol=snapshots" ];
+    };
   };
   swapDevices = [
     {
-      label = "swap";
+      device = "/var/swap/swapfile";
       discardPolicy = "once";
     }
   ];
+  modules.tmpfs-as-root.storage = "/var/persist";
 
   home-manager.users.user.imports = with self.homeManagerModules; [
     tmpfs-as-home
@@ -51,11 +89,19 @@ in
     sway-desktop
   ];
 
+  # Hyper-V
   virtualisation.hypervGuest.enable = true;
+
+  # Hyper-V DRM driver
+  boot.blacklistedKernelModules = [ "hyperv_fb" ];
+  environment.variables.WLR_RENDERER_ALLOW_SOFTWARE = "1";
 
   # Hyper-V NIC doesn't support MAC raodnomization
   environment.etc."NetworkManager/system-connections/eth0.nmconnection" = {
     source = ./eth0.nmconnection;
     mode = "0400";
   };
+
+  # QEMU
+  services.qemuGuest.enable = true;
 }
