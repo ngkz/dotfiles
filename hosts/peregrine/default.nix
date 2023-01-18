@@ -24,6 +24,7 @@ in
   ];
 
   # hardware configuration
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "nvme"
@@ -63,6 +64,7 @@ in
   # intel cpu
   hardware.enableRedistributableFirmware = true;
   boot.kernelModules = [ "kvm-intel" ];
+  powerManagement.cpuFreqGovernor = "powersave";
 
   # bluetooth
   hardware.bluetooth.enable = true;
@@ -73,9 +75,6 @@ in
       "${config.modules.tmpfs-as-root.storage}/var/lib/bluetooth"
     ];
   };
-
-  # power management
-  powerManagement.cpuFreqGovernor = "powersave";
 
   environment.systemPackages = with pkgs; [
     nvme-cli # NVMe SSD
@@ -89,9 +88,6 @@ in
       sway-desktop
     ];
   };
-
-  # Whiskey Lake is not affected by L1TF and Meltdown
-  #modules.hardening.disableMeltdownAndL1TFMitigation = true;
 
   # tlp
   boot.kernelParams = [
@@ -122,10 +118,10 @@ in
     PCIE_ASPM_ON_BAT = "powersupersave";
   };
 
+  # power saving
   boot.extraModprobeConfig = ''
     options iwlwifi power_save=1 uapsd_disable=0
     options iwlmvm power_scheme=3
-    #options iwldvm force_cam=0
 
     options i915 enable_dc=2 enable_fbc=1 enable_psr=1 enable_guc=3 enable_psr2_sel_fetch=1 enable_dpcd_backlight=1
     options drm vblankoffdelay=1

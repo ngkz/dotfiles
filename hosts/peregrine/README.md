@@ -104,6 +104,7 @@ chown root:root *
 ```sh
 loadkeys jp106
 ```
+
 ### Set up filesystems
 ```
 nvme0n1           259:0    0 931.5G  0 disk  

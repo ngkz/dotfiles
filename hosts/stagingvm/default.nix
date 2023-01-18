@@ -18,27 +18,22 @@ in
     "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
   ];
 
-  boot = {
-    initrd = {
-      availableKernelModules = [
-        "ata_piix"
-        "ohci_pci"
-        "ehci_pci"
-        "ahci"
-        "sd_mod"
-        "sr_mod"
+  # hardware configuration
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  boot.initrd.availableKernelModules = [
+    "ata_piix"
+    "ohci_pci"
+    "ehci_pci"
+    "ahci"
+    "sd_mod"
+    "sr_mod"
 
-        # Early boot AES acceleration
-        "aesni_intel"
-        "cryptd"
-        # Btrfs CRC hardware acceleration
-        "crc32c-intel"
-      ];
-    };
-
-    kernelModules = [ ];
-    extraModulePackages = [ ];
-  };
+    # Early boot AES acceleration
+    "aesni_intel"
+    "cryptd"
+    # Btrfs CRC hardware acceleration
+    "crc32c-intel"
+  ];
 
   # disk
   boot.loader.efi.canTouchEfiVariables = true;
@@ -47,34 +42,39 @@ in
     bypassWorkqueues = true;
     device = "/dev/disk/by-partlabel/NixOS";
   };
-  fileSystems = {
-    "/boot" = {
-      label = "ESP";
-      fsType = "vfat";
+  fileSystems =
+    let
+      rootDev = "/dev/mapper/cryptroot";
+      rootOpts = [ "compress=zstd" ];
+    in
+    {
+      "/boot" = {
+        label = "ESP";
+        fsType = "vfat";
+      };
+      "/nix" = {
+        device = rootDev;
+        fsType = "btrfs";
+        # only options in first mounted subvolume will take effect
+        options = rootOpts ++ [ "subvol=nix" ];
+      };
+      "/var/persist" = {
+        device = rootDev;
+        fsType = "btrfs";
+        neededForBoot = true;
+        options = rootOpts ++ [ "subvol=persist" ];
+      };
+      "/var/swap" = {
+        device = rootDev;
+        fsType = "btrfs";
+        options = rootOpts ++ [ "subvol=swap" ];
+      };
+      "/var/snapshots" = {
+        device = rootDev;
+        fsType = "btrfs";
+        options = rootOpts ++ [ "subvol=snapshots" ];
+      };
     };
-    "/nix" = {
-      device = "/dev/mapper/cryptroot";
-      fsType = "btrfs";
-      # only options in first mounted subvolume will take effect
-      options = [ "compress=zstd" "subvol=nix" ];
-    };
-    "/var/persist" = {
-      device = "/dev/mapper/cryptroot";
-      fsType = "btrfs";
-      neededForBoot = true;
-      options = [ "compress=zstd" "subvol=persist" ];
-    };
-    "/var/swap" = {
-      device = "/dev/mapper/cryptroot";
-      fsType = "btrfs";
-      options = [ "compress=zstd" "subvol=swap" ];
-    };
-    "/var/snapshots" = {
-      device = "/dev/mapper/cryptroot";
-      fsType = "btrfs";
-      options = [ "compress=zstd" "subvol=snapshots" ];
-    };
-  };
   swapDevices = [
     {
       device = "/var/swap/swapfile";
