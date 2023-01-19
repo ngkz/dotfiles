@@ -35,4 +35,9 @@
   # nested virtualization
   boot.extraModprobeConfig = "options kvm_intel nested=1";
 
+  systemd.tmpfiles.rules = [
+    "a+ /home/user - - - - u:qemu-libvirtd:x"
+    "a+ ${config.modules.tmpfs-as-root.storage}/home/user - - - - u:qemu-libvirtd:x"
+  ];
+
 }
