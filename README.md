@@ -38,6 +38,7 @@ nix shell "<flake>#<package>"
 - Secure Boot
     - [Secure Boot - ArchWiki](https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot#Using_your_own_keys)
     - [Sakaki's EFI Install Guide/Configuring Secure Boot under OpenRC](https://wiki.gentoo.org/wiki/User:Sakaki/Sakaki%27s_EFI_Install_Guide/Configuring_Secure_Boot_under_OpenRC)
+    - [Secure Boot with GRUB 2 and signed Linux images and initrds](https://ruderich.org/simon/notes/secure-boot-with-grub-and-signed-linux-and-initrd)
 - tmpfs as root setup
    - [Erase your darlings: immutable infrastructure for mutable systems - Graham Christensen](https://grahamc.com/blog/erase-your-darlings)
    - [NixOS ❄: tmpfs as root](https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/)

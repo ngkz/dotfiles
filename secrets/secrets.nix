@@ -12,4 +12,8 @@ in
   "syncthing.json.age".publicKeys = keys-all;
   "8657BC028746A06C68F352BA86EE58CD1294C73E.key.age".publicKeys = keys-client;
   "8227E10D40D92D39449DB2B615655DB542EA9FAF.key.age".publicKeys = keys-client;
+  "grub-password-hash.age".publicKeys = keys-client;
+  "db.crt.age".publicKeys = keys-client;
+  "db.key.age".publicKeys = keys-client;
+  "grub.key.age".publicKeys = keys-client;
 }

@@ -9,7 +9,7 @@ in
 
   imports = with self.nixosModules; with nixos-hardware.nixosModules; [
     base
-    efistub-secureboot
+    grub-secureboot
     ssd
     sshd
     workstation
@@ -38,8 +38,10 @@ in
     "crc32c-intel"
   ];
 
+  # this machine only boot from /Boot/bootx64.efi
+  boot.loader.grub.efiInstallAsRemovable = true;
+
   # disk
-  boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.luks.devices."cryptroot" = {
     allowDiscards = true;
     bypassWorkqueues = true;
