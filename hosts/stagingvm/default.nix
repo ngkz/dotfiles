@@ -1,6 +1,6 @@
 # configuration for stagingvm
 
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let
   inherit (inputs) self;
 in
@@ -82,6 +82,11 @@ in
     }
   ];
   modules.tmpfs-as-root.storage = "/var/persist";
+
+  boot.kernelParams = [
+    # hibernation
+    "resume_offset=533760"
+  ];
 
   home-manager.users.user.imports = with self.homeManagerModules; [
     tmpfs-as-home
