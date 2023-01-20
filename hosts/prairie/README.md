@@ -217,7 +217,7 @@ Resume offset:        533760
 nvim hosts/prairie/default.nix
 ```
 ```
-boot.kernelParams = [ "resume_offset=533670" ];
+boot.kernelParams = [ "resume_offset=533760" ];
 ```
 ```sh
 switch
