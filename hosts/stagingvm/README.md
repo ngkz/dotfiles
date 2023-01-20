@@ -155,14 +155,6 @@ cat <<'EOS' >/mnt/var/persist/secrets/age.key
 (age secret key)
 EOS
 
-cat <<'EOS' >/mnt/var/persist/secrets/db.crt
-(secure boot signature database certificate)
-EOS
-
-cat <<'EOS' >/mnt/var/persist/secrets/db.key
-(secure boot signature database key)
-EOS
-
 chmod 400 /mnt/var/persist/secrets/*
 ```
 

@@ -1,5 +1,5 @@
 # Load signed Unified Kernel Image from UEFI directly
-{ config, lib, pkgs, ... }: {
+{ config, pkgs, ... }: {
   system.build.installBootLoader = pkgs.substituteAll {
     src = ./install-bootloader.sh;
     isExecutable = true;
@@ -8,8 +8,10 @@
     esp = config.boot.loader.efi.efiSysMountPoint;
     id = "NixOS";
     canTouchEfiVariables = config.boot.loader.efi.canTouchEfiVariables;
-    signingKey = "${config.modules.tmpfs-as-root.storage}/secrets/db.key";
-    signingCert = "${config.modules.tmpfs-as-root.storage}/secrets/db.crt";
+    age = config.age.ageBin;
+    ageIdentities = builtins.concatStringsSep " " (map (path: "-i ${path}") config.age.identityPaths);
+    signingKeySecret = ../../secrets/db.key.age;
+    signingCertSecret = ../../secrets/db.crt.age;
   };
 
   # Common attribute for boot loaders so only one of them can be

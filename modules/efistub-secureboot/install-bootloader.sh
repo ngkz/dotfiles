@@ -49,6 +49,21 @@ uki_fname_from_generation() {
     echo "system-$(nr_from_generation "$generation").efi"
 }
 
+# input output
+decrypt() {
+    echo >"$2"
+    chmod 400 "$2"
+    "@age@" --decrypt @ageIdentities@ -o "$2" "$1"
+}
+
+# agenix secrets are not yet available when installing bootloader
+# so we need to decrypt secrets manually
+KEYDIR=$(mktemp -d)
+trap 'rm -rf "$KEYDIR"' EXIT
+
+decrypt "@signingKeySecret@" "$KEYDIR/db.key"
+decrypt "@signingCertSecret@" "$KEYDIR/db.crt"
+
 ukireldir="/EFI/@id@"
 ukidir="@esp@$ukireldir"
 
@@ -67,7 +82,7 @@ for generation in /nix/var/nix/profiles/system-*-link; do
     ukifn=$(uki_fname_from_generation "$generation")
     out="$ukidir/$ukifn"
 
-    if ! sbverify --cert "@signingCert@" "$out" &>/dev/null; then
+    if ! sbverify --cert "$KEYDIR/db.crt" "$out" &>/dev/null; then
         objcopy \
             --add-section .osrel="$generation/etc/os-release" --change-section-vma .osrel=0x20000 \
             --add-section .cmdline=<(echo "$cmdline") --change-section-vma .cmdline=0x30000 \
@@ -75,7 +90,7 @@ for generation in /nix/var/nix/profiles/system-*-link; do
             --add-section .initrd="$generation/initrd" --change-section-vma .initrd=0x3000000 \
              "$stub" "$out.tmp"
 
-        sbsign --key "@signingKey@" --cert "@signingCert@" --output "$out.tmp" "$out.tmp"
+        sbsign --key "$KEYDIR/db.key" --cert "$KEYDIR/db.crt" --output "$out.tmp" "$out.tmp"
         mv "$out.tmp" "$out"
     fi
 

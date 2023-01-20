@@ -186,14 +186,6 @@ cat <<'EOS' >/mnt/nix/persist/secrets/age.key
 (age secret key)
 EOS
 
-cat <<'EOS' >/mnt/nix/persist/secrets/db.crt
-(secure boot signature database certificate)
-EOS
-
-cat <<'EOS' >/mnt/nix/persist/secrets/db.key
-(secure boot signature database key)
-EOS
-
 chmod 400 /mnt/nix/persist/secrets/*
 ```
 
