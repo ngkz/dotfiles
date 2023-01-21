@@ -76,7 +76,8 @@ espPartNr=$(<"/sys/class/block/${espPart#/dev/}/partition")
 declare -A ukisGenerated
 
 for generation in /nix/var/nix/profiles/system-*-link; do
-    cmdline="init=$generation/init $(<"$generation/kernel-params")"
+    # systemd initrd requires canonical init path
+    cmdline="init=$(readlink -f $generation/init) $(<"$generation/kernel-params")"
     # TODO: non-x86-64 arch
     stub="@systemd@/lib/systemd/boot/efi/linuxx64.efi.stub"
     ukifn=$(uki_fname_from_generation "$generation")

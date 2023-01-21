@@ -38,10 +38,12 @@ in
 
   # disk
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.systemd.enable = true; # tpm2 unlock requires systemd initrd
   boot.initrd.luks.devices."cryptroot" = {
     allowDiscards = true;
     bypassWorkqueues = true;
     device = "/dev/disk/by-uuid/00a3159f-12ca-4600-b730-40427230fe1a";
+    crypttabExtraOpts = [ "tpm2-device=auto" ]; # tpm2 unlock
   };
 
   fileSystems =
