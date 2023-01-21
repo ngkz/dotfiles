@@ -45,7 +45,7 @@ in
   fileSystems =
     let
       rootDev = "/dev/mapper/cryptroot";
-      rootOpts = [ "compress=zstd" ];
+      rootOpts = [ "compress=zstd" "lazytime" ];
     in
     {
       "/boot" = {
@@ -62,7 +62,7 @@ in
         device = rootDev;
         fsType = "btrfs";
         neededForBoot = true;
-        options = rootOpts ++ [ "subvol=persist" "lazytime" ];
+        options = rootOpts ++ [ "subvol=persist" ];
       };
       "/var/swap" = {
         device = rootDev;

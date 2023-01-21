@@ -48,7 +48,7 @@ in
     let
       rootDev = "/dev/mapper/cryptroot";
       # only options in first mounted subvolume will take effect so all mounts must have same options
-      rootOpts = [];
+      rootOpts = [ "lazytime" ];
     in
     {
       "/boot" = {
@@ -64,7 +64,7 @@ in
         device = rootDev;
         fsType = "btrfs";
         neededForBoot = true;
-        options = rootOpts ++ [ "subvol=persist" "lazytime" ];
+        options = rootOpts ++ [ "subvol=persist" ];
       };
       "/var/swap" = {
         device = rootDev;

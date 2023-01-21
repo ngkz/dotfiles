@@ -52,7 +52,7 @@ in
     let
       rootDev = "/dev/disk/by-uuid/34f0cfae-4706-4ac0-bc10-6ecd3333fbe5";
       # only options in first mounted subvolume will take effect so all mounts must have same options
-      rootOpts = [ "compress=zstd" ];
+      rootOpts = [ "compress=zstd" "lazytime" ];
     in
     {
       "/boot" = {
@@ -68,7 +68,7 @@ in
         device = rootDev;
         fsType = "btrfs";
         neededForBoot = true;
-        options = rootOpts ++ [ "subvol=persist" "lazytime" ];
+        options = rootOpts ++ [ "subvol=persist" ];
       };
       "/var/swap" = {
         device = rootDev;
