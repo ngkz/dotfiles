@@ -75,7 +75,10 @@ espDisk=$(disk_from_partition "$espPart")
 espPartNr=$(<"/sys/class/block/${espPart#/dev/}/partition")
 declare -A ukisGenerated
 
-for generation in /nix/var/nix/profiles/system-*-link; do
+genNrs=($(ls /nix/var/nix/profiles | sed -En 's/^system-([0-9]+)-link$/\1/p' | sort -nr | head -n@configurationLimit@))
+
+for genNr in "${genNrs[@]}"; do
+    generation=/nix/var/nix/profiles/system-$genNr-link
     # systemd initrd requires canonical init path
     cmdline="init=$(readlink -f $generation/init) $(<"$generation/kernel-params")"
     # TODO: non-x86-64 arch
@@ -104,10 +107,10 @@ if [[ "@canTouchEfiVariables@" = "1" ]]; then
     declare -A bootEntriesGenerated
     declare -A genNrToBootnum
 
-    for generation in /nix/var/nix/profiles/system-*-link; do
+    for genNr in "${genNrs[@]}"; do
+        generation=/nix/var/nix/profiles/system-$genNr-link
         name=$(name_from_generation "$generation")
         bootnum=$(efibootmgr | (grep -F "$name" | sed -En 's/^Boot([0-9A-F]{4}).*/\1/p' || true))
-        genNr=$(sed -En 's|.*/system-([0-9]+)-link$|\1|p' <<<"$generation")
 
         if [[ -z $bootnum ]]; then
             # create boot entry
@@ -134,11 +137,11 @@ if [[ "@canTouchEfiVariables@" = "1" ]]; then
 
     newBootOrder="$defaultBootnum"
 
-    while read -r genNr; do
+    for genNr in "${genNrs[@]}"; do
         if [[ $genNr -ne $defaultGenNr ]]; then
             newBootOrder+=",${genNrToBootnum[$genNr]}"
         fi
-    done < <(ls /nix/var/nix/profiles | sed -En 's/^system-([0-9]+)-link$/\1/p' | sort -nr)
+    done
 
     while read -r bootnum; do
         if [[ ! ${nixosEntries[$bootnum]+1} ]]; then

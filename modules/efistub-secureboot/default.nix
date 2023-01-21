@@ -12,6 +12,7 @@
     ageIdentities = builtins.concatStringsSep " " (map (path: "-i ${path}") config.age.identityPaths);
     signingKeySecret = ../../secrets/db.key.age;
     signingCertSecret = ../../secrets/db.crt.age;
+    configurationLimit = 26;
   };
 
   # Common attribute for boot loaders so only one of them can be
