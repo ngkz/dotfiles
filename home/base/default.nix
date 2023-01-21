@@ -31,9 +31,16 @@
 
   programs.jq.enable = true;
 
+  programs.btop = {
+    # modern top command
+    enable = true;
+    settings = {
+      disks_filter = "exclude=/var/persist /var/snapshots /var/swap /var/log";
+    };
+  };
+
   home.packages = with pkgs; [
     # modern unix commands
-    btop # top
     du-dust # modern du
     doggo #dig
     fd # find
