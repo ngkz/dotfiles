@@ -51,6 +51,7 @@ in
     "/nix" = {
       device = "/dev/disk/by-uuid/d3fd2c64-440a-49a3-9299-eeee16da500e";
       fsType = "xfs";
+      options = [ "lazytime" ];
     };
   };
 

@@ -62,24 +62,23 @@ in
       "/nix" = {
         device = rootDev;
         fsType = "btrfs";
-        # only options in first mounted subvolume will take effect
-        options = rootOpts ++ [ "subvol=nix" ];
+        options = rootOpts ++ [ "subvol=nix" "noatime" ];
       };
       "/var/persist" = {
         device = rootDev;
         fsType = "btrfs";
         neededForBoot = true;
-        options = rootOpts ++ [ "subvol=persist" ];
+        options = rootOpts ++ [ "subvol=persist" "lazytime" ];
       };
       "/var/swap" = {
         device = rootDev;
         fsType = "btrfs";
-        options = rootOpts ++ [ "subvol=swap" ];
+        options = rootOpts ++ [ "subvol=swap" "noatime" ];
       };
       "/var/snapshots" = {
         device = rootDev;
         fsType = "btrfs";
-        options = rootOpts ++ [ "subvol=snapshots" ];
+        options = rootOpts ++ [ "subvol=snapshots" "noatime" ];
       };
     };
   swapDevices = [
