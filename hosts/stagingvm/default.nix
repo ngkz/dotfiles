@@ -82,6 +82,11 @@ in
     }
   ];
   modules.tmpfs-as-root.storage = "/var/persist";
+  services.btrfs.autoScrub = {
+    enable = true;
+    # scrubbling subvolumes scrubs the whole filesystem
+    fileSystems = [ "/var/persist" ];
+  };
 
   boot.kernelParams = [
     # hibernation
