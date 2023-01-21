@@ -38,7 +38,7 @@ nr_from_generation() {
 }
 
 date_from_generation() {
-    stat -c "%y" "$1" | cut -d' ' -f1
+    stat -c "%y" "$1" | cut -c-16
 }
 
 name_from_generation() {
