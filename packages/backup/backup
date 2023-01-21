@@ -138,19 +138,19 @@ log_output_stop() {
 take_snapshots() {
     for path in "${SNAPSHOT_VOLS[@]}"; do
         if ! btrfs subvolume snapshot -r "$path" "$SNAPSHOT_ROOT/${SNAPSHOT_PREFIX}-${path//\//-}" >/dev/null; then
-            btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"*
+            btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"* >/dev/null
             return 1
         fi
     done
 
     if ! mkdir "$SNAPSHOT_MOUNTPOINT"; then
-        btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"*
+        btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"* >/dev/null
         return 1
     fi
 
     if ! mount --bind "$SNAPSHOT_MOUNTPOINT" "$SNAPSHOT_MOUNTPOINT"; then
         rm -rf "$SNAPSHOT_MOUNTPOINT"
-        btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"*
+        btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"* >/dev/null
         return 1
     fi
 
@@ -158,13 +158,13 @@ take_snapshots() {
         if ! mkdir -p "$SNAPSHOT_MOUNTPOINT/$path"; then
             umount -R "$SNAPSHOT_MOUNTPOINT"
             rm -rf "$SNAPSHOT_MOUNTPOINT"
-            btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"*
+            btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"* >/dev/null
             return 1
         fi
         if ! mount --bind "$SNAPSHOT_ROOT/${SNAPSHOT_PREFIX}-${path//\//-}" "$SNAPSHOT_MOUNTPOINT/$path";  then
             umount -R "$SNAPSHOT_MOUNTPOINT"
             rm -rf "$SNAPSHOT_MOUNTPOINT"
-            btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"*
+            btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"* >/dev/null
             return 1
         fi
     done
@@ -173,7 +173,7 @@ take_snapshots() {
 rm_snapshots() {
     umount -R "$SNAPSHOT_MOUNTPOINT"
     rm -rf "$SNAPSHOT_MOUNTPOINT"
-    btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"*
+    btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"* >/dev/null
 }
 
 backup() {
