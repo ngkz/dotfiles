@@ -1,4 +1,4 @@
-{ stdenvNoCC, bash, coreutils, borgbackup, lvm2, util-linux, cryptsetup, rsync, libsecret, gawk, gnused, findutils, nettools, udisks, gnugrep, bashInteractive, ... }:
+{ stdenvNoCC, bash, coreutils, borgbackup, btrfs-progs, util-linux, cryptsetup, rsync, libsecret, gawk, gnused, findutils, nettools, udisks, gnugrep, bashInteractive, ... }:
 stdenvNoCC.mkDerivation rec {
   name = "backup";
 
@@ -6,7 +6,7 @@ stdenvNoCC.mkDerivation rec {
   phases = "installPhase";
 
   inherit bash bashInteractive;
-  path = [ bash coreutils borgbackup lvm2.bin cryptsetup rsync libsecret gawk findutils gnused nettools udisks gnugrep util-linux ];
+  path = [ bash coreutils borgbackup btrfs-progs cryptsetup rsync libsecret gawk findutils gnused nettools udisks gnugrep util-linux ];
 
   installPhase = ''
     mkdir -p $out/bin

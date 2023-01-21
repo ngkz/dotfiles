@@ -13,7 +13,7 @@ TMPDIR=/run/backup
 DEST_UUID="0fc9e5dd-c4d2-4d81-bcc6-99d00e10f32e"
 DEST_MOUNTPOINT=$TMPDIR/bkupdisk
 export BORG_REPO="$DEST_MOUNTPOINT/borg"
-PERSIST_ARCHIVE_PREFIX="$(hostname)_"
+ARCHIVE_PREFIX="$(hostname)_"
 PRUNE_CONFIG="--keep-within=7d --keep-daily=7 --keep-weekly=2 --keep-monthly=-1"
 MOUNT_MOUNTPOINT=$TMPDIR/backup
 DETACH_DEST=0
@@ -21,10 +21,15 @@ VERIFY=0
 AFTER=nop
 CHECK=0
 COMPRESSION=zstd,5
-SNAPSHOT_NAME=backup-snapshot-nix
+BACKUP_PATH=/var/persist
+SNAPSHOT_VOLS=(
+    /var/persist
+    /var/persist/home
+)
 SNAPSHOT_MOUNTPOINT=$TMPDIR/snapshot
-LOGGER_PIPE=$TMPDIR/logger
-EXCLUDES_PERSIST=(
+SNAPSHOT_ROOT=/var/snapshots
+SNAPSHOT_PREFIX=backup-
+EXCLUDES=(
     boot
     var/cache
     var/tmp
@@ -36,6 +41,7 @@ EXCLUDES_PERSIST=(
     "var/lib/systemd/coredump"
     "home/*/.local/share/TauonMusicBox/scaled-icons"
 )
+LOGGER_PIPE=$TMPDIR/logger
 
 log() {
     echo "[$(date "+%Y/%m/%d %H:%M:%S")] $1"
@@ -129,40 +135,48 @@ log_output_stop() {
     rm -f "$LOGGER_PIPE"
 }
 
-take_snapshot() {
-    if ! lvcreate -l 100%FREE -sqq -n "$SNAPSHOT_NAME" /dev/system/nix 3>&- 4>&-; then
-        log "can't take the snapshot"
-        return 1
-    fi
+take_snapshots() {
+    for path in "${SNAPSHOT_VOLS[@]}"; do
+        if ! btrfs subvolume snapshot -r "$path" "$SNAPSHOT_ROOT/${SNAPSHOT_PREFIX}-${path//\//-}" >/dev/null; then
+            btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"*
+            return 1
+        fi
+    done
 
     if ! mkdir "$SNAPSHOT_MOUNTPOINT"; then
-        lvremove -qqy "/dev/system/$SNAPSHOT_NAME" 3>&- 4>&-
+        btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"*
         return 1
     fi
 
-    if ! mount -o ro,nouuid "/dev/system/$SNAPSHOT_NAME" "$SNAPSHOT_MOUNTPOINT"; then
-        rmdir "$SNAPSHOT_MOUNTPOINT"
-        lvremove -qqy "/dev/system/$SNAPSHOT_NAME" 3>&- 4>&-
+    if ! mount --bind "$SNAPSHOT_MOUNTPOINT" "$SNAPSHOT_MOUNTPOINT"; then
+        rm -rf "$SNAPSHOT_MOUNTPOINT"
+        btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"*
         return 1
     fi
+
+    for path in "${SNAPSHOT_VOLS[@]}"; do
+        if ! mkdir -p "$SNAPSHOT_MOUNTPOINT/$path"; then
+            umount -R "$SNAPSHOT_MOUNTPOINT"
+            rm -rf "$SNAPSHOT_MOUNTPOINT"
+            btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"*
+            return 1
+        fi
+        if ! mount --bind "$SNAPSHOT_ROOT/${SNAPSHOT_PREFIX}-${path//\//-}" "$SNAPSHOT_MOUNTPOINT/$path";  then
+            umount -R "$SNAPSHOT_MOUNTPOINT"
+            rm -rf "$SNAPSHOT_MOUNTPOINT"
+            btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"*
+            return 1
+        fi
+    done
 }
 
-rm_snapshot() {
-    local rc=0
-
-    umount_retry  "$SNAPSHOT_MOUNTPOINT" || rc=1
-    rmdir "$SNAPSHOT_MOUNTPOINT" || rc=1
-    if ! lvremove -qqy "/dev/system/$SNAPSHOT_NAME" 3>&- 4>&-; then
-        log "can't remove the snapshot"
-        rc=1
-    fi
-
-    return "$rc"
+rm_snapshots() {
+    umount -R "$SNAPSHOT_MOUNTPOINT"
+    rm -rf "$SNAPSHOT_MOUNTPOINT"
+    btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"*
 }
 
 backup() {
-    local ARCHIVE_DATE=$(date +%Y-%m-%d_%H-%M-%S)
-
     log_output
 
     if ! mount_dest; then
@@ -170,59 +184,56 @@ backup() {
         return 1
     fi
 
-    if ! take_snapshot; then
+    if ! take_snapshots; then
         umount_dest
         log_output_stop
         return 1
     fi
 
-    local PERSIST="$SNAPSHOT_MOUNTPOINT/persist"
+    local excludes_borg=$TMPDIR/exclude-borg
+    local excludes_rsync=$TMPDIR/exclude-rsync
 
-    local EXCLUDES_PERSIST_BORG=$TMPDIR/exclude-persist-borg
-    local EXCLUDES_PERSIST_RSYNC=$TMPDIR/exclude-persist-rsync
-
-    for path in "${EXCLUDES_PERSIST[@]}"; do
-        echo "sh:$path" >>"$EXCLUDES_PERSIST_BORG"
-        echo "/$path" >>"$EXCLUDES_PERSIST_RSYNC"
+    for path in "${EXCLUDES[@]}"; do
+        echo "sh:$path" >>"$excludes_borg"
+        echo "/$path" >>"$excludes_rsync"
     done
     # cache directories
-    (cd "$PERSIST" && find -name CACHEDIR.TAG -type f | sed -E 's|^\./(.*)/[^/]*$|\1|') | while read -r path; do
+    (cd "$SNAPSHOT_MOUNTPOINT$BACKUP_PATH" && find -name CACHEDIR.TAG -type f | sed -E 's|^\./(.*)/[^/]*$|\1|') | while read -r path; do
         # TODO escape meta characters
-        echo "pf:$path" >>"$EXCLUDES_PERSIST_BORG"
-        echo "/$path" >>"$EXCLUDES_PERSIST_RSYNC"
+        echo "pf:$path" >>"$excludes_borg"
+        echo "/$path" >>"$excludes_rsync"
     done
 
-    local ARCHIVE_PERSIST_PREV=$(borg list --glob-archives "${PERSIST_ARCHIVE_PREFIX}*" --format "{archive}{NL}" --sort-by timestamp --last 1 ::)
+    local archive_prev=$(borg list --glob-archives "${ARCHIVE_PREFIX}*" --format "{archive}{NL}" --sort-by timestamp --last 1 ::)
 
     log "starting backup"
-    local ARCHIVE_PERSIST=$PERSIST_ARCHIVE_PREFIX$ARCHIVE_DATE
-    if ! (cd "$PERSIST" && borg create --stats --compression "$COMPRESSION" --exclude-from "$EXCLUDES_PERSIST_BORG" "::$ARCHIVE_PERSIST" .); then
-        rm_snapshot
+    local archive=$ARCHIVE_PREFIX$(date +%Y-%m-%d_%H-%M-%S)
+    if ! (cd "$SNAPSHOT_MOUNTPOINT$BACKUP_PATH" && borg create --stats --compression "$COMPRESSION" --exclude-from "$excludes_borg" "::$archive" .); then
+        rm_snapshots
         umount_dest
         log_output_stop
         return 1
     fi
 
     if [[ $VERIFY -ne 0 ]]; then
-        if ! verify "$ARCHIVE_PERSIST" "$PERSIST" "$EXCLUDES_PERSIST_RSYNC"; then
-            rm_snapshot
+        if ! verify "$archive" "$SNAPSHOT_MOUNTPOINT$BACKUP_PATH" "$excludes_rsync"; then
+            rm_snapshots
             umount_dest
             log_output_stop
             return 1
         fi
     fi
 
-    rm -f "$EXCLUDES_PERSIST_RSYNC"
-    rm -f "$EXCLUDES_PERSIST_BORG"
-    if ! rm_snapshot; then
+    rm -f "$excludes_rsync" "$excludes_borg"
+    if ! rm_snapshots; then
         umount_dest
         log_output_stop
         return 1
     fi
 
-    if [[ -n "$ARCHIVE_PERSIST_PREV" ]]; then
-        log "$ARCHIVE_PERSIST_PREV -> $ARCHIVE_PERSIST diff:"
-        if ! borg diff "::$ARCHIVE_PERSIST_PREV" "$ARCHIVE_PERSIST" --sort; then
+    if [[ -n "$archive_prev" ]]; then
+        log "$archive_prev -> $archive diff:"
+        if ! borg diff "::$archive_prev" "$archive" --sort; then
             umount_dest
             log_output_stop
             return 1
@@ -239,7 +250,7 @@ backup() {
     fi
 
     log "deleting old backups"
-    if ! borg prune --list --glob-archives "${PERSIST_ARCHIVE_PREFIX}*" $PRUNE_CONFIG ::; then
+    if ! borg prune --list --glob-archives "${ARCHIVE_PREFIX}*" $PRUNE_CONFIG ::; then
         umount_dest
         log_output_stop
         return 1
@@ -312,13 +323,13 @@ shell() {
     mount_dest || return 1
 
     export DEST_MOUNTPOINT
-    export PERSIST_ARCHIVE_PREFIX
+    export ARCHIVE_PREFIX
     export PRUNE_CONFIG
 
     echo "BORG_PASSPHRASE=(hidden)"
     echo "BORG_REPO=$BORG_REPO"
     echo "DEST_MOUNTPOINT=$DEST_MOUNTPOINT"
-    echo "PERSIST_ARCHIVE_PREFIX=$PERSIST_ARCHIVE_PREFIX"
+    echo "ARCHIVE_PREFIX=$ARCHIVE_PREFIX"
     echo "PRUNE_CONFIG=$PRUNE_CONFIG"
 
     (cd "$DEST_MOUNTPOINT" && @bashInteractive@/bin/bash)
