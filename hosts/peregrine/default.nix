@@ -32,35 +32,63 @@ in
     # LUKS Early boot AES acceleration
     "aesni_intel"
     "cryptd"
+    # Btrfs CRC hardware acceleration
+    "crc32c-intel"
   ];
 
   # disk
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.luks.devices."cryptlvm" = {
-    preLVM = true;
+  boot.initrd.luks.devices."cryptroot" = {
     allowDiscards = true;
     bypassWorkqueues = true;
-    device = "/dev/disk/by-uuid/e0b18f6c-fd58-45bc-a552-a5eec648b34a";
+    device = "/dev/disk/by-uuid/00a3159f-12ca-4600-b730-40427230fe1a";
   };
 
-  fileSystems = {
-    "/boot" = {
-      device = "/dev/disk/by-uuid/AC8A-0C4E";
-      fsType = "vfat";
+  fileSystems =
+    let
+      rootDev = "/dev/mapper/cryptroot";
+      # only options in first mounted subvolume will take effect so all mounts must have same options
+      rootOpts = [];
+    in
+    {
+      "/boot" = {
+        device = "/dev/disk/by-uuid/9756-0098";
+        fsType = "vfat";
+      };
+      "/nix" = {
+        device = rootDev;
+        fsType = "btrfs";
+        options = rootOpts ++ [ "subvol=nix" "noatime" ];
+      };
+      "/var/persist" = {
+        device = rootDev;
+        fsType = "btrfs";
+        neededForBoot = true;
+        options = rootOpts ++ [ "subvol=persist" "lazytime" ];
+      };
+      "/var/swap" = {
+        device = rootDev;
+        fsType = "btrfs";
+        options = rootOpts ++ [ "subvol=swap" "noatime" ];
+      };
+      "/var/snapshots" = {
+        device = rootDev;
+        fsType = "btrfs";
+        options = rootOpts ++ [ "subvol=snapshots" "noatime" ];
+      };
     };
-    "/nix" = {
-      device = "/dev/disk/by-uuid/d3fd2c64-440a-49a3-9299-eeee16da500e";
-      fsType = "xfs";
-      options = [ "lazytime" ];
-    };
-  };
-
   swapDevices = [
     {
-      device = "/dev/disk/by-uuid/bf4f7d52-b93c-4318-8c9f-f5c50f492084";
+      device = "/var/swap/swapfile";
       discardPolicy = "once";
     }
   ];
+  modules.tmpfs-as-root.storage = "/var/persist";
+  services.btrfs.autoScrub = {
+    enable = true;
+    # scrubbling subvolumes scrubs the whole filesystem
+    fileSystems = [ "/var/persist" ];
+  };
 
   # intel cpu
   hardware.enableRedistributableFirmware = true;
@@ -90,11 +118,6 @@ in
   };
 
   # tlp
-  boot.kernelParams = [
-    # enable ASPM
-    "pcie_aspm=force"
-  ];
-
   services.tlp.settings = {
     START_CHARGE_THRESH_BAT0 = 70;
     STOP_CHARGE_THRESH_BAT0 = 80;
@@ -132,6 +155,17 @@ in
     "/var/lib/bluetooth"
     # tlp
     "/var/lib/tlp"
+  ];
+
+  # hibernation
+  boot.resumeDevice = config.fileSystems."/var/swap".device;
+
+  boot.kernelParams = [
+    # tlp
+    "pcie_aspm=force"
+
+    # hibernation
+    "resume_offset=533760"
   ];
 
   # XXX workaround for swaywm/sway #6962

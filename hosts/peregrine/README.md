@@ -106,53 +106,48 @@ loadkeys jp106
 ```
 
 ### Set up filesystems
-```
-nvme0n1           259:0    0 931.5G  0 disk  
-├─nvme0n1p1       259:1    0   511M  0 part  /boot
-└─nvme0n1p2       259:2    0   867G  0 part  
-  └─cryptlvm      254:0    0   867G  0 crypt 
-    ├─system-swap 254:1    0    16G  0 lvm   [SWAP]
-    └─system-nix  254:2    0   819G  0 lvm   /nix/store
-                                             /var/log
-                                             /nix
-```
-
-- 512MB vfat ESP /boot
-- Encrypted LVM PV:
-  - LVM VG system:
-    - 16G swap
-    - xfs /
-    - 32G free space for lvm snapshot
-- 64GB free space for windoze (for firmware update)
-
 ```sh
+nix-shell -p nvme-cli
+nvme format -s1 /dev/nvme0n1
+
 # Create partitions
 parted /dev/nvme0n1 -- mklabel gpt
-parted /dev/nvme0n1 -- mkpart ESP fat32 1MiB 512MiB
+parted /dev/nvme0n1 -- mkpart ESP fat32 1MiB 1GiB
 parted /dev/nvme0n1 -- set 1 esp on
-parted /dev/nvme0n1 -- mkpart primary 512MiB -64GiB
+parted /dev/nvme0n1 -- mkpart NixOS 1GiB 100%
 
 # Format EFI System Partition
 mkfs.fat -n ESP -F32 /dev/nvme0n1p1
 
-# Format LUKS partition
+# Create and open an encrypted persistent data container
 cryptsetup luksFormat /dev/nvme0n1p2
+cryptsetup open /dev/nvme0n1p2 cryptroot --allow-discards
 
-# Open LUKS partition
-cryptsetup open /dev/nvme0n1p2 cryptlvm --allow-discards
+# Format the persistent data container
+mkfs.btrfs -L root /dev/mapper/cryptroot
 
-# Create Encrypted LVM PV and system VG on LUKS partition
-pvcreate /dev/mapper/cryptlvm
-vgcreate system /dev/mapper/cryptlvm
+# mount root subvolume and create subvolumes
+mount /dev/mapper/cryptroot /mnt
+btrfs subvolume create /mnt/nix
+btrfs subvolume create /mnt/persist
+btrfs subvolume create /mnt/persist/home
+btrfs subvolume create /mnt/swap
+btrfs subvolume create /mnt/snapshots
 
-# Create encrypted swap
-lvcreate -L 16G system -n swap
-mkswap -L swap /dev/system/swap
+# Create directories for persistent storage
+mkdir -p /mnt/persist/var/log
 
-# Create encrypted /nix
-lvcreate -L 819G system -n nix
-mkfs.xfs -L nix /dev/system/nix
+# Create swapfile
+truncate -s 0 /mnt/swap/swapfile
+chattr +C /mnt/swap/swapfile
+fallocate -l 16G /mnt/swap/swapfile
+chmod 0600 /mnt/swap/swapfile
+mkswap /mnt/swap/swapfile
+
+umount /mnt
 ```
+
+<!-- XXX `use btrfs filesystem mkswapfile` after NixOS 23.05 upgrade -->
 
 ## Mount filesystems
 ```sh
@@ -160,33 +155,32 @@ mkfs.xfs -L nix /dev/system/nix
 mount -t tmpfs -o size=2G,mode=755 none /mnt
 
 # Create mountpoints
-mkdir -p /mnt/{boot,nix,var/log}
-
-# Mount /nix
-mount /dev/system/nix /mnt/nix
-
-# Create a directory for persistent directories
-mkdir -p /mnt/nix/persist/var/log
+mkdir -p /mnt/{boot,nix,var/{log,persist,swap}}
 
 # Mount ESP
 mount /dev/nvme0n1p1 /mnt/boot
 
+# Mount persistent storages
+mount -o subvol=nix /dev/mapper/cryptroot /mnt/nix
+mount -o subvol=persist /dev/mapper/cryptroot /mnt/var/persist
+mount -o subvol=swap /dev/mapper/cryptroot /mnt/var/swap
+
 # Bind mount persistent /var/log
-mount --bind /mnt/{nix/persist,}/var/log
+mount --bind /mnt/{var/persist,}/var/log
 
 # Enable swap
-swapon -d /dev/system/swap
+swapon /mnt/var/swap/swapfile
 ```
 
 ### Install secret keys
 ```sh
-mkdir /mnt/nix/persist/secrets
+mkdir /mnt/var/persist/secrets
 
-cat <<'EOS' >/mnt/nix/persist/secrets/age.key
+cat <<'EOS' >/mnt/var/persist/secrets/age.key
 (age secret key)
 EOS
 
-chmod 400 /mnt/nix/persist/secrets/*
+chmod 400 /mnt/var/persist/secrets/*
 ```
 
 ### Install NixOS
@@ -200,3 +194,18 @@ nixos-install --root /mnt --flake ".#peregrine" --no-root-passwd --impure
 ```
 
 ### Re-enable Secure Boot
+
+### Configure hibernation
+```sh
+nix shell nixpkgs-unstable#btrfs-progs
+btrfs inspect-internal map-swapfile /var/swap/swapfile
+Physical start:   2186280960
+Resume offset:        533760
+nvim hosts/peregrine/default.nix
+```
+```
+boot.kernelParams = [ "resume_offset=533760" ];
+```
+```sh
+switch
+```
