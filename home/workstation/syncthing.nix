@@ -36,7 +36,6 @@ in
           devices = personal-pcs;
           ignore = ''
             /all
-            /local
             /otg
           '';
         }
@@ -91,10 +90,16 @@ in
           id = "videos";
           label = "~/videos";
           path = "${config.home.tmpfs-as-home.storage}/videos";
-          devices = personal;
+          devices = personal-pcs;
           ignore = ''
-            /local
+            /phone
           '';
+        }
+        {
+          id = "videos-phone";
+          label = "~/videos/phone";
+          path = "${config.home.tmpfs-as-home.storage}/videos/phone";
+          devices = personal;
         }
         {
           id = "projects";
@@ -102,7 +107,6 @@ in
           path = "${config.home.tmpfs-as-home.storage}/projects";
           devices = personal-pcs;
           ignore = ''
-            /local
             /otg
           '';
         }
@@ -117,9 +121,6 @@ in
           label = "~/work";
           path = "${config.home.tmpfs-as-home.storage}/work";
           devices = pcs;
-          ignore = ''
-            /local
-          '';
         }
         {
           id = "misc";
@@ -127,7 +128,6 @@ in
           path = "${config.home.tmpfs-as-home.storage}/misc";
           devices = personal-pcs;
           ignore = ''
-            /local
             /all
             /otg
           '';
