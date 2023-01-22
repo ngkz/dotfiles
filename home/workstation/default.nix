@@ -648,6 +648,9 @@ in
     exiftool
     bsdgames
     geteltorito
+    sbsigntool
+    tpm2-tools
+    efitools
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
