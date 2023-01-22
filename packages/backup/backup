@@ -137,7 +137,7 @@ log_output_stop() {
 
 take_snapshots() {
     for path in "${SNAPSHOT_VOLS[@]}"; do
-        if ! btrfs subvolume snapshot -r "$path" "$SNAPSHOT_ROOT/${SNAPSHOT_PREFIX}-${path//\//-}" >/dev/null; then
+        if ! btrfs subvolume snapshot -r "$path" "$SNAPSHOT_ROOT/${SNAPSHOT_PREFIX}${path//\//-}" >/dev/null; then
             btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"* >/dev/null
             return 1
         fi
@@ -161,7 +161,7 @@ take_snapshots() {
             btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"* >/dev/null
             return 1
         fi
-        if ! mount --bind "$SNAPSHOT_ROOT/${SNAPSHOT_PREFIX}-${path//\//-}" "$SNAPSHOT_MOUNTPOINT/$path";  then
+        if ! mount --bind "$SNAPSHOT_ROOT/${SNAPSHOT_PREFIX}${path//\//-}" "$SNAPSHOT_MOUNTPOINT/$path";  then
             umount -R "$SNAPSHOT_MOUNTPOINT"
             rm -rf "$SNAPSHOT_MOUNTPOINT"
             btrfs subvolume delete "$SNAPSHOT_ROOT/$SNAPSHOT_PREFIX"* >/dev/null
