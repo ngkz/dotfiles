@@ -22,11 +22,11 @@ in
 
   home.activation.syncthing-config =
     let
-      pcs = [ "noguchi-pc-win" "peregrine" "prairie" ];
+      pcs = [ "noguchi-pc" "peregrine" "prairie" ];
       phones = [ "barbet" ];
       all = pcs ++ phones;
-      personal = builtins.filter (x: x != "noguchi-pc-win") all;
-      personal-pcs = builtins.filter (x: x != "noguchi-pc-win") pcs;
+      personal = builtins.filter (x: x != "noguchi-pc") all;
+      personal-pcs = builtins.filter (x: x != "noguchi-pc") pcs;
 
       folders = [
         {
@@ -149,7 +149,7 @@ in
       secretsFile = osConfig.age.secrets.syncthing.path;
 
       devices = {
-        noguchi-pc-win = { };
+        noguchi-pc = { };
         barbet = {
           compression = "always";
         };

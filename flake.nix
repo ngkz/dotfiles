@@ -40,6 +40,11 @@
           modules = [ ./hosts/prairie ];
           specialArgs = { inherit inputs lib; };
         };
+        noguchi-pc = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [ ./hosts/noguchi-pc ];
+          specialArgs = { inherit inputs lib; };
+        };
       };
 
       nixosModules = import ./modules;

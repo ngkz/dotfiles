@@ -339,6 +339,25 @@ in
           }
         ];
       };
+      noguchi-pc-docked = {
+        outputs = [
+          {
+            criteria = "Chimei Innolux Corporation 0x15DB 0x00000000'";
+            mode = "1366x768@60Hz";
+            position = "0,576";
+          }
+          {
+            criteria = "Acer Technologies Acer KA240H T6NSJ0014205";
+            mode = "1920x1080@60Hz";
+            position = "1366,0";
+          }
+          {
+            criteria = "Acer Technologies KA240H TETSJ001853C";
+            mode = "1920x1080@60Hz";
+            position = "3286,0";
+          }
+        ];
+      };
     };
   };
 

@@ -16,4 +16,5 @@ in
   "db.crt.age".publicKeys = keys-client;
   "db.key.age".publicKeys = keys-client;
   "grub.key.age".publicKeys = keys-client;
+  "IFC.nmconnection.age".publicKeys = keys-client;
 }
