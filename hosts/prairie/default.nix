@@ -29,7 +29,6 @@ in
     "ahci"
     "sd_mod"
     "sr_mod"
-    "rtsx_pci_sdmmc"
 
     # LUKS Early boot AES acceleration
     "aesni_intel"
@@ -38,7 +37,8 @@ in
     "crc32c-intel"
   ];
 
-  # this machine only boot from /Boot/bootx64.efi
+  # Workaround for buggy firmware
+  # this machine only boot from /EFI/Boot/bootx64.efi
   boot.loader.grub.efiInstallAsRemovable = true;
 
   # disk
