@@ -342,7 +342,7 @@ in
       noguchi-pc-docked = {
         outputs = [
           {
-            criteria = "Chimei Innolux Corporation 0x15DB 0x00000000'";
+            criteria = "Chimei Innolux Corporation 0x15DB 0x00000000";
             mode = "1366x768@60Hz";
             position = "0,576";
           }
