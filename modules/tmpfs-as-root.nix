@@ -93,10 +93,10 @@ in
         "/var/tmp"
       ];
 
-    systemd.tmpfiles.rules = [
-      "d ${storage}/var/tmp 1777 root root 30d"
-      "d ${storage}/var/lib/systemd 0755 root root -"
-    ];
+      systemd.tmpfiles.rules = [
+        "d ${storage}/var/tmp 1777 root root 30d"
+        "d ${storage}/var/lib/systemd 0755 root root -"
+      ];
 
       # journalctl: Failed to create parent directoties of /var/lib/systemd/catalog/database: Not a directory
       systemd.services.systemd-journal-catalog-update.preStart = "${pkgs.coreutils}/bin/mkdir -p /var/lib/systemd/catalog";
