@@ -654,7 +654,7 @@ in
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
-    freecad
+    ngkz.freecad-realthunder
     gimp
     gscan2pdf # scanning tool
     imv

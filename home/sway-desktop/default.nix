@@ -192,7 +192,7 @@ in
           # XXX FreeCAD splash
           criteria = {
             app_id = "org.freecadweb.FreeCAD$";
-            title = "FreeCAD$";
+            title = "FreeCAD Link Branch$";
           };
           command = "floating enable";
         }

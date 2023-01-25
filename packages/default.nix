@@ -15,4 +15,19 @@
   gnome-ssh-askpass3 = pkgs.callPackage ./gnome-ssh-askpass3.nix { };
   backup = pkgs.callPackage ./backup { };
   hotkey-scripts = pkgs.callPackage ./hotkey-scripts { };
+  freecad-realthunder = pkgs.libsForQt5.callPackage ./freecad-realthunder {
+    boost = pkgs.python3Packages.boost;
+    inherit (pkgs.python3Packages)
+      GitPython
+      matplotlib
+      pivy
+      ply
+      pycollada
+      pyside2
+      pyside2-tools
+      python
+      pyyaml
+      scipy
+      shiboken2;
+  };
 }
