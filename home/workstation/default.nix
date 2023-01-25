@@ -45,6 +45,9 @@ in
     ".config/libreoffice"
     # transmission
     ".config/transmission"
+    # FreeCAD
+    ".FreeCAD"
+    ".config/FrreeCAD"
   ];
 
   # shotwell
