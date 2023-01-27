@@ -165,4 +165,16 @@
   fonts.fontconfig.enable = true;
 
   services.fwupd.enable = true;
+
+  services.btrbk = lib.mkIf (builtins.any (fs: fs.fsType == "btrfs") (builtins.attrValues config.fileSystems)) {
+    instances.btrbk = {
+      settings = {
+        snapshot_preserve_min = "latest";
+        snapshot_preserve = "24h 3d";
+        subvolume = "/var/persist/home";
+        snapshot_dir = "/var/snapshots";
+      };
+      onCalendar = "hourly";
+    };
+  };
 }
