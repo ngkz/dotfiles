@@ -60,7 +60,7 @@ WINDOW_ICONS = {
     "transmission-gtk": " ",
     "gnome-disks": " ",
     "virt-manager": " ",
-    "org.shotcut.shotcut": "ﳜ ",
+    "org.shotcut.shotcut": "\u200eﳜ ",
 }
 
 DEFAULT_ICON = "ﬓ "
