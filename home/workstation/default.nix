@@ -48,6 +48,9 @@ in
     # FreeCAD
     ".FreeCAD"
     ".config/FrreeCAD"
+    # shotcut
+    ".config/Meltytech"
+    ".local/share/Meltytech/Shotcut"
   ];
 
   # shotwell
@@ -683,5 +686,6 @@ in
     gnome.evince #pdf viewer/thumbnailer
     transmission-gtk
     filezilla
+    shotcut
   ];
 }

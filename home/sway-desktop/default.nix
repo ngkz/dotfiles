@@ -430,6 +430,7 @@ in
       Description = "automatic workspace rename";
       After = [ "graphical-session-pre.target" ];
       PartOf = [ "sway-session.target" ];
+      X-Restart-Triggers = [ "${autoname-workspaces}" ];
     };
 
     Service = {
