@@ -2,7 +2,7 @@
 { self, agenix, devshell, ... } @ inputs:
 {
   overlays = with self.overlays; [
-    agenix.overlay # add agenix package
+    agenix.overlays.default # add agenix package
     devshell.overlay
     packages
     sway-im

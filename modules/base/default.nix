@@ -7,7 +7,7 @@ let
 in
 {
   imports = [
-    agenix.nixosModule
+    agenix.nixosModules.default
     home-manager.nixosModule
     self.nixosModules.tmpfs-as-root
     ./ccache.nix
