@@ -130,6 +130,7 @@ in
     btrfs-progs
     compsize
     ntfs3g
+    e2fsprogs
   ];
 
   services.udev.extraRules = ''
