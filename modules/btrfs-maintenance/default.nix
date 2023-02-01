@@ -1,6 +1,6 @@
 { config, lib, utils, pkgs, ... }: {
   options.modules.btrfs-maintenance = {
-    defrag-mounts = lib.mkOption {
+    defragMounts = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
     };
@@ -17,7 +17,7 @@
     in
     lib.mkMerge [
       (
-        lib.mkIf (cfg.defrag-mounts != [ ]) {
+        lib.mkIf (cfg.defragMounts != [ ]) {
           # Run btrfs maintenance tasks automatically
           systemd.services.btrfs-defrag = {
             description = "Defrag btrfs partitions";
@@ -31,7 +31,7 @@
             isExecutable = true;
             path = with pkgs; [ coreutils findutils gawk gnused e2fsprogs btrfs-progs ];
             inherit (pkgs) bash;
-          }} ${lib.escapeShellArgs cfg.defrag-mounts}";
+          }} ${lib.escapeShellArgs cfg.defragMounts}";
               Nice = 19;
               IOSchedulingClass = "idle";
             };

@@ -90,7 +90,7 @@ in
   ];
   modules.tmpfs-as-root.storage = "/var/persist";
   modules.btrfs-maintenance = {
-    defrag-mounts = [
+    defragMounts = [
       "/var/persist"
       "/var/persist/home"
     ];
