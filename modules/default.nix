@@ -10,4 +10,5 @@
   vm = import ./vm.nix;
   efistub-secureboot = import ./efistub-secureboot;
   grub-secureboot = import ./grub-secureboot.nix;
+  btrfs-maintenance = import ./btrfs-maintenance;
 }

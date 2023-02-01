@@ -17,6 +17,7 @@ in
     undervolt
     nm-config-home
     vm
+    btrfs-maintenance
 
     common-cpu-intel
     common-pc-laptop
@@ -91,6 +92,10 @@ in
     # scrubbling subvolumes scrubs the whole filesystem
     fileSystems = [ "/var/persist" ];
   };
+  modules.btrfs-maintenance.defrag-mounts = [
+    "/var/persist"
+    "/var/persist/home"
+  ];
 
   # intel cpu
   hardware.enableRedistributableFirmware = true;

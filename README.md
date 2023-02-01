@@ -43,3 +43,4 @@ nix shell "<flake>#<package>"
    - [Erase your darlings: immutable infrastructure for mutable systems - Graham Christensen](https://grahamc.com/blog/erase-your-darlings)
    - [NixOS ❄: tmpfs as root](https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/)
    - [Encrypted Btrfs Root with Opt-in State On NixOS](https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html)
+- [BTRFS: Finding and fixing highly fragmented files](https://helmundwalter.de/blog/btrfs-finding-and-fixing-highly-fragmented-files/)
