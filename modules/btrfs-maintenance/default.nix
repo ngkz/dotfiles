@@ -23,9 +23,8 @@
             path = with pkgs; [ coreutils findutils gawk gnused e2fsprogs btrfs-progs ];
             inherit (pkgs) bash;
           }} ${lib.escapeShellArgs defrag-mounts}";
-          Nice = 10;
-          IOSchedulingClass = "best-effort";
-          IOSchedulingPriority = 7;
+          Nice = 19;
+          IOSchedulingClass = "idle";
         };
       };
 
@@ -34,9 +33,8 @@
         wantedBy = [ "timers.target" ];
         timerConfig = {
           OnCalendar = "monthly";
-          AccuracySec = "1h";
+          AccuracySec = "1d";
           Persistent = true;
-          RandomizedDelaySec = 6000;
         };
       };
     };

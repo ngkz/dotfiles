@@ -15,9 +15,8 @@
       ConditionACPower = true;
     };
     serviceConfig = {
-      Nice = 10;
-      IOSchedulingClass = "best-effort";
-      IOSchedulingPriority = 7;
+      Nice = 19;
+      IOSchedulingClass = "idle";
     };
   };
 }
