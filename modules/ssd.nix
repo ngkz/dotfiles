@@ -9,4 +9,15 @@
       issue_discards = 1
     }
   '';
+
+  systemd.services.fstrim = {
+    unitConfig = {
+      ConditionACPower = true;
+    };
+    serviceConfig = {
+      Nice = 10;
+      IOSchedulingClass = "best-effort";
+      IOSchedulingPriority = 7;
+    };
+  };
 }
