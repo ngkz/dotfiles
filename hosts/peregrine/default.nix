@@ -87,15 +87,16 @@ in
     }
   ];
   modules.tmpfs-as-root.storage = "/var/persist";
-  services.btrfs.autoScrub = {
-    enable = true;
-    # scrubbling subvolumes scrubs the whole filesystem
-    fileSystems = [ "/var/persist" ];
+  modules.btrfs-maintenance = {
+    defrag-mounts = [
+      "/var/persist"
+      "/var/persist/home"
+    ];
+    fileSystems = [
+      # scrubbling one of subvolumes scrubs the whole filesystem
+      "/var/persist"
+    ];
   };
-  modules.btrfs-maintenance.defrag-mounts = [
-    "/var/persist"
-    "/var/persist/home"
-  ];
 
   # intel cpu
   hardware.enableRedistributableFirmware = true;
