@@ -9,6 +9,6 @@
   nm-config-home = import ./nm-config-home.nix;
   vm = import ./vm.nix;
   efistub-secureboot = import ./efistub-secureboot;
-  grub-secureboot = import ./grub-secureboot.nix;
+  grub-secureboot = import ./grub-secureboot;
   btrfs-maintenance = import ./btrfs-maintenance;
 }
