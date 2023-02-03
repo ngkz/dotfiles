@@ -4,8 +4,8 @@ set -eu
 export PATH=/empty
 for i in @path@; do PATH=$PATH:$i/bin; done
 
-state=/var/lib/nix-maintenance
-mkdir -p "$state"
+cache=/var/cache/nix-maintenance
+rwstore=/run/nix-maintenance
 
 # Delete configurations older than a week and perform GC
 echo "collecting garbages:"
@@ -17,8 +17,8 @@ nix-collect-garbage --delete-older-than 7d
 if [[ "$(findmnt -fno FSTYPE /nix/store)" = btrfs ]]; then
     # nix store is btrfs
     # mount the store in rw mode
-    rwstore=$(mktemp -dt nix-maintenance.XXXXXXXX)
     trap "umount $rwstore && rmdir $rwstore" EXIT
+    mkdir -p "$rwstore"
     mount --bind /nix/store "$rwstore"
     mount -o remount,rw "$rwstore"
 
@@ -39,7 +39,8 @@ if [[ "$(findmnt -fno FSTYPE /nix/store)" = btrfs ]]; then
 
     # deduplicate the store
     echo "deduplicating the store:"
-    duperemove -rdh --hashfile="$state/duperemove.db" "$rwstore"
+    mkdir -p "$cache"
+    duperemove -rdh --hashfile="$cache/duperemove.db" "$rwstore"
 else
     # Replace identical files in the store by hard links
     echo "deduplicating the store:"

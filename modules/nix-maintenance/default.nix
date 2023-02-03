@@ -29,6 +29,6 @@
   };
 
   modules.tmpfs-as-root.persistentDirs = [
-    "/var/lib/nix-maintenance"
+    "/var/cache/nix-maintenance"
   ];
 }
