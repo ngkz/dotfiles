@@ -170,7 +170,7 @@
     instances.btrbk = {
       settings = {
         snapshot_preserve_min = "latest";
-        snapshot_preserve = "24h 3d";
+        snapshot_preserve = "24h 2d";
         subvolume = "/var/persist/home";
         snapshot_dir = "/var/snapshots";
       };
