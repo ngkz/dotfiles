@@ -22,20 +22,22 @@ if [[ "$(findmnt -fno FSTYPE /nix/store)" = btrfs ]]; then
     mount --bind /nix/store "$rwstore"
     mount -o remount,rw "$rwstore"
 
-    # defrag fragmented files in /nix
-    echo "defragmenting /nix:"
-    fragment_threshold=500
+    if ! findmnt -fno OPTIONS /nix/store | grep ssd >/dev/null; then
+        # defrag fragmented files in /nix when the store is on HDD
+        echo "defragmenting /nix:"
+        fragment_threshold=500
 
-    exec 3> >(tee)
-    find /nix "$rwstore" -xdev ! -path "/nix/store/*" -type f | \
-        xargs -d '\n' filefrag 2>/dev/null | \
-        sed 's/^\(.*\): \([0-9]\+\) extent.*/\2 \1/' | \
-        awk -F ' ' "\$1 > $fragment_threshold" | \
-        sort -n -r | \
-        tee /dev/fd/3 | \
-        cut -d ' ' -f2 | \
-        xargs -d '\n' -r btrfs filesystem defragment -f >/dev/null
-    exec 3>&-
+        exec 3> >(tee)
+        find /nix "$rwstore" -xdev ! -path "/nix/store/*" -type f | \
+            xargs -d '\n' filefrag 2>/dev/null | \
+            sed 's/^\(.*\): \([0-9]\+\) extent.*/\2 \1/' | \
+            awk -F ' ' "\$1 > $fragment_threshold" | \
+            sort -n -r | \
+            tee /dev/fd/3 | \
+            cut -d ' ' -f2 | \
+            xargs -d '\n' -r btrfs filesystem defragment -f >/dev/null
+        exec 3>&-
+    fi
 
     # deduplicate the store
     echo "deduplicating the store:"

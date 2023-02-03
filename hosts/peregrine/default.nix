@@ -89,10 +89,6 @@ in
   ];
   modules.tmpfs-as-root.storage = "/var/persist";
   modules.btrfs-maintenance = {
-    defragMounts = [
-      "/var/persist"
-      "/var/persist/home"
-    ];
     fileSystems = [
       # scrubbling one of subvolumes scrubs the whole filesystem
       "/var/persist"

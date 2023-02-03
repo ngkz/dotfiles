@@ -9,7 +9,7 @@
       ExecStart = "${pkgs.substituteAll {
         src = ./nix-maintenance.sh;
         isExecutable = true;
-        path = with pkgs; [ coreutils nix util-linux findutils e2fsprogs gnused gawk btrfs-progs duperemove ];
+        path = with pkgs; [ coreutils nix util-linux findutils e2fsprogs gnused gawk btrfs-progs duperemove gnugrep ];
         inherit (pkgs) bash;
       }}";
       Nice = 10;
