@@ -22,7 +22,7 @@ if [[ "$(findmnt -fno FSTYPE /nix/store)" = btrfs ]]; then
     mount --bind /nix/store "$rwstore"
     mount -o remount,rw "$rwstore"
 
-    # defrag heavily defragmented files in the store
+    # defrag fragmented files in the store
     echo "defragmenting the store:"
     fragment_threshold=500
 
