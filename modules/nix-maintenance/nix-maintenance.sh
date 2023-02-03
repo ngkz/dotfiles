@@ -22,12 +22,12 @@ if [[ "$(findmnt -fno FSTYPE /nix/store)" = btrfs ]]; then
     mount --bind /nix/store "$rwstore"
     mount -o remount,rw "$rwstore"
 
-    # defrag fragmented files in the store
-    echo "defragmenting the store:"
+    # defrag fragmented files in /nix
+    echo "defragmenting /nix:"
     fragment_threshold=500
 
     exec 3> >(tee)
-    find "$rwstore" -xdev -type f | \
+    find /nix "$rwstore" -xdev ! -path "/nix/store/*" -type f | \
         xargs -d '\n' filefrag 2>/dev/null | \
         sed 's/^\(.*\): \([0-9]\+\) extent.*/\2 \1/' | \
         awk -F ' ' "\$1 > $fragment_threshold" | \
