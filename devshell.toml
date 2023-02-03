@@ -87,13 +87,13 @@ category = "system maintenance"
 [[commands]]
 help = "Build the new configuration, but neither activate it nor add it to the boot menu. It leaves a symlink result that points to the system derivation."
 name = "build"
-command = 'nix build "${PRJ_ROOT}#nixosConfigurations.$(hostname).config.system.build.toplevel"'
+command = 'nix build "${PRJ_ROOT}#nixosConfigurations.${1:-$(hostname)}.config.system.build.toplevel"'
 category = "system maintenance"
 
 [[commands]]
 help = "Build the new configuration, but neither activate it, nor add it to the boot menu, nor leave a symlink."
 name = "dry-build"
-command = 'nix build "${PRJ_ROOT}#nixosConfigurations.$(hostname).config.system.build.toplevel" --no-link'
+command = 'nix build "${PRJ_ROOT}#nixosConfigurations.${1:-$(hostname)}.config.system.build.toplevel" --no-link'
 category = "system maintenance"
 
 [[commands]]
