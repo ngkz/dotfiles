@@ -57,9 +57,6 @@ in
   # Let 'nixos-version --json' know the Git revision of this flake.
   system.configurationRevision = mkIf (self ? rev) self.rev;
 
-  # build packages on the disk
-  systemd.services.nix-daemon.environment.TMPDIR = "/nix/tmp";
-
   # Select internationalisation properties.
   i18n.defaultLocale = "ja_JP.UTF-8";
 

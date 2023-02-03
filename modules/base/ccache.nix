@@ -18,7 +18,6 @@ in
     nix.settings.extra-sandbox-paths = [ config.programs.ccache.cacheDir ];
 
     systemd.tmpfiles.rules = [
-      "d /nix/tmp 1775 root root 1d"
       "L ${config.modules.tmpfs-as-root.storage}/var/cache/ccache/ccache.conf - - - - ${./ccache.conf}"
     ];
 

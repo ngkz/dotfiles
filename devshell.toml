@@ -79,7 +79,7 @@ help = "Build and activate the new configuration"
 name = "switch"
 command = '''
 prev=$(readlink /run/current-system)
-sudo sh -c "[ -e /nix/tmp ] && export TMPDIR=/nix/tmp; nixos-rebuild switch --flake \"${PRJ_ROOT}#\" $@"
+sudo nixos-rebuild switch --flake "${PRJ_ROOT}#" "$@"
 nvd diff "$prev" /run/current-system
 '''
 category = "system maintenance"
