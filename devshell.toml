@@ -103,35 +103,6 @@ command = 'nix repl "${PRJ_ROOT}/repl.nix"'
 category = "system maintenance"
 
 [[commands]]
-help = "Remove old configurations"
-name = "clean"
-command = '''
-# Delete configurations older than last 5 generations.
-sudo nix-env --delete-generations +5 --profile /nix/var/nix/profiles/system
-# Rebuild the boot menu and regenerate secrets
-sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
-'''
-category = "system maintenance"
-
-
-[[commands]]
-help = "Remove old configurations and perform garbage collection"
-name = "deepclean"
-command = '''
-# Delete all auto gc roots
-sudo rm /nix/var/nix/gcroots/auto/*
-# Delete configurations older than last 5 generations.
-sudo nix-env --delete-generations +5 --profile /nix/var/nix/profiles/system
-# Perform garbage collection the store
-nix store gc
-# Replace identical files in the store by hard links
-nix store optimise
-# Rebuild the boot menu and regenerate secrets
-sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
-'''
-category = "system maintenance"
-
-[[commands]]
 help = "Roll back to the previous configuration"
 name = "rollback"
 command = 'sudo nixos-rebuild switch --flake "${PRJ_ROOT}#" --rollback "$@"'

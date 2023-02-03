@@ -18,6 +18,7 @@ in
     nm-config-home
     vm
     btrfs-maintenance
+    nix-maintenance
 
     common-cpu-intel
     common-pc-laptop

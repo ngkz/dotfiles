@@ -15,6 +15,7 @@ in
     sway-desktop
     vm
     btrfs-maintenance
+    nix-maintenance
 
     common-cpu-intel
     common-pc-laptop
