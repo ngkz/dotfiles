@@ -14,7 +14,7 @@ gpgPrivKey=$tmpdir/grub.key
 gpgPubKey=$tmpdir/grub.gpg
 initialCfg=$tmpdir/initial.cfg
 tmpEFI=$tmpdir/boot.efi
-fingerprintstate=/boot/grub/sigstate
+fingerprintstate=@boot@/grub/sigstate
 
 # agenix secrets are not yet available when installing bootloader
 # so we need to decrypt secrets manually
@@ -25,7 +25,6 @@ decrypt() {
     chmod 400 "$2"
     @age@ --decrypt @ageIdentities@ -o "$2" "$1"
 }
-
 
 decrypt @passwordHashSecret@ "$passwordHash"
 decrypt @secureBootCertSecret@ "$secureBootCert"
@@ -78,7 +77,11 @@ fi
 gpg --detach-sign "$initialCfg" >/dev/null
 gpg --export >"$gpgPubKey"
 
-find /boot ! -path "/boot/EFI/*" -type f | while read -r path; do
+# restore kernel signatures saved at extraPrepareConfig
+mv @boot@/kernels.bak/* @boot@/kernels
+rmdir @boot@/kernels.bak
+
+find @boot@ ! -path "@esp@/EFI/*" ! -path "$fingerprintstate" ! -path "@boot@/grub/state" -type f | while read -r path; do
     if [[ "$path" =~ (.*).sig$ ]]; then
         if [[ ! -e "${BASH_REMATCH[1]}" ]]; then
             # file removed
@@ -90,13 +93,15 @@ find /boot ! -path "/boot/EFI/*" -type f | while read -r path; do
     fi
 done
 
-echo "$fingerprint" >"$fingerprintstate"
+if [[ "$(<$fingerprintstate)" != "$fingerprint" ]]; then
+    echo "$fingerprint" >"$fingerprintstate"
+fi
 
 grub-mkstandalone \
     --format @grubTarget@ \
-    --modules "part_$(grub-probe -t partmap /boot)
-               $(grub-probe -t abstraction /boot)
-               $(grub-probe -t fs /boot)
+    --modules "part_$(grub-probe -t partmap @boot@)
+               $(grub-probe -t abstraction @boot@)
+               $(grub-probe -t fs @boot@)
                pgp gcry_sha512 gcry_rsa
                password_pbkdf2
                configfile
@@ -109,4 +114,4 @@ grub-mkstandalone \
     "boot/grub/grub.cfg.sig=${initialCfg}.sig"
 
 sbsign --cert "$secureBootCert" --key "$secureBootKey" \
-        --output @efiPath@ "$tmpEFI"
+        --output @efiFile@ "$tmpEFI"
