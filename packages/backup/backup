@@ -40,6 +40,7 @@ EXCLUDES=(
     "var/lib/systemd/random-seed"
     "var/lib/systemd/coredump"
     "home/*/.local/share/TauonMusicBox/scaled-icons"
+    "home/*/.android/adb.*"
 )
 LOGGER_PIPE=$TMPDIR/logger
 
