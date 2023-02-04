@@ -241,15 +241,6 @@ backup() {
         fi
     fi
 
-    if [[ $CHECK -ne 0 ]]; then
-        log "checking repository"
-        if ! borg check ::; then
-            umount_dest
-            log_output_stop
-            return 1
-        fi
-    fi
-
     log "deleting old backups"
     if ! borg prune --list --glob-archives "${ARCHIVE_PREFIX}*" $PRUNE_CONFIG ::; then
         umount_dest
@@ -261,6 +252,15 @@ backup() {
         umount_dest
         log_output_stop
         return 1
+    fi
+
+    if [[ $CHECK -ne 0 ]]; then
+        log "checking repository"
+        if ! borg check ::; then
+            umount_dest
+            log_output_stop
+            return 1
+        fi
     fi
 
     if [[ $(LC_MESSAGES=C df -h "$DEST_MOUNTPOINT" | awk '!/Filesystem/ { sub(/%/, "", $5); print $5 }') -ge 95 ]]; then
