@@ -68,7 +68,7 @@ gpg --import "$gpgPrivKey" &>/dev/null
 
 fingerprint=$(gpg --list-keys --with-fingerprint --with-colons | awk -F: '/^fpr/ { print $10 }')
 
-if [[ ! -e "$fingerprintstate" ]] || [[ "$(<$fingerprintstate)" != "$fingerprint" ]]; then
+if [[ ! -e "$fingerprintstate" ]] || [[ "$(cat <$fingerprintstate 2>/dev/null)" != "$fingerprint" ]]; then
     gpgKeyChanged=1
 else
     gpgKeyChanged=
@@ -93,7 +93,7 @@ find @boot@ ! -path "@esp@/EFI/*" ! -path "$fingerprintstate" ! -path "@boot@/gr
     fi
 done
 
-if [[ "$(<$fingerprintstate)" != "$fingerprint" ]]; then
+if [[ "$(cat <$fingerprintstate 2>/dev/null)" != "$fingerprint" ]]; then
     echo "$fingerprint" >"$fingerprintstate"
 fi
 
