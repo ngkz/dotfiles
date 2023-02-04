@@ -20,6 +20,7 @@
 
   systemd.timers.nix-maintenance = {
     description = "Timer to run nix maintainance tasks automatically";
+    wantedBy = [ "timers.target" ];
     timerConfig = {
       OnCalendar = "weekly";
       AccuracySec = "1h";
