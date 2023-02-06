@@ -678,7 +678,7 @@ in
     tpm2-tools
     efitools
 
-    qgnomeplatform
+    qgnomeplatform # qt gnome platform theme
     gnome.dconf-editor
     gnome.gnome-font-viewer
     ngkz.freecad-realthunder
