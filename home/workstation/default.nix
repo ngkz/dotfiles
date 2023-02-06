@@ -616,6 +616,10 @@ in
       package = pkgs.bibata-extra-cursors;
       name = "Bibata-Original-DarkRed";
     };
+    font = {
+      name = "Sans-Serif";
+      size = 10;
+    };
     theme = {
       name = "Adwaita-dark";
     };
