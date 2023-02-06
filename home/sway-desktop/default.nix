@@ -43,7 +43,7 @@ in
       fonts = {
         names = [ "Sans-Serif" ];
         style = "Regular";
-        size = 10.0;
+        size = 9.5;
       };
       bars = [ ];
       colors.focused = {
