@@ -612,6 +612,13 @@ in
 
   gtk = {
     enable = true;
+    cursorTheme = {
+      package = pkgs.bibata-extra-cursors;
+      name = "Bibata-Original-DarkRed";
+    };
+    theme = {
+      name = "Adwaita-dark";
+    };
     gtk3.bookmarks = [
       "file:///home/user/docs docs"
       "file:///home/user/pics pics"
@@ -622,6 +629,15 @@ in
       "file:///home/user/work work"
       "file:///home/user/misc misc"
     ];
+  };
+
+  qt = {
+    enable = true;
+    platformTheme = "gnome";
+    style = {
+      package = pkgs.adwaita-qt;
+      name = "adwaita-dark";
+    };
   };
 
   home.packages = with pkgs; [
@@ -658,6 +674,7 @@ in
     tpm2-tools
     efitools
 
+    qgnomeplatform
     gnome.dconf-editor
     gnome.gnome-font-viewer
     ngkz.freecad-realthunder

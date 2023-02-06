@@ -39,7 +39,7 @@
     {
       "greetd/sway-config".text = ''
         output * bg ${background} fill
-        seat seat0 xcursor_theme Adwaita
+        seat seat0 xcursor_theme ${config.home-manager.users.user.gtk.cursorTheme.name}
         exec "GTK_THEME=Adwaita:dark ${pkgs.greetd.gtkgreet}/bin/gtkgreet -s /etc/greetd/gtkgreet.css; swaymsg exit"
         bindsym Mod4+shift+e exec ${pkgs.ngkz.hotkey-scripts}/bin/powermenu greeter
         default_border none

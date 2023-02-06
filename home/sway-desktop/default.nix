@@ -160,7 +160,7 @@ in
       };
       seat = {
         "*" = {
-          xcursor_theme = "Adwaita";
+          xcursor_theme = config.gtk.cursorTheme.name;
         };
       };
       window.commands = [
