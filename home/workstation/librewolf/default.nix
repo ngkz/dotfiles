@@ -22,6 +22,7 @@
       "browser.startup.page" = 3;
 
       "signon.rememberSignons" = false;
+      "browser.compactmode.show" = true;
     };
   };
 
