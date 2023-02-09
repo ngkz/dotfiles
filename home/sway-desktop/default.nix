@@ -241,7 +241,7 @@ in
           "--clock"
           "--datestr \"%%Y-%%m-%%d %%a\""
           "--image ${./wallpapers/DSC01320.JPG}"
-          "--indicator-radius 200"
+          "--indicator-radius 175"
           "--indicator-thickness 10"
           "--ring-color c5c8c6"
           "--ring-ver-color d00029"
