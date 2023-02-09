@@ -41,7 +41,7 @@ in
       terminal = foot;
       menu = "${wofi} --show drun --allow-images --columns 3 --lines 15 --cache-file ${config.xdg.cacheHome}/wofi/drun --insensitive";
       fonts = {
-        names = [ "Sans-Serif" ];
+        names = [ "Sans Serif" ];
         style = "Medium";
         size = 9.5;
       };
