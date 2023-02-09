@@ -42,7 +42,7 @@ in
       menu = "${wofi} --show drun --allow-images --columns 3 --lines 15 --cache-file ${config.xdg.cacheHome}/wofi/drun --insensitive";
       fonts = {
         names = [ "Sans-Serif" ];
-        style = "Regular";
+        style = "Medium";
         size = 9.5;
       };
       bars = [ ];
@@ -204,7 +204,7 @@ in
       bindswitch --reload --locked lid:off output LVDS-1 enable, output eDP-1 enable
 
       # XXX workaround for home-manager #2806
-      exec ${pkgs.ngkz.sway-systemd}/libexec/sway-systemd/session.sh --with-cleanup --add-env=SDL_VIDEODRIVER --add-env=_JAVA_AWT_WM_NONREPARENTING --add-env=CLUTTER_BACKEND --add-env=MOZ_ENABLE_WAYLAND --add-env=NIXOS_OZONE_WL --add-env=GTK_IM_MODULE  --add-env=QT_IM_MODULE --add-env=XMODIFIERS --add-env=QT_QPA_PLATFORMTHEME --add-env=QT_STYLE_OVERRIDE
+      exec ${pkgs.ngkz.sway-systemd}/libexec/sway-systemd/session.sh --with-cleanup --add-env=SDL_VIDEODRIVER --add-env=_JAVA_AWT_WM_NONREPARENTING --add-env=CLUTTER_BACKEND --add-env=MOZ_ENABLE_WAYLAND --add-env=NIXOS_OZONE_WL --add-env=GTK_IM_MODULE  --add-env=QT_IM_MODULE --add-env=XMODIFIERS --add-env=QT_QPA_PLATFORMTHEME
 
       # XXX workaround for kanshi #35
       exec_always systemctl restart --user kanshi

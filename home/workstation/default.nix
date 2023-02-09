@@ -3,6 +3,11 @@ let
   inherit (lib.ngkz) rot13;
   iniFormat = pkgs.formats.ini { };
   paplay = "${pkgs.pulseaudio}/bin/paplay";
+  vimix-theme = pkgs.vimix-gtk-themes.override {
+    themeVariants = [ "ruby" ];
+    colorVariants = [ "dark" ];
+    sizeVariants = [ "compact" ];
+  };
 in
 {
   imports = [
@@ -608,6 +613,17 @@ in
     "org/nemo/window-state" = {
       sidebar-bookmark-breakpoint = 8;
     };
+
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark"; # GTK4 dark theme
+      enable-animations = true;
+      document-font-name = "Sans Serif 9";
+      monospace-font-name = "Monospace 9";
+    };
+
+    "org/gnome/desktop/wm/preferences" = {
+      button-layout = ":"; # hide window buttons
+    };
   };
 
   gtk = {
@@ -618,10 +634,15 @@ in
     };
     font = {
       name = "Sans-Serif";
-      size = 10;
+      size = 9;
     };
     theme = {
-      name = "Adwaita-dark";
+      package = vimix-theme;
+      name = "vimix-dark-compact-ruby";
+    };
+    iconTheme = {
+      package = pkgs.vimix-icon-theme;
+      name = "Vimix-Ruby-dark";
     };
     gtk3.bookmarks = [
       "file:///home/user/docs docs"
@@ -633,15 +654,28 @@ in
       "file:///home/user/work work"
       "file:///home/user/misc misc"
     ];
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
   };
 
-  qt = {
-    enable = true;
-    platformTheme = "gnome";
-    style = {
-      package = pkgs.adwaita-qt;
-      name = "adwaita-dark";
-    };
+  xdg.configFile."gtk-4.0/assets".source = "${vimix-theme}/share/themes/vimix-dark-compact-ruby/gtk-4.0/assets";
+  xdg.configFile."gtk-4.0/gtk.css".source = "${vimix-theme}/share/themes/vimix-dark-compact-ruby/gtk-4.0/gtk.css";
+  xdg.configFile."gtk-4.0/gtk-dark.css".source = "${vimix-theme}/share/themes/vimix-dark-compact-ruby/gtk-4.0/gtk-dark.css";
+
+  home.sessionVariables.QT_QPA_PLATFORMTHEME = "qt5ct";
+  xdg.configFile."qt5ct/qt5ct.conf".source = ./qt5ct.conf;
+
+  xdg.configFile."Kvantum/VimixRuby".source =
+    pkgs.fetchFromGitHub
+      {
+        owner = "vinceliuice";
+        repo = "vimix-kde";
+        rev = "29c43163eb099e4046f4bf32da984c2dda6e4c5c";
+        sha256 = "DLwZ6vfmZmSP3pv1hKbEX4KKg/iue+i2snfQpK60MKo=";
+      } + "/Kvantum/VimixRuby";
+  xdg.configFile."Kvantum/kvantum.kvconfig".source = iniFormat.generate "kvantum.kvconfig" {
+    General.theme = "VimixRubyDark";
   };
 
   home.packages = with pkgs; [
@@ -678,7 +712,8 @@ in
     tpm2-tools
     efitools
 
-    qgnomeplatform # qt gnome platform theme
+    libsForQt5.qt5ct
+    libsForQt5.qtstyleplugin-kvantum
     gnome.dconf-editor
     gnome.gnome-font-viewer
     ngkz.freecad-realthunder

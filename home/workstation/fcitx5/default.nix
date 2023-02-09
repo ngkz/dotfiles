@@ -14,4 +14,12 @@
   home.tmpfs-as-home.persistentDirs = [
     ".config/mozc"
   ];
+
+  systemd.user.services.fcitx5-daemon = {
+    Service = {
+      Environment = [
+        "PATH=/etc/profiles/per-user/%u/bin" # XXX Qt find plugins from PATH
+      ];
+    };
+  };
 }
