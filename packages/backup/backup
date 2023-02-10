@@ -41,6 +41,7 @@ EXCLUDES=(
     "var/lib/systemd/coredump"
     "home/*/.local/share/TauonMusicBox/scaled-icons"
     "home/*/.android/adb.*"
+    "home/*/.FreeCAD/webdatapersistent"
 )
 LOGGER_PIPE=$TMPDIR/logger
 
