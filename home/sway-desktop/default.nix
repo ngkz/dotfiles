@@ -383,8 +383,8 @@ in
       };
       scripts = {
         sound = {
-          app-name = "^(?!volume|brightness|Tauon Music Box)$";
-          summary = "^(?!Command completed in )";
+          app-name = "^(?!volume|brightness|Tauon Music Box)(.*)$";
+          summary = "^(?!Command completed in )(.*)";
           exec = "${pkgs.pulseaudio}/bin/paplay ${./airplane-announcement.ogg}";
         };
       };
