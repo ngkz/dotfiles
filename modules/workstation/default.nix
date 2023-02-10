@@ -177,4 +177,6 @@
       onCalendar = "hourly";
     };
   };
+
+  xdg.sounds.enable = true;
 }

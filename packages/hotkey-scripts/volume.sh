@@ -1,7 +1,7 @@
 #!@bash@/bin/bash
 set -euo pipefail
 
-export PATH=@pulseaudio@/bin:@libnotify@/bin:@gawk@/bin
+export PATH=@path@
 
 is_mute() {
   if [ "$(LC_MESSAGES=C pactl get-sink-mute @DEFAULT_SINK@)" = "Mute: yes" ]; then
@@ -50,4 +50,4 @@ fi
 
 notify-send -a volume -i "$icon" $vol_opt -h string:synchronous:volume -t 3000 -e "$summary" "$body"
 # TODO use sound-name hint after swaynotificationcenter#58
-paplay @soundThemeFreedesktop@/share/sounds/freedesktop/stereo/audio-volume-change.oga
+canberra-gtk-play -i audio-volume-change

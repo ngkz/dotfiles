@@ -1,4 +1,5 @@
-{ stdenvNoCC
+{ lib
+, stdenvNoCC
 , bash
 , coreutils
 , pulseaudio
@@ -17,6 +18,7 @@
 , swappy
 , imv
 , gnused
+, libcanberra-gtk3
 , ...
 }:
 stdenvNoCC.mkDerivation rec {
@@ -32,7 +34,10 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/bin
-    substituteAll ${./volume.sh} $out/bin/volume
+    substitute \
+      ${./volume.sh} $out/bin/volume \
+      --subst-var bash \
+      --subst-var-by path "${lib.makeBinPath [pulseaudio libnotify gawk libcanberra-gtk3]}"
     substituteAll ${./micmute.sh} $out/bin/micmute
     substituteAll ${./brightness.sh} $out/bin/brightness
     substituteAll ${./powermenu.sh} $out/bin/powermenu
