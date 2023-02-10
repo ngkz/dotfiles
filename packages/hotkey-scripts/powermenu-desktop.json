@@ -1,0 +1,32 @@
+[
+ {
+   "name": "Lock",
+   "exec": "loginctl lock-session",
+   "icon": "system-lock-screen"
+ },
+ {
+   "name": "Logout",
+   "exec": "swaymsg exit",
+   "icon": "system-log-out"
+ },
+ {
+   "name": "Shutdown",
+   "exec": "systemctl -i poweroff",
+   "icon": "system-shutdown"
+ },
+ {
+   "name": "Reboot",
+   "exec": "systemctl reboot",
+   "icon": "system-reboot"
+ },
+ {
+   "name": "Suspend",
+   "exec": "systemctl suspend",
+   "icon": "system-suspend"
+ },
+ {
+   "name": "Hibernate",
+   "exec": "systemctl hibernate",
+   "icon": "system-suspend-hibernate"
+ }
+]

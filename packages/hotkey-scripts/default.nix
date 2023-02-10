@@ -18,6 +18,7 @@
 , xdg-utils
 , gnused
 , libcanberra-gtk3
+, nwg-launchers
 , ...
 }:
 stdenvNoCC.mkDerivation rec {
@@ -40,7 +41,9 @@ stdenvNoCC.mkDerivation rec {
                --subst-var-by path "${lib.makeBinPath [light libnotify coreutils]}"
     substitute ${./powermenu.sh} $out/bin/powermenu \
                --subst-var bash \
-               --subst-var-by path "${lib.makeBinPath [coreutils wofi gawk systemd sway]}"
+               --subst-var-by path "${lib.makeBinPath [nwg-launchers systemd sway]}" \
+               --subst-var-by template-desktop ${./powermenu-desktop.json} \
+               --subst-var-by template-greeter  ${./powermenu-greeter.json}
     substitute ${./screenshot.sh} $out/bin/screenshot \
                --subst-var bash \
                --subst-var-by path "${lib.makeBinPath [wofi coreutils grim slurp wl-clipboard
