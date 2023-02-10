@@ -374,6 +374,7 @@ in
   #swaync
   xdg.configFile."swaync/config.json" = {
     text = builtins.toJSON {
+      widgets = [ "title" "dnd" "mpris" "notifications" ];
       notification-visibility = {
         bluetooth = {
           state = "transient";

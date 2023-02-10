@@ -2,7 +2,7 @@
 let
   inherit (lib.ngkz) rot13;
   iniFormat = pkgs.formats.ini { };
-  paplay = "${pkgs.pulseaudio}/bin/paplay";
+  canberra-gtk-play = "${pkgs.libcanberra-gtk3}/bin/canberra-gtk-play";
   vimix-theme = pkgs.vimix-gtk-themes.override {
     themeVariants = [ "ruby" ];
     colorVariants = [ "dark" ];
@@ -85,7 +85,7 @@ in
 
       bell = {
         urgent = "yes";
-        command = "${paplay} ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/complete.oga";
+        command = "${canberra-gtk-play} -i bell";
         command-focused = "yes";
       };
 
