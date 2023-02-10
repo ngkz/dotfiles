@@ -1,7 +1,7 @@
 #!@bash@/bin/bash
 set -euo pipefail
 
-PATH=@light@/bin:@libnotify@/bin:@coreutils@/bin
+PATH=@path@
 
 case "$1" in
 up)

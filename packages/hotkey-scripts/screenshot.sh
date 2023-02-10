@@ -25,7 +25,7 @@
 
 set -euo pipefail
 
-PATH=@wofi@/bin:@coreutils@/bin:@grim@/bin:@slurp@/bin:@wlClipboard@/bin:@xdgUserDirs@/bin:@swappy@/bin:@sway@/bin:@jq@/bin:@libnotify@/bin:@imv@/bin
+PATH=@path@:$PATH
 
 choice=$(wofi --dmenu -i -p "Select area" --cache-file /dev/null <<EOS
 All screens
@@ -70,7 +70,7 @@ Save)
   mkdir -p "$(dirname "$out")"
   cp "$tmp" "$out"
   if [ "$(notify-send -u low -e -A "show=Show" "Screenshot taken" "$out")" = show ]; then
-    imv "$out"
+    xdg-open "$out"
   fi
   ;;
 Copy)

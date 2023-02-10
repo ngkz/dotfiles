@@ -1,7 +1,7 @@
 #!@bash@/bin/bash
 # xmonad-style workspace switching
 set -euo pipefail
-PATH=@coreutils@/bin:@jq@/bin:@sway@/bin:@gnused@/bin
+PATH=@path@
 
 workspace_want_name=$1
 workspaces=$(swaymsg -t get_workspaces)

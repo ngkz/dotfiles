@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-PATH=@coreutils@/bin:@wofi@/bin:@gawk@/bin:@systemd@/bin:@sway@/bin
+PATH=@path@
 
 menu=" Poweroff
 ‎ﰇ Reboot

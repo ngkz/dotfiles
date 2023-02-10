@@ -1,7 +1,7 @@
 #!@bash@/bin/bash
 # XMonad-like monitor switching
 set -euo pipefail
-PATH=@jq@/bin:@sway@/bin
+PATH=@path@
 
 operation=$1
 index=$2

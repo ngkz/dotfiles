@@ -1,7 +1,7 @@
 #!@bash@/bin/bash
 set -euo pipefail
 
-export PATH=@path@
+PATH=@path@
 
 is_mute() {
   if [ "$(LC_MESSAGES=C pactl get-sink-mute @DEFAULT_SINK@)" = "Mute: yes" ]; then

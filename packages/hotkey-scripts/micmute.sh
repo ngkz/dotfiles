@@ -1,7 +1,7 @@
 #!@bash@/bin/bash
 set -euo pipefail
 
-PATH=@pulseaudio@/bin:@libnotify@/bin:@gawk@/bin
+PATH=@path@
 
 pactl set-source-mute @DEFAULT_SOURCE@ toggle
 if [ "$(LC_MESSAGES=C pactl get-source-mute @DEFAULT_SOURCE@)" = "Mute: yes" ]; then

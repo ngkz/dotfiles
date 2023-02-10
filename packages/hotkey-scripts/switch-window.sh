@@ -1,7 +1,7 @@
 #!@bash@/bin/bash
 # Based on https://gist.github.com/lbonn/89d064cde963cfbacabd77e0d3801398?permalink_comment_id=4181591#gistcomment-4181591
 
-PATH=@wofi@/bin:@sway@/bin:@jq@/bin:@gnused@/bin
+PATH=@path@
 
 row=$(swaymsg -t get_tree | jq  -r '
     ..
