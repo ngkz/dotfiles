@@ -666,14 +666,7 @@ in
   home.sessionVariables.QT_QPA_PLATFORMTHEME = "qt5ct";
   xdg.configFile."qt5ct/qt5ct.conf".source = ./qt5ct.conf;
 
-  xdg.configFile."Kvantum/VimixRuby".source =
-    pkgs.fetchFromGitHub
-      {
-        owner = "vinceliuice";
-        repo = "vimix-kde";
-        rev = "29c43163eb099e4046f4bf32da984c2dda6e4c5c";
-        sha256 = "DLwZ6vfmZmSP3pv1hKbEX4KKg/iue+i2snfQpK60MKo=";
-      } + "/Kvantum/VimixRuby";
+  xdg.configFile."Kvantum/VimixRuby".source ="${pkgs.ngkz.vimix-kde}/share/Kvantum/VimixRuby";
   xdg.configFile."Kvantum/kvantum.kvconfig".source = iniFormat.generate "kvantum.kvconfig" {
     General.theme = "VimixRubyDark";
   };
