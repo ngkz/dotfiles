@@ -30,4 +30,5 @@
       scipy
       shiboken2;
   };
+  vimix-kde = pkgs.callPackage ./vimix-kde { };
 }
