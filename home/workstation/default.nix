@@ -264,7 +264,7 @@ in
 
   #hyfetch
   xdg.configFile."hyfetch.json".text = builtins.toJSON {
-    preset = "demiboy";
+    preset = "gendernonconforming2";
     mode = "rgb";
     light_dark = "dark";
     lightness = 0.5;
