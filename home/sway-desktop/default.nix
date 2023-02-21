@@ -395,6 +395,14 @@ in
       fi
     '';
   };
+  xdg.configFile."swaync/style.css" = {
+    source = ./swaync.css;
+    onChange = ''
+      if ${pgrep} -u $(id -u) -x swaync; then
+        ${swaync-client} --reload-css
+      fi
+    '';
+  };
 
   # polkit authentication agent
   systemd.user.services.polkit-gnome = {
