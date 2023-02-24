@@ -1,16 +1,16 @@
-{ lib, config, pkgs, ... }:
+{ inputs, lib, config, pkgs, ... }:
 let
   inherit (lib.ngkz) rot13;
   canberra-gtk-play = "${pkgs.libcanberra-gtk3}/bin/canberra-gtk-play";
 in
 {
   imports = [
+    inputs.self.homeManagerModules.theming
     ./direnv.nix
     ./fcitx5
     ./ungoogled-chromium.nix
     ./syncthing.nix
     ./librewolf
-    ../theming
   ];
 
   # XDG user dirs
