@@ -1,5 +1,5 @@
 # sway + greetd
-{ config, pkgs, lib, ... }:
+{ inputs, config, pkgs, lib, ... }:
 {
   # Sway wayland tiling compositor
   programs.sway = {
@@ -39,8 +39,8 @@
     {
       "greetd/sway-config".text = ''
         output * bg ${background} fill
-        seat seat0 xcursor_theme ${config.home-manager.users.user.gtk.cursorTheme.name}
-        exec "GTK_THEME=Adwaita:dark ${pkgs.greetd.gtkgreet}/bin/gtkgreet -s /etc/greetd/gtkgreet.css; swaymsg exit"
+        seat seat0 xcursor_theme ${config.home-manager.users.greeter.gtk.cursorTheme.name}
+        exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -s /etc/greetd/gtkgreet.css; swaymsg exit"
         bindsym Mod4+shift+e exec ${pkgs.ngkz.hotkey-scripts}/bin/powermenu greeter
         default_border none
         include /etc/sway/config.d/*
@@ -75,6 +75,20 @@
       };
     };
     restart = false;
+  };
+
+  users.users.greeter = {
+    home = "/run/greeter";
+    createHome = true;
+  };
+
+  nix.settings.allowed-users = [ "greeter" ];
+
+  home-manager.users.greeter = {
+    imports = with inputs.self.homeManagerModules; [
+      core
+      theming
+    ];
   };
 
   environment.systemPackages = with pkgs; [
