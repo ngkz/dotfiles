@@ -3,7 +3,7 @@
 {
   overlays = with self.overlays; [
     agenix.overlays.default # add agenix package
-    devshell.overlay
+    devshell.overlays.default
     packages
     sway-im
     fcitx5
