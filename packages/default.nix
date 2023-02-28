@@ -1,6 +1,14 @@
 { pkgs, inputs }:
 {
-  sway-systemd = pkgs.callPackage ./sway-systemd { };
+  sway-systemd = pkgs.callPackage ./sway-systemd {
+    inherit (pkgs.python3Packages)
+      wrapPython
+      dbus-next
+      i3ipc
+      psutil
+      tenacity
+      xlib;
+  };
   sway-im-unwrapped = pkgs.callPackage ./sway-im-unwrapped { };
   fcitx5-mozc-ut = pkgs.callPackage ./fcitx5-mozc-ut { };
   sarasa-term-j-nerd-font = pkgs.callPackage ./sarasa-term-j-nerd-font { };
