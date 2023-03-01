@@ -13,6 +13,7 @@
 , tenacity
 , xlib
 , makeWrapper
+, python3
 , wrapPython
 , cgroups ? false
 , autostart ? false
@@ -58,6 +59,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     systemd
+    python3
   ];
 
   nativeBuildInputs = [
@@ -69,6 +71,7 @@ stdenv.mkDerivation rec {
   ];
 
   postInstall = ''
+    patchShebangs $out/libexec/sway-systemd/*
     wrapProgram $out/libexec/sway-systemd/session.sh --prefix PATH : ${lib.makeBinPath [ systemd dbus sway ]}
     wrapPythonProgramsIn $out/libexec/sway-systemd "$pythonPath"
   '';
