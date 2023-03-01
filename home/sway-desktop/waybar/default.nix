@@ -271,11 +271,7 @@ in
 
     Service = {
       Type = "oneshot";
-      ExecStart = "${pkgs.substituteAll {
-        src = ./wait-tray-ready.sh;
-        isExecutable = true;
-        inherit (pkgs) bash coreutils gnugrep dbus;
-      }}";
+      ExecStart = "${pkgs.ngkz.sway-systemd-autostart}/libexec/sway-systemd/wait-sni-ready";
       RemainAfterExit = true;
     };
 

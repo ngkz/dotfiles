@@ -1,5 +1,5 @@
 { pkgs, inputs }:
-{
+rec {
   sway-systemd = pkgs.callPackage ./sway-systemd {
     inherit (pkgs.python3Packages)
       wrapPython
@@ -9,6 +9,7 @@
       tenacity
       xlib;
   };
+  sway-systemd-autostart = sway-systemd.override { autostart = true; };
   sway-im-unwrapped = pkgs.callPackage ./sway-im-unwrapped { };
   fcitx5-mozc-ut = pkgs.callPackage ./fcitx5-mozc-ut { };
   sarasa-term-j-nerd-font = pkgs.callPackage ./sarasa-term-j-nerd-font { };
