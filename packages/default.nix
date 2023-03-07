@@ -11,7 +11,6 @@ rec {
   };
   sway-systemd-autostart = sway-systemd.override { autostart = true; };
   sway-im-unwrapped = pkgs.callPackage ./sway-im-unwrapped { };
-  fcitx5-mozc-ut = pkgs.callPackage ./fcitx5-mozc-ut { };
   sarasa-term-j-nerd-font = pkgs.callPackage ./sarasa-term-j-nerd-font { };
   blobmoji-fontconfig = pkgs.callPackage ./blobmoji-fontconfig { };
   chromium-extension-ublock0 = pkgs.callPackage ./chromium-extension-ublock0 { };
