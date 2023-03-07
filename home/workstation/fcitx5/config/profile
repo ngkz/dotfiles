@@ -4,7 +4,7 @@ Name=デフォルト
 # Layout
 Default Layout=us
 # Default Input Method
-DefaultIM=mozc
+DefaultIM=skk
 
 [Groups/0/Items/0]
 # Name
@@ -14,7 +14,7 @@ Layout=
 
 [Groups/0/Items/1]
 # Name
-Name=mozc
+Name=skk
 # Layout
 Layout=
 

@@ -26,7 +26,7 @@ in
     ];
 
     modules.ccache.packagePaths = [
-      [ "ngkz" "fcitx5-mozc-ut" ]
+      [ "ngkz" "fcitx5-skk" ]
       [ "ngkz" "sway-im-unwrapped" ]
       [ "ngkz" "freecad-realthunder" ]
     ];

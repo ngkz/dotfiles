@@ -42,9 +42,9 @@ EnumerateGroupBackwardKeys=
 
 [Behavior]
 # デフォルトで有効にする
-ActiveByDefault=False
+ActiveByDefault=True
 # 入力状態を共有する
-ShareInputState=No
+ShareInputState=All
 # アプリケーションにプリエディットを表示する
 PreeditEnabledByDefault=True
 # 入力メソッドを切り替える際に入力メソッドの情報を表示する
@@ -63,10 +63,9 @@ OverrideXkbOption=False
 CustomXkbOption=
 # Force Enabled Addons
 EnabledAddons=
-# Force Disabled Addons
-DisabledAddons=
 # Preload input method to be used by default
 PreloadInputMethod=True
 
 [Behavior/DisabledAddons]
 0=clipboard
+
