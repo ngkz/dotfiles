@@ -1,6 +1,8 @@
 [Hotkey]
 # トリガーキーを押すたびに切り替える
 EnumerateWithTriggerKeys=True
+# 一時的に第1入力メソッドに切り替える
+AltTriggerKeys=
 # 次の入力メソッドに切り替える
 EnumerateForwardKeys=
 # 前の入力メソッドに切り替える
@@ -15,9 +17,6 @@ EnumerateGroupBackwardKeys=
 [Hotkey/TriggerKeys]
 0=Zenkaku_Hankaku
 1=Hangul
-
-[Hotkey/AltTriggerKeys]
-0=Shift_L
 
 [Hotkey/ActivateKeys]
 0=Henkan
