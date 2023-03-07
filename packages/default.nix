@@ -40,4 +40,8 @@ rec {
       shiboken2;
   };
   vimix-kde = pkgs.callPackage ./vimix-kde { };
+  fcitx5-skk = pkgs.libsForQt5.callPackage ./fcitx5-skk {
+    inherit skk-dicts;
+  };
+  skk-dicts = pkgs.callPackage ./skk-dicts { };
 }
