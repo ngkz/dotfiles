@@ -16,6 +16,7 @@ in
     vm
     btrfs-maintenance
     nix-maintenance
+    zswap
 
     common-cpu-intel
     common-pc-laptop
