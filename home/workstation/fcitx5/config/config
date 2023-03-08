@@ -41,7 +41,7 @@ EnumerateGroupBackwardKeys=
 
 [Behavior]
 # デフォルトで有効にする
-ActiveByDefault=True
+ActiveByDefault=False
 # 入力状態を共有する
 ShareInputState=All
 # アプリケーションにプリエディットを表示する
