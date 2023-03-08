@@ -152,6 +152,13 @@ in
     fi
   '';
 
+  # use bbr congestion control algorithm
+  boot.kernelModules = [ "tcp_bbr" ];
+  boot.kernel.sysctl = {
+    "net.ipv4.tcp_congestion_control" = "bbr";
+    "net.core.default_qdisc" = "cake";
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
