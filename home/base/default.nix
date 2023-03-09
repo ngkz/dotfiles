@@ -91,8 +91,6 @@
     plugins = with pkgs.vimPlugins; [
       base16-vim
       indentLine
-      nerdtree
-      nerdtree-git-plugin
       vim-commentary
       vim-endwise
       vim-gitgutter
@@ -129,6 +127,8 @@
         src = ./vim-dis;
         dontBuild = true;
       })
+      nvim-web-devicons # nvim-tree-lua icons
+      nvim-tree-lua
     ];
     extraPackages = with pkgs; [
       fzf

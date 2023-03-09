@@ -292,8 +292,14 @@ match ExtraWhitespace '\s\+$'
 let g:is_posix = 1
 " }}}
 
-" Nerd Tree config {{{
-nnoremap <silent><leader>n :NERDTreeToggle<CR>
+" nvim-tree config {{{
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+set termguicolors
+lua << EOF
+require("nvim-tree").setup()
+EOF
+nnoremap <silent><leader>n :NvimTreeToggle<CR>
 " }}}
 
 " fzf.vim config {{{
