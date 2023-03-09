@@ -124,6 +124,11 @@
       fzf-vim
       vim-surround
       bclose-vim
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "vim-dis";
+        src = ./vim-dis;
+        dontBuild = true;
+      })
     ];
     extraPackages = with pkgs; [
       fzf
