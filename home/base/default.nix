@@ -129,6 +129,7 @@
       })
       nvim-web-devicons # nvim-tree-lua icons
       nvim-tree-lua
+      editorconfig-vim
     ];
     extraPackages = with pkgs; [
       fzf

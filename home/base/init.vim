@@ -375,6 +375,10 @@ EOF
 nnoremap <silent><leader>n :NvimTreeToggle<CR>
 " }}}
 
+" editorconfig-vim config {{{
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+" }}}
+
 " fzf.vim config {{{
 call s:check_exec('fzf')
 call s:check_exec(['fdfind', 'fd'])
