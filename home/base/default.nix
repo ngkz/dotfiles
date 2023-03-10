@@ -130,6 +130,7 @@
       nvim-web-devicons # nvim-tree-lua icons
       nvim-tree-lua
       editorconfig-vim
+      vim-expand-region
     ];
     extraPackages = with pkgs; [
       fzf
