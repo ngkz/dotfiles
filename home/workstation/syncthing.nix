@@ -84,7 +84,7 @@ in
           id = "pics-phone-dcim";
           label = "~/pics/phone-dcim";
           path = "${config.home.tmpfs-as-home.storage}/pics/phone-dcim";
-          devices = personal;
+          devices = all;
         }
         {
           id = "videos";
