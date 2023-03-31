@@ -648,7 +648,7 @@ in
     gnome.gnome-font-viewer
     ngkz.freecad-realthunder
     gimp
-    gscan2pdf # scanning tool
+    #gscan2pdf # scanning tool FIXME temporary build failure
     imv
     inkscape
     keepassxc
