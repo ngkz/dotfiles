@@ -70,6 +70,11 @@
 " .: 前回の操作を繰り返す
 " / -> cgn -> n.n.n.n. で簡単に置換
 " vで選択 -> p: 選択範囲にペーストして上書き
+" gS: 文を複数行に分割
+" gJ: 文を1行に結合
+" z_ カーソルがあるもの以外すべてのfoldを閉じる
+" z[, z] markerを挿入
+" [z, ]z カーソルのあるfoldの先頭/末尾にジャンプ
 
 " options {{{
 " turn off vi compatible mode (vim default: on when a vimrc or gvimrc file
@@ -444,35 +449,11 @@ augroup HelpSmartSplit
 augroup END
 " }}}
 
-" smart split terminal {{{
-function! s:smart_split_term(cmd)
-    if winwidth(0) >= 80 * 2
-        vsplit
-    else
-        split
-    endif
-    execute 'terminal ' . a:cmd
-    normal i
-endfunction
-
-function! s:quickrun(runner)
-    let tmpfile = tempname()
-    call writefile(getline(1, '$'), tmpfile)
-    echom tmpfile
-    call s:smart_split_term(a:runner . ' ' . shellescape(tmpfile) . '; rm -f ' . shellescape(tmpfile))
-endfunction
-" }}}
 
 " rust.vim config {{{
 let g:rust_fold = 1 "Braced blocks are folded. All folds are open by default.
 let g:rustfmt_autosave = 1
 let g:rustfmt_fail_silently = 1
-" }}}
-
-" auto-pairs config {{{
-let g:AutoPairsFlyMode = 0
-let g:AutoPairsMapSpace = 0
-let g:AutoPairsShortcutBackInsert = ''
 " }}}
 
 " FlyGrep.vim config {{{
@@ -548,10 +529,6 @@ augroup Folding
 augroup END
 " }}}
 
-" braceless.vim config {{{
-autocmd FileType python BracelessEnable +indent +fold
-" }}}
-
 " indentLine config {{{
 let g:indentLine_concealcursor = ''
 " }}}
@@ -560,6 +537,97 @@ let g:indentLine_concealcursor = ''
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_cd_cmd = 'lcd'
 let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/', 'Cargo.toml', 'setup.py', 'env/', 'Gemfile']
+" }}}
+
+" autoload/save session {{{
+" restore and save the session automatically if vim is started without args and cwd is in project
+" depends on vim-rooter
+let s:sessions_dir = $HOME . "/.local/share/nvim/sessions"
+
+function! s:gen_session_path(root)
+    let l:filename = substitute(a:root, "=", "==", "g")
+    let l:filename = substitute(l:filename, has('unix') ? "/" : '\', "=+", "g")
+    let l:filename = substitute(l:filename, ":", "=-", "g")
+
+    return s:sessions_dir . "/" . l:filename
+endfunction
+
+function! s:load_project_session(silent)
+    if !exists("s:project_root")
+        if !a:silent
+            echom "Enable project session with :EnableS"
+        endif
+        return
+    endif
+
+    let l:session = s:gen_session_path(s:project_root)
+
+    if filereadable(l:session)
+        execute 'source ' . l:session
+        echom 'Session loaded. project root: ' . s:project_root
+    elseif !a:silent
+        echom 'Session not found'
+    endif
+endfunction
+
+function! s:save_project_session(silent)
+    if !exists("s:project_root")
+        if !a:silent
+            echom "Enable project session with :EnableS"
+        endif
+        return
+    endif
+
+    let l:session = s:gen_session_path(s:project_root)
+
+    call mkdir(s:sessions_dir, "p")
+    execute 'mksession! ' . l:session
+    echom 'Session saved. project root: ' . s:project_root
+endfunction
+
+function! s:enable_project_session(silent)
+    let l:project_root = FindRootDirectory()
+    if !empty(l:project_root)
+        let s:project_root = l:project_root
+        echom 'Project session autosaving enabled. project root: ' . s:project_root
+    elseif !a:silent
+        echom "Could not find project root"
+    endif
+endfunction
+
+function! s:disable_project_session()
+    unlet s:project_root
+    echom 'Project session autosaving disabled'
+endfunction
+
+function! s:autoload_project_session()
+    if argc() == 0
+        call s:enable_project_session(1)
+        call s:load_project_session(1)
+    endif
+endfunction
+
+function! s:destroy_project_session()
+    if !exists("s:project_root")
+        echom "Enable project session with :EnableS"
+        return
+    endif
+
+    call delete(s:gen_session_path(s:project_root))
+    call s:disable_project_session()
+    silent bufdo bd
+    echom 'Current session destroyed'
+endfunction
+
+augroup gitsession
+    autocmd VimEnter * call s:autoload_project_session()
+    autocmd VimLeave * call s:save_project_session(1)
+augroup END
+command! EnableS call s:enable_project_session(0)
+command! DisableS call s:disable_project_session()
+command! LoadS call s:load_project_session(0)
+command! SaveS call s:save_project_session(0)
+command! DestroyS call s:destroy_project_session()
 " }}}
 
 " keymap {{{
