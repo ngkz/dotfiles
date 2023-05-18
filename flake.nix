@@ -25,11 +25,6 @@
     {
       # Used with `nixos-rebuild --flake .#<hostname>`
       nixosConfigurations = {
-        stagingvm = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ ./hosts/stagingvm ];
-          specialArgs = { inherit inputs lib; };
-        };
         peregrine = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [ ./hosts/peregrine ];
