@@ -20,6 +20,7 @@ in
     btrfs-maintenance
     nix-maintenance
     zswap
+    bluetooth
 
     common-cpu-intel
     common-pc-laptop
@@ -100,16 +101,6 @@ in
   hardware.enableRedistributableFirmware = true;
   boot.kernelModules = [ "kvm-intel" ];
 
-  # bluetooth
-  hardware.bluetooth.enable = true;
-  systemd.services.bluetooth.serviceConfig = {
-    StateDirectory = "";
-    ReadWritePaths = [
-      "/var/lib/bluetooth"
-      "${config.modules.tmpfs-as-root.storage}/var/lib/bluetooth"
-    ];
-  };
-
   environment.systemPackages = with pkgs; [
     nvme-cli # NVMe SSD
     intel-gpu-tools # intel_gpu_top
@@ -160,8 +151,6 @@ in
   '';
 
   modules.tmpfs-as-root.persistentDirs = [
-    # bluetooth
-    "/var/lib/bluetooth"
     # tlp
     "/var/lib/tlp"
   ];
