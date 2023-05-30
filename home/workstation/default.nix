@@ -643,6 +643,7 @@ in
     sbsigntool
     tpm2-tools
     efitools
+    v4l-utils
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
