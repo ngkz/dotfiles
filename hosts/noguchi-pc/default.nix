@@ -19,6 +19,7 @@ in
     zswap
     bluetooth
 
+    common-pc
     common-cpu-intel
     common-pc-laptop
   ];

@@ -22,6 +22,7 @@ in
     zswap
     bluetooth
 
+    common-pc
     common-cpu-intel
     common-pc-laptop
     common-pc-laptop-acpi_call
