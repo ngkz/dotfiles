@@ -297,14 +297,14 @@ in
     profiles = {
       peregrine-undocked = {
         outputs = [{
-          criteria = "Chimei Innolux Corporation 0x14F3 0x00000000";
+          criteria = "Chimei Innolux Corporation 0x14F3 Unknown";
           scale = 1.0;
         }];
       };
       peregrine-hdmi = {
         outputs = [
           {
-            criteria = "Chimei Innolux Corporation 0x14F3 0x00000000";
+            criteria = "Chimei Innolux Corporation 0x14F3 Unknown";
             mode = "1920x1080@60Hz";
             position = "0,0";
           }
@@ -318,13 +318,13 @@ in
       peregrine-docked = {
         outputs = [
           {
-            criteria = "Chimei Innolux Corporation 0x14F3 0x00000000";
+            criteria = "Chimei Innolux Corporation 0x14F3 Unknown";
             mode = "1920x1080@60Hz";
             position = "0,720";
             scale = 1.5;
           }
           {
-            criteria = "Unknown UHD HDMI 0x00000000";
+            criteria = "JRY UHD HDMI Unknown";
             mode = "3840x2160@30Hz";
             position = "1280,0";
             scale = 1.5;
@@ -342,7 +342,7 @@ in
       noguchi-pc-docked = {
         outputs = [
           {
-            criteria = "Chimei Innolux Corporation 0x15DB 0x00000000";
+            criteria = "Chimei Innolux Corporation 0x15DB Unknown";
             mode = "1366x768@60Hz";
             position = "0,576";
           }

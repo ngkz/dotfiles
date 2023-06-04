@@ -71,7 +71,7 @@ in
   time.timeZone = "Asia/Tokyo";
 
   # tmpfs /tmp
-  boot.tmpOnTmpfs = true;
+  boot.tmp.useTmpfs = true;
 
   # agenix
   age = {

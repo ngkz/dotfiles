@@ -55,12 +55,7 @@ in
           };
 
           ccacheStdenv = final.overrideCC final.stdenv (mkCCacheWrapper final.stdenv.cc);
-          ccacheClangStdenv = final.overrideCC final.stdenv ((mkCCacheWrapper final.clang).overrideAttrs (
-            finalAttrs: previousAttrs: {
-              # XXX workaround for nkxpkgs #119779
-              installPhase = builtins.replaceStrings [ "use_response_file_by_default=1" ] [ "use_response_file_by_default=0" ] previousAttrs.installPhase;
-            }
-          ));
+          ccacheClangStdenv = final.overrideCC final.stdenv (mkCCacheWrapper final.clang);
         in
         lib.ngkz.overlayPaths prev cfg.packagePaths (
           pkg: pkg.override (

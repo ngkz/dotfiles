@@ -53,18 +53,6 @@
       # bulk rename
       autoload zmv
 
-      # Emit OSC 7. TODO Remove after oh-my-zsh PR#9914 merging.
-      function osc7 {
-        setopt localoptions extendedglob
-        input=( ''${(s::)PWD} )
-        uri=''${(j::)input/(#b)([^A-Za-z0-9_.\!~*\'\(\)-\/])/%''${(l:2::0:)$(([##16]#match))}}
-        print -n "\e]7;file://''${HOSTNAME}''${uri}\e\\"
-      }
-      add-zsh-hook -Uz chpwd osc7
-
-      # XXX foot dereferences symlink when Ctrl-Shift-N. workaround for this
-      cd ''${PWD/${builtins.replaceStrings ["/"] ["\\/"] osConfig.modules.tmpfs-as-root.storage}/}
-
       # Hide user and host when it is unnecessary
       if [[ -n $SSH_CONNECTION ]]; then
         ZSH_THEME_TERM_TITLE_IDLE="%n@%M:%~"

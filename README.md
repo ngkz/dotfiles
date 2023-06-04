@@ -1,5 +1,5 @@
 # My NixOS configuration
-[![NixOS 22.11](https://img.shields.io/badge/NixOS-v22.11-blue.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
+[![NixOS 23.05](https://img.shields.io/badge/NixOS-v23.05-blue.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
 ## Installation
 See `hosts/<HOSTNAME>/README.md`.

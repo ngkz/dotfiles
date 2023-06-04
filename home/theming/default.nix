@@ -24,8 +24,8 @@ in
   gtk = {
     enable = true;
     cursorTheme = {
-      package = pkgs.bibata-extra-cursors;
-      name = "Bibata-Original-DarkRed";
+      package = pkgs.vanilla-dmz;
+      name = "Vanilla-DMZ";
     };
     font = {
       name = "Sans-Serif";

@@ -141,17 +141,10 @@ btrfs subvolume create /mnt/snapshots
 mkdir -p /mnt/persist/var/log
 
 # Create swapfile
-truncate -s 0 /mnt/swap/swapfile
-chattr +C /mnt/swap/swapfile
-fallocate -l 12G /mnt/swap/swapfile
-chmod 0600 /mnt/swap/swapfile
-mkswap /mnt/swap/swapfile
+btrfs filesystem mkswapfile --size 12G /mnt/swap/swapfile
 
 umount /mnt
 ```
-
-<!-- XXX `use btrfs filesystem mkswapfile` after NixOS 23.05 upgrade -->
-
 
 ### Mount filesystems
 ```sh
