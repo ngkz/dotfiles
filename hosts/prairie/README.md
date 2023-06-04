@@ -195,7 +195,6 @@ nixos-install --root /mnt --flake ".#prairie" --no-root-passwd --impure
 
 ### Configure hibernation
 ```sh
-nix shell nixpkgs-unstable#btrfs-progs
 btrfs inspect-internal map-swapfile /var/swap/swapfile
 Physical start:   2186280960
 Resume offset:        533760
