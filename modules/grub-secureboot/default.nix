@@ -10,7 +10,7 @@ let
   }).${grub.grubTarget};
   boot = "/boot";
   esp = config.boot.loader.efi.efiSysMountPoint;
-  efiBootLoaderId = lib.replaceChars [ "/" ] [ "-" ] esp;
+  efiBootLoaderId = lib.replaceStrings [ "/" ] [ "-" ] esp;
   bootLoaderId = "NixOS${efiBootLoaderId}";
 
   postInstall = pkgs.substituteAll {
