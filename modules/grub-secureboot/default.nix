@@ -44,7 +44,7 @@ in
     extraPrepareConfig = ''
       # grub installation process removes kernel signatures
       mkdir @bootPath@/kernels.bak
-      mv @bootPath@/kernels/*.sig @bootPath@/kernels.bak
+      [[ -n "$(shopt -s nullglob; echo /boot/kernels/*.sig)" ]] && mv @bootPath@/kernels/*.sig @bootPath@/kernels.bak
     '';
     extraInstallCommands = ''
       ${postInstall}

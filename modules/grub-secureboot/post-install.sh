@@ -78,7 +78,7 @@ gpg --detach-sign "$initialCfg" >/dev/null
 gpg --export >"$gpgPubKey"
 
 # restore kernel signatures saved at extraPrepareConfig
-mv @boot@/kernels.bak/* @boot@/kernels
+[[ -n "$(shopt -s nullglob; echo /boot/kernels.bak/*)" ]] && mv @boot@/kernels.bak/* @boot@/kernels
 rmdir @boot@/kernels.bak
 
 find @boot@ ! -path "@esp@/EFI/*" ! -path "$fingerprintstate" ! -path "@boot@/grub/state" -type f | while read -r path; do
@@ -93,7 +93,7 @@ find @boot@ ! -path "@esp@/EFI/*" ! -path "$fingerprintstate" ! -path "@boot@/gr
     fi
 done
 
-if [[ "$(cat <$fingerprintstate 2>/dev/null)" != "$fingerprint" ]]; then
+if [[ ! -e "$fingerprintstate" ]] || [[ "$(cat <$fingerprintstate 2>/dev/null)" != "$fingerprint" ]]; then
     echo "$fingerprint" >"$fingerprintstate"
 fi
 
