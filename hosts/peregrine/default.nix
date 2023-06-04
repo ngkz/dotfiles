@@ -9,7 +9,7 @@ in
 
   imports = with self.nixosModules; with nixos-hardware.nixosModules; [
     base
-    efistub-secureboot
+    grub-secureboot
     ssd
     sshd
     workstation
