@@ -46,6 +46,7 @@
       liberation_ttf
       unifont
       ngkz.sarasa-term-j-nerd-font
+      ngkz.vcr-eas-font
     ];
 
     # Create a directory with links to all fonts in /run/current-system/sw/share/X11/fonts
