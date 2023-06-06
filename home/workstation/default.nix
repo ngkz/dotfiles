@@ -511,22 +511,22 @@ in
       "audio/m3u" = "mpv.desktop";
 
       # imv
-      "image/bmp" = "imv-folder.desktop";
-      "image/gif" = "imv-folder.desktop";
-      "image/jpeg" = "imv-folder.desktop";
-      "image/jpg" = "imv-folder.desktop";
-      "image/pjpeg" = "imv-folder.desktop";
-      "image/png" = "imv-folder.desktop";
-      "image/tiff" = "imv-folder.desktop";
-      "image/x-bmp" = "imv-folder.desktop";
-      "image/x-pcx" = "imv-folder.desktop";
-      "image/x-png" = "imv-folder.desktop";
-      "image/x-portable-anymap" = "imv-folder.desktop";
-      "image/x-portable-bitmap" = "imv-folder.desktop";
-      "image/x-portable-graymap" = "imv-folder.desktop";
-      "image/x-portable-pixmap" = "imv-folder.desktop";
-      "image/x-tga" = "imv-folder.desktop";
-      "image/x-xbitmap" = "imv-folder.desktop";
+      "image/bmp" = "imv-dir.desktop";
+      "image/gif" = "imv-dir.desktop";
+      "image/jpeg" = "imv-dir.desktop";
+      "image/jpg" = "imv-dir.desktop";
+      "image/pjpeg" = "imv-dir.desktop";
+      "image/png" = "imv-dir.desktop";
+      "image/tiff" = "imv-dir.desktop";
+      "image/x-bmp" = "imv-dir.desktop";
+      "image/x-pcx" = "imv-dir.desktop";
+      "image/x-png" = "imv-dir.desktop";
+      "image/x-portable-anymap" = "imv-dir.desktop";
+      "image/x-portable-bitmap" = "imv-dir.desktop";
+      "image/x-portable-graymap" = "imv-dir.desktop";
+      "image/x-portable-pixmap" = "imv-dir.desktop";
+      "image/x-tga" = "imv-dir.desktop";
+      "image/x-xbitmap" = "imv-dir.desktop";
 
       # thunderbird
       "x-scheme-handler/mailto" = "thunderbird.desktop";
