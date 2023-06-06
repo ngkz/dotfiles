@@ -43,4 +43,5 @@ rec {
     inherit skk-dicts;
   };
   skk-dicts = pkgs.callPackage ./skk-dicts { };
+  vcr-eas-font = pkgs.callPackage ./vcr-eas-font { };
 }
