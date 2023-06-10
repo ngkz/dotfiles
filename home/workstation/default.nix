@@ -644,6 +644,8 @@ in
     tpm2-tools
     efitools
     v4l-utils
+    nmap
+    gphoto2
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
@@ -674,5 +676,6 @@ in
     transmission-gtk
     filezilla
     shotcut
+    vlc
   ];
 }
