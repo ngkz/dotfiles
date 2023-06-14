@@ -11,6 +11,7 @@ in
     # ./ungoogled-chromium.nix
     ./syncthing.nix
     ./librewolf
+    ./wine.nix
   ];
 
   # XDG user dirs
