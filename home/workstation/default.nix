@@ -677,5 +677,6 @@ in
     filezilla
     shotcut
     vlc
+    wireshark
   ];
 }
