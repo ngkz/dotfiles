@@ -18,7 +18,7 @@
     let
       dictdir = "${config.home.homeDirectory}/misc/otg/skk";
       self = osConfig.networking.hostName;
-      machines = [ "peregrine" "prairie" "noguchi-pc" ];
+      machines = [ "peregrine" "noguchi-pc" ];
       otherMachines = builtins.filter (host: host != self) machines;
     in
     lib.concatStringsSep "\n" ([

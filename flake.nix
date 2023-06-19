@@ -30,11 +30,6 @@
           modules = [ ./hosts/peregrine ];
           specialArgs = { inherit inputs lib; };
         };
-        prairie = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ ./hosts/prairie ];
-          specialArgs = { inherit inputs lib; };
-        };
         noguchi-pc = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [ ./hosts/noguchi-pc ];

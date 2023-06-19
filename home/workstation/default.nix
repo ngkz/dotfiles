@@ -173,11 +173,6 @@ in
         user = "user";
         port = 35822;
       };
-      prairie = {
-        hostname = "prairie.local";
-        user = "user";
-        port = 35822;
-      };
       seychelles = {
         hostname = "seychelles.local";
         user = "manjaro";
