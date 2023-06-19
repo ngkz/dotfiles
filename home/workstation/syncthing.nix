@@ -33,17 +33,10 @@ in
           id = "docs";
           label = "~/docs";
           path = "${config.home.tmpfs-as-home.storage}/docs";
-          devices = personal-pcs;
+          devices = pcs;
           ignore = ''
             /all
-            /otg
           '';
-        }
-        {
-          id = "docs-otg";
-          label = "~/docs/otg";
-          path = "${config.home.tmpfs-as-home.storage}/docs/otg";
-          devices = pcs;
         }
         {
           id = "docs-all";
@@ -61,24 +54,17 @@ in
           id = "pics";
           label = "~/pics";
           path = "${config.home.tmpfs-as-home.storage}/pics";
-          devices = personal-pcs;
+          devices = pcs;
           ignore = ''
             /phone
             /phone-dcim
-            /otg
           '';
-        }
-        {
-          id = "pics-otg";
-          label = "~/pics/otg";
-          path = "${config.home.tmpfs-as-home.storage}/pics/otg";
-          devices = pcs;
         }
         {
           id = "pics-phone";
           label = "~/pics/phone";
           path = "${config.home.tmpfs-as-home.storage}/pics/phone";
-          devices = personal;
+          devices = all;
         }
         {
           id = "pics-phone-dcim";
@@ -105,15 +91,6 @@ in
           id = "projects";
           label = "~/projects";
           path = "${config.home.tmpfs-as-home.storage}/projects";
-          devices = personal-pcs;
-          ignore = ''
-            /otg
-          '';
-        }
-        {
-          id = "projects-otg";
-          label = "~/projects/otg";
-          path = "${config.home.tmpfs-as-home.storage}/projects/otg";
           devices = pcs;
         }
         {
@@ -126,17 +103,10 @@ in
           id = "misc";
           label = "~/misc";
           path = "${config.home.tmpfs-as-home.storage}/misc";
-          devices = personal-pcs;
+          devices = pcs;
           ignore = ''
             /all
-            /otg
           '';
-        }
-        {
-          id = "misc-otg";
-          label = "~/misc/otg";
-          path = "${config.home.tmpfs-as-home.storage}/misc/otg";
-          devices = pcs;
         }
         {
           id = "misc-all";
