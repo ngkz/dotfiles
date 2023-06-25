@@ -642,7 +642,7 @@ in
     v4l-utils
     nmap
     gphoto2
-    scripts
+    ngkz.scripts
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
