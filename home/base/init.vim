@@ -411,7 +411,7 @@ call s:check_exec(['fdfind', 'fd'])
 " CTRL-N and CTRL-P will be automatically bound to next-history and
 " previous-history instead of down and up. If you don't like the change,
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-let g:fzf_history_dir = s:data_dir . '/fzf'
+let g:fzf_history_dir = stdpath('state') . '/fzf'
 
 " respect .gitignore
 if executable("fdfind")
@@ -542,7 +542,7 @@ let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/', '
 " autoload/save session {{{
 " restore and save the session automatically if vim is started without args and cwd is in project
 " depends on vim-rooter
-let s:sessions_dir = $HOME . "/.local/share/nvim/sessions"
+let s:sessions_dir = stdpath('state') . "/sessions"
 
 function! s:gen_session_path(root)
     let l:filename = substitute(a:root, "=", "==", "g")
