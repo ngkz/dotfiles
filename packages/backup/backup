@@ -42,6 +42,7 @@ EXCLUDES=(
     "home/*/.local/share/TauonMusicBox/scaled-icons"
     "home/*/.android/adb.*"
     "home/*/.FreeCAD/webdatapersistent"
+    "home/*/.librewolf/default/storage/default/*/cache"
 )
 LOGGER_PIPE=$TMPDIR/logger
 
