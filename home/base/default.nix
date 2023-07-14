@@ -3,6 +3,7 @@
     inputs.self.homeManagerModules.core
     ./zsh
     ./tealdeer.nix
+    inputs.self.homeManagerModules.neovim
   ];
 
   home.tmpfs-as-home.persistentDirs = [
@@ -10,9 +11,6 @@
     ".cache/nix-index"
     ".local/state/home-manager"
     ".local/share/wireplumber"
-    #neovim
-    ".local/share/nvim"
-    ".local/state/nvim"
   ];
 
   # FZF fuzzy finder
@@ -87,66 +85,4 @@
     lshw
     sysfsutils #systool
   ];
-
-  # neovim
-  programs.neovim = {
-    enable = true;
-    plugins = with pkgs.vimPlugins; [
-      base16-vim
-      indentLine
-      vim-commentary
-      vim-endwise
-      vim-gitgutter
-      vim-polyglot
-      vim-repeat
-      vim-rooter
-      vim-rsi
-      vim-table-mode
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "flygrep-vim";
-        src = pkgs.fetchFromGitHub {
-          owner = "wsdjeg";
-          repo = "FlyGrep.vim";
-          rev = "7a74448ac7635f8650127fc43016d24bb448ab50";
-          sha256 = "1dSVL027AHZaTmTZlVnJYkwB80VblwVDheo+4QDsO8E=";
-        };
-      })
-      auto-pairs
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "braceless-vim";
-        src = pkgs.fetchFromGitHub {
-          owner = "tweekmonster";
-          repo = "braceless.vim";
-          rev = "3928fe18fb7c8561beed6a945622fd985a8e638b";
-          sha256 = "QqyWK76FPQdIRuYrAGjM01qlbNtQ5E5PRG6hw3dm1Io=";
-        };
-        dontBuild = true;
-      })
-      fzf-vim
-      vim-surround
-      bclose-vim
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "vim-dis";
-        src = ./vim-dis;
-        dontBuild = true;
-      })
-      nvim-web-devicons # nvim-tree-lua icons
-      nvim-tree-lua
-      editorconfig-vim
-      vim-expand-region
-    ];
-    extraPackages = with pkgs; [
-      fzf
-      fd
-      ripgrep
-    ];
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-    extraConfig = builtins.readFile ./init.vim;
-  };
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-  };
 }

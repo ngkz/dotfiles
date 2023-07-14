@@ -1,0 +1,78 @@
+ <C-o>: インサートモードで一度だけノーマルモードのコマンドを入力
+ c 消去してインサートモードに
+ cc 行を消去してインサートモード
+ C 選択位置以降を消去してインサートモードに
+ D 行の最後までを消去
+ Y
+ e 単語の最後の文字まで選択
+ W, E, B 記号も範囲に含める
+ % 対応する括弧を選択
+ [op]fx - jump to next occurrence of character x
+ [op]tx - jump to before next occurrence of character x
+ [op]Fx - jump to previous occurence of character x
+ [op]Tx - jump to after previous occurence of character x
+ ; - repeat previous f, t, F or T movement
+ , - repeat previous f, t, F or T movement, backwards
+ } - jump to next paragraph (or function/block, when editing code)
+ { - jump to previous paragraph (or function/block, when editing code)
+ X backspace
+ :r <FILE
+ Ctrl-6 OR Ctrl-^ switch to the previously edited file.
+ v,c,dと組み合わせて
+   <op>ab - () ブロックを選択(括弧ごと)
+   <op>aB - {}ブロックを選択(括弧ごと)
+   <op>ib - () ブロックを選択(括弧を除く)
+   <op>iB - {}ブロックを選択(括弧を除く)
+ ~ カーソル下の文字のcaseをトグル
+ g~iw 選択した単語のcaseをトグル
+ * / # カーソル下の単語を検索
+ . 直前の操作を繰り返す
+ g/{regex}/d regexにマッチする行を削除
+ v/{regex}/d {regex}にマッチしない行を削除
+ gn マッチした検索文字列を選択
+  dgn 削除
+  cgn 変更
+  nで次の文字列に移動して.で直前の操作を繰り返す
+ <Ctrl-W>o 選択中のウィンドウ以外を閉じる
+ :reg レジスタの中身を表示
+ マクロ
+ q<REGISTER> 記録
+ @<REGISTER> 再生
+ @@ 最後のやつを再生
+ insert mode CTRL-U
+ insert mode CTRL-W
+ text objectsのチートシート
+    gd will take you to the local declaration.
+   gD will take you to the global declaration.
+    g* search for the word under the cursor (like *, but g* on 'rain' will find words like 'rainbow').
+    g# same as g* but in backward direction.
+    gg goes to the first line in the buffer (or provide a count before the command for a specific line).
+    G goes to the last line (or provide a count before the command for a specific line).
+ vim-table-mode
+ <leader>tm OR :TableModeToggle : toggle table mode
+ <leader>tt OR :Tableize : format existing content into a table
+ (in table mode) || : horizontal line
+ (in table mode) [| : move left cell
+ (in table mode) ]| : move right cell
+ (in table mode) {| : move up cell
+ (in table mode) }| : move down cell
+ (in table mode) <leader>tdd : delete row
+ (in table mode) <leader>tdc : delete column
+ vim-gitgutter
+ ]c:         jump to next hunk (change)
+ [c:         jump to previous hunk (change)
+ <leader>hs: stage the hunk
+ <leader>hu: unstage
+
+ gn: 次のマッチを選択
+ dgn: 次のマッチを削除
+ cgn: 次のマッチを削除して挿入モード
+ .: 前回の操作を繰り返す
+ / -> cgn -> n.n.n.n. で簡単に置換
+ vで選択 -> p: 選択範囲にペーストして上書き
+ gS: 文を複数行に分割
+ gJ: 文を1行に結合
+ z_ カーソルがあるもの以外すべてのfoldを閉じる
+ zf fold markerを挿入
+ zf fold markerを削除
+ [z, ]z カーソルのあるfoldの先頭/末尾にジャンプ
