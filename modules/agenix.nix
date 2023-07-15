@@ -1,7 +1,8 @@
 { inputs, config, ... }:
 let
   inherit (inputs) agenix;
-in {
+in
+{
   imports = [
     agenix.nixosModules.default
   ];
