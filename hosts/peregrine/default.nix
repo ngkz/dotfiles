@@ -90,7 +90,6 @@ in
       discardPolicy = "once";
     }
   ];
-  modules.tmpfs-as-root.storage = "/var/persist";
   modules.btrfs-maintenance = {
     fileSystems = [
       # scrubbling one of subvolumes scrubs the whole filesystem
