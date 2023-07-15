@@ -1,16 +1,24 @@
-{ lib, config, nixosConfig ? { }, ... }:
+{ lib, config, osConfig, ... }:
 let
   inherit (builtins) listToAttrs;
   inherit (lib) nameValuePair hm concatStringsSep escapeShellArg mkOption
-    types unique;
+    types unique mkEnableOption mkIf;
 in
 {
   options.home.tmpfs-as-home = {
+    enable = mkEnableOption "Tmpfs as home setup" // {
+      default =
+        if osConfig ? modules.tmpfs-as-root then
+          osConfig.modules.tmpfs-as-root.enable
+        else
+          false;
+    };
+
     storage = mkOption {
       type = types.str;
       default = (
-        if nixosConfig ? modules.tmpfs-as-root then
-          nixosConfig.modules.tmpfs-as-root.storage + config.home.homeDirectory
+        if osConfig ? modules.tmpfs-as-root then
+          osConfig.modules.tmpfs-as-root.storage + config.home.homeDirectory
         else
           null
       );
@@ -38,7 +46,7 @@ in
       storage = cfg.storage;
       storageDirs = map (path: "${storage}/${path}") (unique ((map dirOf files) ++ dirs));
     in
-    {
+    mkIf cfg.enable {
       home.file = listToAttrs (
         map
           (

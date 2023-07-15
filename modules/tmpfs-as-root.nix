@@ -2,10 +2,12 @@
 let
   inherit (builtins) listToAttrs filter attrNames;
   inherit (lib) nameValuePair hasPrefix removePrefix concatStringsSep
-    escapeShellArg filterAttrs mkOption types unique;
+    escapeShellArg filterAttrs mkOption types unique mkEnableOption mkIf;
 in
 {
   options.modules.tmpfs-as-root = {
+    enable = mkEnableOption "Tmpfs as root setup";
+
     storage = mkOption {
       type = types.nonEmptyStr;
       default = "/var/persist";
@@ -35,7 +37,7 @@ in
       nonEtcFiles = filter (path: !hasPrefix "/etc/" path) files;
       etcFiles = filter (hasPrefix "/etc/") files;
     in
-    {
+    mkIf cfg.enable {
       # "tmpfs as root" setup
       fileSystems = {
         "/" = {
