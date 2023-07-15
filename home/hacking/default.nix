@@ -1,8 +1,4 @@
 { config, lib, pkgs, ... }:
-let
-  inherit (lib) mkIf;
-  inherit (builtins) hasAttr;
-in
 {
   home.packages = with pkgs; with linuxPackages; [
     binutils
@@ -70,7 +66,7 @@ in
 
   ];
 
-  home.tmpfs-as-home.persistentDirs = mkIf (hasAttr "tmpfs-as-home" config.home) [
+  home.tmpfs-as-home.persistentDirs = [
     ".ghidra"
   ];
 
