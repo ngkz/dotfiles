@@ -29,8 +29,6 @@
 
   hardware.opengl.driSupport32Bit = true; #32bit OpenGL
 
-  modules.ccache.packagePaths = [ [ "xwayland" ] ];
-
   # greetd display manager
   environment.etc =
     let

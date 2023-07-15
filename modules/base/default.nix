@@ -10,7 +10,6 @@ in
     agenix.nixosModules.default
     home-manager.nixosModule
     self.nixosModules.tmpfs-as-root
-    ./ccache.nix
   ];
 
   nixpkgs = import ../../nixpkgs.nix inputs;
