@@ -112,6 +112,7 @@ in
       tmpfs-as-home
       workstation
       sway-desktop
+      hacking
     ];
   };
 

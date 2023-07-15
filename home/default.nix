@@ -6,4 +6,5 @@
   sway-desktop = import ./sway-desktop;
   theming = import ./theming;
   neovim = import ./neovim;
+  hacking = import ./hacking;
 }

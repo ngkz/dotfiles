@@ -1,0 +1,11 @@
+set disassembly-flavor intel
+set follow-fork-mode child
+set detach-on-fork off
+set follow-exec-mode new
+
+set print asm-demangle on
+
+define p_wxstring
+    p $arg0.m_impl._M_dataplus._M_p
+end
+
