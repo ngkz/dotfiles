@@ -150,6 +150,14 @@ in
     "net.core.default_qdisc" = "cake";
   };
 
+  # mDNS
+  services.avahi = {
+    enable = true;
+    nssmdns = true; # *.local resolution
+    publish.enable = true;
+    publish.addresses = true; # make this host accessible with <hostname>.local
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
