@@ -120,7 +120,6 @@ in
 
   home-manager.users.user = {
     imports = with self.homeManagerModules; [
-      tmpfs-as-home
       workstation
       sway-desktop
       hacking
