@@ -8,6 +8,7 @@ in
   networking.hostName = "noguchi-pc";
 
   imports = with self.nixosModules; with nixos-hardware.nixosModules; [
+    agenix
     base
     grub-secureboot # workaround for buggy firmware
     ssd
@@ -102,6 +103,10 @@ in
   environment.systemPackages = with pkgs; [
     intel-gpu-tools # intel_gpu_top
   ];
+
+  # user
+  age.secrets.user-password-hash.file = ../../secrets/user-password-hash.age;
+  users.users.user.passwordFile = config.age.secrets.user-password-hash.path;
 
   home-manager.users.user = {
     imports = with self.homeManagerModules; [

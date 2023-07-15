@@ -8,6 +8,7 @@ in
   networking.hostName = "peregrine";
 
   imports = with self.nixosModules; with nixos-hardware.nixosModules; [
+    agenix
     base
     grub-secureboot
     ssd
@@ -105,6 +106,10 @@ in
     nvme-cli # NVMe SSD
     intel-gpu-tools # intel_gpu_top
   ];
+
+  # user
+  age.secrets.user-password-hash.file = ../../secrets/user-password-hash.age;
+  users.users.user.passwordFile = config.age.secrets.user-password-hash.path;
 
   home-manager.users.user = {
     imports = with self.homeManagerModules; [

@@ -14,4 +14,5 @@
   zswap = import ./zswap.nix;
   bluetooth = import ./bluetooth.nix;
   zram = import ./zram.nix;
+  agenix = import ./agenix.nix;
 }

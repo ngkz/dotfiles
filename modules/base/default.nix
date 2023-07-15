@@ -7,7 +7,6 @@ let
 in
 {
   imports = [
-    agenix.nixosModules.default
     home-manager.nixosModule
     self.nixosModules.tmpfs-as-root
   ];
@@ -72,12 +71,6 @@ in
   # tmpfs /tmp
   boot.tmp.useTmpfs = true;
 
-  # agenix
-  age = {
-    secrets.user-password-hash.file = ../../secrets/user-password-hash.age;
-    identityPaths = [ "${config.modules.tmpfs-as-root.storage}/secrets/age.key" ];
-  };
-
   # User accounts
   users = {
     mutableUsers = false;
@@ -92,7 +85,6 @@ in
         uid = 1000;
         extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
         shell = pkgs.zsh;
-        passwordFile = config.age.secrets.user-password-hash.path;
       };
     };
   };
