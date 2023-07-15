@@ -1,20 +1,20 @@
 let
-  key-client = "age1yxv3ga7qy5dgeqrcd4gumcuw7qkex7jymmgam9w0zrjg2gp7mq8sjeverv";
-  keys-all = [ key-client ];
-  keys-client = [ key-client ];
+  peregrine = "age1vukcr575kygdjrkz6e4c8n5asx42re3nm0at757kul0w57vt4seqnmuadr";
+  noguchi-pc = "age1sg083tscjgj58w8kf3p0svg2vsz0mplynj9rve48ru9ytz9ww9xsh0vksp";
 in
 {
-  "user-password-hash.age".publicKeys = keys-all;
-  "parents-home-1f-a.nmconnection.age".publicKeys = keys-all;
-  "parents-home-1f-g.nmconnection.age".publicKeys = keys-all;
-  "parents-home-2f.nmconnection.age".publicKeys = keys-all;
-  "phone.nmconnection.age".publicKeys = keys-all;
-  "syncthing.json.age".publicKeys = keys-all;
-  "8657BC028746A06C68F352BA86EE58CD1294C73E.key.age".publicKeys = keys-client;
-  "8227E10D40D92D39449DB2B615655DB542EA9FAF.key.age".publicKeys = keys-client;
-  "grub-password-hash.age".publicKeys = keys-client;
-  "db.crt.age".publicKeys = keys-client;
-  "db.key.age".publicKeys = keys-client;
-  "grub.key.age".publicKeys = keys-client;
-  "IFC.nmconnection.age".publicKeys = keys-client;
+  "user-password-hash-peregrine.age".publicKeys = [ peregrine ];
+  "user-password-hash-noguchi-pc.age".publicKeys = [ noguchi-pc ];
+  "parents-home-1f-a.nmconnection.age".publicKeys = [ peregrine ];
+  "parents-home-1f-g.nmconnection.age".publicKeys = [ peregrine ];
+  "parents-home-2f.nmconnection.age".publicKeys = [ peregrine ];
+  "phone.nmconnection.age".publicKeys = [ peregrine ];
+  "syncthing.json.age".publicKeys = [ peregrine noguchi-pc ];
+  "8657BC028746A06C68F352BA86EE58CD1294C73E.key.age".publicKeys = [ peregrine noguchi-pc ];
+  "8227E10D40D92D39449DB2B615655DB542EA9FAF.key.age".publicKeys = [ peregrine noguchi-pc ];
+  "grub-password-hash.age".publicKeys = [ peregrine noguchi-pc ];
+  "db.crt.age".publicKeys = [ peregrine noguchi-pc ];
+  "db.key.age".publicKeys = [ peregrine noguchi-pc ];
+  "grub.key.age".publicKeys = [ peregrine noguchi-pc ];
+  "IFC.nmconnection.age".publicKeys = [ noguchi-pc ];
 }

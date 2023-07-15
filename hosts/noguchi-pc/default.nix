@@ -105,8 +105,8 @@ in
   ];
 
   # user
-  age.secrets.user-password-hash.file = ../../secrets/user-password-hash.age;
-  users.users.user.passwordFile = config.age.secrets.user-password-hash.path;
+  age.secrets.user-password-hash-noguchi-pc.file = ../../secrets/user-password-hash-noguchi-pc.age;
+  users.users.user.passwordFile = config.age.secrets.user-password-hash-noguchi-pc.path;
 
   home-manager.users.user = {
     imports = with self.homeManagerModules; [
