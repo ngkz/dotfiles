@@ -13,4 +13,5 @@
   nix-maintenance = import ./nix-maintenance;
   zswap = import ./zswap.nix;
   bluetooth = import ./bluetooth.nix;
+  zram = import ./zram.nix;
 }
