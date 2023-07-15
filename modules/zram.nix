@@ -14,7 +14,7 @@
     "vm.page-cluster" = if config.zramSwap.algorithm == "zstd" then 0 else 1;
   };
 
-  systemd.service.zram-sysctl = {
+  systemd.services.zram-sysctl = {
     description = "Apply additional zram configurations";
     wants = [ "systemd-sysctl.service" ];
     after = [ "systemd-sysctl.service" ];
