@@ -10,6 +10,7 @@
   systemd.services.config-zswap = {
     description = "Configure zswap";
     after = [ "systemd-modules-load.service" ];
+    wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "oneshot";
     };
