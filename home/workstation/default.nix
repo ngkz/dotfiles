@@ -620,7 +620,6 @@ in
     libinput.bin #libinput
     libnotify #notify-send
     picocom
-    binwalk
     hashcat
     libsecret # secret-tool
     zbar
@@ -643,6 +642,7 @@ in
     nmap
     gphoto2
     ngkz.scripts
+    mprime
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
@@ -675,5 +675,6 @@ in
     shotcut
     vlc
     wireshark
+    hexchat
   ];
 }
