@@ -1,9 +1,9 @@
 { inputs, pkgs, ... }: {
-  imports = [
-    inputs.self.homeManagerModules.core
+  imports = with inputs.self.homeManagerModules; [
+    core
     ./zsh
     ./tealdeer.nix
-    inputs.self.homeManagerModules.neovim
+    neovim
   ];
 
   home.tmpfs-as-home.persistentDirs = [

@@ -6,9 +6,9 @@ let
   inherit (inputs) self agenix home-manager;
 in
 {
-  imports = [
+  imports = with self.nixosModules; [
     home-manager.nixosModule
-    self.nixosModules.tmpfs-as-root
+    tmpfs-as-root
   ];
 
   nixpkgs = import ../../nixpkgs.nix inputs;
