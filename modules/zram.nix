@@ -16,7 +16,6 @@
 
   systemd.services.zram-sysctl = {
     description = "Apply additional zram configurations";
-    wants = [ "systemd-sysctl.service" ];
     after = [ "systemd-sysctl.service" ];
     serviceConfig = {
       Type = "oneshot";
