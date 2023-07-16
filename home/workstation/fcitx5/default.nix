@@ -17,7 +17,7 @@
   xdg.dataFile."fcitx5/skk/dictionary_list".text =
     let
       dictdir = "${config.home.homeDirectory}/misc/skk";
-      self = osConfig.networking.hostName;
+      self = osConfig.system.name;
       machines = [ "peregrine" "noguchi-pc" ];
       otherMachines = builtins.filter (host: host != self) machines;
     in
