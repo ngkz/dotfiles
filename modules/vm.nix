@@ -18,6 +18,7 @@
   environment.systemPackages = with pkgs; [
     virt-manager
     libguestfs
+    virtiofsd # XXX workaround for nixpkgs#187078
   ];
 
   modules.tmpfs-as-root.persistentDirs = [
@@ -39,5 +40,4 @@
     "a+ /home/user - - - - u:qemu-libvirtd:x"
     "a+ ${config.modules.tmpfs-as-root.storage}/home/user - - - - u:qemu-libvirtd:x"
   ];
-
 }
