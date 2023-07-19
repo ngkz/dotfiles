@@ -17,7 +17,7 @@ in
     sway-desktop
     undervolt
     nm-config-home
-    vm
+    vmm
     btrfs-maintenance
     nix-maintenance
     zswap
@@ -123,7 +123,7 @@ in
       workstation
       sway-desktop
       hacking
-      vm
+      vmm
     ];
   };
 

@@ -14,7 +14,7 @@ in
     ssd
     workstation
     sway-desktop
-    vm
+    vmm
     btrfs-maintenance
     nix-maintenance
     zswap
@@ -121,7 +121,7 @@ in
       workstation
       sway-desktop
       hacking
-      vm
+      vmm
     ];
   };
 
