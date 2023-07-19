@@ -121,6 +121,7 @@ in
       workstation
       sway-desktop
       hacking
+      vm
     ];
   };
 

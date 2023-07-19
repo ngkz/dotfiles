@@ -7,4 +7,5 @@
   theming = import ./theming;
   neovim = import ./neovim;
   hacking = import ./hacking;
+  vm = import ./vm.nix;
 }
