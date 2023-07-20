@@ -22,8 +22,8 @@ vim.opt.list = true
 vim.opt.listchars = "tab:»-,eol:↲,nbsp:␣,extends:⟩,precedes:⟨,trail:-"
 -- string to put at the start of lines that have been wrapped. (default: "")
 vim.opt.showbreak = "↪ "
--- save local options and local keymaps when :mksession.
--- vim.opt.sessionoptions:append("localoptions")
+-- save local options (includes syntax) and local keymaps when :mksession.
+vim.opt.sessionoptions:append("localoptions")
 -- persistent undo
 vim.opt.undofile = true
 -- ignore case in search patterns
