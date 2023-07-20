@@ -174,4 +174,7 @@
   };
 
   xdg.sounds.enable = true;
+
+  # allow remount read-only, sync, reboot with magic sysrq
+  boot.kernel.sysctl."kernel.sysrq" = 176;
 }
