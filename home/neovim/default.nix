@@ -103,6 +103,7 @@
       require("config.fold")
       require("config.keymap")
       require("config.session")
+      require("config.undo")
       vim.cmd('packadd! matchit')
     '';
   };
