@@ -5,8 +5,8 @@
     };
 
     "org/virt-manager/virt-manager/connections" = {
-      uris = ["qemu:///system"];
-      autoconnect = ["qemu:///system"];
+      uris = [ "qemu:///system" ];
+      autoconnect = [ "qemu:///system" ];
     };
 
     "org/virt-manager/virt-manager/console" = {
