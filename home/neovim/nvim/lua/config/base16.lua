@@ -14,6 +14,13 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
         -- highlight trailing spaces
         vim.fn.Base16hi('ExtraWhitespace', '', vim.g.base16_gui08, '', vim.g.base16_cterm08)
+    end
+})
+
+vim.api.nvim_create_autocmd("WinEnter", {
+    group = group,
+    callback = function(ev)
+        -- highlight trailing spaces
         vim.cmd.match("ExtraWhitespace", '"\\s\\+$"')
     end
 })
