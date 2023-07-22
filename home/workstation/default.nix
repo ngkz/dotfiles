@@ -52,6 +52,8 @@ in
     # shotcut
     ".config/Meltytech"
     ".local/share/Meltytech/Shotcut"
+    # electrum
+    ".electrum"
   ];
 
   # shotwell
@@ -676,5 +678,6 @@ in
     vlc
     wireshark
     hexchat
+    electrum
   ];
 }
