@@ -125,13 +125,13 @@ command = "sudo nix-env --profile /nix/var/nix/profiles/system --list-generation
 category = "system maintenance"
 
 [[commands]]
-help = "show the difference between each version of a configuration"
+help = "Show the difference between each version of a configuration"
 name = "diff-generations"
 command = "nix profile diff-closures --profile /nix/var/nix/profiles/system"
 category = "system maintenance"
 
 [[commands]]
-help = "find out where dependencies come from"
+help = "Find out where dependencies come from"
 name = "why-system-depends"
 command = 'nix why-depends .#nixosConfigurations.$(hostname).config.system.build.toplevel "$@"'
 category = "system maintenance"
