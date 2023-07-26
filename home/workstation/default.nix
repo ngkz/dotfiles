@@ -641,7 +641,6 @@ in
     tpm2-tools
     efitools
     v4l-utils
-    nmap
     gphoto2
     ngkz.scripts
     mprime
