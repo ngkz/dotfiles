@@ -135,3 +135,35 @@ help = "Find out where dependencies come from"
 name = "why-system-depends"
 command = 'nix why-depends .#nixosConfigurations.$(hostname).config.system.build.toplevel "$@"'
 category = "system maintenance"
+
+[[commands]]
+help = "Create and start libvirt VM"
+name = "create-vm"
+command = '''
+host=$1
+shift
+nix shell ".#nixosConfigurations.${host}.config.system.build.libvirtVM" -c "create-libvirt-vm-${host}" "$@"
+'''
+category = "VM"
+
+[[commands]]
+help = "Shutdown and destroy libvirt VM"
+name = "destroy-vm"
+command = 'nix shell ".#nixosConfigurations.$1.config.system.build.libvirtVM" -c "destroy-libvirt-vm-$1"'
+category = "VM"
+
+[[commands]]
+help = "SSH into the libvirt VM"
+name = "ssh-vm"
+command = '''
+host=$1
+shift
+nix shell ".#nixosConfigurations.${host}.config.system.build.libvirtVM" -c "ssh-libvirt-vm-${host}" "$@"
+'''
+category = "VM"
+
+[[commands]]
+help = "Build and activate the new configuration of libvirt VM"
+name = "switch-vm"
+command = 'nix shell ".#nixosConfigurations.$1.config.system.build.libvirtVM" -c "switch-libvirt-vm-$1"'
+category = "VM"
