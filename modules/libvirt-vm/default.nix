@@ -10,6 +10,12 @@ let
 in
 {
   options.modules.libvirt-vm = {
+    uri = mkOption {
+      type = types.str;
+      default = "qemu:///system";
+      description = "Hypervisor connection URI";
+    };
+
     vcpu = mkOption {
       type = with types; nullOr ints.positive;
       default = null;

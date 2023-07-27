@@ -32,7 +32,7 @@ let
     set -euo pipefail
 
     PATH=${makeBinPath (with pkgs; [coreutils libvirt gnused])}
-    export LIBVIRT_DEFAULT_URI=qemu:///system
+    export LIBVIRT_DEFAULT_URI=${escapeShellArg cfg.uri}
 
     name=${escapeShellArg vmname}
     sharedDirectory=${escapeShellArg cfg.sharedDirectory}
@@ -84,7 +84,7 @@ let
     set -euo pipefail
 
     PATH=${makeBinPath (with pkgs; [coreutils libvirt gnugrep])}
-    export LIBVIRT_DEFAULT_URI=qemu:///system
+    export LIBVIRT_DEFAULT_URI=${escapeShellArg cfg.uri}
 
     name=${escapeShellArg vmname}
 
@@ -116,7 +116,7 @@ let
 
   sshVM = pkgs.writeShellScript "ssh-libvirt-vm-${vmname}" ''
     PATH=${makeBinPath (with pkgs; [coreutils libvirt openssh gnused])}
-    export LIBVIRT_DEFAULT_URI=qemu:///system
+    export LIBVIRT_DEFAULT_URI=${escapeShellArg cfg.uri}
 
     user=${escapeShellArg cfg.sshUser}
     host=$(virsh domifaddr ${escapeShellArg vmname} | sed -En 's/^.*\s+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)\/[0-9]+$/\1/p' | head -n1)
@@ -130,7 +130,7 @@ let
     set -euo pipefail
 
     PATH=${makeBinPath (with pkgs; [coreutils libvirt jq])}
-    export LIBVIRT_DEFAULT_URI=qemu:///system
+    export LIBVIRT_DEFAULT_URI=${escapeShellArg cfg.uri}
 
     name=${escapeShellArg vmname}
 
