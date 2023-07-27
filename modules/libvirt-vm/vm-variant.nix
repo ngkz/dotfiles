@@ -13,7 +13,7 @@ let
     name = "libvirt-${vmname}.xml";
     src = ./template.xml;
     inherit vmname regInfo;
-    vcpu = if cfg.vcpu != null then cfg.vcpu else "__PHYSICAL_CPUS__";
+    vcpu = if cfg.cores != null then cfg.cores else "__PHYSICAL_CPUS__";
     inherit (cfg) memorySize;
     toplevel = config.system.build.toplevel;
     kernelParams = config.boot.kernelParams;

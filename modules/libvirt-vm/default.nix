@@ -16,7 +16,7 @@ in
       description = "Hypervisor connection URI";
     };
 
-    vcpu = mkOption {
+    cores = mkOption {
       type = with types; nullOr ints.positive;
       default = null;
       description = "Number of vCPUs allocated to the guest";
