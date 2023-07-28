@@ -1,6 +1,7 @@
 { inputs, config, pkgs, lib, ... }:
 let
   inherit (lib) escapeShellArg makeBinPath;
+  inherit (lib.strings) escapeXML;
   inherit (builtins) toString head;
 
   cfg = config.modules.libvirt-vm;
@@ -12,16 +13,17 @@ let
   libvirtXML = pkgs.substituteAll {
     name = "libvirt-${vmname}.xml";
     src = ./template.xml;
-    inherit vmname regInfo;
+    vmname = escapeXML vmname;
+    regInfo = escapeXML (toString regInfo);
     vcpu = if cfg.cores != null then cfg.cores else "__PHYSICAL_CPUS__";
     inherit (cfg) memorySize;
-    toplevel = config.system.build.toplevel;
-    kernelParams = config.boot.kernelParams;
+    toplevel = escapeXML (toString config.system.build.toplevel);
+    kernelParams = escapeXML (toString config.boot.kernelParams);
     disks =
       if cfg.diskSize > 0 then ''
         <disk type='volume' device='disk'>
           <driver name='qemu' type='qcow2'/>
-          <source pool='${pool}' volume='${vol}'/>
+          <source pool='${escapeXML pool}' volume='${escapeXML vol}'/>
           <target dev='vda' bus='virtio'/>
         </disk>
       '' else "";
