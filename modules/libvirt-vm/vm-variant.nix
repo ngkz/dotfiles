@@ -59,40 +59,17 @@ let
     toplevel = config.system.build.toplevel;
   };
 
-  destroyVM = pkgs.writeScript "destroy-libvirt-vm-${vmname}" ''
-    #!${pkgs.bash}/bin/bash
-    set -euo pipefail
-
-    PATH=${makeBinPath (with pkgs; [coreutils libvirt gnugrep])}
-    export LIBVIRT_DEFAULT_URI=${escapeShellArg cfg.uri}
-
-    name=${escapeShellArg vmname}
-
-    if virsh list --name | grep "^$name$" >/dev/null; then
-      virsh shutdown "$name"
-    fi
-
-    timeout=$(($(date +%s) + 20))
-    while virsh list --name | grep "^$name$" >/dev/null; do
-      if [ "$(date +%s)" -ge "$timeout" ]; then
-        virsh destroy "$name"
-      else
-        # The machine is still running, let's give it some time to shut down
-        sleep 0.5
-      fi
-    done
-
-    virsh undefine "$name" || true
-
-    pool=${escapeShellArg pool}
-    vol=${escapeShellArg vol}
-
-    if virsh vol-key --pool "$pool" "$vol" &>/dev/null; then
-      virsh vol-delete --pool "$pool" "$vol"
-    fi
-
-    rm "/nix/var/nix/gcroots/per-user/$USER/libvirt-vm-$name-system"
-  '';
+  destroyVM = pkgs.substituteAll {
+    name = "destroy-libvirt-vm-${vmname}";
+    src = ./destroy-vm.sh;
+    isExecutable = true;
+    inherit (pkgs) bash;
+    path = makeBinPath (with pkgs; [ coreutils libvirt gnugrep ]);
+    vmname = escapeShellArg vmname;
+    pool = escapeShellArg pool;
+    vol = escapeShellArg vol;
+    uri = escapeShellArg cfg.uri;
+  };
 
   sshVM = pkgs.writeShellScript "ssh-libvirt-vm-${vmname}" ''
     PATH=${makeBinPath (with pkgs; [coreutils libvirt openssh gnused])}
