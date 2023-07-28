@@ -1,6 +1,7 @@
 { inputs, config, pkgs, lib, ... }:
 let
-  inherit (lib) escapeShellArg makeBinPath;
+  inherit (lib) escapeShellArg makeBinPath concatStringsSep;
+  inherit (lib.attrsets) mapAttrsToList mapAttrs' nameValuePair;
   inherit (lib.strings) escapeXML;
   inherit (builtins) toString head;
 
@@ -27,6 +28,20 @@ let
           <target dev='vda' bus='virtio'/>
         </disk>
       '' else "";
+    sharedMounts =
+      concatStringsSep "\n" (
+        mapAttrsToList
+          (tag: cfg: ''
+            <filesystem type='mount' accessmode='passthrough'>
+              <driver type='virtiofs'/>
+              <!-- XXX workaround for nixpkgs#187078 -->
+              <binary path='/run/current-system/sw/bin/virtiofsd' xattr='on'/>
+              <source dir='${escapeXML cfg.source}'/>
+              <target dir='${escapeXML tag}'/>
+            </filesystem>
+          '')
+          cfg.sharedDirectories
+      );
   };
 
   createVM = pkgs.writeScript "create-libvirt-vm-${vmname}" ''
@@ -37,29 +52,6 @@ let
     export LIBVIRT_DEFAULT_URI=${escapeShellArg cfg.uri}
 
     name=${escapeShellArg vmname}
-    sharedDirectory=${escapeShellArg cfg.sharedDirectory}
-
-    if [[ $# -gt 1 ]] || [[ $# -ge 1 ]] && [[ $1 = "--help" ]]; then
-      echo "usage: $0 [options] [SHARED_DIRECTORY]" >&2
-      echo "OPTIONS" >&2
-      echo "  --help    show this message" >&2
-      exit
-    fi
-
-    if [[ $# -eq 1 ]]; then
-      sharedDirectory=$(realpath -s "$1")
-    fi
-
-    sharedMounts=
-    if [[ -n $sharedDirectory ]]; then
-      sharedMounts="<filesystem type='mount' accessmode='passthrough'>
-      <driver type='virtiofs'/>
-      <!-- XXX workaround for nixpkgs#187078 -->
-      <binary path='/run/current-system/sw/bin/virtiofsd' xattr='on'/>
-      <source dir='$sharedDirectory'/>
-      <target dir='shared'/>
-    </filesystem>"
-    fi
 
     ${if cfg.diskSize > 0 then ''
       pool=${escapeShellArg pool}
@@ -76,7 +68,6 @@ let
     ln -nsf ${config.system.build.toplevel} "/nix/var/nix/gcroots/per-user/$USER/libvirt-vm-$name-system"
     virsh define <(sed -e "s/__UUID__/$uuid/" \
                        -e "s/__PHYSICAL_CPUS__/$(nproc)/" \
-                       -e "s|__SHARED_MOUNTS__|''${sharedMounts//''$'\n'/\\n}|" \
                        ${libvirtXML})
     virsh start "$name" || true
   '';
@@ -212,12 +203,14 @@ in
         "/nix/.rw-store/work"
       ];
     };
-    "/shared" = {
-      fsType = "virtiofs";
-      device = "shared";
-      options = [ "nofail" ];
-    };
-  };
+  } // (
+    mapAttrs'
+      (tag: cfg: nameValuePair cfg.target {
+        fsType = "virtiofs";
+        device = tag;
+      })
+      cfg.sharedDirectories
+  );
 
   # use direct boot
   boot.loader.grub.enable = false;

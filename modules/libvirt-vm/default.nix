@@ -34,10 +34,29 @@ in
       description = "Guest vda disk capacity (GiB). No disks are created when the capacity is zero";
     };
 
-    sharedDirectory = mkOption {
-      type = with types; nullOr path;
-      default = null;
-      description = "Shared directory between host and guest";
+    sharedDirectories = mkOption {
+      type = with types; attrsOf
+        (submodule {
+          options = {
+            source = mkOption {
+              type = str;
+              description = "The path of the directory to share";
+            };
+            target = mkOption {
+              type = path;
+              description = "The mount point of the directory inside the VM";
+            };
+          };
+        });
+      default = { };
+      example = {
+        my-share = { source = "/path/to/be/shared"; target = "/mnt/shared"; };
+      };
+      description = ''
+        An attributes set of directories that will be shared with the
+        virtual machine using virtiofs.
+        The attribute name will be used as the mount tag.
+      '';
     };
 
     sshUser = mkOption {

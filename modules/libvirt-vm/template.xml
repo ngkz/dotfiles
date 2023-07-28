@@ -42,7 +42,7 @@
       <source dir='/nix/store'/>
       <target dir='nix-store'/>
     </filesystem>
-    __SHARED_MOUNTS__
+    @sharedMounts@
     <interface type='network'>
       <source network='default'/>
       <model type='virtio'/>
