@@ -44,33 +44,20 @@ let
       );
   };
 
-  createVM = pkgs.writeScript "create-libvirt-vm-${vmname}" ''
-    #!${pkgs.bash}/bin/bash
-    set -euo pipefail
-
-    PATH=${makeBinPath (with pkgs; [coreutils libvirt gnused])}
-    export LIBVIRT_DEFAULT_URI=${escapeShellArg cfg.uri}
-
-    name=${escapeShellArg vmname}
-
-    ${if cfg.diskSize > 0 then ''
-      pool=${escapeShellArg pool}
-      vol=${escapeShellArg vol}
-
-      if ! virsh vol-key --pool "$pool" "$vol" &>/dev/null; then
-        virsh vol-create-as --format=qcow2 "$pool" "$vol" ${toString cfg.diskSize}GiB
-      elif ! [[ $(virsh vol-info "$vol" --pool "$pool" | sed -En 's/Capacity:\s*(.*)/\1/p') != "${toString cfg.diskSize} GiB" ]]; then
-        virsh vol-resize "$vol" ${toString cfg.diskSize}GiB --pool "$pool"
-      fi
-    '' else ""}
-
-    uuid=$(virsh domuuid "$name" 2>/dev/null || true)
-    ln -nsf ${config.system.build.toplevel} "/nix/var/nix/gcroots/per-user/$USER/libvirt-vm-$name-system"
-    virsh define <(sed -e "s/__UUID__/$uuid/" \
-                       -e "s/__PHYSICAL_CPUS__/$(nproc)/" \
-                       ${libvirtXML})
-    virsh start "$name" || true
-  '';
+  createVM = pkgs.substituteAll {
+    name = "create-libvirt-vm-${vmname}";
+    src = ./create-vm.sh;
+    isExecutable = true;
+    inherit (pkgs) bash;
+    path = makeBinPath (with pkgs; [ coreutils libvirt gnused ]);
+    vmname = escapeShellArg vmname;
+    pool = escapeShellArg pool;
+    vol = escapeShellArg vol;
+    uri = escapeShellArg cfg.uri;
+    inherit libvirtXML;
+    inherit (cfg) diskSize;
+    toplevel = config.system.build.toplevel;
+  };
 
   destroyVM = pkgs.writeScript "destroy-libvirt-vm-${vmname}" ''
     #!${pkgs.bash}/bin/bash
