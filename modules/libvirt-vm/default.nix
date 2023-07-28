@@ -28,10 +28,42 @@ in
       description = "Guest memory size (MiB)";
     };
 
-    diskSize = mkOption {
-      type = types.ints.positive;
-      default = 0;
-      description = "Guest vda disk capacity (GiB). No disks are created when the capacity is zero";
+    disks = mkOption {
+      type = with types; attrsOf
+        (submodule ({ config, ... }: {
+          options = {
+            pool = mkOption {
+              type = str;
+              default = "default";
+              description = "storage pool name";
+            };
+            volume = mkOption {
+              type = str;
+              description = "name of the volume";
+            };
+            capacity = mkOption {
+              type = ints.positive;
+              description = "volume capacity (MiB)";
+            };
+            format = mkOption {
+              type = enum [ "raw" "bochs" "qcow" "qcow2" "qed" "vmdk" ];
+              default = "qcow2";
+              description = "volume file format";
+            };
+            mountTo = mkOption {
+              type = nullOr str;
+            };
+            fsType = mkOption {
+              type = nullOr (enum [ "ext4" ]);
+            };
+            autoFormat = mkOption {
+              type = bool;
+              default = config.mountTo != null;
+            };
+          };
+        }));
+      default = { };
+      description = "virtual disks. the attribute name is device name";
     };
 
     sharedDirectories = mkOption {

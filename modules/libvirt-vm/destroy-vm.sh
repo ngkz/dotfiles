@@ -5,8 +5,6 @@ PATH=@path@
 export LIBVIRT_DEFAULT_URI=@uri@
 
 name=@vmname@
-pool=@pool@
-vol=@vol@
 
 if virsh list --name | grep "^$name$" >/dev/null; then
   virsh shutdown "$name"
@@ -24,8 +22,15 @@ done
 
 virsh undefine "$name" || true
 
-if virsh vol-key --pool "$pool" "$vol" &>/dev/null; then
-  virsh vol-delete --pool "$pool" "$vol"
-fi
+deleteDisk() {
+  pool=$1
+  vol=$2
+
+  if virsh vol-key --pool "$pool" "$vol" &>/dev/null; then
+    virsh vol-delete --pool "$pool" "$vol"
+  fi
+}
+
+@deleteDisks@
 
 rm "/nix/var/nix/gcroots/per-user/$USER/libvirt-vm-$name-system"

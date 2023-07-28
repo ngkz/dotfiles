@@ -1,15 +1,14 @@
 { inputs, config, pkgs, lib, ... }:
 let
   inherit (lib) escapeShellArg makeBinPath concatStringsSep;
-  inherit (lib.attrsets) mapAttrsToList mapAttrs' nameValuePair;
+  inherit (lib.attrsets) mapAttrsToList mapAttrs' nameValuePair filterAttrs;
   inherit (lib.strings) escapeXML;
-  inherit (builtins) toString head;
+  inherit (lib.lists) any;
+  inherit (builtins) toString head attrValues;
 
   cfg = config.modules.libvirt-vm;
   regInfo = pkgs.closureInfo { rootPaths = [ config.system.build.toplevel ]; };
   vmname = config.system.name;
-  pool = "default";
-  vol = vmname + ".qcow2";
 
   libvirtXML = pkgs.substituteAll {
     name = "libvirt-${vmname}.xml";
@@ -21,13 +20,17 @@ let
     toplevel = escapeXML (toString config.system.build.toplevel);
     kernelParams = escapeXML (toString config.boot.kernelParams);
     disks =
-      if cfg.diskSize > 0 then ''
-        <disk type='volume' device='disk'>
-          <driver name='qemu' type='qcow2'/>
-          <source pool='${escapeXML pool}' volume='${escapeXML vol}'/>
-          <target dev='vda' bus='virtio'/>
-        </disk>
-      '' else "";
+      concatStringsSep "\n" (
+        mapAttrsToList
+          (dev: cfg: ''
+            <disk type='volume' device='disk'>
+              <driver name='qemu' type='${escapeXML cfg.format}'/>
+              <source pool='${escapeXML cfg.pool}' volume='${escapeXML cfg.volume}'/>
+              <target dev='${escapeXML dev}' bus='virtio'/>
+            </disk>
+          '')
+          cfg.disks
+      );
     sharedMounts =
       concatStringsSep "\n" (
         mapAttrsToList
@@ -51,12 +54,15 @@ let
     inherit (pkgs) bash;
     path = makeBinPath (with pkgs; [ coreutils libvirt gnused ]);
     vmname = escapeShellArg vmname;
-    pool = escapeShellArg pool;
-    vol = escapeShellArg vol;
     uri = escapeShellArg cfg.uri;
     inherit libvirtXML;
-    inherit (cfg) diskSize;
     toplevel = config.system.build.toplevel;
+    ensureDisks =
+      concatStringsSep "\n" (
+        mapAttrsToList
+          (dev: cfg: "ensureDisk ${escapeShellArg cfg.pool} ${escapeShellArg cfg.volume} ${escapeShellArg cfg.format} ${toString cfg.capacity}")
+          cfg.disks
+      );
   };
 
   destroyVM = pkgs.substituteAll {
@@ -66,9 +72,13 @@ let
     inherit (pkgs) bash;
     path = makeBinPath (with pkgs; [ coreutils libvirt gnugrep ]);
     vmname = escapeShellArg vmname;
-    pool = escapeShellArg pool;
-    vol = escapeShellArg vol;
     uri = escapeShellArg cfg.uri;
+    deleteDisks =
+      concatStringsSep "\n" (
+        mapAttrsToList
+          (dev: cfg: "deleteDisk ${escapeShellArg cfg.pool} ${escapeShellArg cfg.volume}")
+          cfg.disks
+      );
   };
 
   sshVM = pkgs.writeShellScript "ssh-libvirt-vm-${vmname}" ''
@@ -143,10 +153,6 @@ in
 
   # /nix is shared with the host
   fileSystems = {
-    "/" = {
-      fsType = "ext4";
-      device = "/dev/vda";
-    };
     "/nix/.ro-store" = {
       fsType = "virtiofs";
       device = "nix-store";
@@ -174,6 +180,13 @@ in
         device = tag;
       })
       cfg.sharedDirectories
+  ) // (
+    mapAttrs'
+      (dev: cfg: nameValuePair cfg.mountTo {
+        inherit (cfg) fsType;
+        device = "/dev/${dev}";
+      })
+      (filterAttrs (_: cfg: cfg.mountTo != null) cfg.disks)
   );
 
   # use direct boot
@@ -191,21 +204,29 @@ in
   networking.usePredictableInterfaceNames = false;
 
   boot.initrd.extraUtilsCommands =
-    ''
-      # We need mke2fs in the initrd.
+    if any (v: v.autoFormat && v.fsType == "ext4") (attrValues cfg.disks) then ''
       copy_bin_and_libs ${pkgs.e2fsprogs}/bin/mke2fs
-    '';
+    '' else "";
 
   boot.initrd.postDeviceCommands =
-    ''
-      # If the disk image appears to be empty, run mke2fs to
-      # initialise.
-      FSTYPE=$(blkid -o value -s TYPE ${config.fileSystems."/".device} || true)
-      PARTTYPE=$(blkid -o value -s PTTYPE ${config.fileSystems."/".device} || true)
-      if test -z "$FSTYPE" -a -z "$PARTTYPE"; then
-          mke2fs -t ext4 ${config.fileSystems."/".device}
-      fi
-    '';
+    concatStringsSep "\n" (
+      mapAttrsToList
+        (dev: cfg:
+          let
+            devP = escapeShellArg "/dev/${dev}";
+          in
+          ''
+            FSTYPE=$(blkid -o value -s TYPE ${devP} || true)
+            PARTTYPE=$(blkid -o value -s PTTYPE ${devP} || true)
+            if test -z "$FSTYPE" -a -z "$PARTTYPE"; then
+                ${if cfg.fsType == "ext4" then
+                  "mke2fs -t ext4 ${devP}"
+                  else
+                  builtins.throw "unsupported filesystem"}
+            fi
+          '')
+        (filterAttrs (_: cfg: cfg.autoFormat && cfg.fsType != null) cfg.disks)
+    );
 
   boot.postBootCommands =
     ''
