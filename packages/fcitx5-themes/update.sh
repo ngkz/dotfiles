@@ -18,6 +18,8 @@ fi
 
 sed -i "s|rev = \".*\"|rev = \"$latest\"|" default.nix
 newhash=$(nix build "../..#${pname}" 2>&1 | sed -n "s/.*got:\s*\(.*\)/\1/p" || true)
-sed -i "s|sha256 = \".*\"|sha256 = \"$newhash\"|" default.nix
+if [[ -n $newhash ]]; then
+    sed -i "s|sha256 = \".*\"|sha256 = \"$newhash\"|" default.nix
+fi
 
 echo "$pname updated: $current -> $latest"

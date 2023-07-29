@@ -3,7 +3,7 @@
 fetchFromGitHub rec {
   owner = "thep0y";
   repo = "fcitx5-themes";
-  rev = "452286a21db617a80fbed9c02f3dff9d77632191";
+  rev = "73c896d0fad22e52b8786ee2171cac41b2d49521";
   sha256 = "sha256-aPs6YQ9JRScCUTCM1ko7o0imX4GJmhWeIqJCaoGfL7g=";
   name = "${repo}-${builtins.substring 0 6 rev}";
 
