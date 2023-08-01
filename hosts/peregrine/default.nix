@@ -159,7 +159,7 @@ in
     options iwlwifi power_save=1 uapsd_disable=0
     options iwlmvm power_scheme=3
 
-    options i915 enable_dc=2 enable_fbc=1 enable_psr=1 enable_guc=3 enable_psr2_sel_fetch=1 enable_dpcd_backlight=1
+    options i915 enable_fbc=1 enable_psr=2 enable_guc=2 enable_psr2_sel_fetch=1
     options drm vblankoffdelay=1
   '';
 
