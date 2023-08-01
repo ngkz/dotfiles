@@ -21,8 +21,9 @@ in
     bluetooth
 
     common-pc
-    common-cpu-intel
     common-pc-laptop
+    profiles-intel-cpu
+    profiles-intel-wifi
   ];
 
   # hardware configuration
@@ -104,14 +105,6 @@ in
     ];
   };
 
-  # intel cpu
-  hardware.enableRedistributableFirmware = true;
-  boot.kernelModules = [ "kvm-intel" ];
-
-  environment.systemPackages = with pkgs; [
-    intel-gpu-tools # intel_gpu_top
-  ];
-
   # user
   age.secrets.user-password-hash-noguchi-pc.file = ../../secrets/user-password-hash-noguchi-pc.age;
   users.users.user.passwordFile = config.age.secrets.user-password-hash-noguchi-pc.path;
@@ -144,15 +137,6 @@ in
     PCIE_ASPM_ON_AC = "default";
     PCIE_ASPM_ON_BAT = "powersupersave";
   };
-
-  # power saving
-  boot.extraModprobeConfig = ''
-    options iwlwifi power_save=1 uapsd_disable=0
-    options iwlmvm power_scheme=3
-
-    options i915 enable_fbc=1 enable_psr=2 enable_guc=2 enable_psr2_sel_fetch=1
-    options drm vblankoffdelay=1
-  '';
 
   # hibernation
   boot.resumeDevice = config.fileSystems."/var/swap".device;
