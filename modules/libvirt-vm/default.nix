@@ -52,9 +52,10 @@ in
             };
             mountTo = mkOption {
               type = nullOr str;
+              default = null;
             };
             fsType = mkOption {
-              type = nullOr (enum [ "ext4" ]);
+              default = null;
             };
             autoFormat = mkOption {
               type = bool;
