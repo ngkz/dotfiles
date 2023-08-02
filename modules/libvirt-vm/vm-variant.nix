@@ -1,10 +1,10 @@
 { inputs, config, pkgs, lib, ... }:
 let
-  inherit (lib) escapeShellArg makeBinPath concatStringsSep;
+  inherit (lib) escapeShellArg makeBinPath concatStringsSep mkVMOverride;
   inherit (lib.attrsets) mapAttrsToList mapAttrs' nameValuePair filterAttrs;
   inherit (lib.strings) escapeXML;
-  inherit (lib.lists) any;
-  inherit (builtins) toString head attrValues;
+  inherit (lib.lists) unique;
+  inherit (builtins) toString head attrValues map filter;
 
   cfg = config.modules.libvirt-vm;
   regInfo = pkgs.closureInfo { rootPaths = [ config.system.build.toplevel ]; };
@@ -204,11 +204,22 @@ in
   networking.usePredictableInterfaceNames = false;
 
   boot.initrd.extraUtilsCommands =
-    if any (v: v.autoFormat && v.fsType == "ext4") (attrValues cfg.disks) then ''
-      copy_bin_and_libs ${pkgs.e2fsprogs}/bin/mke2fs
-    '' else "";
+    let
+      formatters = {
+        ext4 = "${pkgs.e2fsprogs}/bin/mke2fs";
+        btrfs = "${pkgs.btrfs-progs}/bin/mkfs.btrfs";
+      };
+      fileSystems = unique (map (v: v.fsType) (filter (v: v.autoFormat) (attrValues cfg.disks)));
+    in
+    concatStringsSep "\n" (map (fs: "copy_bin_and_libs ${formatters."${fs}"}") fileSystems);
 
   boot.initrd.postDeviceCommands =
+    let
+      formatCmd = {
+        ext4 = "mke2fs -t ext4";
+        btrfs = "mkfs.btrfs";
+      };
+    in
     concatStringsSep "\n" (
       mapAttrsToList
         (dev: cfg:
@@ -219,13 +230,10 @@ in
             FSTYPE=$(blkid -o value -s TYPE ${devP} || true)
             PARTTYPE=$(blkid -o value -s PTTYPE ${devP} || true)
             if test -z "$FSTYPE" -a -z "$PARTTYPE"; then
-                ${if cfg.fsType == "ext4" then
-                  "mke2fs -t ext4 ${devP}"
-                  else
-                  builtins.throw "unsupported filesystem"}
+              ${formatCmd."${cfg.fsType}"} ${devP}
             fi
           '')
-        (filterAttrs (_: cfg: cfg.autoFormat && cfg.fsType != null) cfg.disks)
+        (filterAttrs (_: cfg: cfg.autoFormat) cfg.disks)
     );
 
   boot.postBootCommands =

@@ -55,6 +55,7 @@ in
               default = null;
             };
             fsType = mkOption {
+              type = nullOr (enum [ "ext4" "btrfs" ]);
               default = null;
             };
             autoFormat = mkOption {
