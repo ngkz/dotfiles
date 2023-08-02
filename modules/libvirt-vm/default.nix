@@ -1,4 +1,4 @@
-{ config, pkgs, lib, extendModules, ... }:
+{ config, options, pkgs, lib, extendModules, ... }:
 let
   inherit (lib) mkOption types;
 
@@ -98,6 +98,8 @@ in
       default = "user";
       description = "SSH login user";
     };
+
+    fileSystems = options.fileSystems;
 
     variant = mkOption {
       description = "Machine configuration to be added for the VM";

@@ -152,7 +152,8 @@ in
   boot.initrd.availableKernelModules = [ "overlay" "virtiofs" ];
 
   # /nix is shared with the host
-  fileSystems = {
+  fileSystems = mkVMOverride cfg.fileSystems;
+  modules.libvirt-vm.fileSystems = {
     "/nix/.ro-store" = {
       fsType = "virtiofs";
       device = "nix-store";
