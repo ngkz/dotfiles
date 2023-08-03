@@ -47,19 +47,19 @@ in
       storageDirs = map (path: "${storage}/${path}") (unique ((map dirOf files) ++ dirs));
     in
     mkIf cfg.enable {
-      home.file = listToAttrs (
-        map
-          (
-            path: nameValuePair path {
-              source = config.lib.file.mkOutOfStoreSymlink "${storage}/${path}";
-            }
-          )
-          (files ++ dirs)
-      );
-
-      home.activation.tmpfs-as-home = hm.dag.entryAfter [ "writeBoundary" ] (
-        concatStringsSep "\n" (
+      # TODO Remove symlinks from the old generation that are not in the new generation
+      # like home-manager.
+      home.activation.tmpfs-as-home = hm.dag.entryBetween [ "linkGeneration" ] [ "writeBoundary " ] (
+        concatStringsSep "\n" ((
           map (path: "$DRY_RUN_CMD mkdir -p ${escapeShellArg path}") storageDirs
+        ) ++ (
+          map
+            (path: ''
+              $DRY_RUN_CMD mkdir -p $(dirname ~/${escapeShellArg path})
+              $DRY_RUN_CMD ln -fnTs ${escapeShellArg (storage + "/" + path)} ~/${escapeShellArg path}
+            '')
+            (files ++ dirs)
+        )
         )
       );
 
