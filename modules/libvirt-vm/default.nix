@@ -85,6 +85,17 @@ in
               type = bool;
               description = "If set, this directory will be mounted in the initial ramdisk";
             };
+            readonly = mkOption {
+              default = false;
+              type = bool;
+              description = "Sharing this directory as a readonly mount or not. not available when shareMode is \"virtiofs\"";
+            };
+            options = mkOption {
+              default = [ "defaults" ];
+              example = [ "data=journal" ];
+              description = "Mount options";
+              type = nonEmptyListOf nonEmptyStr;
+            };
           };
         });
       default = { };
@@ -96,6 +107,12 @@ in
         virtual machine using virtiofs.
         The attribute name will be used as the mount tag.
       '';
+    };
+
+    shareMode = mkOption {
+      type = types.enum [ "virtiofs" "9p" ];
+      default = "virtiofs";
+      description = "Method to share directories between host and the VM";
     };
 
     sshUser = mkOption {

@@ -35,13 +35,6 @@
     @disks@
     <controller type='usb' index='0' model='qemu-xhci'/>
     <controller type='virtio-serial' index='0'/>
-    <filesystem type='mount' accessmode='passthrough'>
-      <driver type='virtiofs'/>
-      <!-- XXX workaround for nixpkgs#187078 -->
-      <binary path='/run/current-system/sw/bin/virtiofsd' xattr='on'/>
-      <source dir='/nix/store'/>
-      <target dir='nix-store'/>
-    </filesystem>
     @sharedMounts@
     <interface type='network'>
       <source network='default'/>

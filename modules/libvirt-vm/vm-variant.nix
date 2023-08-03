@@ -1,6 +1,6 @@
 { inputs, config, pkgs, lib, ... }:
 let
-  inherit (lib) escapeShellArg makeBinPath concatStringsSep mkVMOverride;
+  inherit (lib) escapeShellArg makeBinPath concatStringsSep mkVMOverride optional optionals;
   inherit (lib.attrsets) mapAttrsToList mapAttrs' nameValuePair filterAttrs;
   inherit (lib.strings) escapeXML;
   inherit (lib.lists) unique;
@@ -34,13 +34,16 @@ let
     sharedMounts =
       concatStringsSep "\n" (
         mapAttrsToList
-          (tag: cfg: ''
+          (tag: mount: ''
             <filesystem type='mount' accessmode='passthrough'>
-              <driver type='virtiofs'/>
-              <!-- XXX workaround for nixpkgs#187078 -->
-              <binary path='/run/current-system/sw/bin/virtiofsd' xattr='on'/>
-              <source dir='${escapeXML cfg.source}'/>
+              ${if cfg.shareMode == "virtiofs" then ''
+                <driver type='virtiofs'/>
+                <!-- XXX workaround for nixpkgs#187078 -->
+                <binary path='/run/current-system/sw/bin/virtiofsd' xattr='on'/>
+              '' else ""}
+              <source dir='${escapeXML mount.source}'/>
               <target dir='${escapeXML tag}'/>
+              ${if cfg.shareMode != "virtiofs" && mount.readonly then "<readonly/>" else ""}
             </filesystem>
           '')
           cfg.sharedDirectories
@@ -151,17 +154,11 @@ in
     "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
   ];
 
-  boot.initrd.availableKernelModules = [ "overlay" "virtiofs" ];
+  boot.initrd.availableKernelModules = [ "overlay" ] ++ optional (cfg.shareMode == "virtiofs") "virtiofs";
 
   # /nix is shared with the host
   fileSystems = mkVMOverride cfg.fileSystems;
   modules.libvirt-vm.fileSystems = {
-    "/nix/.ro-store" = {
-      fsType = "virtiofs";
-      device = "nix-store";
-      neededForBoot = true;
-      options = [ "ro" ];
-    };
     "/nix/store" = {
       fsType = "overlay";
       device = "overlay";
@@ -178,10 +175,11 @@ in
     };
   } // (
     mapAttrs'
-      (tag: cfg: nameValuePair cfg.target {
-        fsType = "virtiofs";
+      (tag: mount: nameValuePair mount.target {
+        fsType = cfg.shareMode;
         device = tag;
-        inherit (cfg) neededForBoot;
+        inherit (mount) neededForBoot;
+        options = (optionals (cfg.shareMode == "9p") ([ "trans=virtio" "version=9p2000.L" "msize=16384" ] ++ optional mount.readonly "cache=loose")) ++ mount.options;
       })
       cfg.sharedDirectories
   ) // (
@@ -192,6 +190,16 @@ in
       })
       (filterAttrs (_: cfg: cfg.mountTo != null) cfg.disks)
   );
+
+  modules.libvirt-vm.sharedDirectories = {
+    nix-store = {
+      source = "/nix/store";
+      target = "/nix/.ro-store";
+      neededForBoot = true;
+      readonly = true;
+      options = [ "ro" ];
+    };
+  };
 
   # use direct boot
   boot.loader.grub.enable = false;
