@@ -62,5 +62,9 @@ in
           map (path: "$DRY_RUN_CMD mkdir -p ${escapeShellArg path}") storageDirs
         )
       );
+
+      home.tmpfs-as-home.persistentDirs = [
+        ".local/state/home-manager"
+      ];
     };
 }
