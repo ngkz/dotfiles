@@ -49,7 +49,7 @@ in
     mkIf cfg.enable {
       # TODO Remove symlinks from the old generation that are not in the new generation
       # like home-manager.
-      home.activation.tmpfs-as-home = hm.dag.entryBetween [ "linkGeneration" ] [ "writeBoundary " ] (
+      home.activation.tmpfs-as-home = hm.dag.entryBetween [ "linkGeneration" ] [ "writeBoundary" ] (
         concatStringsSep "\n" ((
           map (path: "$DRY_RUN_CMD mkdir -p ${escapeShellArg path}") storageDirs
         ) ++ (
