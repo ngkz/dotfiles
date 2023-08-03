@@ -34,3 +34,5 @@ deleteDisk() {
 @deleteDisks@
 
 rm "/nix/var/nix/gcroots/per-user/$USER/libvirt-vm-$name-system"
+
+@extraDestroyVMCommands@

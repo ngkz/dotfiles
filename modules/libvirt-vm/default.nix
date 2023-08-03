@@ -107,6 +107,18 @@ in
       default = { };
       visible = "shallow";
     };
+
+    extraCreateVMCommands = mkOption {
+      type = types.lines;
+      default = "";
+      description = "Additional bash commands to be run right before starting the VM";
+    };
+
+    extraDestroyVMCommands = mkOption {
+      type = types.lines;
+      default = "";
+      description = "Additional bash commands to be run after destroying the VM";
+    };
   };
 
   config = {

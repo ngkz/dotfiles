@@ -31,4 +31,5 @@ ln -nsf "$toplevel" "/nix/var/nix/gcroots/per-user/$USER/libvirt-vm-$vmname-syst
 virsh define <(sed -e "s/__UUID__/$uuid/" \
                    -e "s/__PHYSICAL_CPUS__/$(nproc)/" \
                    "$libvirtXML")
+@extraCreateVMCommands@
 virsh start "$vmname" || true

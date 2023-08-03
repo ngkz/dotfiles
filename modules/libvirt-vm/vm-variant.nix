@@ -63,6 +63,7 @@ let
           (dev: cfg: "ensureDisk ${escapeShellArg cfg.pool} ${escapeShellArg cfg.volume} ${escapeShellArg cfg.format} ${toString cfg.capacity}")
           cfg.disks
       );
+    inherit (cfg) extraCreateVMCommands;
   };
 
   destroyVM = pkgs.substituteAll {
@@ -79,6 +80,7 @@ let
           (dev: cfg: "deleteDisk ${escapeShellArg cfg.pool} ${escapeShellArg cfg.volume}")
           cfg.disks
       );
+    inherit (cfg) extraDestroyVMCommands;
   };
 
   sshVM = pkgs.writeShellScript "ssh-libvirt-vm-${vmname}" ''
