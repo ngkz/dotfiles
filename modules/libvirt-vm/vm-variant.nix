@@ -181,6 +181,7 @@ in
       (tag: cfg: nameValuePair cfg.target {
         fsType = "virtiofs";
         device = tag;
+        inherit (cfg) neededForBoot;
       })
       cfg.sharedDirectories
   ) // (

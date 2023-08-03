@@ -80,6 +80,11 @@ in
               type = path;
               description = "The mount point of the directory inside the VM";
             };
+            neededForBoot = mkOption {
+              default = false;
+              type = bool;
+              description = "If set, this directory will be mounted in the initial ramdisk";
+            };
           };
         });
       default = { };
