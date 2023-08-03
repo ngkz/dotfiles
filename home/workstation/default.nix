@@ -29,6 +29,7 @@ in
 
   # tmpfs as home
   home.tmpfs-as-home.persistentDirs = [
+    ".local/share/wireplumber"
     # personal files
     "docs"
     "dl"

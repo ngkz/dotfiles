@@ -10,7 +10,6 @@
   home.tmpfs-as-home.persistentDirs = [
     ".local/share/nix" # nix repl history
     ".cache/nix-index"
-    ".local/share/wireplumber"
   ];
 
   # FZF fuzzy finder
