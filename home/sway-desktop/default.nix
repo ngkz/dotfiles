@@ -306,11 +306,13 @@ in
           {
             criteria = "Chimei Innolux Corporation 0x14F3 Unknown";
             mode = "1920x1080@60Hz";
+            scale = 1.0;
             position = "0,0";
           }
           {
             criteria = "HDMI-A-1";
             position = "1920,0";
+            scale = 1.0;
             status = "enable";
           }
         ];
