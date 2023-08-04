@@ -25,6 +25,11 @@ in
       default = [ ];
       description = "Files which should be stored in the persistent storage.";
     };
+
+    fileSystems = mkOption {
+      type = with types; attrsOf anything;
+      description = "Filesystem configuration provided by this module";
+    };
   };
 
   config =
@@ -39,7 +44,7 @@ in
     in
     mkIf cfg.enable {
       # "tmpfs as root" setup
-      fileSystems = {
+      modules.tmpfs-as-root.fileSystems = {
         "/" = {
           device = "none";
           fsType = "tmpfs";
@@ -52,6 +57,7 @@ in
           options = [ "bind" ];
         };
       };
+      fileSystems = config.modules.tmpfs-as-root.fileSystems;
 
       environment.etc = listToAttrs (
         map (path: nameValuePair (removePrefix "/etc/" path) { source = storage + path; }) etcFiles
