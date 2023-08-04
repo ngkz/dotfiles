@@ -55,7 +55,7 @@ WINDOW_ICONS = {
     "nemo": ' ',
     "mpv": " ",
     "evince": ' ',
-    "tauon music box": " ",
+    "tauonmb": " ",
     "emacs": " ",
     "transmission-gtk": "󰽀 ",
     "gnome-disks": "󰋊 ",
