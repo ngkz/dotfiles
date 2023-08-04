@@ -50,7 +50,7 @@ let
           "interval": 3,
           "return-type": "json",
           "exec": "${swaymsg} -t get_tree | ${jq} --unbuffered --compact-output '(recurse(.nodes[]) | select(.name == \\"__i3_scratch\\") | .focus) as \$scratch_ids | [..  | (.nodes? + .floating_nodes?) // empty | .[] | select(.id |IN(\$scratch_ids[]))] as \$scratch_nodes | if (\$scratch_nodes|length) > 0 then { text: \\"\\\\(\$scratch_nodes | length)\\", tooltip: \$scratch_nodes | map(\\"\\\\(.app_id // .window_properties.class) (\\\\(.id)): \\\\(.name)\\") | join(\\"\\\\n\\") } else empty end'",
-          "format": "缾 {}",
+          "format": " {}",
           "on-click": "${swaymsg} 'scratchpad show'",
           "on-click-right": "${swaymsg} 'move scratchpad'"
         },
@@ -86,7 +86,7 @@ let
         },
         "cpu": {
           "format": "",
-          "format-load": " {max_frequency:0.1f}GHz {usage}% $(for i in $(seq $(nproc)); do echo -n "{icon$((i - 1))}"; done)",
+          "format-load": " {max_frequency:0.1f}GHz {usage}% $(for i in $(seq $(nproc)); do echo -n "{icon$((i - 1))}"; done)",
           "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
           "interval": 2,
           "on-click": "${foot} -e ${btop}",
@@ -109,8 +109,8 @@ let
         "disk": {
           "path": "/",
           "format": "",
-          "format-warning": " {path} {percentage_used}%",
-          "format-critical": " {path} {percentage_used}%",
+          "format-warning": "󰋊 {path} {percentage_used}%",
+          "format-critical": "󰋊 {path} {percentage_used}%",
           "states": {
             "critical": 90,
             "warning": 80,
@@ -120,8 +120,8 @@ let
         "disk#nix": {
           "path": "/nix",
           "format": "",
-          "format-warning": " {path} {percentage_used}%",
-          "format-critical": " {path} {percentage_used}%",
+          "format-warning": "󰋊 {path} {percentage_used}%",
+          "format-critical": "󰋊 {path} {percentage_used}%",
           "states": {
             "critical": 90,
             "warning": 80,
@@ -131,8 +131,8 @@ let
         "disk#tmp": {
           "path": "/tmp",
           "format": "",
-          "format-warning": " {path} {percentage_used}%",
-          "format-critical": " {path} {percentage_used}%",
+          "format-warning": "󰋊 {path} {percentage_used}%",
+          "format-critical": "󰋊 {path} {percentage_used}%",
           "states": {
             "critical": 90,
             "warning": 80,
@@ -145,18 +145,18 @@ let
           "format-icons": {
             "car": "",
             "default": [
-              "奄",
-              "奔",
-              "墳",
+              "󰕿",
+              "󰖀",
+              "󰕾",
               ""
             ],
-            "handsfree": "",
-            "headphones": "",
-            "headset": "",
+            "handsfree": "󰋎",
+            "headphones": "󰋋",
+            "headset": "󰋎",
             "phone": "",
             "portable": ""
           },
-          "format-muted": "ﱝ",
+          "format-muted": "󰝟",
           "on-click": "${pavucontrol}",
           "on-click-middle": "${pkgs.ngkz.hotkey-scripts}/bin/volume mute"
         },
@@ -164,8 +164,8 @@ let
           "format": "{icon} {capacity}%",
           "format-charging": "{icon}↯ {time} {capacity}%",
           "format-discharging": "{icon} {power:.1f}W {time} {capacity}%",
-          "format-icons": ["", "", "", "", "", "", "", "", "", "", ""],
-          "format-plugged": "{icon}ﮣ\u200e{capacity}%",
+          "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+          "format-plugged": "{icon}󰚥{capacity}%",
           "format-time": "{H}:{M:02d}",
           "interval": 10,
           "on-click": "${gnome-power-statistics}",
