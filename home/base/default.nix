@@ -49,6 +49,7 @@
     procs # modern ps
     ripgrep # modern grep
     choose # modern cut
+    delta # diff
 
     hddtemp
     inetutils
