@@ -102,12 +102,12 @@ let
     src = ./switch-vm.sh;
     isExecutable = true;
     inherit (pkgs) bash;
-    path = makeBinPath (with pkgs; [ coreutils libvirt jq ]);
+    path = makeBinPath (with pkgs; [ coreutils libvirt jq gnused ]);
     vmname = escapeShellArg vmname;
     uri = escapeShellArg cfg.uri;
     nix = config.nix.package.out;
-    inherit regInfo;
     toplevel = config.system.build.toplevel;
+    inherit regInfo libvirtXML;
   };
 in
 {
