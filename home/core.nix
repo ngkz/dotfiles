@@ -1,14 +1,9 @@
-{ ... }: {
+{ osConfig, ... }: {
   # enable ~/.config, ~/.cache and ~/.local/share management
   xdg.enable = true;
 
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
-  home.stateVersion = "22.11";
+  # It is occasionally necessary for Home Manager to change configuration defaults in a way that is incompatible with stateful data. This could, for example, include switching the default data format or location of a file.
+
+  # The state version indicates which default settings are in effect and will therefore help avoid breaking program configurations. Switching to a higher state version typically requires performing some manual steps, such as data conversion or moving files.
+  home.stateVersion = osConfig.system.stateVersion;
 }
