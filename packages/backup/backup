@@ -43,6 +43,7 @@ EXCLUDES=(
     "home/*/.android/adb.*"
     "home/*/.FreeCAD/webdatapersistent"
     "home/*/.librewolf/default/storage/default/*/cache"
+    "home/*/.electrum/daemon_rpc_socket"
 )
 LOGGER_PIPE=$TMPDIR/logger
 
