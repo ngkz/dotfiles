@@ -97,57 +97,18 @@ let
     exec ssh -p "$port" $options "$user@$host" "$@"
   '';
 
-  switchVM = pkgs.writeScript "switch-libvirt-vm-${vmname}" ''
-    #!${pkgs.bash}/bin/bash
-    set -euo pipefail
-
-    PATH=${makeBinPath (with pkgs; [coreutils libvirt jq])}
-    export LIBVIRT_DEFAULT_URI=${escapeShellArg cfg.uri}
-
-    name=${escapeShellArg vmname}
-
-    jsonstr() {
-      echo -n "$1" | jq -Rs
-    }
-
-    guestrun() {
-      local cmd=$1
-
-      local arg="["
-      while shift; do
-        arg+=$(jsonstr "$1")
-        if [ "$#" -ge 2 ]; then
-          arg+=", "
-        else
-          arg+="]"
-          break
-        fi
-      done
-
-      local pid=$(virsh qemu-agent-command "$name" "{\"execute\": \"guest-exec\", \"arguments\": {\"path\": $(jsonstr "$cmd"), \"arg\": $arg, \"capture-output\": true}}" | jq -r ".return.pid")
-
-      while :; do
-        local result=$(virsh qemu-agent-command "$name" "{\"execute\": \"guest-exec-status\", \"arguments\": {\"pid\": $pid}}")
-        if [ "$(jq ".return.exited" <<<"$result")" = true ]; then
-          break
-        fi
-        sleep 0.1
-      done
-
-      code=$(jq -r ".return.exitcode" <<<"$result")
-      if jq -r '.return["out-data"]' <<<"$result" &>/dev/null; then
-        jq -r '.return["out-data"]' <<<"$result" | base64 -d
-      fi
-      if jq -r '.return["err-data"]' <<<"$result" &>/dev/null; then
-        jq -r '.return["err-data"]' <<<"$result" | base64 -d >&2
-      fi
-      return "$code"
-    }
-
-    guestrun ${pkgs.runtimeShell} -c "${config.nix.package.out}/bin/nix-store --load-db <${regInfo}/registration"
-    guestrun ${config.nix.package.out}/bin/nix-env -p /nix/var/nix/profiles/system --set ${config.system.build.toplevel}
-    guestrun ${config.system.build.toplevel}/bin/switch-to-configuration switch
-  '';
+  switchVM = pkgs.substituteAll {
+    name = "switch-libvirt-vm-${vmname}";
+    src = ./switch-vm.sh;
+    isExecutable = true;
+    inherit (pkgs) bash;
+    path = makeBinPath (with pkgs; [ coreutils libvirt jq ]);
+    vmname = escapeShellArg vmname;
+    uri = escapeShellArg cfg.uri;
+    nix = config.nix.package.out;
+    inherit regInfo;
+    toplevel = config.system.build.toplevel;
+  };
 in
 {
   imports = [
