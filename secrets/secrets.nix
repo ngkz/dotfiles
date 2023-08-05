@@ -1,10 +1,12 @@
 let
   peregrine = "age1vukcr575kygdjrkz6e4c8n5asx42re3nm0at757kul0w57vt4seqnmuadr";
   noguchi-pc = "age1sg083tscjgj58w8kf3p0svg2vsz0mplynj9rve48ru9ytz9ww9xsh0vksp";
+  rednecked = "age1y5nnvfvje8yay3rvdx0z6pzmjr9hxvks9y06u35xsv8udyxgpsyq2uk58s";
 in
 {
   "user-password-hash-peregrine.age".publicKeys = [ peregrine ];
   "user-password-hash-noguchi-pc.age".publicKeys = [ noguchi-pc ];
+  "user-password-hash-rednecked.age".publicKeys = [ rednecked ];
   "parents-home-1f-a.nmconnection.age".publicKeys = [ peregrine ];
   "parents-home-1f-g.nmconnection.age".publicKeys = [ peregrine ];
   "parents-home-2f.nmconnection.age".publicKeys = [ peregrine ];
