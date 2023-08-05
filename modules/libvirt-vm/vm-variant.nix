@@ -92,7 +92,7 @@ let
 
     user=${escapeShellArg cfg.sshUser}
     host=$(virsh domifaddr ${escapeShellArg vmname} | sed -En 's/^.*\s+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)\/[0-9]+$/\1/p' | head -n1)
-    port=${toString (head config.services.openssh.ports)}
+    port=${toString cfg.sshPort}
     options='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
     exec ssh -p "$port" $options "$user@$host" "$@"
   '';

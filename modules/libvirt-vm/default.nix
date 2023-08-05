@@ -1,6 +1,7 @@
 { config, options, pkgs, lib, extendModules, ... }:
 let
   inherit (lib) mkOption types;
+  inherit (builtins) head;
 
   libvirtVMVariant = extendModules {
     modules = [
@@ -119,6 +120,12 @@ in
       type = types.str;
       default = "user";
       description = "SSH login user";
+    };
+
+    sshPort = mkOption {
+      type = types.int;
+      default = head config.services.openssh.ports;
+      description = "SSH port";
     };
 
     fileSystems = options.fileSystems;
