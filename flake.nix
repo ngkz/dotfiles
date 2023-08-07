@@ -35,6 +35,11 @@
           modules = [ ./hosts/noguchi-pc ];
           specialArgs = { inherit inputs lib; };
         };
+        rednecked = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [ ./hosts/rednecked ];
+          specialArgs = { inherit inputs lib; };
+        };
       };
 
       nixosModules = import ./modules;
