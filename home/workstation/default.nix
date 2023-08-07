@@ -645,6 +645,7 @@ in
     gphoto2
     ngkz.scripts
     mprime
+    dislocker
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
