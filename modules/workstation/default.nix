@@ -175,6 +175,11 @@
 
   xdg.sounds.enable = true;
 
+  services.softether = {
+    enable = true;
+    vpnclient.enable = true;
+  };
+
   # allow remount read-only, sync, reboot with magic sysrq
   boot.kernel.sysctl."kernel.sysrq" = 176;
 }
