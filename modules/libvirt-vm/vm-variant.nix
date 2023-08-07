@@ -87,11 +87,11 @@ let
   };
 
   sshVM = pkgs.writeShellScript "ssh-libvirt-vm-${vmname}" ''
-    PATH=${makeBinPath (with pkgs; [coreutils libvirt openssh gnused])}
+    PATH=${makeBinPath (with pkgs; [coreutils libvirt openssh gnused gnugrep choose])}
     export LIBVIRT_DEFAULT_URI=${escapeShellArg cfg.uri}
 
     user=${escapeShellArg cfg.sshUser}
-    host=$(virsh domifaddr ${escapeShellArg vmname} | sed -En 's/^.*\s+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)\/[0-9]+$/\1/p' | head -n1)
+    host=$(virsh domifaddr ${escapeShellArg vmname} --source agent | grep -Ev "127.0.0.1|::1/128|N/A|-------|Name" | head -n1 | choose 3 | sed -E 's/\/[0-9]+//')
     port=${toString (head config.services.openssh.ports)}
     options='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
     exec ssh -p "$port" $options "$user@$host" "$@"
