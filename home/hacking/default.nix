@@ -33,7 +33,7 @@
     hashcat
     hashcat-utils
     # hcxtools
-    # thc-hydra
+    thc-hydra
     aircrack-ng
     tesseract4
     nasm
@@ -57,9 +57,10 @@
     badchars
     jwt-cli
     snscrape
-    # gobuster
+    gobuster # /usr/share/wordlists/dirbuster/directory-list-2.3-medium.tx
     # dnsmap
     # dnsrecon
+    python3Packages.pypykatz
 
     ghidra
     burpsuite
