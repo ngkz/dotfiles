@@ -1,6 +1,7 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, lib, ... }:
 let
   inherit (inputs) self;
+  inherit (lib) mkForce;
 in
 {
   imports = with self.nixosModules; [
@@ -96,8 +97,18 @@ in
       #boot.kernelParams = [ "boot.shell_on_fail" ];
 
       #Use DHCP
-      networking.useDHCP = true;
-      systemd.network.enable = false;
+      systemd.network.networks = {
+        "30-eth0" = {
+          matchConfig.Name = "eth0";
+          networkConfig.Bridge = "lanbr0";
+          linkConfig.RequiredForOnline = "enslaved";
+        };
+        "40-lanbr0" = mkForce {
+          matchConfig.Name = "lanbr0";
+          DHCP = "ipv4";
+          linkConfig.RequiredForOnline = "routable";
+        };
+      };
     };
   };
 }

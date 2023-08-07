@@ -3,9 +3,9 @@ let
   inherit (lib) mkDefault;
 in
 {
-  networking.useDHCP = mkDefault false;
+  networking.useDHCP = false;
   systemd.network = {
-    enable = mkDefault true;
+    enable = true;
     netdevs = {
       "20-lanbr0" = {
         netdevConfig = {
@@ -38,9 +38,10 @@ in
       "40-lanbr0" = {
         matchConfig.Name = "lanbr0";
         address = [ "192.168.18.4/24" ];
-        gateway = "192.168.18.1";
+        gateway = [ "192.168.18.1" ];
         dns = [ "192.168.18.1" ];
         networkConfig = {
+          # configure IPv6 with RA
           IPv6AcceptRA = true;
         };
         linkConfig = {
