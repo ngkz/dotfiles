@@ -12,7 +12,11 @@ in
       (
         { name: "ssh"; service: "ssh"; host: "localhost";
           port: "${toString (head config.services.openssh.ports)}";
-          keepalive: true; fork: true; tfo_ok: true }
+          keepalive: true; fork: true; tfo_ok: true },
+        # SoftEther
+        # TODO: sni_hostnames: [ "v.f2l.cc" ]
+        { name: "tls"; host: "localhost"; port: "5555"; tfo_ok: true },
+        { name: "openvpn"; host: "localhost"; port: "5555"; tfo_ok: true }
       );
     '';
   };

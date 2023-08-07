@@ -25,6 +25,7 @@ in
     ./network.nix
     ./hardening.nix
     ./sslh.nix
+    ./softether
   ];
 
   networking.hostName = "rednecked";

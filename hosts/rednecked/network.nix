@@ -35,6 +35,10 @@ in
         networkConfig.Bridge = "lanbr0";
         linkConfig.RequiredForOnline = "enslaved";
       };
+      "30-softether" = {
+        matchConfig.Name = "tap_softether";
+        networkConfig.Bridge = "lanbr0";
+      };
       "40-lanbr0" = {
         matchConfig.Name = "lanbr0";
         address = [ "192.168.18.4/24" ];
