@@ -38,14 +38,14 @@ name = "agenix-keepass"
 command = '''
 need_identity=
 for arg in "$@"; do
-    if [ "$arg" = "-e" ] || [ "$arg" = "-r" ]; then
+    if [ "$arg" = "-e" ] || [ "$arg" = "-r" ] || [ "$arg" = "-d" ]; then
         need_identity=1
     fi
 done
 if [ "$need_identity" ]; then
     identity=$(mktemp -t age.XXXXXXXX)
     trap "rm -f $identity" EXIT
-    if ! secret-tool lookup agenix "$(hostname)" > "$identity"; then
+    if ! secret-tool lookup agenix "$HOST" > "$identity"; then
       echo "error: couldn't lookup secret key" >&2
       exit 1
     fi
