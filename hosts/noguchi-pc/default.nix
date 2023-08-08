@@ -1,8 +1,9 @@
 # configuration for noguchi-pc
 
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, inputs, ... }:
 let
   inherit (inputs) self nixos-hardware;
+  inherit (lib) mkAfter;
 in
 {
   networking.hostName = "noguchi-pc";
@@ -133,17 +134,24 @@ in
     RESTORE_DEVICE_STATE_ON_STARTUP = 1; # TLP masks systemd-rfkill
     DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "bluetooth wifi wwan";
 
-    RUNTIME_PM_DRIVER_DENYLIST = "";
-    PCIE_ASPM_ON_AC = "default";
-    PCIE_ASPM_ON_BAT = "powersupersave";
+    # XXX iGPU lockup
+    # RUNTIME_PM_DRIVER_DENYLIST = "";
+    # PCIE_ASPM_ON_AC = "default";
+    # PCIE_ASPM_ON_BAT = "powersupersave";
   };
+
+  # XXX disable guc submission. It looks like iGPU causing lockup sometimes
+  boot.extraModprobeConfig = mkAfter ''
+    options i915 enable_guc=0
+  '';
 
   # hibernation
   boot.resumeDevice = config.fileSystems."/var/swap".device;
 
   boot.kernelParams = [
     # tlp
-    "pcie_aspm=force"
+    # XXX iGPU lockup
+    # "pcie_aspm=force"
 
     # hibernation
     "resume_offset=533760"
