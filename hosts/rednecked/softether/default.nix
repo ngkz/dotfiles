@@ -1,6 +1,15 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, inputs, ... }: {
+  disabledModules = [
+    "${inputs.nixpkgs}/nixos/modules/services/networking/softether.nix"
+  ];
+
+  imports = [
+    ./module.nix
+  ];
+
   services.softether = {
     enable = true;
+    package = pkgs.ngkz.softether;
     vpnserver.enable = true;
   };
 
@@ -25,11 +34,17 @@
                              -e "s|@UserAuthNtLmSecureHash@|$UserAuthNtLmSecureHash|" \
                              -e "s|@UserAuthPassword@|$UserAuthPassword|" \
                              ${./vpn_server.config} >/var/lib/softether/vpnserver/vpn_server.config
+      echo en >/var/lib/softether/vpnserver/lang.config
+
+      # tmpfs-as-root: vpnserver can't chmod symlinked log directories
+      chmod 700 ${config.modules.tmpfs-as-root.storage}/var/lib/softether/vpnserver/{packet_log,security_log,server_log}
     '';
   };
 
   modules.tmpfs-as-root.persistentDirs = [
-    "/var/lib/softether"
+    "/var/lib/softether/vpnserver/packet_log"
+    "/var/lib/softether/vpnserver/security_log"
+    "/var/lib/softether/vpnserver/server_log"
   ];
 
   # see also: sslh.nix
