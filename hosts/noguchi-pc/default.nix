@@ -8,7 +8,7 @@ in
 {
   networking.hostName = "noguchi-pc";
 
-  imports = with self.nixosModules; with nixos-hardware.nixosModules; [
+  imports = with self.nixosModules; [
     agenix
     base
     grub-secureboot # workaround for buggy firmware
@@ -21,8 +21,7 @@ in
     zswap
     bluetooth
 
-    common-pc
-    common-pc-laptop
+    profiles-laptop
     profiles-intel-cpu
     profiles-intel-wifi
   ];

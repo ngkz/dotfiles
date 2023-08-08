@@ -23,8 +23,7 @@ in
     zswap
     bluetooth
 
-    common-pc
-    common-pc-laptop
+    profiles-laptop
     common-pc-laptop-acpi_call
     profiles-intel-cpu
     profiles-intel-wifi
