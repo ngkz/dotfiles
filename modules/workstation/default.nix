@@ -177,6 +177,7 @@
 
   services.softether = {
     enable = true;
+    package = pkgs.ngkz.softether;
     vpnclient.enable = true;
   };
 
