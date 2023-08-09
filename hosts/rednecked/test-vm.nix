@@ -1,7 +1,7 @@
 { config, pkgs, inputs, lib, ... }:
 let
   inherit (inputs) self;
-  inherit (lib) mkForce;
+  inherit (lib) mkForce mkAfter;
 in
 {
   imports = with self.nixosModules; [
@@ -109,6 +109,11 @@ in
           linkConfig.RequiredForOnline = "routable";
         };
       };
+
+      # disable softether ddns
+      systemd.services.vpnserver.preStart = mkAfter ''
+        sed -i '/Disabled/s/false/true/' ${config.services.softether.dataDir}/vpnserver/vpn_server.config
+      '';
     };
   };
 }
