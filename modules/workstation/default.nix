@@ -1,9 +1,10 @@
-{ config, pkgs, lib, ... }: {
-  imports = [
+{ inputs, config, pkgs, lib, ... }: {
+  imports = with inputs.self.nixosModules; [
     ./printing.nix
     ./network-manager
     ./gpg.nix
     ./backup
+    softether-patched
   ];
 
   # PipeWire

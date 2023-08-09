@@ -1,10 +1,6 @@
 { config, pkgs, inputs, ... }: {
-  disabledModules = [
-    "${inputs.nixpkgs}/nixos/modules/services/networking/softether.nix"
-  ];
-
-  imports = [
-    ./module.nix
+  imports = with inputs.self.nixosModules; [
+    softether-patched
   ];
 
   services.softether = {

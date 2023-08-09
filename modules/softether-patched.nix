@@ -1,4 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
+
+# TODO
 
 with lib;
 
@@ -9,6 +11,10 @@ let
 
 in
 {
+
+  disabledModules = [
+    "${inputs.nixpkgs}/nixos/modules/services/networking/softether.nix"
+  ];
 
   ###### interface
 
