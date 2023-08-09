@@ -45,7 +45,7 @@ done
 if [ "$need_identity" ]; then
     identity=$(mktemp -t age.XXXXXXXX)
     trap "rm -f $identity" EXIT
-    if ! secret-tool lookup agenix "$HOST" > "$identity"; then
+    if ! secret-tool lookup agenix "${HOST:-$(hostname)}" > "$identity"; then
       echo "error: couldn't lookup secret key" >&2
       exit 1
     fi
