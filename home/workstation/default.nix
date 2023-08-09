@@ -566,6 +566,9 @@ in
       "application/x-shellscript" = "nvim.desktop";
       "text/x-c" = "nvim.desktop";
       "text/x-c++" = "nvim.desktop";
+
+      # wine
+      "application/x-ms-dos-executable" = "wine.desktop";
     };
   };
 
