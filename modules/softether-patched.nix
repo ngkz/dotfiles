@@ -90,51 +90,49 @@ in
       ];
     }
 
-    (mkIf cfg.vpnserver.enable {
-      systemd.services.vpnserver = {
-        description = "SoftEther VPN Server";
-        wantedBy = [ "network.target" ];
-        serviceConfig = {
-          Type = "forking";
-          ExecStart = "${package}/bin/vpnserver start";
-          ExecStop = "${package}/bin/vpnserver stop";
+      (mkIf cfg.vpnserver.enable {
+        systemd.services.vpnserver = {
+          description = "SoftEther VPN Server";
+          wantedBy = [ "network.target" ];
+          serviceConfig = {
+            Type = "forking";
+            ExecStart = "${package}/bin/vpnserver start";
+            ExecStop = "${package}/bin/vpnserver stop";
+          };
         };
-      };
-    })
+      })
 
-    (mkIf cfg.vpnbridge.enable {
-      systemd.services.vpnbridge = {
-        description = "SoftEther VPN Bridge";
-        wantedBy = [ "network.target" ];
-        serviceConfig = {
-          Type = "forking";
-          ExecStart = "${package}/bin/vpnbridge start";
-          ExecStop = "${package}/bin/vpnbridge stop";
+      (mkIf cfg.vpnbridge.enable {
+        systemd.services.vpnbridge = {
+          description = "SoftEther VPN Bridge";
+          wantedBy = [ "network.target" ];
+          serviceConfig = {
+            Type = "forking";
+            ExecStart = "${package}/bin/vpnbridge start";
+            ExecStop = "${package}/bin/vpnbridge stop";
+          };
         };
-      };
-    })
+      })
 
-    (mkIf cfg.vpnclient.enable {
-      systemd.services.vpnclient = {
-        description = "SoftEther VPN Client";
-        wantedBy = [ "network.target" ];
-        serviceConfig = {
-          Type = "forking";
-          ExecStart = "${package}/bin/vpnclient start";
-          ExecStop = "${package}/bin/vpnclient stop";
-        };
-        postStart = ''
+      (mkIf cfg.vpnclient.enable {
+        systemd.services.vpnclient = {
+          description = "SoftEther VPN Client";
+          wantedBy = [ "network.target" ];
+          serviceConfig = {
+            Type = "forking";
+            ExecStart = "${package}/bin/vpnclient start";
+            ExecStop = "${package}/bin/vpnclient stop";
+          };
+          postStart = ''
             sleep 1
             ${cfg.vpnclient.up}
-        '';
-        postStop = ''
+          '';
+          postStop = ''
             sleep 1
             ${cfg.vpnclient.down}
-        '';
-      };
-      boot.kernelModules = [ "tun" ];
-    })
-
-  ]);
+          '';
+        };
+        boot.kernelModules = [ "tun" ];
+      })]);
 
 }

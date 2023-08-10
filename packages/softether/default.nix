@@ -1,6 +1,12 @@
-{ lib, stdenv, fetchFromGitHub
-, openssl, readline, ncurses, zlib
-, dataDir ? "/var/lib/softether" }:
+{ lib
+, stdenv
+, fetchFromGitHub
+, openssl
+, readline
+, ncurses
+, zlib
+, dataDir ? "/var/lib/softether"
+}:
 
 stdenv.mkDerivation rec {
   pname = "softether";
