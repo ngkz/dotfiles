@@ -140,9 +140,7 @@ in
   };
 
   # XXX disable guc submission. It looks like iGPU causing lockup sometimes
-  boot.extraModprobeConfig = mkAfter ''
-    options i915 enable_guc=0
-  '';
+  profiles.intel-cpu.enableGPUPowerSaving = false;
 
   # hibernation
   boot.resumeDevice = config.fileSystems."/var/swap".device;
