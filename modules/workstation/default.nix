@@ -1,10 +1,12 @@
-{ inputs, config, pkgs, lib, ... }: {
+{ inputs, config, pkgs, lib, ... }:
+{
   imports = with inputs.self.nixosModules; [
     ./printing.nix
     ./network-manager
     ./gpg.nix
     ./backup
     softether-patched
+    ./softether-client
   ];
 
   # PipeWire
@@ -175,12 +177,6 @@
   };
 
   xdg.sounds.enable = true;
-
-  services.softether = {
-    enable = true;
-    package = pkgs.ngkz.softether;
-    vpnclient.enable = true;
-  };
 
   # enable all magic sysrq functions
   boot.kernel.sysctl."kernel.sysrq" = 1;
