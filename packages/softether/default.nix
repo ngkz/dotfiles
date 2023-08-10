@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl
+{ lib, stdenv, fetchFromGitHub
 , openssl, readline, ncurses, zlib
 , dataDir ? "/var/lib/softether" }:
 
@@ -7,9 +7,11 @@ stdenv.mkDerivation rec {
   version = "4.42";
   build = "9798";
 
-  src = fetchurl {
-    url = "https://github.com/SoftEtherVPN/SoftEtherVPN_Stable/archive/refs//tags/v${version}-${build}-rtm.tar.gz";
-    sha256 = "13rn8j287ff6mqpacy6c4f10rdj6wsvajphzwlkmzvgf9ap80sak";
+  src = fetchFromGitHub {
+    owner = "SoftEtherVPN";
+    repo = "SoftEtherVPN_Stable";
+    rev = "v${version}-${build}-rtm";
+    sha256 = "uSI5IV/Xhu+jnjVUWbYizTcSiOkG7N8IjQPPUSJby+I=";
   };
 
   patches = [
@@ -31,6 +33,8 @@ stdenv.mkDerivation rec {
       -e "/echo/s|echo $out/|echo |g" \
       Makefile
   '';
+
+  passthru.updateScript = ./update.sh;
 
   meta = with lib; {
     description = "An Open-Source Free Cross-platform Multi-protocol VPN Program";
