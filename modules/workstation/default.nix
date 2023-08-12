@@ -180,4 +180,7 @@
 
   # enable all magic sysrq functions
   boot.kernel.sysctl."kernel.sysrq" = 1;
+
+  # qemu-user
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }
