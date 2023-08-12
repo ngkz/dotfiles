@@ -1,8 +1,8 @@
 { lib }:
 let
   inherit (lib) lists attrsets stringToCharacters;
-  alphabets = stringToCharacters "abcdefghijklmnopqrstuvwxyz";
-  alphabets_rot13 = stringToCharacters "nopqrstuvwxyzabcdefghijklm";
+  alphabets = stringToCharacters "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  alphabets_rot13 = stringToCharacters "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM";
 in
 {
   overlayPaths = prev: paths: fn: builtins.foldl'
