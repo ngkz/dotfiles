@@ -56,7 +56,7 @@ in
     let
       rootDev = "/dev/mapper/cryptroot";
       # only options in first mounted subvolume will take effect so all mounts must have same options
-      rootOpts = [ "compress=zstd" "lazytime" ];
+      rootOpts = [ "compress=zstd:1" "lazytime" ];
     in
     {
       "/boot" = {
