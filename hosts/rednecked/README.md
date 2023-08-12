@@ -68,9 +68,9 @@ mkdir -p /mnt/{boot,nix,var/{log,persist,swap}}
 mount /dev/sda1 /mnt/boot
 
 # Mount persistent storages
-mount -o lazytime,subvol=nix /dev/sda2 /mnt/nix
-mount -o lazytime,subvol=persist /dev/sda2 /mnt/var/persist
-mount -o lazytime,subvol=swap /dev/sda2 /mnt/var/swap
+mount -o compress=zstd:1,lazytime,subvol=nix /dev/sda2 /mnt/nix
+mount -o compress=zstd:1,lazytime,subvol=persist /dev/sda2 /mnt/var/persist
+mount -o compress=zstd:1,lazytime,subvol=swap /dev/sda2 /mnt/var/swap
 
 # Bind mount persistent /var/log
 mount --bind /mnt/{var/persist,}/var/log

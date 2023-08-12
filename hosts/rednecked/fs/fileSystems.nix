@@ -1,7 +1,7 @@
 { bootDev, rootDev, hddDev }:
 let
   # only options in first mounted subvolume will take effect so all mounts must have same options
-  rootOpts = [ "lazytime" ];
+  rootOpts = [ "compress=zstd:1" "lazytime" ];
 in
 {
   "/boot" = {
@@ -32,6 +32,6 @@ in
   "/var/spinningrust" = {
     device = hddDev;
     fsType = "btrfs";
-    options = [ "lazytime" ];
+    options = [ "compress=zstd:1" "lazytime" ];
   };
 }
