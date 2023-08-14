@@ -40,6 +40,8 @@ stdenv.mkDerivation rec {
       Makefile
   '';
 
+  hardeningEnable = [ "pie" ];
+
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
