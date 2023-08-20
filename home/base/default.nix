@@ -84,5 +84,6 @@
     pciutils #lspci
     lshw
     sysfsutils #systool
+    dmidecode
   ];
 }
