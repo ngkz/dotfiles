@@ -61,6 +61,9 @@
     # dnsmap
     # dnsrecon
     python3Packages.pypykatz
+    oletools
+    # stegsnow
+    # flask-unsign
 
     ghidra
     burpsuite
