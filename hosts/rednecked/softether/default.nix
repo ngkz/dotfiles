@@ -23,25 +23,59 @@ in
       ./vpn_server.config
     ];
     serviceConfig = {
-      # tmpfs-as-root
-      ReadWritePaths = optionals config.modules.tmpfs-as-root.enable [ "${config.modules.tmpfs-as-root.storage}${config.services.softether.dataDir}/vpnserver" ];
-
       # additional hardenings
+      RootDirectory = "/var/empty";
+      TemporaryFileSystem = "/:ro";
+      PrivateMounts = true;
+      MountAPIVFS = true;
+      PrivateUsers = false; # needs capabilities on the host
+      BindReadOnlyPaths = [
+        builtins.storeDir
+        "-/etc/ld-nix.so.preload"
+        "-/etc/resolv.conf"
+        "-/etc/nsswitch.conf"
+        "-/etc/host.conf"
+        "-/etc/hosts"
+        "-/etc/services"
+        "-/etc/hostname"
+        "-/etc/localtime"
+        "-/etc/ssl/certs"
+        "-/etc/static/ssl/certs"
+        "/etc/passwd"
+        "/etc/group"
+        "/bin/sh"
+        config.age.secrets."softether-server-secrets".path
+      ];
+      BindPaths = [
+        "/proc/sys/kernel/threads-max"
+        "/proc/sys/net/ipv4/conf/all/arp_filter"
+        "${config.services.softether.dataDir}/vpnserver"
+      ] ++ (optionals config.modules.tmpfs-as-root.enable [
+        "${config.modules.tmpfs-as-root.storage}${config.services.softether.dataDir}/vpnserver"
+      ]);
+      ProtectSystem = mkForce false; # systemd #18999
       ProtectClock = true;
       ProtectKernelLogs = true;
       ProtectControlGroups = true;
       ProtectKernelModules = true;
+      ProtectProc = "invisible";
+      ProtectHostname = true;
+      ProtectKernelTunables = true;
+      PrivateDevices = false;
+      DeviceAllow = [
+        "/dev/net/tun rw"
+      ];
+      DevicePolicy = "closed";
       SystemCallArchitectures = "native";
       MemoryDenyWriteExecute = true;
       RestrictNamespaces = true;
       RestrictSUIDSGID = true;
-      ProtectHostname = true;
-      LockPersonality = true;
-      ProtectKernelTunables = true;
-      NoNewPrivileges = true;
       RemoveIPC = true;
-      SystemCallFilter = [ "~@clock" "~@cpu-emulation" "~@debug" "~@module" "~@mount" "~@obsolete" "~@raw-io" "~@reboot" "~@swap" ];
-      CapabilityBoundingSet = mkForce [ "CAP_NET_ADMIN" "CAP_NET_BIND_SERVICE" "CAP_NET_BROADCAST" "CAP_NET_RAW" "CAP_SYS_NICE" ];
+      LockPersonality = true;
+      NoNewPrivileges = true;
+      SystemCallFilter = [ "@system-service" ];
+      CapabilityBoundingSet = mkForce [ "CAP_NET_ADMIN" "CAP_NET_BIND_SERVICE" "CAP_NET_BROADCAST" "CAP_NET_RAW" "CAP_SYS_NICE" "CAP_SYS_RESOURCE" ];
+      RestrictAddressFamilies = [ "AF_NETLINK" "AF_PACKET" "AF_INET" "AF_INET6" ];
     };
     preStart = ''
       touch ${config.services.softether.dataDir}/vpnserver/vpn_server.config
