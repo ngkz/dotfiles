@@ -19,6 +19,4 @@ in
   "db.key.age".publicKeys = [ peregrine noguchi-pc ];
   "grub.key.age".publicKeys = [ peregrine noguchi-pc ];
   "IFC.nmconnection.age".publicKeys = [ noguchi-pc ];
-  "softether-server-secrets.age".publicKeys = [ rednecked ];
-  "softether-client-secrets.age".publicKeys = [ peregrine noguchi-pc ];
 }

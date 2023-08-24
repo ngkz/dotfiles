@@ -25,7 +25,6 @@ in
     ./network.nix
     ./hardening.nix
     ./sslh.nix
-    ./softether
     ./syncthing.nix
   ];
 

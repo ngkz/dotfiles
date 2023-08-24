@@ -110,11 +110,6 @@ in
         };
       };
 
-      # disable softether ddns
-      systemd.services.vpnserver.preStart = mkAfter ''
-        sed -i '/Disabled/s/false/true/' ${config.services.softether.dataDir}/vpnserver/vpn_server.config
-      '';
-
       # allow passwordless sudo
       security.sudo.wheelNeedsPassword = false;
     };

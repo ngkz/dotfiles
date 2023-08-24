@@ -5,8 +5,6 @@
     ./network-manager
     ./gpg.nix
     ./backup
-    softether-patched
-    ./softether-client
   ];
 
   # PipeWire
