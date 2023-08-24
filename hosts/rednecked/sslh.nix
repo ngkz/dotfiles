@@ -19,6 +19,8 @@ in
 
   networking.firewall.allowedTCPPorts = [ 443 ];
 
+  systemd.services.sslh.serviceConfig.Restart = "always";
+
   # security.lockKernelModules
   boot.kernelModules = [
     "nft_chain_nat"
