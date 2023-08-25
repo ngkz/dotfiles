@@ -154,12 +154,18 @@ in
     "resume_offset=533760"
   ];
 
-  # Ethernet configuration
+  # additional network configuration
   environment.etc."NetworkManager/system-connections/IFC.nmconnection" = {
     source = config.age.secrets."IFC.nmconnection".path;
     mode = "0400";
   };
   age.secrets."IFC.nmconnection".file = ../../secrets/IFC.nmconnection.age;
+
+  environment.etc."NetworkManager/system-connections/F2L-VPN.nmconnection" = {
+    source = config.age.secrets."wireguard-noguchi-pc.nmconnection".path;
+    mode = "0400";
+  };
+  age.secrets."wireguard-noguchi-pc.nmconnection".file = ../../secrets/wireguard-noguchi-pc.nmconnection.age;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

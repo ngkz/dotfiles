@@ -163,6 +163,13 @@ in
   # XXX workaround for swaywm/sway #6962
   environment.variables.WLR_DRM_NO_MODIFIERS = "1";
 
+  # additional network configuration
+  environment.etc."NetworkManager/system-connections/F2L-VPN.nmconnection" = {
+    source = config.age.secrets."wireguard-peregrine.nmconnection".path;
+    mode = "0400";
+  };
+  age.secrets."wireguard-peregrine.nmconnection".file = ../../secrets/wireguard-peregrine.nmconnection.age;
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
