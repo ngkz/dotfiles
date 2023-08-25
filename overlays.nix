@@ -14,4 +14,10 @@
   fcitx5 = final: prev: {
     fcitx5-with-addons = final.ngkz.fcitx5-with-addons;
   };
+
+  sslh = final: prev: {
+    sslh = final.ngkz.sslh-select.override {
+      sslh = prev.sslh;
+    };
+  };
 }

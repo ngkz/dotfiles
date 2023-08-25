@@ -45,4 +45,5 @@ rec {
   skk-dicts = pkgs.callPackage ./skk-dicts { };
   vcr-eas-font = pkgs.callPackage ./vcr-eas-font { };
   scripts = pkgs.callPackage ./scripts { };
+  sslh-select = pkgs.callPackage ./sslh-select.nix { };
 }
