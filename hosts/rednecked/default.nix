@@ -24,8 +24,9 @@ in
     ./user.nix
     ./network.nix
     ./hardening.nix
-    ./sslh.nix
+    #./sslh.nix
     ./syncthing.nix
+    ./wireguard.nix
   ];
 
   networking.hostName = "rednecked";

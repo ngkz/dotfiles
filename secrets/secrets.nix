@@ -19,4 +19,5 @@ in
   "db.key.age".publicKeys = [ peregrine noguchi-pc ];
   "grub.key.age".publicKeys = [ peregrine noguchi-pc ];
   "IFC.nmconnection.age".publicKeys = [ noguchi-pc ];
+  "wireguard-rednecked-private.key.age".publicKeys = [ rednecked ];
 }
