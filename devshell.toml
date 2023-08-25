@@ -109,7 +109,7 @@ category = "system maintenance"
 [[commands]]
 help = "Start a REPL with dotfiles preloaded"
 name = "repl"
-command = 'nix repl "${PRJ_ROOT}/repl.nix"'
+command = 'nix repl --file "${PRJ_ROOT}/repl.nix"'
 category = "system maintenance"
 
 [[commands]]
