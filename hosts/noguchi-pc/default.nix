@@ -1,6 +1,6 @@
 # configuration for noguchi-pc
 
-{ config, lib, inputs, ... }:
+{ config, lib, inputs, pkgs, ... }:
 let
   inherit (inputs) self nixos-hardware;
   inherit (lib) mkAfter;
@@ -166,6 +166,8 @@ in
     mode = "0400";
   };
   age.secrets."wireguard-noguchi-pc.nmconnection".file = ../../secrets/wireguard-noguchi-pc.nmconnection.age;
+
+  environment.systemPackages = with pkgs; [ wireguard-tools ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -107,6 +107,7 @@ in
 
   environment.systemPackages = with pkgs; [
     nvme-cli # NVMe SSD
+    wireguard-tools
   ];
 
   # user
