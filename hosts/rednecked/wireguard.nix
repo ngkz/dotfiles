@@ -44,19 +44,19 @@
     allowedUDPPorts = [ 53 51820 ];
     extraCommands = ''
       # clean up rules
-      ip46tables -t nat -D PREROUTING -j fw-prerouting 2>/dev/null || true
-      ip46tables -t nat -F fw-prerouting 2>/dev/null || true
-      ip46tables -t nat -X fw-prerouting 2>/dev/null || true
+      ip46tables -t nat -D PREROUTING -j wireguard 2>/dev/null || true
+      ip46tables -t nat -F wireguard 2>/dev/null || true
+      ip46tables -t nat -X wireguard 2>/dev/null || true
 
-      ip46tables -t nat -N fw-prerouting
+      ip46tables -t nat -N wireguard
 
       # redirect WireGuard connection to 51820/udp
-      ip46tables -t nat -A fw-prerouting -p udp --dport 53 -m addrtype --dst-type LOCAL -m u32 --u32 "0>>22&0x3C@8=0x01000000" -j REDIRECT --to-port 51820
+      ip46tables -t nat -A wireguard -p udp --dport 53 -m addrtype --dst-type LOCAL -m u32 --u32 "0>>22&0x3C@8=0x01000000" -j REDIRECT --to-port 51820
 
-      ip46tables -t nat -A PREROUTING -j fw-prerouting
+      ip46tables -t nat -A PREROUTING -j wireguard
     '';
     extraStopCommands = ''
-      ip46tables -t nat -D PREROUTING -j fw-prerouting 2>/dev/null || true
+      ip46tables -t nat -D PREROUTING -j wireguard 2>/dev/null || true
     '';
   };
 
