@@ -1,6 +1,6 @@
 # configuration for rednecked
 
-{ inputs, ... }:
+{ inputs, lib, ... }:
 let
   inherit (inputs) self nixos-hardware;
 in
@@ -33,6 +33,8 @@ in
 
   # bootloader
   boot.loader.efi.canTouchEfiVariables = true;
+
+  services.openssh.ports = lib.mkForce [ 443 ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
