@@ -20,17 +20,13 @@
       # unique DUID per connection
       "ipv6.dhcp-duid" = "stable-uuid";
     };
-    dispatcherScripts = [
-      {
-        type = "basic";
-        source = pkgs.substituteAll {
-          src = ./dhcp-ntp.sh;
-          isExecutable = true;
-          inherit (pkgs) bash;
-          path = with pkgs; [ coreutils util-linux systemd ];
-        };
-      }
-    ];
+  };
+
+  environment.etc."NetworkManager/dispatcher.d/10-dhcp-ntp".source = pkgs.substituteAll {
+    src = ./dhcp-ntp.sh;
+    isExecutable = true;
+    inherit (pkgs) bash;
+    path = with pkgs; [ coreutils util-linux systemd ];
   };
 
   users.users.user.extraGroups = [
