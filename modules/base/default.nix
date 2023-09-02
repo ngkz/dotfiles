@@ -154,7 +154,10 @@ in
   services.avahi = {
     enable = true;
     nssmdns = true; # *.local resolution
-    publish.enable = true;
-    publish.addresses = true; # make this host accessible with <hostname>.local
+    publish = {
+      enable = true;
+      addresses = true; # make this host accessible with <hostname>.local
+      workstation = true;
+    };
   };
 }
