@@ -16,11 +16,21 @@
     pulse.enable = true;
   };
 
+  # install dev manpages
+  documentation.dev.enable = true;
+
   environment.systemPackages = with pkgs; with linuxPackages; [
     turbostat
     libva-utils
     efitools
     sbsigntool
+
+    # install dev manpages
+    man-pages
+    man-pages-posix
+    stdmanpages
+    linux-manual
+    stdman
   ];
 
   boot.extraModulePackages = [ pkgs.linuxPackages.v4l2loopback ];
