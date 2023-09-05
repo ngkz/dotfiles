@@ -53,7 +53,7 @@ umount /mnt
 # Initialize bcached storage
 wipefs -a /dev/sdb1
 make-bcache -B /dev/sdb1 -C /dev/sda3 --writeback
-mkfs.btrfs -L spinningrust /dev/bcache0
+mkfs.btrfs -L spinningrust -f /dev/bcache0
 ```
 
 ## Mount filesystems
@@ -95,7 +95,7 @@ chmod 400 /mnt/var/persist/secrets/*
 nix-shell -p git nixFlakes
 git clone https://github.com/ngkz/dotfiles
 cd dotfiles
-vim hosts/rednecked/default.nix
+vim hosts/rednecked/fs.nix
 (Update filesystems UUIDs)
 nixos-install --root /mnt --flake ".#rednecked" --no-root-passwd --impure
 ```
