@@ -1,9 +1,8 @@
 { ... }: {
-  # TODO: benchmark compression
   fileSystems = import ./fileSystems.nix {
-    bootDev = "/dev/disk/by-uuid/TODO";
-    rootDev = "/dev/disk/by-uuid/TODO";
-    hddDev = "/dev/disk/by-uuid/TODO"; # bcache
+    bootDev = "/dev/disk/by-uuid/CACA-B820";
+    rootDev = "/dev/disk/by-uuid/a15d98dd-3561-486f-9a3b-adfee684a63d";
+    hddDev = "/dev/disk/by-uuid/d3156153-27e7-4a2c-b9cf-f54f6456e952"; # bcache
   };
   swapDevices = [
     {
