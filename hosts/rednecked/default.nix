@@ -3,6 +3,7 @@
 { inputs, lib, ... }:
 let
   inherit (inputs) self nixos-hardware;
+  inherit (lib) mkDefault;
 in
 {
   imports = with self.nixosModules; with nixos-hardware.nixosModules; [
@@ -33,6 +34,11 @@ in
 
   # bootloader
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub = {
+    enable = mkDefault true;
+    efiSupport = true;
+    device = "nodev";
+  };
 
   services.openssh.ports = lib.mkForce [ 443 ];
 
