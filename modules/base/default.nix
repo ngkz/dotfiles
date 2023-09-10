@@ -149,6 +149,7 @@ in
   boot.kernel.sysctl = {
     "net.ipv4.tcp_congestion_control" = "bbr";
     "net.core.default_qdisc" = "cake";
+    "net.ipv4.tcp_notsent_lowat" = 16384;
   };
 
   # mDNS
