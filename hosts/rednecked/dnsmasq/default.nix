@@ -59,17 +59,12 @@ in
     "d /etc/dnsmasq.d 0755 root root -"
   ];
 
-  services.networkd-dispatcher = {
-    enable = true;
-    rules = {
-      "update-dnsmasq" = {
-        onState = [ "configured" ];
-        script = builtins.readFile (pkgs.substituteAll {
-          src = ./update-dnsmasq.py;
-          inherit (pkgs) python3 systemd;
-        });
-      };
-    };
+  services.networkd-dispatcher.rules.update-dnsmasq = {
+    onState = [ "configured" ];
+    script = builtins.readFile (pkgs.substituteAll {
+      src = ./update-dnsmasq.py;
+      inherit (pkgs) python3 systemd;
+    });
   };
 
   modules.tmpfs-as-root.persistentDirs = [ "/var/lib/dnsmasq" ];
