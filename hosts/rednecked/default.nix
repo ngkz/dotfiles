@@ -26,6 +26,7 @@ in
     ./network.nix
     ./pppoe.nix
     ./dnsmasq
+    ./chrony
     ./wireguard.nix
     ./hardening.nix
     #./sslh.nix

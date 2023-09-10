@@ -13,13 +13,6 @@ if iface == "wan_hgw" and admstate == "configured":
         print(f"server={ip}", file=conf)
         print(f"update-dnsmasq: dns={ip}")
 
-    for ip in ifjson["NTP"]:
-        if ":" in ip:
-            print(f"dhcp-option=option6:ntp-server,[{ip}]", file=conf)
-        else:
-            print(f"dhcp-option=option:ntp-server,{ip}", file=conf)
-        print(f"update-dnsmasq: ntp={ip}")
-
     for ip in ifjson["SIP"]:
         if ":" in ip:
             print(f"dhcp-option=option6:sip-server,[{ip}]", file=conf)

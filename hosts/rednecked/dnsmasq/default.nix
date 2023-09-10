@@ -18,8 +18,10 @@ in
         "option:netmask,255.255.255.0"
         "option:router,0.0.0.0"
         "option:dns-server,0.0.0.0"
+        "option:ntp-server,0.0.0.0"
 
         "option6:dns-server,[::]"
+        "option6:ntp-server,[::]"
       ];
       enable-ra = true;
       dhcp-range = [
