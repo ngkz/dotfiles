@@ -1,7 +1,7 @@
 { config, pkgs, inputs, lib, ... }:
 let
   inherit (inputs) self;
-  inherit (lib) mkForce mkAfter;
+  inherit (lib) mkForce;
 in
 {
   imports = with self.nixosModules; [
@@ -100,15 +100,12 @@ in
       systemd.network.networks = {
         "30-eth0" = {
           matchConfig.Name = "eth0";
-          networkConfig.Bridge = "lanbr0";
-          linkConfig.RequiredForOnline = "enslaved";
-        };
-        "40-lanbr0" = mkForce {
-          matchConfig.Name = "lanbr0";
-          DHCP = "ipv4";
+          DHCP = "yes";
           linkConfig.RequiredForOnline = "routable";
         };
       };
+
+      services.avahi.allowInterfaces = [ "eth0" ];
 
       # allow passwordless sudo
       security.sudo.wheelNeedsPassword = false;

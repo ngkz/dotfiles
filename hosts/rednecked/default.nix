@@ -24,10 +24,11 @@ in
     ./fs
     ./user.nix
     ./network.nix
+    ./pppoe.nix
+    ./wireguard.nix
     ./hardening.nix
     #./sslh.nix
     ./syncthing.nix
-    ./wireguard.nix
   ];
 
   networking.hostName = "rednecked";

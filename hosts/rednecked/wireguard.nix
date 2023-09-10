@@ -14,15 +14,34 @@
           {
             # peregrine
             wireguardPeerConfig = {
-              AllowedIPs = [ "192.168.70.2/32" "fd55:86a5:7398::2/128" ];
+              AllowedIPs = [
+                "192.168.70.2/32"
+                "2400:4051:c520:1ef2:e804:a60c:ce29:eca7/128" # TODO dynamic prefix
+              ];
               PublicKey = "XUVACg5OrqWzwi+jl2yzl3oWIUsCQksvZW5JSeBbTFg=";
+              PersistentKeepalive = 25;
             };
           }
           {
             # noguchi-pc
             wireguardPeerConfig = {
-              AllowedIPs = [ "192.168.70.3/32" "fd55:86a5:7398::3/128" ];
+              AllowedIPs = [
+                "192.168.70.3/32"
+                "2400:4051:c520:1ef2:d5c8:218f:1106:82b9/128" # TODO dynamic prefix
+              ];
               PublicKey = "ftZZBc7ToneXygRUg5YBWRDLbt9AlUm11/QrmsXXsis=";
+              PersistentKeepalive = 25;
+            };
+          }
+          {
+            # barbet
+            wireguardPeerConfig = {
+              AllowedIPs = [
+                "192.168.70.4/32"
+                "2400:4051:c520:1ef2:fd7e:d3e4:5bf0:be40/128" # TODO dynamic prefix
+              ];
+              PublicKey = "a1XeocAbD6Two0/Zb2Pd7lfAwFc7eKG1Lsrk85nMQ30=";
+              PersistentKeepalive = 25;
             };
           }
         ];
@@ -32,33 +51,39 @@
       "30-wireguard" = {
         matchConfig.Name = "wg0";
         networkConfig = {
-          IPMasquerade = "ipv6";
+          DHCPPrefixDelegation = true;
           IPForward = true;
         };
-        address = [ "192.168.70.1/24" "fd55:86a5:7398::1/64" ];
+        dhcpPrefixDelegationConfig = {
+          UplinkInterface = "wan_hgw";
+          SubnetId = 2;
+          Announce = false;
+          Token = "::1";
+        };
+        address = [
+          "192.168.70.1/24"
+        ];
+        linkConfig.RequiredForOnline = false;
       };
     };
   };
 
-  networking.firewall = {
-    allowedUDPPorts = [ 53 51820 ];
-    extraCommands = ''
-      # clean up rules
-      ip46tables -t nat -D PREROUTING -j wireguard 2>/dev/null || true
-      ip46tables -t nat -F wireguard 2>/dev/null || true
-      ip46tables -t nat -X wireguard 2>/dev/null || true
+  networking.firewall.allowedUDPPorts = [ 51820 ];
 
-      ip46tables -t nat -N wireguard
+  networking.nftables.ruleset = ''
+    table inet wireguard {
+      chain multiplex {
+        type nat hook prerouting priority dstnat;
 
-      # redirect WireGuard connection to 51820/udp
-      ip46tables -t nat -A wireguard -p udp --dport 53 -m addrtype --dst-type LOCAL -m u32 --u32 "0>>22&0x3C@8=0x01000000" -j REDIRECT --to-port 51820
+        fib daddr . iif type local udp dport 53 @th,64,32 0x01000000 redirect to :51820 comment "redirect wireguard"
+      }
 
-      ip46tables -t nat -A PREROUTING -j wireguard
-    '';
-    extraStopCommands = ''
-      ip46tables -t nat -D PREROUTING -j wireguard 2>/dev/null || true
-    '';
-  };
+      chain clamp {
+        type filter hook forward priority mangle;
+        iifname "wg0" tcp flags syn tcp option maxseg size set rt mtu comment "clamp MSS to Path MTU"
+      }
+    }
+  '';
 
   environment.systemPackages = with pkgs; [ wireguard-tools ];
 

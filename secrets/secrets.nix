@@ -22,4 +22,5 @@ in
   "wireguard-rednecked-private.key.age".publicKeys = [ rednecked ];
   "wireguard-noguchi-pc.nmconnection.age".publicKeys = [ noguchi-pc ];
   "wireguard-peregrine.nmconnection.age".publicKeys = [ peregrine ];
+  "pppoe-creds.age".publicKeys = [ rednecked ];
 }

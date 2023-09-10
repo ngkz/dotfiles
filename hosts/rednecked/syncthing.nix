@@ -237,7 +237,7 @@ in
 
   modules.tmpfs-as-root.persistentDirs = [ cfg.dataDir ];
 
-  networking.firewall.interfaces.lanbr0.allowedTCPPorts = [ 8384 ];
+  networking.firewall.interfaces.br_lan.allowedTCPPorts = [ 8384 ];
   networking.firewall.interfaces.wg0.allowedTCPPorts = [ 8384 ];
 }
 
