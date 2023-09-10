@@ -40,7 +40,6 @@
   home.packages = with pkgs; [
     # modern unix commands
     du-dust # modern du
-    doggo #dig
     fd # find
     httpie # modern curl
     hyperfine # benchmarking tool
@@ -85,5 +84,6 @@
     lshw
     sysfsutils #systool
     dmidecode
+    dig
   ];
 }
