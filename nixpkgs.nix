@@ -7,6 +7,7 @@
     packages
     sway-im
     fcitx5
+    apparmor
   ];
   config.allowUnfree = true;
 }

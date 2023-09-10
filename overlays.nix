@@ -20,4 +20,9 @@
       sslh = prev.sslh;
     };
   };
+
+  #XXX 22.05 apparmor-utils package is broken. use stable package after NixOS 22.11 upgrade
+  apparmor = final: prev: {
+    inherit (final.ngkz) apparmor-utils;
+  };
 }

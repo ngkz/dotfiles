@@ -46,4 +46,7 @@ rec {
   vcr-eas-font = pkgs.callPackage ./vcr-eas-font { };
   scripts = pkgs.callPackage ./scripts { };
   sslh-select = pkgs.callPackage ./sslh-select.nix { };
+  #XXX 22.05 apparmor-utils package is broken. use stable package after NixOS 22.11 upgrade
+  inherit (pkgs.callPackages "${inputs.nixpkgs-unstable}/pkgs/os-specific/linux/apparmor" { })
+    apparmor-utils;
 }
