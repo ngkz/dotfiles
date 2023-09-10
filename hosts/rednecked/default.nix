@@ -29,6 +29,7 @@ in
     ./hardening.nix
     #./sslh.nix
     ./syncthing.nix
+    ./avahi.nix
   ];
 
   networking.hostName = "rednecked";
