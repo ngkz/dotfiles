@@ -119,6 +119,7 @@ in
     compsize
     ntfs3g
     e2fsprogs
+    git
   ];
 
   services.udev.extraRules = ''
