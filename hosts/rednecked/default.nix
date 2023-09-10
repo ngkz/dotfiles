@@ -40,6 +40,12 @@ in
     device = "nodev";
   };
 
+
+  # tmpfs as home
+  home-manager.users.user.home.tmpfs-as-home.persistentDirs = [
+    "persist"
+  ];
+
   services.openssh.ports = lib.mkForce [ 443 ];
 
   # This value determines the NixOS release from which the default
