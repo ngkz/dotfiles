@@ -187,8 +187,5 @@ in
     };
 
     services.networkd-dispatcher.enable = true;
-    systemd.services.networkd-dispatcher.serviceConfig.Environment = [
-      "networkd_dispatcher_args=--run-startup-triggers"
-    ];
   };
 }
