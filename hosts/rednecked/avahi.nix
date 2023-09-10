@@ -10,6 +10,5 @@ in
     reflector = true;
   };
 
-  networking.firewall.interfaces.br_lan.allowedUDPPorts = [ 5353 ];
-  networking.firewall.interfaces.wg0.allowedUDPPorts = [ 5353 ];
+  hosts.rednecked.network.internalInterfaces.allowedUDPPorts = [ 5353 ];
 }

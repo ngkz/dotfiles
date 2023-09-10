@@ -1,11 +1,18 @@
-{ config, lib, ... }:
+{ config, options, lib, ... }:
 let
   inherit (lib) mkOption types;
 in
 {
-  options.hosts.rednecked.network.lan_prefix = mkOption {
-    type = types.str;
-    default = "192.168.16";
+  options.hosts.rednecked.network = {
+    lan_prefix = mkOption {
+      type = types.str;
+      default = "192.168.16";
+    };
+
+    internalInterfaces = {
+      allowedTCPPorts = options.networking.firewall.allowedTCPPorts;
+      allowedUDPPorts = options.networking.firewall.allowedUDPPorts;
+    };
   };
 
   config = {
@@ -184,6 +191,14 @@ in
         iifname { "br_lan", "wg0" } oifname { "wan_hgw" } accept comment "internal network to HGW"
         iifname { "br_lan", "wg0" } oifname { "br_lan", "wg0" } accept comment "between LAN and VPN clients"
       '';
+      interfaces =
+        let
+          fwcfg = config.hosts.rednecked.network.internalInterfaces;
+        in
+        {
+          br_lan = fwcfg;
+          wg0 = fwcfg;
+        };
     };
 
     services.networkd-dispatcher.enable = true;
