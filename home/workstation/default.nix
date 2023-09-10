@@ -185,50 +185,10 @@ in
         hostname = "laggar.local";
         user = "pi";
       };
-      "${rot13 "vsp-agak-abqr1"}" = {
-        hostname = "172.16.34.2";
-        user = "root";
-      };
-      "${rot13 "vsp-agak-piz1"}" = {
-        hostname = "172.16.34.3";
-        user = "nutanix";
-      };
-      "${rot13 "vsp-agak-abqr2"}" = {
-        hostname = "172.16.34.4";
-        user = "root";
-      };
-      "${rot13 "vsp-agak-piz2"}" = {
-        hostname = "172.16.34.5";
-        user = "nutanix";
-      };
-      "${rot13 "vsp-agak-abqr3"}" = {
-        hostname = "172.16.34.6";
-        user = "root";
-      };
-      "${rot13 "vsp-agak-piz3"}" = {
-        hostname = "172.16.34.7";
-        user = "nutanix";
-      };
-      "${rot13 "vsp-agak-abqr-fcner"}" = {
-        hostname = "172.16.34.8";
-        user = "root";
-      };
-      "${rot13 "vsp-agak-piz-fcner"}" = {
-        hostname = "172.16.34.9";
-        user = "nutanix";
-      };
-      "${rot13 "vsp-qaf"}" = {
-        hostname = "10.1.1.10";
-        user = rot13 "vsp-hfre";
-      };
-      "${rot13 "rqryv-qaf"}" = {
-        hostname = "10.1.1.6";
-        user = rot13 "vsp-hfre";
-      };
-      "${rot13 "srnc-grfgvat"}" = {
-        hostname = "172.16.34.91";
-        port = 10022;
-        user = rot13 "vsp-hfre";
+      rednecked = {
+        hostname = "f2l.cc";
+        user = "user";
+        port = 443;
       };
     };
   };
