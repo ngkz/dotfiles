@@ -48,7 +48,7 @@ in
         "/" = {
           device = "none";
           fsType = "tmpfs";
-          options = [ "size=2G" "mode=755" "noexec" "nodev" "nosuid" ];
+          options = [ "size=2G" "mode=755" "nodev" "nosuid" ];
         };
 
         "/var/log" = {
