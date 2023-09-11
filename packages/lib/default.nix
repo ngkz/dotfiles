@@ -1,1 +1,1 @@
-{ ... } @ args: import ./chromium.nix args
+{ ... } @ args: (import ./chromium.nix args) // (import ./syncthing.nix args)
