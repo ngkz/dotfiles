@@ -11,6 +11,7 @@
     radare2-cutter
     pwntools
     python3Packages.binwalk-full
+    foremost
     nkf
     qemu_full
     metasploit
