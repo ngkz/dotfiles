@@ -162,4 +162,6 @@ in
       workstation = true;
     };
   };
+
+  hardware.mcelog.enable = true;
 }
