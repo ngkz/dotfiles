@@ -37,6 +37,9 @@
     };
   };
 
+  # automatially trigger X-Restart-Triggers
+  systemd.user.startServices = true;
+
   home.packages = with pkgs; [
     # modern unix commands
     du-dust # modern du
