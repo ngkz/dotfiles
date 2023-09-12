@@ -176,15 +176,6 @@ in
         user = "user";
         port = 35822;
       };
-      seychelles = {
-        hostname = "seychelles.local";
-        user = "manjaro";
-        port = 35822;
-      };
-      laggar = {
-        hostname = "laggar.local";
-        user = "pi";
-      };
       rednecked = {
         hostname = "f2l.cc";
         user = "user";
