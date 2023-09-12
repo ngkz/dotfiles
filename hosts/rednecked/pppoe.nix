@@ -27,14 +27,32 @@
 
   age.secrets.pppoe-creds.file = ../../secrets/pppoe-creds.age;
 
-  # XXX workaround for https://github.com/systemd/systemd/issues/26356
   environment.etc."ppp/ip-up" = {
     mode = "0555";
     text = ''
-      #!${pkgs.runtimeShell}
-      ${pkgs.systemd}/bin/networkctl reconfigure "$1"
+      #!${pkgs.bash}/bin/bash
+      ifname=$1
+      localip=$4
+
+      # XXX workaround for https://github.com/systemd/systemd/issues/26356
+      ${pkgs.systemd}/bin/networkctl reconfigure "$ifname"
+
+      # update DNS
+      zone=d05ae5f71b9d1a14d3060969c37e7c1b #f2l.cc
+      record=05dec190ff4baa481788336c347bc38d #f2l.cc A
+      ${pkgs.curl}/bin/curl -X PATCH \
+           "https://api.cloudflare.com/client/v4/zones/$zone/dns_records/$record" \
+           -H "Authorization: Bearer $(<${config.age.secrets.cloudflare-api-key.path})" \
+           -H "Content-Type: application/json" \
+           --data "{
+             \"content\": \"$localip\",
+             \"name\": \"@\",
+             \"type\": \"A\"
+           }"
     '';
   };
+
+  age.secrets.cloudflare-api-key.file = ../../secrets/cloudflare-api-key.age;
 
   networking.nftables.ruleset = ''
     table ip network-extra-v4 {
