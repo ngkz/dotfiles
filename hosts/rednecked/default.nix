@@ -44,13 +44,13 @@ in
     device = "nodev";
   };
 
-
   # tmpfs as home
   home-manager.users.user.home.tmpfs-as-home.persistentDirs = [
     "persist"
   ];
 
-  services.openssh.ports = lib.mkForce [ 443 ];
+  modules.sshd.allowRootLogin = true;
+  services.openssh.ports = [ 443 ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
