@@ -6,7 +6,7 @@ in
   options.hosts.rednecked.network = {
     lan_prefix = mkOption {
       type = types.str;
-      default = "192.168.16";
+      default = "192.168.18";
     };
 
     internalInterfaces = {
