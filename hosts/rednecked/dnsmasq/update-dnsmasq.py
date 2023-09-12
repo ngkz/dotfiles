@@ -6,20 +6,30 @@ iface = os.environ["IFACE"]
 admstate = os.environ["AdministrativeState"]
 ifjson = json.loads(os.environ["json"])
 
-if iface == "wan_hgw" and admstate == "configured":
-    conf = open("/etc/dnsmasq.d/10-dhcp.conf", "w")
+if iface == "wan_hgw" and admstate == "configured" and "DNS" in ifjson:
+    conf = ""
 
     for ip in ifjson["DNS"]:
-        print(f"server={ip}", file=conf)
+        conf += f"server={ip}\n"
         print(f"update-dnsmasq: dns={ip}")
 
     for ip in ifjson["SIP"]:
         if ":" in ip:
-            print(f"dhcp-option=option6:sip-server,[{ip}]", file=conf)
+            conf += f"dhcp-option=option6:sip-server,[{ip}]\n"
         else:
-            print(f"dhcp-option=option:sip-server,{ip}", file=conf)
+            conf += f"dhcp-option=option:sip-server,{ip}\n"
         print(f"update-dnsmasq: sip={ip}")
 
-    conf.close()
+    try:
+        with open("/etc/dnsmasq.d/10-networkd-dhcp.conf", "r") as f:
+            oldconf = f.read()
+    except FileNotFoundError:
+        oldconf = ""
 
-    os.system("@systemd@/bin/systemctl restart dnsmasq")
+    if oldconf != conf:
+        with open("/etc/dnsmasq.d/10-networkd-dhcp.conf", "w") as f:
+            f.write(conf)
+
+        print("update-dnsmasq: config updated. restarting dnsmasq")
+
+        os.system("@systemd@/bin/systemctl restart dnsmasq")

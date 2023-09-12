@@ -61,7 +61,7 @@ in
     "d /etc/dnsmasq.d 0755 root root -"
   ];
 
-  services.networkd-dispatcher.rules.update-dnsmasq = {
+  services.networkd-dispatcher.rules."10-update-dnsmasq" = {
     onState = [ "configured" ];
     script = builtins.readFile (pkgs.substituteAll {
       src = ./update-dnsmasq.py;

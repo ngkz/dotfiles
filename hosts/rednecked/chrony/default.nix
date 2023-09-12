@@ -16,7 +16,7 @@
   ];
   environment.systemPackages = [ pkgs.chrony ];
 
-  services.networkd-dispatcher.rules.update-chrony = {
+  services.networkd-dispatcher.rules."10-update-chrony" = {
     onState = [ "configured" ];
     script = builtins.readFile (pkgs.substituteAll {
       src = ./update-chrony.py;
