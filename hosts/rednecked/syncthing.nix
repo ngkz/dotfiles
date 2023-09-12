@@ -31,5 +31,7 @@ in
   systemd.tmpfiles.rules = [
     "d ${storage} 0700 syncthing syncthing -"
   ];
+
+  boot.kernel.sysctl."fs.inotify.max_user_watches" = 524288;
 }
 
