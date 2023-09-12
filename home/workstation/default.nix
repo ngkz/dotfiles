@@ -172,7 +172,7 @@ in
         port = 49224;
       };
       peregrine = {
-        hostname = "peregrine.local";
+        hostname = "peregrine.home.arpa";
         user = "user";
         port = 35822;
       };

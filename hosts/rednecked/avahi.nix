@@ -5,10 +5,9 @@ in
 {
   # See also: base.nix
   services.avahi = {
-    allowInterfaces = [ "br_lan" "wg0" ];
+    allowInterfaces = [ "br_lan" ];
     openFirewall = mkForce false;
-    reflector = true;
   };
 
-  hosts.rednecked.network.internalInterfaces.allowedUDPPorts = [ 5353 ];
+  networking.firewall.interfaces.br_lan.allowedUDPPorts = [ 5353 ];
 }
