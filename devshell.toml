@@ -89,6 +89,16 @@ nvd diff "$prev" /run/current-system
 category = "system maintenance"
 
 [[commands]]
+help = "Build and activate the new configuration on the remote machine"
+name = "switch-remote"
+command = '''
+host=$1
+shift
+nixos-rebuild switch --flake "${PRJ_ROOT}#$host" --target-host "root@$host" "$@"
+'''
+category = "system maintenance"
+
+[[commands]]
 help = "Build the new configuration and activate it on next reboot"
 name = "boot"
 command = 'sudo nixos-rebuild boot --flake "${PRJ_ROOT}#" "$@"'
