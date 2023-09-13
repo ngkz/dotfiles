@@ -22,6 +22,7 @@ in
     nix-maintenance
     zswap
     bluetooth
+    hacking
 
     profiles-laptop
     common-pc-laptop-acpi_call

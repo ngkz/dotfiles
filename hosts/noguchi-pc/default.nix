@@ -20,6 +20,7 @@ in
     nix-maintenance
     zswap
     bluetooth
+    hacking
 
     profiles-laptop
     profiles-intel-cpu
