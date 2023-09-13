@@ -70,20 +70,58 @@
 
   networking.firewall.allowedUDPPorts = [ 51820 ];
 
-  networking.nftables.ruleset = ''
-    table inet wireguard {
-      chain multiplex {
-        type nat hook prerouting priority dstnat;
+  services.networkd-dispatcher.rules."30-update-wireguard-rules" = {
+    onState = [ "configured" "no-carrier" "off" ];
+    script = ''
+      #!${pkgs.bash}/bin/bash
+      set -euo pipefail
 
-        fib daddr . iif type local udp dport 53 @th,64,32 0x01000000 redirect to :51820 comment "redirect wireguard"
-      }
+      dest=/etc/nftables.d/10-wireguard-rules.nft
 
-      chain clamp {
-        type filter hook forward priority mangle;
-        iifname "wg0" tcp flags syn tcp option maxseg size set rt mtu comment "clamp MSS to Path MTU"
+      newrules=$(cat <<EOS
+      table inet wireguard {
+
+        define local_ip4 = {
+          $(${pkgs.iproute2}/bin/ip -4 addr | ${pkgs.gawk}/bin/awk '/inet/ && !/127\.0\.0\.1/ {
+                                                                      sub(/\/([0-9]+)/, "", $2);
+                                                                      if ( ln > 0 ) { printf "," }
+                                                                      print $2
+                                                                      ln += 1
+                                                                    }')
+        }
+
+        define local_ip6 = {
+          $(${pkgs.iproute2}/bin/ip -6 addr | ${pkgs.gawk}/bin/awk '/inet6/ && !/ ::1\// && !/ fe80::/ {
+                                                                      sub(/\/([0-9]+)/, "", $2);
+                                                                      if ( ln > 0 ) { printf "," }
+                                                                      print $2
+                                                                      ln += 1
+                                                                    }')
+        }
+
+        chain multiplex {
+          type nat hook prerouting priority dstnat;
+
+          ip daddr \$local_ip4 udp dport 53 @th,64,32 0x01000000 redirect to :51820 comment "redirect wireguard (IPv4)"
+          ip6 daddr \$local_ip6 udp dport 53 @th,64,32 0x01000000 redirect to :51820 comment "redirect wireguard (IPv6)"
+        }
+
+        chain clamp {
+          type filter hook forward priority mangle;
+          iifname "wg0" tcp flags syn tcp option maxseg size set rt mtu comment "clamp MSS to Path MTU"
+        }
       }
-    }
-  '';
+      EOS
+      )
+
+      if [[ ! -e "$dest" ]] || [[ "$newrules" != "$(<$dest)" ]]; then
+        echo "update-wireguard-rules: updating rules"
+        cat <<<"$newrules" >"$dest"
+        systemctl restart nftables
+      fi
+    '';
+  };
+
 
   environment.systemPackages = with pkgs; [ wireguard-tools ];
 

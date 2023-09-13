@@ -201,6 +201,14 @@ in
         };
     };
 
+    networking.nftables.ruleset = ''
+      include "/etc/nftables.d/*"
+    '';
+
+    systemd.tmpfiles.rules = [
+      "d /etc/nftables.d 0755 root root -"
+    ];
+
     services.networkd-dispatcher.enable = true;
   };
 }
