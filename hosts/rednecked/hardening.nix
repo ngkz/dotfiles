@@ -7,7 +7,8 @@ in
     "${nixpkgs}/nixos/modules/profiles/hardened.nix"
   ];
 
-  # security.lockKernelModules = false;
+  # this is fucking annoying
+  security.lockKernelModules = false;
 
   # additional hardening
   security.allowSimultaneousMultithreading = true;
