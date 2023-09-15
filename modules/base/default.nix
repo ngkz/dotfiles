@@ -153,6 +153,8 @@ in
       sysfsutils #systool
       lshw
       dmidecode
+      pciutils #lspci
+      ddrescue
 
       iotop
       btop
@@ -174,10 +176,8 @@ in
       openssl
       unixtools.xxd
       nix-index
-      ddrescue
       socat
       bc
-      pciutils #lspci
       dig
       hyfetch
     ];
