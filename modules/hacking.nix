@@ -38,10 +38,13 @@
     aircrack-ng
     tesseract4
     nasm
+    gcc
+    patchelf
     pngtools
     zbar
     php
     nodejs
+    deno
     socat
     dtc
     qtspim
