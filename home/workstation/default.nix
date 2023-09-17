@@ -8,7 +8,7 @@ in
     inputs.self.homeManagerModules.theming
     ./direnv.nix
     ./fcitx5
-    # ./ungoogled-chromium.nix
+    ./chromium.nix
     ./syncthing.nix
     ./librewolf
     ./wine.nix
