@@ -68,6 +68,8 @@
     oletools
     # stegsnow
     # flask-unsign
+    wabt
+    one_gadget
 
     ghidra
     burpsuite
@@ -80,6 +82,10 @@
     capstone
     cryptography
     scapy
+    requests
+    httpx
+
+    flask
   ];
 
   programs.wireshark.enable = true;
