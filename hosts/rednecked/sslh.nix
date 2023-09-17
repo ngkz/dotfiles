@@ -18,12 +18,4 @@ in
   };
 
   networking.firewall.allowedTCPPorts = [ 443 ];
-
-  # security.lockKernelModules
-  boot.kernelModules = [
-    "nft_chain_nat"
-    "nf_nat"
-    "xt_connmark"
-    "xt_owner"
-  ];
 }
