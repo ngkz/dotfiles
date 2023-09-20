@@ -44,6 +44,7 @@ EXCLUDES=(
     "home/*/.FreeCAD/webdatapersistent"
     "home/*/.librewolf/default/storage/default/*/cache"
     "home/*/.electrum/daemon_rpc_socket"
+    var/lib/docker
 )
 LOGGER_PIPE=$TMPDIR/logger
 
