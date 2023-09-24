@@ -12,7 +12,6 @@ in
     ./syncthing.nix
     ./librewolf
     ./wine.nix
-    ./zim.nix
   ];
 
   # XDG user dirs
