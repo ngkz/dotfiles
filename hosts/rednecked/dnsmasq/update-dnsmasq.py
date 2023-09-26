@@ -9,11 +9,11 @@ ifjson = json.loads(os.environ["json"])
 if iface == "wan_hgw" and admstate == "configured" and "DNS" in ifjson:
     conf = ""
 
-    for ip in ifjson["DNS"]:
+    for ip in ifjson.get("DNS", []):
         conf += f"server={ip}\n"
         print(f"update-dnsmasq: dns={ip}")
 
-    for ip in ifjson["SIP"]:
+    for ip in ifjson.get("SIP", []):
         if ":" in ip:
             conf += f"dhcp-option=option6:sip-server,[{ip}]\n"
         else:

@@ -9,7 +9,7 @@ ifjson = json.loads(os.environ["json"])
 if iface == "wan_hgw" and admstate == "configured" and "NTP" in ifjson:
     conf = ""
 
-    for ip in ifjson["NTP"]:
+    for ip in ifjson.get("NTP", []):
         conf += f"server {ip} iburst\n"
         print(f"update-chrony: ntp={ip}")
 
