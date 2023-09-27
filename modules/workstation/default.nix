@@ -8,6 +8,7 @@ in
     ./network-manager
     ./gpg.nix
     ./backup
+    ./docker.nix
   ];
 
   # PipeWire
