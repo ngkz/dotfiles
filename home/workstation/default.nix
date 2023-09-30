@@ -276,7 +276,7 @@ in
   xdg.desktopEntries.nvim = {
     name = "Neovim";
     genericName = "Text Editor";
-    exec = "${pkgs.foot}/bin/foot -- ${pkgs.neovim}/bin/nvim";
+    exec = "${pkgs.foot}/bin/foot -- nvim";
     terminal = false;
     icon = "nvim";
     startupNotify = false;
