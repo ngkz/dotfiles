@@ -14,6 +14,9 @@
     recursive = true;
   };
 
+  # use default IMMMODULE (gtk2: xim, gtk3/4: wayland)
+  home.sessionVariables.GTK_IM_MODULE = lib.mkForce "";
+
   xdg.dataFile."fcitx5/skk/dictionary_list".text =
     let
       dictdir = "${config.home.homeDirectory}/misc/skk";

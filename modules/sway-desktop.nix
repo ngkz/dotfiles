@@ -17,9 +17,6 @@
       export MOZ_ENABLE_WAYLAND=1
       # Chromium / Electron (experimental):
       export NIXOS_OZONE_WL=1
-      # GTK
-      # use wayland immodule
-      unset GTK_IM_MODULE
 
       # Log sway stdout/stderr
       exec &> >(${pkgs.systemd}/bin/systemd-cat -t sway)
