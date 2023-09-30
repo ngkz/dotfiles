@@ -12,6 +12,7 @@ in
     ./syncthing.nix
     ./librewolf
     ./wine.nix
+    ./doom-emacs
   ];
 
   # XDG user dirs
