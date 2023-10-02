@@ -207,3 +207,6 @@
 
 ;; wayland
 (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s")
+
+;; transparent background
+(add-to-list 'default-frame-alist '(alpha-background . 96))
