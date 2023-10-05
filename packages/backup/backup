@@ -44,6 +44,20 @@ EXCLUDES=(
     "home/*/.FreeCAD/webdatapersistent"
     "home/*/.librewolf/default/storage/default/*/cache"
     "home/*/.electrum/daemon_rpc_socket"
+    "home/*/.config/doom-local/autosave"
+    "home/*/.config/doom-local/comp"
+    "home/*/.config/doom-local/eln"
+    "home/*/.config/doom-local/pcache"
+    "home/*/.config/doom-local/profiles.@.el"
+    "home/*/.config/doom-local/projectile.cache"
+    "home/*/.config/doom-local/env"
+    "home/*/.config/doom-local/etc/@"
+    "home/*/.config/doom-local/etc/scratch"
+    "home/*/.config/doom-local/etc/transient"
+    "home/*/.config/doom-local/hash"
+    "home/*/.config/doom-local/state/logs"
+    "home/*/.config/doom-local/straight"
+    "home/*/.config/doom-load"
     var/lib/docker
 )
 LOGGER_PIPE=$TMPDIR/logger
