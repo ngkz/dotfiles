@@ -23,6 +23,18 @@
 ;;
 ;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+
+(setq doom-font (font-spec :family "Sarasa Term J Nerd Font" :size 9.0)
+      ;; XXX doomemacs/doomemacs#7036
+      doom-emoji-fallback-font-families '("Emoji")
+      doom-symbol-fallback-font-families '("Sarasa Term J Nerd Font")
+      doom-unicode-font nil)
+; Nerd Font symbols: 
+; Emoji: 😀😻
+
+;; make `doom doctor` happy https://github.com/doomemacs/doomemacs/issues/7431
+(setq nerd-icons-font-names '("sarasa-term-j-regular-nerd-font.ttf"))
+
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -39,8 +51,6 @@
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
-
-(setq doom-font (font-spec :family "Monospace" :size 9.0))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -201,9 +211,6 @@
 
 ;; https://stackoverflow.com/questions/20164918/how-to-untick-checkboxes-in-org-mode-for-the-next-cyclic-repetitive-task
 ; (require 'org-checklist)
-
-;; make `doom doctor` happy https://github.com/doomemacs/doomemacs/issues/7431
-(setq nerd-icons-font-names '("SymbolsNerdFontMono-Regular.ttf"))
 
 ;; wayland
 (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s")
