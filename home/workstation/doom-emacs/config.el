@@ -202,18 +202,15 @@
 ;; org-mode
 ;; It must be set before org loads!
 (setq org-directory "~/docs/all/org/")
+(after! org-download
+  ;; sway screen capture
+  (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s")
 
-;; log when a certain todo item was finished
-(setq org-log-done t)
+  ;; log when a certain todo item was finished
+  (setq org-log-done t))
 
 ;; Make sure that the weekdays in the time stamps of your Org mode files and in the agenda appear in English.
 (setq system-time-locale "C")
-
-;; https://stackoverflow.com/questions/20164918/how-to-untick-checkboxes-in-org-mode-for-the-next-cyclic-repetitive-task
-; (require 'org-checklist)
-
-;; wayland
-(setq org-download-screenshot-method "grim -g \"$(slurp)\" %s")
 
 ;; transparent background
 (add-to-list 'default-frame-alist '(alpha-background . 96))
