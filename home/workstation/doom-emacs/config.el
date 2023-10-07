@@ -217,3 +217,10 @@
 
 ;; transparent background
 (add-to-list 'default-frame-alist '(alpha-background . 96))
+
+;; change todo highlight colors
+(after! hl-todo
+  (setq hl-todo-keyword-faces
+        `(("XXX" font-lock-keyword-face bold)
+          ("HACK" font-lock-keyword-face bold)
+          ("DEPRECATED" warning bold))))
