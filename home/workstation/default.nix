@@ -635,5 +635,6 @@ in
     wireshark
     hexchat
     electrum
+    tenacity
   ];
 }
