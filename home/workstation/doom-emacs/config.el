@@ -204,7 +204,11 @@
 (setq org-directory "~/docs/all/org/")
 (after! org
   ;; log when a certain todo item was finished
-  (setq org-log-done t))
+  (setq org-log-done t)
+  ;; better source block indentation
+  (setq org-src-preserve-indentation nil)
+  ;; hide inline style characters
+  (setq org-hide-emphasis-markers t))
 (after! org-download
   ;; sway screen capture
   (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s"))
