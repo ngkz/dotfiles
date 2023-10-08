@@ -86,6 +86,9 @@ in
     shfmt
     nodePackages.prettier-plugin-toml
 
+    # chckers/aspell
+    (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
+
     # checkers/grammar
     languagetool
 
