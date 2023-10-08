@@ -202,12 +202,12 @@
 ;; org-mode
 ;; It must be set before org loads!
 (setq org-directory "~/docs/all/org/")
-(after! org-download
-  ;; sway screen capture
-  (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s")
-
+(after! org
   ;; log when a certain todo item was finished
   (setq org-log-done t))
+(after! org-download
+  ;; sway screen capture
+  (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s"))
 
 ;; Make sure that the weekdays in the time stamps of your Org mode files and in the agenda appear in English.
 (setq system-time-locale "C")
