@@ -219,6 +219,13 @@
   ;; sway screen capture
   (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s"))
 
+(custom-set-faces!
+  '(org-document-title :weight bold :height 1.5)
+  '(org-document-info :weight normal :height 1.15)
+  '(org-level-1 :inherit outline-1 :height 1.25)
+  '(org-level-2 :inherit outline-2 :height 1.15)
+  '(org-level-3 :inherit outline-3 :height 1.1))
+
 ;; Make sure that the weekdays in the time stamps of your Org mode files and in the agenda appear in English.
 (setq system-time-locale "C")
 
