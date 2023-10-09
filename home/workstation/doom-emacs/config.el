@@ -202,6 +202,17 @@
 ;; org-mode
 ;; It must be set before org loads!
 (setq org-directory "~/docs/all/org/")
+(defconst doom-docs-org-font-lock-keywords
+'(("^\\( *\\)#\\+begin_quote\n\\1 \\([󰝗󱌣󰐃󰔓󰟶󰥔]\\) "
+2 (pcase (match-string 2)
+        ("󰝗" 'font-lock-comment-face)
+        ("󱌣" 'font-lock-comment-face)
+        ("󰐃" 'error)
+        ("󰔓" 'success)
+        ("󰟶" 'font-lock-keyword-face)
+        ("󰥔" 'font-lock-constant-face)
+        ("" 'warning))))
+"Extra font-lock keywords for Doom documentation.")
 (after! org
   (setq
    ;; log when a certain todo item was finished
@@ -213,7 +224,9 @@
    ;; show special symbols as unicode characters
    org-pretty-entities t
    ;; folding symbol
-   org-ellipsis "  "))
+   org-ellipsis "  ")
+  ;; admonition
+  (font-lock-add-keywords 'org-mode doom-docs-org-font-lock-keywords))
 
 (after! org-download
   ;; sway screen capture
