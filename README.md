@@ -51,3 +51,4 @@ nix-locate "<file>"
   - [Encrypted Btrfs Root with Opt-in State On NixOS](https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html)
 - [BTRFS: Finding and fixing highly fragmented files](https://helmundwalter.de/blog/btrfs-finding-and-fixing-highly-fragmented-files/)
 - [balsoft/nixos-fhs-compat](https://github.com/balsoft/nixos-fhs-compat)
+- [Ricing up Org Mode](https://lepisma.xyz/2017/10/28/ricing-org-mode/)
