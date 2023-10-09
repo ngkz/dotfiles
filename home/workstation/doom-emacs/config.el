@@ -203,12 +203,18 @@
 ;; It must be set before org loads!
 (setq org-directory "~/docs/all/org/")
 (after! org
-  ;; log when a certain todo item was finished
-  (setq org-log-done t)
-  ;; better source block indentation
-  (setq org-src-preserve-indentation nil)
-  ;; hide inline style characters
-  (setq org-hide-emphasis-markers t))
+  (setq
+   ;; log when a certain todo item was finished
+   org-log-done t
+   ;; better source block indentation
+   org-src-preserve-indentation nil
+   ;; hide inline style characters
+   org-hide-emphasis-markers t
+   ;; show special symbols as unicode characters
+   org-pretty-entities t
+   ;; folding symbol
+   org-ellipsis "  "))
+
 (after! org-download
   ;; sway screen capture
   (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s"))
