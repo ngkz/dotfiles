@@ -60,6 +60,7 @@ EXCLUDES=(
     "home/*/.config/doom-load"
     var/lib/docker
 )
+DIFF_CONFIG="--sort --content-only"
 LOGGER_PIPE=$TMPDIR/logger
 
 log() {
@@ -252,7 +253,7 @@ backup() {
 
     if [[ -n "$archive_prev" ]]; then
         log "$archive_prev -> $archive diff:"
-        if ! borg diff "::$archive_prev" "$archive" --sort; then
+        if ! borg diff "::$archive_prev" "$archive" $DIFF_CONFIG; then
             umount_dest
             log_output_stop
             return 1
