@@ -249,3 +249,7 @@
         `(("XXX" font-lock-keyword-face bold)
           ("HACK" font-lock-keyword-face bold)
           ("DEPRECATED" warning bold))))
+
+;; reduce terminal lag
+(after! vterm
+  (setq vterm-timer-delay 0.03))
