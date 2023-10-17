@@ -61,6 +61,7 @@ WINDOW_ICONS = {
     "gnome-disks": "󰋊 ",
     "virt-manager": " ",
     "org.shotcut.shotcut": "󰟞 ",
+    "org.inkscape.inkscape": "󰉼 ",
 }
 
 DEFAULT_ICON = "󰣆 "
