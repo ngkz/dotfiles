@@ -48,7 +48,7 @@ in
       #!${pkgs.bash}/bin/bash -l
       set -euo pipefail
 
-      newhash=$(nix-hash $(realpath ~/.config/doom/{init.el,packages.el} ~/.config/emacs/))
+      newhash=$(nix-hash $(realpath ~/.config/doom/{init.el,packages.el} ~/.config/emacs/) && echo ${config.programs.emacs.package})
       if [ ! -d "$DOOMLOCALDIR/etc" ]; then
         echo "doom install"
         ~/.config/emacs/bin/doom install -!
