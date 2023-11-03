@@ -175,5 +175,9 @@ category = "VM"
 [[commands]]
 help = "Build and activate the new configuration of libvirt VM"
 name = "switch-vm"
-command = 'nix shell ".#nixosConfigurations.$1.config.system.build.libvirtVM" -c "switch-libvirt-vm-$1"'
+command = '''
+host=$1
+shift
+nix shell "$@" ".#nixosConfigurations.${host}.config.system.build.libvirtVM" -c "switch-libvirt-vm-${host}"
+'''
 category = "VM"
