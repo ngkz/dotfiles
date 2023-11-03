@@ -109,6 +109,16 @@ in
 
       # allow passwordless sudo
       security.sudo.wheelNeedsPassword = false;
+
+      services.resolved.enable = mkForce true;
+      services.dnsmasq.enable = mkForce false;
+
+      # let's encrypt won't work in the VM
+      security.acme.defaults.server = "https://acme-staging-v02.api.letsencrypt.org/directory";
+      systemd.services."acme-f2l.cc".serviceConfig = {
+        ExecStart = mkForce "${pkgs.coreutils}/bin/true";
+        ExecStartPost = mkForce "${pkgs.coreutils}/bin/true";
+      };
     };
   };
 }

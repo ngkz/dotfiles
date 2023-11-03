@@ -29,10 +29,11 @@ in
     ./chrony
     ./wireguard.nix
     ./hardening.nix
-    #./sslh.nix
+    ./sslh.nix
     ./syncthing.nix
     ./avahi.nix
     ./ddns.nix
+    ./nginx
   ];
 
   networking.hostName = "rednecked";
@@ -51,7 +52,6 @@ in
   ];
 
   modules.sshd.allowRootLogin = true;
-  services.openssh.ports = [ 443 ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
