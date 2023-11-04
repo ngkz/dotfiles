@@ -33,7 +33,16 @@ in
         locations."/" = { root = "${site}"; };
         extraConfig = ''
           error_page 404 /404.html;
+
+          # HSTS (ngx_http_headers_module is required) (63072000 seconds)
+          add_header Strict-Transport-Security "max-age=63072000" always;
         '';
+      };
+
+      "www.f2l.cc" = {
+        enableSSL = true;
+        enableACME = true;
+        globalRedirect = "f2l.cc";
       };
     };
   };
