@@ -22,6 +22,10 @@ in
   services.nginx = {
     enable = true;
     defaultSSLListenPort = 8443;
+    recommendedTlsSettings = true;
+    recommendedOptimisation = true;
+    recommendedBrotliSettings = true;
+    recommendedGzipSettings = true;
     virtualHosts = {
       "f2l.cc" = {
         forceSSL = true;
