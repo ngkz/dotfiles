@@ -40,7 +40,7 @@ in
       };
 
       "www.f2l.cc" = {
-        enableSSL = true;
+        addSSL = true;
         enableACME = true;
         globalRedirect = "f2l.cc";
       };
