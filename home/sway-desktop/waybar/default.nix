@@ -179,52 +179,20 @@ let
         },
         "clock": {
           "format": " {:%R}",
-          "format-alt": " {:%Y-%m-%d %a %H:%M}",
+          "format-alt": " {:%Y-%m-%d %a %H:%M %Z}",
           "interval": 10,
           "locale": "C",
-          "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>"
+          "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>",
+          "timezones": ["Asia/Tokyo", "America/New_York"],
+          "actions": {
+              "on-scroll-up": "tz_up",
+              "on-scroll-down": "tz_down"
+          }
         }
       }
     ]
     EOS
   '';
-
-  #network = {
-  #  interval = 2;
-  #  format = "{icon}";
-  #  format-ethernet = "{icon}";
-  #  format-wifi = "{icon} {signalStrength}%";
-  #  format-alt = "{icon} {ifname} {bandwidthUpBytes} {bandwidthDownBytes}";
-  #  format-icons = {
-  #    wifi = "直";
-  #    ethernet = "";
-  #    linked = "";
-  #    disconnected = " ";
-  #  };
-  #  tooltip-format-ethernet = ''
-  #    {ifname}
-  #    {ipaddr}/{cidr}
-  #    {bandwidthUpBits}({bandwidthUpBytes}) {bandwidthDownBits}({bandwidthDownBytes})'';
-  #  tooltip-format-wifi = ''
-  #    {ifname}
-  #    SSID: {essid} {signalStrength}% {signaldBm}dBm {frequency}GHz
-  #    {ipaddr}/{cidr}
-  #    {bandwidthUpBits}({bandwidthUpBytes}) {bandwidthDownBits}({bandwidthDownBytes})'';
-  #  tooltip-format-disconnected = "{ifname} (Disconnected)";
-  #  on-click-right = networkmanager_dmenu;
-  #};
-
-  #bluetooth = {
-  #  format = " ";
-  #  format-disabled = " ";
-  #  format-off = " ";
-  #  format-connected = " ";
-  #  format-connected-battery = " {device_battery_percentage}%";
-  #  tooltip-format = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
-  #  tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
-  #  tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
-  #  tooltip-format-enumerate-connected-battery = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
-  #};
 in
 {
   home.packages = [ pkgs.waybar ];
