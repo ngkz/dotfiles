@@ -1,4 +1,4 @@
-{ self, nixpkgs, ... } @ inputs:
+{ self, nixpkgs, nixpkgs-unstable, ... } @ inputs:
 {
   packages = final: prev: {
     ngkz = (import ./packages { pkgs = final; inherit inputs; })
@@ -25,4 +25,9 @@
   apparmor = final: prev: {
     inherit (final.ngkz) apparmor-utils;
   };
+
+   # make nixos-unstable packages accessible through pkgs.unstable.package
+   unstable = final: prev: {
+     unstable = import nixpkgs-unstable { inherit (prev) system; };
+   };
 }

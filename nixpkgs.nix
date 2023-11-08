@@ -8,6 +8,7 @@
     sway-im
     fcitx5
     apparmor
+    unstable
   ];
   config.allowUnfree = true;
 }
