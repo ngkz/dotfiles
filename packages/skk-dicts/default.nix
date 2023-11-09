@@ -12,8 +12,8 @@
 let
   dict_rev = "1909dda026e6038975359a5eaeafcf50c9ce7fa3";
   dict_sha256 = "e7B1+ji/8ssM92RSTmlu8c7V5kbk93CxtUDzs26gE8s=";
-  tools_rev = "3e130ed05493f6f2a534da34b09f8f97411ef4b4";
-  tools_sha256 = "d6cYqVL+M/IJMvVNJp3pzB/GtpXh0zhu9pCynP6xxIc=";
+  tools_rev = "1e8c457c2796c2e3d84badcf41386506d5010a7e";
+  tools_sha256 = "8sG6fMqoKjZ7c0S6O8Nf/GWv1y3TzZmE3FaJgp0YoRg=";
 in
 stdenv.mkDerivation {
   pname = "skk-dicts-unstable";
