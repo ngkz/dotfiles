@@ -46,7 +46,7 @@ EXCLUDES=(
     "home/*/.electrum/daemon_rpc_socket"
     "home/*/.config/doom-local/autosave"
     "home/*/.config/doom-local/comp"
-    "home/*/.config/doom-local/eln"
+    "home/*/.config/doom-local/cache/eln"
     "home/*/.config/doom-local/pcache"
     "home/*/.config/doom-local/profiles.@.el"
     "home/*/.config/doom-local/projectile.cache"
