@@ -32,28 +32,28 @@ in
     });
   };
 
-  # xdg.configFile."chromium/External Extensions".source =
-  #   let
-  #     env = pkgs.buildEnv {
-  #       name = "chromium-extensions";
-  #       paths = with pkgs.ngkz; [
-  #         chromium-extension-keepassxc-browser
-  #         chromium-extension-ublock0
-  #       ];
-  #       pathsToLink = "/share/chromium/extensions";
-  #     };
-  #   in
-  #   "${env}/share/chromium/extensions";
+  xdg.configFile."chromium/External Extensions".source =
+    let
+      env = pkgs.buildEnv {
+        name = "chromium-extensions";
+        paths = with pkgs.ngkz; [
+          chromium-extension-keepassxc-browser
+          chromium-extension-ublock0
+        ];
+        pathsToLink = "/share/chromium/extensions";
+      };
+    in
+    "${env}/share/chromium/extensions";
 
-  # xdg.configFile."chromium/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json".text = toJSON {
-  #   allowed_origins = [
-  #     "chrome-extension://aagogodjfilkindafjogmjjpeoflafop/" # chromium-extension-keepassxc-browser
-  #   ];
-  #   name = "org.keepassxc.keepassxc_browser";
-  #   description = "KeePassXC integration with native messaging support";
-  #   path = "${pkgs.keepassxc}/bin/keepassxc-proxy";
-  #   type = "stdio";
-  # };
+  xdg.configFile."chromium/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json".text = toJSON {
+    allowed_origins = [
+      "chrome-extension://aagogodjfilkindafjogmjjpeoflafop/" # chromium-extension-keepassxc-browser
+    ];
+    name = "org.keepassxc.keepassxc_browser";
+    description = "KeePassXC integration with native messaging support";
+    path = "${pkgs.keepassxc}/bin/keepassxc-proxy";
+    type = "stdio";
+  };
 
   home.tmpfs-as-home.persistentDirs = [
     ".config/chromium/Default"
