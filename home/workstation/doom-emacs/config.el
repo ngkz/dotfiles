@@ -224,7 +224,12 @@
    ;; show special symbols as unicode characters
    org-pretty-entities t
    ;; folding symbol
-   org-ellipsis "  ")
+   org-ellipsis "  "
+   ;; log into LOGBOOK drawer
+   org-log-into-drawer t
+   ;; log when reschedule
+   org-log-reschedule 'note
+   org-log-redeadline 'note)
   ;; admonition
   (font-lock-add-keywords 'org-mode doom-docs-org-font-lock-keywords))
 
