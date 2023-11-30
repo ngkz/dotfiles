@@ -53,7 +53,8 @@ in
             oifname != "lo" meta l4proto tcp ct mark 2 mark set 2
           }
         }
-      ''; in
+      '';
+    in
     {
       preStart = mkForce ''
         # update firewall rules
