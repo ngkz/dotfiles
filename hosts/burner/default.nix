@@ -16,7 +16,7 @@ in
   ];
 
   modules.libvirt-vm = {
-    memorySize = 2048;
+    memorySize = 8192;
     disks = {
       vda = {
         volume = "burner.qcow2";
@@ -79,6 +79,7 @@ in
       gcc.cc
       zlib
       ncurses5
+      ncurses6
       linux-pam
       nspr
       nspr
@@ -166,6 +167,10 @@ in
       # Trial Use
       libpng
       # gtk3
+
+      libslirp
+      libselinux
+      pixman
     ];
   };
 
@@ -188,6 +193,8 @@ in
       unshareUts = false;
       unshareCgroup = false;
       targetPkgs = pkgs: (with pkgs; [
+        ncurses.dev
+
         # default
         zlib
         zstd
@@ -212,6 +219,7 @@ in
         gcc.cc
         zlib
         ncurses5
+        ncurses6
         linux-pam
         nspr
         nspr
@@ -299,6 +307,11 @@ in
         # Trial Use
         libpng
         # gtk3
+
+        gdb
+        libslirp
+        libselinux
+        pixman
       ]);
       multiPkgs = pkgs: (with pkgs; [
         # default
@@ -325,6 +338,7 @@ in
         gcc.cc
         zlib
         ncurses5
+        ncurses6
         linux-pam
         nspr
         nspr
@@ -411,7 +425,9 @@ in
 
         # Trial Use
         libpng
+        libselinux
         # gtk3
+        pixman
       ]);
       runScript = "zsh";
     })
@@ -450,10 +466,45 @@ in
     # Imaging
     foomatic-filters
     ghostscript
+
+    gnumake
+    bsdgames
+    libreoffice
   ];
 
   hardware.opengl.enable = lib.mkDefault true;
   hardware.opengl.driSupport32Bit = lib.mkDefault true;
+
+  fonts = {
+    fonts = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      noto-fonts-emoji-blob-bin
+      corefonts
+      dejavu_fonts
+      freefont_ttf
+      gyre-fonts # TrueType substitutes for standard PostScript fonts
+      liberation_ttf
+      unifont
+      ngkz.sarasa-term-j-nerd-font
+    ];
+
+    # Create a directory with links to all fonts in /run/current-system/sw/share/X11/fonts
+    fontDir.enable = true;
+
+    fontconfig = {
+      defaultFonts = {
+        sansSerif = [ "Noto Sans CJK JP" ];
+        serif = [ "Noto Serif CJK JP" ];
+        emoji = [ "Blobmoji" ];
+        monospace = [ "Sarasa Term J Nerd Font" ];
+      };
+      cache32Bit = true;
+      # XXX Workaround for nixpkgs#46323
+      localConf = builtins.readFile "${pkgs.ngkz.blobmoji-fontconfig}/etc/fonts/conf.d/75-blobmoji.conf";
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
