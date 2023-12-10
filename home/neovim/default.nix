@@ -3,7 +3,7 @@
     enable = true;
     withPython3 = false;
     withRuby = false;
-    plugins = with pkgs.vimPlugins; [
+    plugins = with pkgs.ngkz; with pkgs.vimPlugins; [
       {
         type = "lua";
         config = "require('config.base16')";
@@ -36,17 +36,7 @@
       {
         type = "lua";
         config = "require('config.flygrep')";
-        #TODO move to packages
-        plugin =
-          (pkgs.vimUtils.buildVimPlugin {
-            name = "flygrep-vim";
-            src = pkgs.fetchFromGitHub {
-              owner = "wsdjeg";
-              repo = "FlyGrep.vim";
-              rev = "7a74448ac7635f8650127fc43016d24bb448ab50";
-              sha256 = "1dSVL027AHZaTmTZlVnJYkwB80VblwVDheo+4QDsO8E=";
-            };
-          });
+        plugin = flygrep-vim;
       }
       {
         type = "lua";
@@ -88,15 +78,7 @@
         plugin = which-key-nvim;
       }
       # nvim-treesitter
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "capture-vim";
-        src = pkgs.fetchFromGitHub {
-          owner = "tyru";
-          repo = "capture.vim";
-          rev = "857ee11cfe1193948d3d45dcb8d511fded8533fb";
-          sha256 = "nYMNXdHFVaw6cFKGT9KiHzrlQ7u76WdA4UlvaII+bok=";
-        };
-      })
+      capture-vim
     ];
     extraPackages = with pkgs; [
       fzf

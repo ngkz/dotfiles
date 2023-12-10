@@ -34,7 +34,7 @@ in
   # Sway configuration
   wayland.windowManager.sway = {
     enable = true;
-    systemdIntegration = false; # XXX workaround for home-manager #2806
+    systemd.enable = false; # XXX workaround for home-manager #2806
     package = null; # use system sway package
     config = {
       modifier = "Mod4"; # Super
@@ -179,14 +179,6 @@ in
             title = "KeePassXC - (ブラウザーの)?アクセス要求$";
           };
           command = "floating enable";
-        }
-        {
-          # XXX do not show media sharing indicator https://bugzilla.mozilla.org/show_bug.cgi?id=1628431
-          criteria = {
-            app_id = "librewolf$";
-            title = "LibreWolf — Sharing Indicator$";
-          };
-          command = "kill";
         }
         {
           # XXX FreeCAD splash

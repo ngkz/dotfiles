@@ -124,7 +124,7 @@ in
       # modern unix commands
       fzf
       bat
-      exa
+      eza
       du-dust # modern du
       fd # find
       httpie # modern curl

@@ -7,18 +7,17 @@ in
   # sslh multi-protocol multiplexer
   services.sslh = {
     enable = true;
-    transparent = true;
-    verbose = true;
-    appendConfig = ''
-      protocols:
-      (
-        { name: "tls"; host: "localhost"; port: "${toString config.services.nginx.defaultSSLListenPort}"; probe: "builtin"; },
-        { name: "ssh"; service: "ssh"; host: "localhost";
-          port: "${toString (head config.services.openssh.ports)}";
-          log_level: 1; probe: "builtin"; },
-        { name: "anyprot"; host: "localhost"; port: "${toString config.services.nginx.defaultSSLListenPort}"; probe: "builtin"; }
-      );
-    '';
+    method = "ev";
+    settings = {
+      timeout = 1;
+      transparent = true;
+      verbose-connections = 1;
+      protocols = [
+        { name = "tls"; host = "localhost"; port = toString config.services.nginx.defaultSSLListenPort; }
+        { name = "ssh"; host = "localhost"; port = toString (head config.services.openssh.ports); service = "ssh"; }
+        { name = "anyprot"; host = "localhost"; port = toString config.services.nginx.defaultSSLListenPort; }
+      ];
+    };
   };
 
   # prevent systemd-networkd removing sslh routing rules
@@ -27,6 +26,7 @@ in
     ManageForeignRoutes = false;
   };
 
+  # XXX sslh module doesn't support nftables
   systemd.services.sslh =
     let
       ruleset = pkgs.writeText "10-sslh.nft" ''

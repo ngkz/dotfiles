@@ -94,7 +94,7 @@
       cat = "bat";
       top = "btop";
       # du = "dust";
-      ls = "exa --icons --time-style=iso --git";
+      ls = "eza --icons --time-style=iso --git";
       rg = "rg -S";
       l = "ls";
       ll = "ls -lgh";

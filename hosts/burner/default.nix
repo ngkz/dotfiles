@@ -476,7 +476,7 @@ in
   hardware.opengl.driSupport32Bit = lib.mkDefault true;
 
   fonts = {
-    fonts = with pkgs; [
+    packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif

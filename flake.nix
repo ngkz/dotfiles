@@ -3,20 +3,21 @@
   description = "My NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-23.05";
+    nixpkgs.url = "nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+    nixpkgs-small.url = "nixpkgs/nixos-23.11-small";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
     #TODO don't forget to update HM and badge when NixOS upgrade!
-    home-manager.url = "github:nix-community/home-manager/release-23.05";
+    home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs @ { self, nixpkgs, flake-utils, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-small, flake-utils, ... }:
     let
       lib = nixpkgs.lib.extend (final: prev: {
         ngkz = import ./lib.nix { lib = prev; };
@@ -35,7 +36,7 @@
           modules = [ ./hosts/noguchi-pc ];
           specialArgs = { inherit inputs lib; };
         };
-        rednecked = nixpkgs.lib.nixosSystem {
+        rednecked = nixpkgs-small.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [ ./hosts/rednecked ];
           specialArgs = { inherit inputs lib; };

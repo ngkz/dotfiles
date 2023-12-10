@@ -60,26 +60,27 @@ let
 in
 mkDerivation rec {
   pname = "freecad-realthunder";
-  version = "2023.01.14";
+  version = "2023.01.31";
 
   srcs = [
+    # TODO update script
     (fetchzip {
-      url = "https://github.com/realthunder/FreeCAD/archive/refs/tags/2023.01.13-edge.tar.gz";
-      sha256 = "0nxkhhzb20k7z7acsq03h8apsbagka6hhl5fayqdhrrjhnf7ifhm";
+      url = "https://github.com/realthunder/FreeCAD/archive/refs/tags/2023.01.31-edge.tar.gz";
+      hash = "sha256-gUziaW0HdhbNvl6rZz7n18e5f7RTHUyV8FRTkd2uzdE=";
       name = "freecad";
     })
     (fetchFromGitHub {
       owner = "realthunder";
-      repo = "FreeCADMakeImage";
-      rev = "b836d20df091f71399e2115d79549f449e26a4b8";
-      sha256 = "Hbhr6kbH4R0vEhnfh5xO4gcjoEPHSLq6Zc0lo9EkmpY=";
-      name = "freecadmakeimage";
+      repo = "fcad-branding";
+      rev = "814727302be9c34a7642fca28815af00c3526e2f";
+      hash = "sha256-aHdrPpTQrEYkNgfnUnFLPaMEy8EEReYqufrepSJNZHI=";
+      name = "branding";
     })
     (fetchFromGitHub {
       owner = "realthunder";
       repo = "FreeCAD_assembly3";
-      rev = "4d2f5b9917aa6f15b710564847475bfbb859632a";
-      sha256 = "P2LKkFp3m/FywfMb6izYTsd5ISH9D9bI8XKF+9K6hi4=";
+      rev = "d8015ce2e466e7b4ec0fb41e86b597093ce00e9f";
+      hash = "sha256-Y4SMofosEvbj3CFsLHcyz8y2OZhPdmyQxakPqsYdqHw=";
       name = "asm3";
     })
   ];
@@ -173,7 +174,7 @@ mkDerivation rec {
       ymd = builtins.splitVersion version;
     in
     ''
-      branding=../../freecadmakeimage/conda/branding/asm3-daily
+      branding=../../branding/asm3
       sed -i \
           -e 's/^Name.*=FreeCAD/& Link Branch/' \
           -e 's/^Icon=.*/Icon=freecad_link/' \
@@ -214,7 +215,7 @@ mkDerivation rec {
       FreeCAD is multiplatfom, and reads and writes many open
       file formats such as STEP, IGES, STL and others.
 
-      This package contains the FreeCAD fork of realthunder 
+      This package contains the FreeCAD fork of realthunder
       (https://github.com/realthunder/FreeCAD/) + the Assembly3 workbench
       (https://github.com/realthunder/FreeCAD_assembly3).
 

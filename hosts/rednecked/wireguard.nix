@@ -131,7 +131,6 @@
     '';
   };
 
-
   environment.systemPackages = with pkgs; [ wireguard-tools ];
 
   age.secrets."wireguard-rednecked-private.key" = {

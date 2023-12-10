@@ -25,9 +25,6 @@
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 
 (setq doom-font (font-spec :family "Sarasa Term J Nerd Font" :size 9.0)
-      ;; XXX doomemacs/doomemacs#7036
-      doom-emoji-fallback-font-families '("Emoji")
-      doom-symbol-fallback-font-families '("Sarasa Term J Nerd Font")
       doom-unicode-font nil)
 ; Nerd Font symbols: 
 ; Emoji: 😀😻

@@ -16,10 +16,11 @@
   users.users.user.extraGroups = [ "libvirtd" ];
 
   environment.systemPackages = with pkgs; [
-    virt-manager
     libguestfs
     virtiofsd # XXX workaround for nixpkgs#187078
   ];
+
+  programs.virt-manager.enable = true;
 
   modules.tmpfs-as-root.persistentDirs = [
     "/var/lib/libvirt"

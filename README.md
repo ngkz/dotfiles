@@ -1,6 +1,6 @@
 # My NixOS configuration
 
-[![NixOS 23.05](https://img.shields.io/badge/NixOS-v23.05-blue.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
+[![NixOS 23.11](https://img.shields.io/badge/NixOS-v23.11-blue.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
 ## Installation
 

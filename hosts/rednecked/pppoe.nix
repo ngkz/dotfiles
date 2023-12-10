@@ -38,12 +38,13 @@
     '';
   };
 
-  networking.nftables.ruleset = ''
-    table ip network-extra-v4 {
+  networking.nftables.tables.pppoe = {
+    family = "ip";
+    content = ''
       chain clamp {
         type filter hook forward priority mangle;
         oifname "wan_pppoe" tcp flags syn tcp option maxseg size set rt mtu comment "clamp MSS to Path MTU"
       }
-    }
-  '';
+    '';
+  };
 }

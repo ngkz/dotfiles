@@ -24,8 +24,8 @@
     config.theme = "Monokai Extended";
   };
 
-  # exa: modern ls
-  programs.exa.enable = true;
+  # eza: modern ls
+  programs.eza.enable = true;
 
   programs.jq.enable = true;
 

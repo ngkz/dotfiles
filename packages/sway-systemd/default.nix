@@ -4,7 +4,7 @@
 , systemd
 , meson
 , ninja
-, pkgconfig
+, pkg-config
 , dbus
 , sway
 , dbus-next
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     meson
     ninja
-    pkgconfig
+    pkg-config
     makeWrapper
     wrapPython
   ];

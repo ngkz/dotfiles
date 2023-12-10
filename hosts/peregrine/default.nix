@@ -113,7 +113,7 @@ in
 
   # user
   age.secrets.user-password-hash-peregrine.file = ../../secrets/user-password-hash-peregrine.age;
-  users.users.user.passwordFile = config.age.secrets.user-password-hash-peregrine.path;
+  users.users.user.hashedPasswordFile = config.age.secrets.user-password-hash-peregrine.path;
 
   home-manager.users.user = {
     imports = with self.homeManagerModules; [

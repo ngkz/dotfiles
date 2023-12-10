@@ -15,13 +15,13 @@ in
     };
 
     persistentDirs = mkOption {
-      type = with types; listOf string;
+      type = with types; listOf str;
       default = [ ];
       description = "Directories which should be stored in the persistent storage.";
     };
 
     persistentFiles = mkOption {
-      type = with types; listOf string;
+      type = with types; listOf str;
       default = [ ];
       description = "Files which should be stored in the persistent storage.";
     };

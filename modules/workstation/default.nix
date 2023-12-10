@@ -43,7 +43,7 @@ in
 
   # install fonts
   fonts = {
-    fonts = with pkgs; [
+    packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
@@ -217,7 +217,6 @@ in
   services.udev.extraRules = ''
     # LED name badge
     SUBSYSTEM=="usb",  ATTRS{idVendor}=="0416", ATTRS{idProduct}=="5020", MODE="0666"
-    # FIXME: the following line is not sufficient for pyhidapi.
     KERNEL=="hidraw*", ATTRS{idVendor}=="0416", ATTRS{idProduct}=="5020", ATTRS{busnum}=="1", MODE="0666"
   '';
 }
