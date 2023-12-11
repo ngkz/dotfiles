@@ -131,7 +131,7 @@ category = "system maintenance"
 [[commands]]
 help = "List versions of the configuration"
 name = "generations"
-command = "sudo nix-env --profile /nix/var/nix/profiles/system --list-generations"
+command = 'nixos-rebuild list-generations --flake "${PRJ_ROOT}#"'
 category = "system maintenance"
 
 [[commands]]
