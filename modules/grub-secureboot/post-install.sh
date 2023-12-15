@@ -116,7 +116,8 @@ grub-mkstandalone \
                password_pbkdf2
                configfile
                echo reboot sleep
-               search search_fs_uuid" \
+               search search_fs_uuid
+               tpm" \
     --pubkey "$gpgPubKey" \
     --disable-shim-lock \
     --output "$tmpEFI" \
