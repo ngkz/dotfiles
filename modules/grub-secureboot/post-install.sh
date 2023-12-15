@@ -77,6 +77,15 @@ fi
 gpg --detach-sign "$initialCfg" >/dev/null
 gpg --export >"$gpgPubKey"
 
+for kernel in /boot/kernels/*-bzImage; do
+    if ! sbverify --cert "$secureBootCert" "$kernel" &>/dev/null; then
+        echo "secure boot signing $kernel"
+        sbsign --cert "$secureBootCert" --key "$secureBootKey" \
+                --output "$kernel.signed" "$kernel" &>/dev/null
+        mv "$kernel.signed" "$kernel"
+    fi
+done
+
 # restore kernel signatures saved at extraPrepareConfig
 [[ -n "$(shopt -s nullglob; echo /boot/kernels.bak/*)" ]] && mv @boot@/kernels.bak/* @boot@/kernels
 rmdir @boot@/kernels.bak
@@ -89,6 +98,7 @@ find @boot@ ! -path "@esp@/EFI/*" ! -path "$fingerprintstate" ! -path "@boot@/gr
         fi
     elif [[ -n "$gpgKeyChanged" ]] || [[ ! -e "${path}.sig" ]] || [[ "$(stat -c "%Y" "$path")" -gt "$(stat -c "%Y" "${path}.sig")" ]]; then
         # key changed or not signed or file changed
+        echo "pgp signing $path"
         gpg --yes --detach-sign "$path"
     fi
 done
@@ -114,4 +124,4 @@ grub-mkstandalone \
     "boot/grub/grub.cfg.sig=${initialCfg}.sig"
 
 sbsign --cert "$secureBootCert" --key "$secureBootKey" \
-        --output @efiFile@ "$tmpEFI"
+        --output @efiFile@ "$tmpEFI" &>/dev/null
