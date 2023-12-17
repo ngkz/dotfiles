@@ -36,6 +36,9 @@ in
 
           # HSTS (ngx_http_headers_module is required) (63072000 seconds)
           add_header Strict-Transport-Security "max-age=63072000" always;
+
+          # prevent redirecting to f2l.cc:8443
+          port_in_redirect off;
         '';
       };
 
