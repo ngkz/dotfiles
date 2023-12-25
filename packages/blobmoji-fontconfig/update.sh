@@ -18,11 +18,11 @@ fi
 url=$(nix eval --no-warn-dirty --raw "../..#${pname}.src.url")
 nix-prefetch-git "$url" >git.json
 newrev=$(jq -r .rev <git.json)
-newhash=$(jq -r .sha256 <git.json)
+newhash=$(jq -r .hash <git.json)
 rm -f git.json
 
 sed -i "s/version = \"$current\"/version = \"$latest\"/" default.nix
 sed -i "s/rev = \".*\"/rev = \"$newrev\"/" default.nix
-sed -i "s|sha256 = \".*\"|sha256 = \"$newhash\"|" default.nix
+sed -i "s/\(sha256\|hash\) = \".*\"/hash = \"$newhash\"/" default.nix
 
 echo "$pname updated: $current -> $latest"

@@ -25,15 +25,15 @@ fi
 date=$(jq -r .commit.committer.date <<<"$commit1")
 version=$(date +%Y-%m-%d --date="$date")
 
-newhash1=$(nix-prefetch-github --json "$owner" "$repo1" --rev "$latest1" | jq -r .sha256)
-newhash2=$(nix-prefetch-github --json "$owner" "$repo2" --rev "$latest2" | jq -r .sha256)
+newhash1=$(nix-prefetch-github --json "$owner" "$repo1" --rev "$latest1" | jq -r .hash)
+newhash2=$(nix-prefetch-github --json "$owner" "$repo2" --rev "$latest2" | jq -r .hash)
 
 sed -i "s/version = \".*\"/version = \"$version\"/" default.nix
 
 sed -i "s|dict_rev = \".*\"|dict_rev = \"$latest1\"|" default.nix
-sed -i "s|dict_sha256 = \".*\"|dict_sha256 = \"$newhash1\"|" default.nix
+sed -i "s|dict_hash = \".*\"|dict_hash = \"$newhash1\"|" default.nix
 sed -i "s|tools_rev = \".*\"|tools_rev = \"$latest2\"|" default.nix
-sed -i "s|tools_sha256 = \".*\"|tools_sha256 = \"$newhash2\"|" default.nix
+sed -i "s|tools_hash = \".*\"|tools_hash = \"$newhash2\"|" default.nix
 
 echo "$pname updated:"
 echo "$repo1: $current1 -> $latest1 ($version)"
