@@ -365,7 +365,46 @@ usage() {
     echo "$name shell" >&2
 }
 
-[[ $# -lt 1 ]] && usage_exit
+if [[ $# -lt 1 ]]; then
+     usage
+     exit 1
+fi
+
+ACTION=$1
+case "$ACTION" in
+backup)
+    DETACH_DEST=1
+
+    for arg in "${@:2}"; do
+        case "$arg" in
+        --verify) VERIFY=1 ;;
+        --no-detach) DETACH_DEST=0 ;;
+        --check) CHECK=1 ;;
+        suspend | hibernate | poweroff)
+            if [[ "$AFTER" != nop ]]; then
+                usage
+                exit 1
+            fi
+            AFTER=$arg
+            ;;
+        *)
+            usage
+            exit 1
+            ;;
+        esac
+    done
+    ;;
+mount|shell)
+    if [[ $# -gt 1 ]]; then
+        usage
+        exit 1
+    fi
+    ;;
+*)
+    usage
+    exit 1
+    ;;
+esac
 
 if [[ ! -v BORG_PASSPHRASE ]] && [[ ! -v DEST_LUKS_PASSPHRASE ]]; then
     if ! BORG_PASSPHRASE=$(secret-tool lookup backup borg); then
@@ -383,26 +422,8 @@ mkdir "$TMPDIR" || exit 1
 
 rc=0
 
-case "$1" in
+case "$ACTION" in
 backup)
-    DETACH_DEST=1
-
-    shift
-    while [[ $# -ge 1 ]]; do
-        case "$1" in
-        --verify) VERIFY=1 ;;
-        --no-detach) DETACH_DEST=0 ;;
-        --check) CHECK=1 ;;
-        suspend | hibernate | poweroff) AFTER=$1 ;;
-        *)
-            usage
-            rm -rf --one-file-system "$TMPDIR"
-            exit 1
-            ;;
-        esac
-        shift
-    done
-
     backup || rc=1
     ;;
 mount)
@@ -410,10 +431,6 @@ mount)
     ;;
 shell)
     shell || rc=1
-    ;;
-*) 
-    usage
-    rc=1
     ;;
 esac
 
