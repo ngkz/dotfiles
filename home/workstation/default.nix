@@ -72,6 +72,7 @@ in
       init.defaultBranch = "main";
       diff.tool = "nvimdiff";
       merge.tool = "nvimdiff";
+      tag.gpgSign = true;
     };
   };
 
