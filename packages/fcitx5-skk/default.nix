@@ -17,13 +17,13 @@
 
 stdenv.mkDerivation rec {
   pname = "fcitx5-skk";
-  version = "5.1.0";
+  version = "5.1.1";
 
   src = fetchFromGitHub {
     owner = "fcitx";
     repo = pname;
     rev = version;
-    sha256 = "N69OyGzJGO27tsR1g06d0EILsX2mpbW/tIgeSLc06OU=";
+    hash = "sha256-a+ZsuFEan61U0oOuhrTFoK5J4Vd0jj463jQ8Mk7TdbA=";
   };
 
   cmakeFlags = [
