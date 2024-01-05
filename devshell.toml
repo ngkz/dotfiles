@@ -29,7 +29,7 @@ name = "format"
 command = 'nixpkgs-fmt "$PRJ_ROOT"'
 
 [[commands]]
-package = "rage"
+package = "age"
 category = "secret management"
 
 [[commands]]
