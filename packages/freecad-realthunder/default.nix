@@ -1,15 +1,17 @@
 { lib
+, fmt
 , stdenv
-, mkDerivation
 , fetchFromGitHub
 , fetchzip
 , callPackage
 , pkgs
 , cmake
+, doxygen
 , ninja
 , GitPython
 , boost
 , eigen
+, ngkz  # for passthru.tests
 , gfortran
 , gts
 , hdf5
@@ -36,6 +38,7 @@
 , qtwebengine
 , qtx11extras
 , qtxmlpatterns
+, runCommand  # for passthru.tests
 , scipy
 , shiboken2
 , soqt
@@ -58,15 +61,17 @@ let
   };
   py-slvs = python.pkgs.callPackage ./py-slvs.nix { };
 in
-mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "freecad-realthunder";
-  version = "2023.01.31";
+  version = "2024.01.04";
 
   srcs = [
     # TODO update script
-    (fetchzip {
-      url = "https://github.com/realthunder/FreeCAD/archive/refs/tags/2023.01.31-edge.tar.gz";
-      hash = "sha256-gUziaW0HdhbNvl6rZz7n18e5f7RTHUyV8FRTkd2uzdE=";
+    (fetchFromGitHub {
+      owner = "realthunder";
+      repo = "FreeCAD";
+      rev = "20240104stable";
+      hash = "sha256-elXbsr667ep6F+EWUTOuNqZrobqbYQLRtfPe5KTk1pk=";
       name = "freecad";
     })
     (fetchFromGitHub {
@@ -100,7 +105,9 @@ mkDerivation rec {
     GitPython # for addon manager
     boost
     coin3d-realthunder
+    doxygen
     eigen
+    fmt
     gts
     hdf5
     libGLU
@@ -171,7 +178,7 @@ mkDerivation rec {
 
   preFixup =
     let
-      ymd = builtins.splitVersion version;
+      ymd = builtins.splitVersion finalAttrs.version;
     in
     ''
       branding=../../branding/asm3
@@ -202,18 +209,39 @@ mkDerivation rec {
     ln -s $out/bin/FreeCADCmd $out/bin/freecadcmd
   '';
 
-  meta = with lib; {
-    homepage = "https://www.freecadweb.org/";
-    description = "An open source parametric 3D CAD modeler (realthunder's version)";
-    longDescription = ''
-      FreeCAD is a parametric 3D modeler. Parametric modeling
-      allows you to easily modify your design by going back into
-      your model history and changing its parameters. FreeCAD is
-      open source (LGPL license) and completely modular, allowing
-      for very advanced extension and customization.
+  passthru.tests = {
+    # Check that things such as argument parsing still work correctly with
+    # the above PYTHONPATH patch. Previously the patch used above changed
+    # the `PyConfig_InitIsolatedConfig` to `PyConfig_InitPythonConfig`,
+    # which caused the built-in interpreter to attempt (and fail) to doubly
+    # parse argv. This should catch if that ever regresses and also ensures
+    # that PYTHONPATH is still respected enough for the FreeCAD console to
+    # successfully run and check that it was included in `sys.path`.
+    python-path = runCommand "freecad-test-console" {
+      nativeBuildInputs = [ ngkz.freecad ];
+    } ''
+      HOME="$(mktemp -d)" PYTHONPATH="$(pwd)/test" FreeCADCmd --log-file $out -c "if not '$(pwd)/test' in sys.path: sys.exit(1)" </dev/null
+    '';
+  };
 
-      FreeCAD is multiplatfom, and reads and writes many open
-      file formats such as STEP, IGES, STL and others.
+  meta = {
+    homepage = "https://www.freecad.org";
+    description = "General purpose Open Source 3D CAD/MCAD/CAx/CAE/PLM modeler";
+    longDescription = ''
+      FreeCAD is an open-source parametric 3D modeler made primarily to design
+      real-life objects of any size. Parametric modeling allows you to easily
+      modify your design by going back into your model history and changing its
+      parameters.
+
+      FreeCAD allows you to sketch geometry constrained 2D shapes and use them
+      as a base to build other objects. It contains many components to adjust
+      dimensions or extract design details from 3D models to create high quality
+      production ready drawings.
+
+      FreeCAD is designed to fit a wide range of uses including product design,
+      mechanical engineering and architecture. Whether you are a hobbyist, a
+      programmer, an experienced CAD user, a student or a teacher, you will feel
+      right at home with FreeCAD.
 
       This package contains the FreeCAD fork of realthunder
       (https://github.com/realthunder/FreeCAD/) + the Assembly3 workbench
@@ -221,7 +249,8 @@ mkDerivation rec {
 
       Do _not_ complain to upstream about issues with this snap!
     '';
-    license = licenses.lgpl2Plus;
-    platforms = platforms.linux;
+    license = lib.licenses.lgpl2Plus;
+    maintainers = with lib.maintainers; [ viric gebner AndersonTorres ];
+    platforms = lib.platforms.linux;
   };
-}
+})

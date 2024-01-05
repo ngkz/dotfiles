@@ -9,14 +9,14 @@
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "coin-realthunder";
-  version = "unstable-2021-09-15";
+  pname = "coin3d-realthunder";
+  version = "unstable-2023-07-29";
 
   src = fetchFromGitHub {
     owner = "realthunder";
     repo = "coin";
-    rev = "Coin-20210915";
-    sha256 = "uzE5R4tpCl00zz+g1FuQ1c0AZ+3dTFlCHAlyjaEHc9o=";
+    rev = "ba1f6b514c0db7632d9288c5624c51856bd90650";
+    hash = "sha256-40dGA7Cm//7kas0ds67fKKivUJ2l87lgbU3FW9eHXak=";
   };
 
   nativeBuildInputs = [ cmake ];
