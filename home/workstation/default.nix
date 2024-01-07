@@ -602,6 +602,7 @@ in
     ngkz.scripts
     mprime
     dislocker
+    ansible
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
