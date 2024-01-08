@@ -217,9 +217,10 @@ stdenv.mkDerivation (finalAttrs: {
     # parse argv. This should catch if that ever regresses and also ensures
     # that PYTHONPATH is still respected enough for the FreeCAD console to
     # successfully run and check that it was included in `sys.path`.
-    python-path = runCommand "freecad-test-console" {
-      nativeBuildInputs = [ ngkz.freecad ];
-    } ''
+    python-path = runCommand "freecad-test-console"
+      {
+        nativeBuildInputs = [ ngkz.freecad ];
+      } ''
       HOME="$(mktemp -d)" PYTHONPATH="$(pwd)/test" FreeCADCmd --log-file $out -c "if not '$(pwd)/test' in sys.path: sys.exit(1)" </dev/null
     '';
   };
