@@ -230,7 +230,9 @@
   ;; admonition
   (font-lock-add-keywords 'org-mode doom-docs-org-font-lock-keywords)
   ;; enable habit tracking
-  (add-to-list 'org-modules 'org-habit t))
+  (add-to-list 'org-modules 'org-habit t)
+  ;; reset checkboxes on repeating
+  (add-to-list 'org-modules 'org-checklist t))
 
 (after! org-download
   ;; sway screen capture
