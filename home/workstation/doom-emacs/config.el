@@ -226,7 +226,18 @@
    org-log-into-drawer t
    ;; log when reschedule
    org-log-reschedule 'note
-   org-log-redeadline 'note)
+   org-log-redeadline 'note
+   ;; customize org-capture-template
+   org-capture-templates
+   '(("t" "TODO" entry
+      (file+headline +org-capture-todo-file "Inbox")
+      "* TODO %?" :prepend t)
+     ("n" "Note" entry
+      (file+headline +org-capture-notes-file "Inbox")
+      "* %u %?" :prepend t)
+     ("j" "Journal" entry
+      (file+olp+datetree +org-capture-journal-file)
+      "* %U %?" :prepend t)))
   ;; admonition
   (font-lock-add-keywords 'org-mode doom-docs-org-font-lock-keywords)
   ;; enable habit tracking
