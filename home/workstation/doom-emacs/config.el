@@ -228,7 +228,9 @@
    org-log-reschedule 'note
    org-log-redeadline 'note)
   ;; admonition
-  (font-lock-add-keywords 'org-mode doom-docs-org-font-lock-keywords))
+  (font-lock-add-keywords 'org-mode doom-docs-org-font-lock-keywords)
+  ;; enable habit tracking
+  (add-to-list 'org-modules 'org-habit t))
 
 (after! org-download
   ;; sway screen capture
