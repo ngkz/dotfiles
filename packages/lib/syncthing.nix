@@ -15,6 +15,10 @@ let
   personal = [ "peregrine" "barbet" "rednecked" ];
   personal-pcs = [ "peregrine" "rednecked" ];
 
+  ignoreCommon = ''
+    .vagrant
+  '';
+
   folders = storage: {
     "~/docs" = {
       id = "docs";
@@ -22,17 +26,19 @@ let
       devices = pcs;
       ignore = ''
         /all
-      '';
+      '' + ignoreCommon;
     };
     "~/docs/all" = {
       id = "docs-all";
       path = "${storage}/docs/all";
       devices = all;
+      ignore = ignoreCommon;
     };
     "~/music" = {
       id = "music";
       path = "${storage}/music";
       devices = personal;
+      ignore = ignoreCommon;
     };
     "~/pics" = {
       id = "pics";
@@ -41,17 +47,19 @@ let
       ignore = ''
         /phone
         /phone-dcim
-      '';
+      '' + ignoreCommon;
     };
     "~/pics/phone" = {
       id = "pics-phone";
       path = "${storage}/pics/phone";
       devices = personal;
+      ignore = ignoreCommon;
     };
     "~/pics/phone-dcim" = {
       id = "pics-phone-dcim";
       path = "${storage}/pics/phone-dcim";
       devices = personal;
+      ignore = ignoreCommon;
     };
     "~/videos" = {
       id = "videos";
@@ -59,22 +67,25 @@ let
       devices = personal-pcs;
       ignore = ''
         /phone
-      '';
+      '' + ignoreCommon;
     };
     "~/videos/phone" = {
       id = "videos-phone";
       path = "${storage}/videos/phone";
       devices = personal;
+      ignore = ignoreCommon;
     };
     "~/projects" = {
       id = "projects";
       path = "${storage}/projects";
       devices = pcs;
+      ignore = ignoreCommon;
     };
     "~/work" = {
       id = "work";
       path = "${storage}/work";
       devices = pcs;
+      ignore = ignoreCommon;
     };
     "~/misc" = {
       id = "misc";
@@ -82,12 +93,13 @@ let
       devices = pcs;
       ignore = ''
         /all
-      '';
+      '' + ignoreCommon;
     };
     "~/misc/all" = {
       id = "misc-all";
       path = "${storage}/misc/all";
       devices = all;
+      ignore = ignoreCommon;
     };
   };
 
