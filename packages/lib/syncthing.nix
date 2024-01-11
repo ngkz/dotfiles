@@ -2,7 +2,8 @@
 let
   inherit (builtins) toJSON elem attrValues;
   inherit (pkgs.lib.attrsets) mapAttrsToList mapAttrs' filterAttrs;
-  inherit (pkgs.lib) escapeShellArg concatStringsSep;
+  inherit (pkgs.lib) escapeShellArg concatStringsSep optionalString;
+  inherit (pkgs.lib.strings) removeSuffix;
 
   syncthing = "${pkgs.syncthing}/bin/syncthing";
   jq = "${pkgs.jq}/bin/jq";
@@ -211,19 +212,20 @@ in
       (fldrCfg:
         let
           eStignore = escapeShellArg "${fldrCfg.path}/.stignore";
+          ignore = optionalString (fldrCfg ? ignore) (removeSuffix "\n" fldrCfg.ignore);
         in
-        if fldrCfg ? ignore && fldrCfg.ignore != "" then ''
-          if [ ! -e ${eStignore} ] || [ "$(<${eStignore})" != "$(echo ${escapeShellArg fldrCfg.ignore})" ]; then
-            echo updating ${eStignore}
-            mkdir -p ${escapeShellArg fldrCfg.path}
-            echo ${escapeShellArg fldrCfg.ignore} > ${eStignore}
-          fi
-        '' else ''
-          if [ -e ${eStignore} ]; then
-            echo removing ${eStignore}
-            rm ${eStignore}
-          fi
-        ''
+          if ignore != "" then ''
+            if [ ! -e ${eStignore} ] || [ "$(<${eStignore})" != "$(echo ${escapeShellArg ignore})" ]; then
+              echo updating ${eStignore}
+              mkdir -p ${escapeShellArg fldrCfg.path}
+              echo ${escapeShellArg ignore} >${eStignore}
+            fi
+          '' else ''
+            if [ -e ${eStignore} ]; then
+              echo removing ${eStignore}
+              rm ${eStignore}
+            fi
+          ''
       )
       (attrValues (deviceFolders hostname storage))
     )}
