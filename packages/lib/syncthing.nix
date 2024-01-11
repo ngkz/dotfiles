@@ -8,6 +8,8 @@ let
   syncthing = "${pkgs.syncthing}/bin/syncthing";
   jq = "${pkgs.jq}/bin/jq";
   xq = "${pkgs.python3Packages.yq}/bin/xq";
+  mkdir = "${pkgs.coreutils}/bin/mkdir";
+  rm = "${pkgs.coreutils}/bin/rm";
 
   guiUser = "user";
 
@@ -217,13 +219,13 @@ in
           if ignore != "" then ''
             if [ ! -e ${eStignore} ] || [ "$(<${eStignore})" != "$(echo ${escapeShellArg ignore})" ]; then
               echo updating ${eStignore}
-              mkdir -p ${escapeShellArg fldrCfg.path}
+              ${mkdir} -p ${escapeShellArg fldrCfg.path}
               echo ${escapeShellArg ignore} >${eStignore}
             fi
           '' else ''
             if [ -e ${eStignore} ]; then
               echo removing ${eStignore}
-              rm ${eStignore}
+              ${rm} ${eStignore}
             fi
           ''
       )
