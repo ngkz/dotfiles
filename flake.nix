@@ -17,7 +17,7 @@
     devshell.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-small, flake-utils, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-small, flake-utils, home-manager, ... }:
     let
       lib = nixpkgs.lib.extend (final: prev: {
         ngkz = import ./lib.nix { lib = prev; };
@@ -48,6 +48,22 @@
         };
       };
 
+      homeConfigurations = {
+        kali = home-manager.lib.homeManagerConfiguration (
+          let
+            cfg = (import ./nixpkgs.nix inputs) // { system = "x86_64-linux"; };
+          in
+          {
+            pkgs = import nixpkgs cfg;
+            modules = [ ./hosts/kali ];
+            extraSpecialArgs = {
+              inherit inputs;
+              lib = lib.extend (_: _: home-manager.lib);
+            };
+          }
+        );
+      };
+
       nixosModules = import ./modules;
       homeManagerModules = import ./home;
       overlays = import ./overlays.nix inputs;
@@ -70,4 +86,3 @@
       }
     ));
 }
-

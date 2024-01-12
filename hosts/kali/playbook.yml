@@ -1,0 +1,124 @@
+# -*- mode: yaml; eval: (ansible 1); -*-
+# vim: ft=ansible
+
+- hosts: all
+  become: yes
+  vars:
+    ansible_become_password: vagrant
+  tasks:
+    - name: upgrade the system
+      apt: update_cache=yes upgrade=yes
+      tags: ['never', 'update']
+
+    - name: set timezone to Asia/Tokyo
+      timezone: name=Asia/Tokyo
+
+    - name: set keyboard layout
+      copy: src=keyboard dest=/etc/default/keyboard
+      register: keyboard
+
+    - name: reload keyboard config
+      command: udevadm trigger --subsystem-match=input --action=change
+      when: keyboard is changed
+
+    - name: install kali packages
+      apt: name={{ item }}
+      with_items:
+        - docker.io
+
+    - name: install nix
+      shell: sh <(curl -L https://nixos.org/nix/install) --daemon --yes
+      args:
+        creates: /nix
+        executable: bash
+
+    - name: enable nix command and flake
+      lineinfile:
+        path: /etc/nix/nix.conf
+        regexp: '^experimental-features ='
+        line: 'experimental-features = nix-command flakes'
+
+    - name: set trusted-users
+      lineinfile:
+        path: /etc/nix/nix.conf
+        regexp: '^trusted-users ='
+        line: 'trusted-users = vagrant root'
+      register: trusted_users
+
+    - name: import nix environment variables when ssh <command> (obsolete)
+      lineinfile:
+        path: /etc/zsh/zshenv
+        line: '. /etc/profile.d/nix.sh'
+        state: absent
+
+    - name: import nix environment variables when ssh <command>
+      lineinfile:
+        path: /etc/zsh/zshenv
+        line: '[[ ! -o interactive ]] && . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+        state: present
+
+    - name: calculate NIX_PATH
+      local_action:
+        module: command
+        cmd: "nix eval --raw --impure --expr 'let inputs = (builtins.getFlake (toString ../..)).inputs; in with builtins; with inputs.nixpkgs.lib; concatStringsSep \":\" (mapAttrsToList (n: v: \"${n}=${v}\") (filterAttrs (n: _: n != \"self\") inputs))'"
+      become: no
+      changed_when: no
+      register: nix_path
+
+    - name: pin NIX_PATH
+      lineinfile:
+        path: /etc/environment
+        regexp: '^NIX_PATH='
+        line: 'NIX_PATH={{ nix_path.stdout }}'
+
+    - name: generate registry.json
+      local_action:
+        module: command
+        cmd: "nix eval --json --impure --expr 'let inputs = (builtins.getFlake (toString ../..)).inputs; registry = {}; in { version = 2; flakes = inputs.nixpkgs.lib.mapAttrsToList (n: v: { from = { \"type\" = \"indirect\"; id = n; }; to = { type = \"path\"; path = v.outPath; } // inputs.nixpkgs.lib.filterAttrs (n: _: n == \"lastModified\" || n == \"rev\" || n == \"revCount\" || n == \"narHash\") v; exact = true; }) inputs; }'"
+      become: no
+      changed_when: no
+      register: registry_json
+
+    - name: pin nix flakes
+      copy: content="{{ registry_json.stdout }}" dest=/etc/nix/registry.json
+
+    - name: keep PATH when sudo
+      lineinfile: path=/etc/sudoers regexp='^(Defaults\s*secure_path=.*)' line='# \1' backrefs=yes
+
+    - name: update nix
+      shell: nix-env --install --attr nixpkgs.nix nixpkgs.cacert
+      become: no
+      register: nix_update
+      # TODO chenged_when
+
+    - name: restart nix
+      systemd: daemon_reload=yes name=nix-daemon state=restarted
+      when: nix_update is changed or trusted_users is changed
+
+    - name: build home-manager profile
+      local_action:
+        module: command
+        cmd: "nix build --no-link --print-out-paths ../..#homeConfigurations.kali.activationPackage"
+      become: no
+      register: profile
+      # TODO chenged_when
+      tags: hm
+
+    - name: copy home-manager profile
+      local_action:
+        module: shell
+        cmd: |
+          CONFIG=$(mktemp)
+          trap 'rm -f "$CONFIG"' EXIT
+          vagrant ssh-config >"$CONFIG"
+          export NIX_SSHOPTS="-F $CONFIG"
+          nix-copy-closure --to default {{ profile.stdout }}
+      become: no
+      when: profile is changed
+      tags: hm
+
+    - name: activate home-manager profile
+      command: "{{ profile.stdout }}/activate"
+      become: no
+      when: profile is changed
+      tags: hm
