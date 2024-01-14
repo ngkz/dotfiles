@@ -194,7 +194,7 @@ in
       ATTR{idProduct}=="6047",ATTR{idVendor}=="17ef",ATTR{power/wakeup}="disabled"
     '';
 
-    # XXX Apply home.sessionPath when logined via ssh
+    # XXX Apply home.sessionPath when logging in via ssh
     programs.zsh.enable = true;
 
     # XXX Apply home.sessionVariables. Workaround for home-manager #1011
