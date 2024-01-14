@@ -64,6 +64,41 @@ in
     '';
   };
 
+  systemd.user.services.org-external-calendars = {
+    Unit = {
+      Description = "Update external org-mode calendars";
+    };
+
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.substituteAll {
+        src = ./org-external-calendars.sh;
+        isExecutable = true;
+        path = with pkgs; [ coreutils curl gawk ];
+        ical2org = "${pkgs.fetchFromGitHub {
+          owner = "msherry";
+          repo = "ical2org";
+          rev = "7e50d4ca8da8f830418a4aff70faa76571c44f2e";
+          hash = "sha256-BEdvaRWG+aax+qT9CtQyjnOOaKPbFRCx5ZDoxRMr5vw=";
+        }}/ical2org.awk";
+        inherit (pkgs) bash;
+      }}";
+    };
+  };
+
+  systemd.user.timers.org-external-calendars = {
+    Unit = {
+      Description = "Update external org-mode calendars";
+    };
+
+    Timer = {
+      Unit = "org-external-calendars.service";
+      OnBootSec = "5m";
+      OnUnitInactiveSec = "1day1sec";
+    };
+    Install.WantedBy = [ "timers.target" ];
+  };
+
   home.packages = with pkgs; [
     # required dependencies
     git
