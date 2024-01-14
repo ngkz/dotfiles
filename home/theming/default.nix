@@ -54,6 +54,7 @@ in
     };
   };
 
+  xdg.enable = true;
   xdg.configFile."gtk-4.0/assets".source = "${vimix-theme}/share/themes/vimix-dark-compact-ruby/gtk-4.0/assets";
   xdg.configFile."gtk-4.0/gtk.css".source = "${vimix-theme}/share/themes/vimix-dark-compact-ruby/gtk-4.0/gtk.css";
   xdg.configFile."gtk-4.0/gtk-dark.css".source = "${vimix-theme}/share/themes/vimix-dark-compact-ruby/gtk-4.0/gtk-dark.css";

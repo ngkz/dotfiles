@@ -109,7 +109,12 @@ in
       useGlobalPkgs = true; # use global nixpkgs
       # install per-user packages to /etc/profiles to make nixos-rebuild build-vm work
       useUserPackages = true;
-      users.user = self.homeManagerModules.base;
+      users.user = {
+        imports =  with self.homeManagerModules; [
+          nixos
+          base
+        ];
+      };
       extraSpecialArgs = {
         inherit inputs;
         lib = lib.extend (_: _: home-manager.lib);

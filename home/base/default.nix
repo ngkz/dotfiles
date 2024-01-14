@@ -1,11 +1,12 @@
 { inputs, pkgs, ... }: {
   imports = with inputs.self.homeManagerModules; [
-    core
     tmpfs-as-home
     ./zsh
     ./tealdeer.nix
     neovim
   ];
+
+  xdg.enable = true;
 
   home.tmpfs-as-home.persistentDirs = [
     ".local/share/nix" # nix repl history

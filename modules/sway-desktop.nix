@@ -81,7 +81,7 @@
 
   home-manager.users.greeter = {
     imports = with inputs.self.homeManagerModules; [
-      core
+      nixos
       theming
     ];
   };

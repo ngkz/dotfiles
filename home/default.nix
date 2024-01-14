@@ -1,5 +1,5 @@
 {
-  core = import ./core.nix;
+  nixos = import ./nixos.nix;
   base = import ./base;
   tmpfs-as-home = import ./tmpfs-as-home.nix;
   workstation = import ./workstation;
