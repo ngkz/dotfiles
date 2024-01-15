@@ -107,13 +107,27 @@ category = "system maintenance"
 [[commands]]
 help = "Build the new configuration, but neither activate it nor add it to the boot menu. It leaves a symlink result that points to the system derivation."
 name = "build"
-command = 'nix build "${PRJ_ROOT}#nixosConfigurations.${1:-$(hostname)}.config.system.build.toplevel"'
+command = '''
+host=${1:-$(hostname)}
+shift || true
+if [ $(nix eval --json --impure --expr "(builtins.getFlake \"$PRJ_ROOT\").nixosConfigurations ? $host") = true ]; then
+  nix build "${PRJ_ROOT}#nixosConfigurations.${host}.config.system.build.toplevel" "$@"
+elif [ $(nix eval --json --impure --expr "(builtins.getFlake \"$PRJ_ROOT\").homeConfigurations ? $host") = true ]; then
+  nix build "${PRJ_ROOT}#homeConfigurations.${host}.activationPackage" "$@"
+else
+  echo "no configuration: $host"
+fi
+'''
 category = "system maintenance"
 
 [[commands]]
 help = "Build the new configuration, but neither activate it, nor add it to the boot menu, nor leave a symlink."
 name = "dry-build"
-command = 'nix build "${PRJ_ROOT}#nixosConfigurations.${1:-$(hostname)}.config.system.build.toplevel" --no-link'
+command = '''
+host=${1:-$(hostname)}
+shift || true
+build "$host" --no-link "$@"
+'''
 category = "system maintenance"
 
 [[commands]]
