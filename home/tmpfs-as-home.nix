@@ -5,7 +5,7 @@ let
     types unique mkEnableOption mkIf;
 in
 {
-  options.home.tmpfs-as-home = {
+  options.tmpfs-as-home = {
     enable = mkEnableOption "Tmpfs as home setup";
 
     storage = mkOption {
@@ -29,7 +29,7 @@ in
 
   config =
     let
-      cfg = config.home.tmpfs-as-home;
+      cfg = config.tmpfs-as-home;
       files = cfg.persistentFiles;
       dirs = cfg.persistentDirs;
       storage = cfg.storage;
@@ -52,7 +52,7 @@ in
         )
       );
 
-      home.tmpfs-as-home.persistentDirs = [
+      tmpfs-as-home.persistentDirs = [
         ".local/state/home-manager"
       ];
     };

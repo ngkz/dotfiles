@@ -55,11 +55,11 @@ in
     type = "stdio";
   };
 
-  home.tmpfs-as-home.persistentDirs = [
+  tmpfs-as-home.persistentDirs = [
     ".config/chromium/Default"
   ];
 
-  home.tmpfs-as-home.persistentFiles = [
+  tmpfs-as-home.persistentFiles = [
     ".config/chromium/Last Version"
   ];
 } 

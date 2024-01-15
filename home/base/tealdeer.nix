@@ -19,7 +19,7 @@ in
     };
   };
 
-  home.tmpfs-as-home.persistentDirs = [
+  tmpfs-as-home.persistentDirs = [
     ".cache/tealdeer"
   ];
 }

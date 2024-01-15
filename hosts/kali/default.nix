@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -34,6 +34,77 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+
+    # gdb
+    # pwndbg
+    # strace
+    # ltrace
+    # netcat-openbsd
+    # # radare2
+    # # radare2-cutter
+    # pwntools
+    # python3Packages.binwalk-full
+    # foremost
+    # nkf
+    # qemu_full
+    # metasploit
+    # nmap
+    # z3
+    # aflplusplus
+    # apktool
+    # dex2jar
+    # enjarify
+    # jd-gui
+    # sqlmap
+    # linux-exploit-suggester
+    # john
+    # #volatility #XXX broken
+    # ghdorker
+    # uefitool
+    # #pkgs.python38Packages.uncompyle6 #XXX broken
+    # xortool
+    # ropgadget
+    # hashcat
+    # hashcat-utils
+    # # hcxtools
+    # thc-hydra
+    # aircrack-ng
+    # tesseract4
+    # nasm
+    # patchelf
+    # pngtools
+    # zbar
+    # php
+    # nodejs
+    # deno
+    # socat
+    # dtc
+    # qtspim
+    # sqlite
+    # subversion
+    # git
+    # systemtap
+    # p7zip
+    # # p0f
+    # pdf-parser
+    # mitmproxy
+    # termshark
+    # ares-rs
+    # badchars
+    # jwt-cli
+    # snscrape
+    # gobuster # /usr/share/wordlists/dirbuster/directory-list-2.3-medium.tx
+    # # dnsmap
+    # # dnsrecon
+    # python3Packages.pypykatz
+    # oletools
+    # # stegsnow
+    # # flask-unsign
+    # wabt
+    # one_gadget
+
+    # ghidra
+    # burpsuite
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -72,4 +143,11 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  fonts.fontconfig.enable = true;
+
+  imports = [
+    ../../home/base
+    ../../home/hacking
+  ];
 }

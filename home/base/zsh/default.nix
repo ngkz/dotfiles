@@ -1,6 +1,6 @@
 { config, osConfig, pkgs, ... }:
 {
-  home.tmpfs-as-home.persistentDirs = [
+  tmpfs-as-home.persistentDirs = [
     ".local/share/zsh"
   ];
 

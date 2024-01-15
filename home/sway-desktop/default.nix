@@ -416,7 +416,7 @@ in
 
   # wofi
   xdg.configFile."wofi/style.css".source = ./wofi.css;
-  home.tmpfs-as-home.persistentDirs = [
+  tmpfs-as-home.persistentDirs = [
     ".cache/wofi"
   ];
 

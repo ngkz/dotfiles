@@ -109,7 +109,7 @@
     source = ./nvim;
   };
 
-  home.tmpfs-as-home.persistentDirs = [
+  tmpfs-as-home.persistentDirs = [
     ".local/share/nvim"
     ".local/state/nvim"
   ];

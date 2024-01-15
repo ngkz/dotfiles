@@ -46,7 +46,7 @@ in
   };
 
   # tmpfs as home
-  home-manager.users.user.home.tmpfs-as-home.persistentDirs = [
+  home-manager.users.user.tmpfs-as-home.persistentDirs = [
     "persist"
   ];
 

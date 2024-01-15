@@ -116,7 +116,7 @@ in
           ../../home/tmpfs-as-home.nix
         ];
 
-        home.tmpfs-as-home = {
+        tmpfs-as-home = {
           enable = osConfig.modules.tmpfs-as-root.enable;
           storage = osConfig.modules.tmpfs-as-root.storage + config.home.homeDirectory;
         };

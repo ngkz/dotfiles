@@ -32,7 +32,7 @@
     inherit (pkgs) keepassxc;
   };
 
-  home.tmpfs-as-home.persistentDirs = [
+  tmpfs-as-home.persistentDirs = [
     ".librewolf/default"
   ];
 

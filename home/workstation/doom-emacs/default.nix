@@ -196,7 +196,7 @@ in
     nodePackages.stylelint
     html-tidy
   ];
-  home.tmpfs-as-home.persistentDirs = [
+  tmpfs-as-home.persistentDirs = [
     ".config/doom-local"
     ".config/doom-load"
     ".local/share/doom"

@@ -74,11 +74,11 @@ in
               let
                 user = config.users.users.${userName};
                 group = config.users.groups.${user.group};
-                homeStorage = config.home-manager.users.${userName}.home.tmpfs-as-home.storage;
+                homeStorage = config.home-manager.users.${userName}.tmpfs-as-home.storage;
               in
               "install -dD -o ${toString user.uid} -g ${toString group.gid} -m 700 ${escapeShellArg homeStorage}"
             )
-            (attrNames (filterAttrs (n: v: v ? home.tmpfs-as-home) config.home-manager.users))
+            (attrNames (filterAttrs (n: v: v ? tmpfs-as-home) config.home-manager.users))
         ) ++
         (map (path: "mkdir -p ${escapeShellArg path}") storageDirs) ++
         (map

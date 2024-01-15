@@ -1,6 +1,6 @@
 { ... }:
 {
-  home.tmpfs-as-home.persistentDirs = [
+  tmpfs-as-home.persistentDirs = [
     ".local/share/direnv"
   ];
 

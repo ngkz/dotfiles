@@ -4,7 +4,7 @@
     winetricks
   ];
 
-  home.tmpfs-as-home.persistentDirs = [
+  tmpfs-as-home.persistentDirs = [
     ".wine"
   ];
 }

@@ -25,6 +25,12 @@
       apt: name={{ item }}
       with_items:
         - docker.io
+        - qemu-user-static
+        - binutils
+        - gcc
+        # nix packages are broken
+        - dnsmap
+        - dnsrecon
 
     - name: install nix
       shell: sh <(curl -L https://nixos.org/nix/install) --daemon --yes
@@ -122,3 +128,9 @@
       become: no
       when: profile is changed
       tags: hm
+
+    - name: add home-manager zsh to /etc/shells
+      lineinfile: path=/etc/shells line=/home/vagrant/.nix-profile/bin/zsh
+
+    - name: use home-manager zsh
+      user: user=vagrant shell=/home/vagrant/.nix-profile/bin/zsh

@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-  home.tmpfs-as-home.persistentDirs = [
+  tmpfs-as-home.persistentDirs = [
     ".ghidra"
   ];
 

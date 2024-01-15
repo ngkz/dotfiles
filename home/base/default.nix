@@ -8,7 +8,7 @@
 
   xdg.enable = true;
 
-  home.tmpfs-as-home.persistentDirs = [
+  tmpfs-as-home.persistentDirs = [
     ".local/share/nix" # nix repl history
     ".cache/nix-index"
   ];
