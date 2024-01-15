@@ -1,30 +1,29 @@
 # configuration for noguchi-pc
 
-{ config, lib, inputs, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
-  inherit (inputs) self nixos-hardware;
   inherit (lib) mkAfter;
 in
 {
   networking.hostName = "noguchi-pc";
 
-  imports = with self.nixosModules; [
-    agenix
-    base
-    grub-secureboot # workaround for buggy firmware
-    ssd
-    workstation
-    sway-desktop
-    vmm
-    btrfs-maintenance
-    nix-maintenance
-    zswap
-    bluetooth
-    hacking
+  imports = [
+    ../../modules/agenix.nix
+    ../../modules/base
+    ../../modules/grub-secureboot
+    ../../modules/ssd.nix
+    ../../modules/workstation
+    ../../modules/sway-desktop.nix
+    ../../modules/vmm.nix
+    ../../modules/btrfs-maintenance
+    ../../modules/nix-maintenance
+    ../../modules/zswap.nix
+    ../../modules/bluetooth.nix
+    ../../modules/hacking.nix
 
-    profiles-laptop
-    profiles-intel-cpu
-    profiles-intel-wifi
+    ../../modules/profiles/laptop.nix
+    ../../modules/profiles/intel-cpu.nix
+    ../../modules/profiles/intel-wifi.nix
   ];
 
   # hardware configuration
@@ -111,11 +110,11 @@ in
   users.users.user.hashedPasswordFile = config.age.secrets.user-password-hash-noguchi-pc.path;
 
   home-manager.users.user = {
-    imports = with self.homeManagerModules; [
-      workstation
-      sway-desktop
-      hacking
-      vmm
+    imports = [
+      ../../home/workstation
+      ../../home/sway-desktop
+      ../../home/hacking
+      ../../home/vmm.nix
     ];
   };
 

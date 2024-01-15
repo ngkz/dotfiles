@@ -2,18 +2,17 @@
 
 { inputs, lib, ... }:
 let
-  inherit (inputs) self nixos-hardware;
   inherit (lib) mkDefault;
 in
 {
-  imports = with self.nixosModules; with nixos-hardware.nixosModules; [
-    agenix
-    base
-    ssd
-    sshd
-    btrfs-maintenance
-    nix-maintenance
-    zswap
+  imports = with inputs.nixos-hardware.nixosModules; [
+    ../../modules/agenix.nix
+    ../../modules/base
+    ../../modules/ssd.nix
+    ../../modules/sshd.nix
+    ../../modules/btrfs-maintenance
+    ../../modules/nix-maintenance
+    ../../modules/zswap.nix
 
     common-pc
     common-cpu-amd #common-cpu-amd-pstate zen2 onward

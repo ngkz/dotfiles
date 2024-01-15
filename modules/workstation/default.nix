@@ -1,9 +1,9 @@
-{ inputs, config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   inherit (lib.ngkz) rot13;
 in
 {
-  imports = with inputs.self.nixosModules; [
+  imports = [
     ./printing.nix
     ./network-manager
     ./gpg.nix

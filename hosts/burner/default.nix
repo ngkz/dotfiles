@@ -1,18 +1,17 @@
 # configuration for ctfvm
 
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 let
   inherit (lib) mkForce;
-  inherit (inputs) self;
 in
 {
   networking.hostName = "burner";
 
-  imports = with self.nixosModules; [
-    base
-    sshd
-    libvirt-vm
-    hacking
+  imports = [
+    ../../modules/base
+    ../../modules/sshd.nix
+    ../../modules/libvirt-vm
+    ../../modules/hacking.nix
   ];
 
   modules.libvirt-vm = {
@@ -175,8 +174,8 @@ in
   };
 
   home-manager.users.user = {
-    imports = with self.homeManagerModules; [
-      hacking
+    imports = [
+      ../../home/hacking
     ];
   };
 

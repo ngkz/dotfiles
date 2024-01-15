@@ -1,11 +1,10 @@
-{ config, pkgs, inputs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
-  inherit (inputs) self;
   inherit (lib) mkForce;
 in
 {
-  imports = with self.nixosModules; [
-    libvirt-vm
+  imports = [
+    ../../modules/libvirt-vm
   ];
 
   modules.libvirt-vm = {

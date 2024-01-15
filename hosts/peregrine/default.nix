@@ -1,33 +1,30 @@
 # configuration for peregrine
 
 { config, lib, pkgs, inputs, ... }:
-let
-  inherit (inputs) self nixos-hardware;
-in
 {
   networking.hostName = "peregrine";
 
-  imports = with self.nixosModules; with nixos-hardware.nixosModules; [
-    agenix
-    base
-    grub-secureboot
-    ssd
-    sshd
-    workstation
-    sway-desktop
-    undervolt
-    nm-config-home
-    vmm
-    btrfs-maintenance
-    nix-maintenance
-    zswap
-    bluetooth
-    hacking
+  imports = with inputs.nixos-hardware.nixosModules; [
+    ../../modules/agenix.nix
+    ../../modules/base
+    ../../modules/grub-secureboot
+    ../../modules/ssd.nix
+    ../../modules/sshd.nix
+    ../../modules/workstation
+    ../../modules/sway-desktop.nix
+    ../../modules/undervolt.nix
+    ../../modules/nm-config-home.nix
+    ../../modules/vmm.nix
+    ../../modules/btrfs-maintenance
+    ../../modules/nix-maintenance
+    ../../modules/zswap.nix
+    ../../modules/bluetooth.nix
+    ../../modules/hacking.nix
 
-    profiles-laptop
+    ../../modules/profiles/laptop.nix
     common-pc-laptop-acpi_call
-    profiles-intel-cpu
-    profiles-intel-wifi
+    ../../modules/profiles/intel-cpu.nix
+    ../../modules/profiles/intel-wifi.nix
   ];
 
   # hardware configuration
@@ -116,11 +113,11 @@ in
   users.users.user.hashedPasswordFile = config.age.secrets.user-password-hash-peregrine.path;
 
   home-manager.users.user = {
-    imports = with self.homeManagerModules; [
-      workstation
-      sway-desktop
-      hacking
-      vmm
+    imports = [
+      ../../home/workstation
+      ../../home/sway-desktop
+      ../../home/hacking
+      ../../home/vmm.nix
     ];
   };
 

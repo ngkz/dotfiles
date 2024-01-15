@@ -1,5 +1,5 @@
 # sway + greetd
-{ inputs, config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 {
   # Sway wayland tiling compositor
   programs.sway = {
@@ -80,9 +80,9 @@
   nix.settings.allowed-users = [ "greeter" ];
 
   home-manager.users.greeter = {
-    imports = with inputs.self.homeManagerModules; [
-      nixos
-      theming
+    imports = [
+      ../home/nixos.nix
+      ../home/theming
     ];
   };
 

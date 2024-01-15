@@ -3,12 +3,12 @@
 { config, lib, pkgs, utils, inputs, ... }:
 let
   inherit (lib) mapAttrs filterAttrs mapAttrsToList mkIf types mkOption;
-  inherit (inputs) self agenix home-manager;
+  inherit (inputs) self home-manager;
 in
 {
-  imports = with self.nixosModules; [
+  imports = [
     home-manager.nixosModule
-    tmpfs-as-root
+    ../tmpfs-as-root.nix
   ];
 
   options.modules.base.pythonPackages = mkOption {
@@ -110,9 +110,9 @@ in
       # install per-user packages to /etc/profiles to make nixos-rebuild build-vm work
       useUserPackages = true;
       users.user = {
-        imports =  with self.homeManagerModules; [
-          nixos
-          base
+        imports =  [
+          ../../home/nixos.nix
+          ../../home/base
         ];
       };
       extraSpecialArgs = {

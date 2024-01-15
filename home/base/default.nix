@@ -1,9 +1,9 @@
-{ inputs, pkgs, ... }: {
-  imports = with inputs.self.homeManagerModules; [
-    tmpfs-as-home
+{ pkgs, ... }: {
+  imports = [
+    ../tmpfs-as-home.nix
     ./zsh
     ./tealdeer.nix
-    neovim
+    ../neovim
   ];
 
   xdg.enable = true;
