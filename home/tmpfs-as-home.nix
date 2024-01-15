@@ -1,4 +1,4 @@
-{ lib, config, osConfig, ... }:
+{ lib, config, ... }:
 let
   inherit (builtins) listToAttrs;
   inherit (lib) nameValuePair hm concatStringsSep escapeShellArg mkOption
@@ -6,22 +6,11 @@ let
 in
 {
   options.home.tmpfs-as-home = {
-    enable = mkEnableOption "Tmpfs as home setup" // {
-      default =
-        if osConfig ? modules.tmpfs-as-root then
-          osConfig.modules.tmpfs-as-root.enable
-        else
-          false;
-    };
+    enable = mkEnableOption "Tmpfs as home setup";
 
     storage = mkOption {
       type = types.str;
-      default = (
-        if osConfig ? modules.tmpfs-as-root then
-          osConfig.modules.tmpfs-as-root.storage + config.home.homeDirectory
-        else
-          null
-      );
+      default = null;
       description = "Path of persistent storage";
     };
 
