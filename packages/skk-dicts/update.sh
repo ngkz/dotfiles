@@ -23,7 +23,7 @@ if [[ $current1 == "$latest1" ]] && [[ $current2 == "$latest2" ]]; then
 fi
 
 date=$(jq -r .commit.committer.date <<<"$commit1")
-version=$(date +%Y-%m-%d --date="$date")
+version=$(TZ=UTC date +%Y-%m-%d --date="$date")
 
 newhash1=$(nix-prefetch-github --json "$owner" "$repo1" --rev "$latest1" | jq -r .hash)
 newhash2=$(nix-prefetch-github --json "$owner" "$repo2" --rev "$latest2" | jq -r .hash)

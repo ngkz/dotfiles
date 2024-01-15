@@ -17,7 +17,7 @@ if [[ $current == "$latest" ]]; then
 fi
 
 date=$(jq -r .commit.committer.date <<<"$commit")
-version=unstable-$(date +%Y-%m-%d --date="$date")
+version=unstable-$(TZ=UTC date +%Y-%m-%d --date="$date")
 newhash=$(nix-prefetch-github --json "$owner" "$repo" --rev "$latest" | jq -r .hash)
 sed -i "s/version = \".*\"/version = \"$version\"/" default.nix
 sed -i "s|rev = \".*\"|rev = \"$latest\"|" default.nix
