@@ -1,8 +1,7 @@
 #!@bash@/bin/bash
 set -euo pipefail
 
-export PATH=/empty
-for i in @path@; do PATH=$PATH:$i/bin; done
+export PATH=@path@
 
 out=$HOME/docs/all/org
 declare -A cals=(

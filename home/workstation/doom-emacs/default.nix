@@ -74,13 +74,7 @@ in
       ExecStart = "${pkgs.substituteAll {
         src = ./org-external-calendars.sh;
         isExecutable = true;
-        path = with pkgs; [ coreutils curl gawk ];
-        ical2org = "${pkgs.fetchFromGitHub {
-          owner = "msherry";
-          repo = "ical2org";
-          rev = "7e50d4ca8da8f830418a4aff70faa76571c44f2e";
-          hash = "sha256-BEdvaRWG+aax+qT9CtQyjnOOaKPbFRCx5ZDoxRMr5vw=";
-        }}/ical2org.awk";
+        path = lib.makeBinPath (with pkgs; [ coreutils curl gawk ngkz.ical2org ]);
         inherit (pkgs) bash;
       }}";
     };
