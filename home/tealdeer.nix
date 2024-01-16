@@ -1,5 +1,9 @@
 { config, ... }:
 {
+  imports = [
+    ./tmpfs-as-home.nix
+  ];
+
   programs.tealdeer = {
     enable = true;
     settings = {
