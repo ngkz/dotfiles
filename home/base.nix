@@ -1,3 +1,4 @@
+# home-manager configuration for all hosts
 { pkgs, ... }: {
   imports = [
     ./tmpfs-as-home.nix
