@@ -16,4 +16,5 @@
   fzf = import ./fzf.nix;
   bat = import ./bat.nix;
   eza = import ./eza.nix;
+  btop = import ./btop.nix;
 }
