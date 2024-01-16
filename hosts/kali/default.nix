@@ -149,7 +149,7 @@
   systemd.user.systemctlPath = "/usr/bin/systemctl";
 
   imports = [
-    ../../home/base
+    ../../home/base.nix
     ../../home/hacking
   ];
 }

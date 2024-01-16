@@ -1,9 +1,9 @@
 { pkgs, ... }: {
   imports = [
-    ../tmpfs-as-home.nix
-    ../zsh
-    ../tealdeer.nix
-    ../neovim
+    ./tmpfs-as-home.nix
+    ./zsh
+    ./tealdeer.nix
+    ./neovim
   ];
 
   xdg.enable = true;

@@ -112,7 +112,7 @@ in
       users.user = { osConfig, config, ... }: {
         imports = [
           ../../home/nixos.nix
-          ../../home/base
+          ../../home/base.nix
           ../../home/tmpfs-as-home.nix
         ];
 
