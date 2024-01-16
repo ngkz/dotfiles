@@ -2,7 +2,7 @@
 
 { config, lib, pkgs, utils, inputs, ... }:
 let
-  inherit (lib) mapAttrs filterAttrs mapAttrsToList mkIf types mkOption;
+  inherit (lib) mapAttrs filterAttrs mapAttrsToList mkIf;
   inherit (inputs) self home-manager;
 in
 {
