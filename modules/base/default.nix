@@ -190,7 +190,6 @@ in
       socat
       bc
       dig
-      hyfetch
     ];
 
     services.udev.extraRules = ''
