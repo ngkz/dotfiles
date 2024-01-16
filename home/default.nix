@@ -14,4 +14,5 @@
   dust = import ./dust.nix;
   ripgrep = import ./ripgrep.nix;
   fzf = import ./fzf.nix;
+  bat = import ./bat.nix;
 }
