@@ -1,4 +1,10 @@
 { pkgs, ... }: {
+  imports = [
+    ../tmpfs-as-home.nix
+  ];
+
+  xdg.enable = true;
+
   programs.neovim = {
     enable = true;
     withPython3 = false;
