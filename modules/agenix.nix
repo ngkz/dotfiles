@@ -8,6 +8,6 @@ in
   ];
 
   age = {
-    identityPaths = [ "${config.modules.tmpfs-as-root.storage}/secrets/age.key" ];
+    identityPaths = [ "${config.tmpfs-as-root.storage}/secrets/age.key" ];
   };
 }

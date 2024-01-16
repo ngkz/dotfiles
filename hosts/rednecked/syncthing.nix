@@ -24,7 +24,7 @@ in
     hostname = config.system.name;
   };
 
-  modules.tmpfs-as-root.persistentDirs = [ cfg.dataDir ];
+  tmpfs-as-root.persistentDirs = [ cfg.dataDir ];
 
   hosts.rednecked.network.internalInterfaces.allowedTCPPorts = [ 8384 ];
 

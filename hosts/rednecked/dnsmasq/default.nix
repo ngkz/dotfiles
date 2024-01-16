@@ -69,5 +69,5 @@ in
     });
   };
 
-  modules.tmpfs-as-root.persistentDirs = [ "/var/lib/dnsmasq" ];
+  tmpfs-as-root.persistentDirs = [ "/var/lib/dnsmasq" ];
 }

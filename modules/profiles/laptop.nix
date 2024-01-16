@@ -13,7 +13,7 @@ in
     StateDirectory = mkForce "";
     ReadWritePaths = [
       "/var/lib/tlp"
-      "${config.modules.tmpfs-as-root.storage}/var/lib/tlp"
+      "${config.tmpfs-as-root.storage}/var/lib/tlp"
     ];
   };
 }

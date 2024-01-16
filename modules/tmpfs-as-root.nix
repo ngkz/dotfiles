@@ -5,7 +5,7 @@ let
     escapeShellArg filterAttrs mkOption types unique mkEnableOption mkIf;
 in
 {
-  options.modules.tmpfs-as-root = {
+  options.tmpfs-as-root = {
     enable = mkEnableOption "Tmpfs as root setup";
 
     storage = mkOption {
@@ -34,7 +34,7 @@ in
 
   config =
     let
-      cfg = config.modules.tmpfs-as-root;
+      cfg = config.tmpfs-as-root;
       files = cfg.persistentFiles;
       dirs = cfg.persistentDirs;
       storage = cfg.storage;
@@ -44,7 +44,7 @@ in
     in
     mkIf cfg.enable {
       # "tmpfs as root" setup
-      modules.tmpfs-as-root.fileSystems = {
+      tmpfs-as-root.fileSystems = {
         "/" = {
           device = "none";
           fsType = "tmpfs";
@@ -57,7 +57,7 @@ in
           options = [ "bind" ];
         };
       };
-      fileSystems = config.modules.tmpfs-as-root.fileSystems;
+      fileSystems = config.tmpfs-as-root.fileSystems;
 
       environment.etc = listToAttrs (
         map (path: nameValuePair (removePrefix "/etc/" path) { source = storage + path; }) etcFiles
@@ -90,12 +90,12 @@ in
       );
       system.activationScripts.users.deps = [ "tmpfs-as-root" ]; # users snippet creates /var/lib/nixos
 
-      modules.tmpfs-as-root.persistentFiles = [
+      tmpfs-as-root.persistentFiles = [
         "/etc/adjtime"
         "/etc/machine-id"
       ];
 
-      modules.tmpfs-as-root.persistentDirs = [
+      tmpfs-as-root.persistentDirs = [
         "/var/lib/nixos" # NixOS keeps track of historical UIDs in here
         "/var/lib/systemd"
         "/var/tmp"

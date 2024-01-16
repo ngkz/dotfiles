@@ -90,8 +90,8 @@
     }
   ];
 
-  modules.tmpfs-as-root.enable = true;
-  modules.tmpfs-as-root.persistentDirs = [
+  tmpfs-as-root.enable = true;
+  tmpfs-as-root.persistentDirs = [
     # tlp
     "/var/lib/tlp"
   ];

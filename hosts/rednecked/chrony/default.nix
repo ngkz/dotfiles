@@ -9,10 +9,10 @@
   };
 
   hosts.rednecked.network.internalInterfaces.allowedUDPPorts = [ 123 ];
-  modules.tmpfs-as-root.persistentDirs = [ config.services.chrony.directory ];
+  tmpfs-as-root.persistentDirs = [ config.services.chrony.directory ];
   systemd.tmpfiles.rules = [
     "d /etc/chrony.d 0755 root root -"
-    "d ${config.modules.tmpfs-as-root.storage}${config.services.chrony.directory} 0775 root chrony -"
+    "d ${config.tmpfs-as-root.storage}${config.services.chrony.directory} 0775 root chrony -"
   ];
   environment.systemPackages = [ pkgs.chrony ];
 

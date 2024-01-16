@@ -21,7 +21,7 @@ in
       };
     };
 
-    fileSystems = config.modules.tmpfs-as-root.fileSystems // (import ./fs/fileSystems.nix {
+    fileSystems = config.tmpfs-as-root.fileSystems // (import ./fs/fileSystems.nix {
       bootDev = "/dev/vda1";
       rootDev = "/dev/vda2";
       hddDev = "/dev/bcache0";
@@ -30,7 +30,7 @@ in
     sharedDirectories = {
       secrets = {
         source = "/run/rednecked-secrets";
-        target = "${config.modules.tmpfs-as-root.storage}/secrets";
+        target = "${config.tmpfs-as-root.storage}/secrets";
         neededForBoot = true;
       };
     };

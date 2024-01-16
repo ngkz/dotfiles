@@ -117,8 +117,8 @@ in
         ];
 
         tmpfs-as-home = {
-          enable = osConfig.modules.tmpfs-as-root.enable;
-          storage = osConfig.modules.tmpfs-as-root.storage + config.home.homeDirectory;
+          enable = osConfig.tmpfs-as-root.enable;
+          storage = osConfig.tmpfs-as-root.storage + config.home.homeDirectory;
         };
       };
       extraSpecialArgs = {

@@ -33,7 +33,7 @@
     "networkmanager"
   ];
 
-  modules.tmpfs-as-root.persistentDirs = [
+  tmpfs-as-root.persistentDirs = [
     "/var/lib/NetworkManager"
   ];
 
@@ -41,7 +41,7 @@
     StateDirectory = lib.mkForce "";
     ReadWritePaths = [
       "/var/lib/NetworkManager"
-      "${config.modules.tmpfs-as-root.storage}/var/lib/NetworkManager"
+      "${config.tmpfs-as-root.storage}/var/lib/NetworkManager"
     ];
   };
 }

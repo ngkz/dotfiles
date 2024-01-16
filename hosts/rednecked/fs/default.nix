@@ -11,7 +11,7 @@
     }
   ];
 
-  modules.tmpfs-as-root.enable = true;
+  tmpfs-as-root.enable = true;
 
   modules.btrfs-maintenance = {
     fileSystems = [

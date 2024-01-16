@@ -51,12 +51,12 @@ in
   };
   networking.firewall.allowedTCPPorts = [ 80 ];
 
-  modules.tmpfs-as-root.persistentDirs = [ "/var/lib/acme" ];
+  tmpfs-as-root.persistentDirs = [ "/var/lib/acme" ];
   systemd.services.acme-fixperms.serviceConfig = {
     StateDirectory = lib.mkForce ""; #tmpfs-as-root
     ReadWritePaths = [
       "/var/lib/acme"
-      "${config.modules.tmpfs-as-root.storage}/var/lib/acme"
+      "${config.tmpfs-as-root.storage}/var/lib/acme"
     ];
   };
 }

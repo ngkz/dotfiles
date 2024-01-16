@@ -4,10 +4,10 @@
     StateDirectory = "";
     ReadWritePaths = [
       "/var/lib/bluetooth"
-      "${config.modules.tmpfs-as-root.storage}/var/lib/bluetooth"
+      "${config.tmpfs-as-root.storage}/var/lib/bluetooth"
     ];
   };
-  modules.tmpfs-as-root.persistentDirs = [
+  tmpfs-as-root.persistentDirs = [
     # bluetooth
     "/var/lib/bluetooth"
   ];

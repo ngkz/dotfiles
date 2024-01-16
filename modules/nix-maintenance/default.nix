@@ -29,7 +29,7 @@
     };
   };
 
-  modules.tmpfs-as-root.persistentDirs = [
+  tmpfs-as-root.persistentDirs = [
     "/var/cache/nix-maintenance"
   ];
 }

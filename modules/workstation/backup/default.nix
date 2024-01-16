@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  modules.tmpfs-as-root.persistentDirs = [
+  tmpfs-as-root.persistentDirs = [
     "/root/.cache/borg"
     "/root/.config/borg"
   ];
