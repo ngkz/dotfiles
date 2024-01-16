@@ -139,7 +139,6 @@ in
       du-dust # modern du
       fd # find
       httpie # modern curl
-      hyperfine # benchmarking tool
       ncdu # du
       sd #modern sed
       procs # modern ps
