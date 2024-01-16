@@ -3,6 +3,8 @@
 {
   imports = [
     ../tmpfs-as-home.nix
+    ../ripgrep.nix
+    ../fzf.nix
   ];
 
   xdg.enable = true;
@@ -112,10 +114,4 @@
 
   # patch zbell plugin
   xdg.configFile."zsh/custom/plugins/zbell/zbell.plugin.zsh".source = ./zbell.plugin.zsh;
-
-  # FZF
-  # Ctrl+T: find and insert path
-  # Alt+C: find and chdir
-  # Ctrl+R: search history
-  programs.fzf.enableZshIntegration = true;
 }
