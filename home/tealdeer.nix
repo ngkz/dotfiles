@@ -1,3 +1,4 @@
+# tldr: command quick reference
 { config, ... }:
 {
   imports = [
