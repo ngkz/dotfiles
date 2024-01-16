@@ -2,7 +2,7 @@
   imports = [
     ../tmpfs-as-home.nix
     ./zsh
-    ./tealdeer.nix
+    ../tealdeer.nix
     ../neovim
   ];
 

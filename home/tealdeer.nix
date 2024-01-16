@@ -1,8 +1,4 @@
-{ lib, config, pkgs, ... }:
-let
-  inherit (lib) hm escapeShellArg;
-  tldr_cache = "${config.xdg.cacheHome}/tealdeer/tldrpages";
-in
+{ config, ... }:
 {
   programs.tealdeer = {
     enable = true;
@@ -14,7 +10,7 @@ in
       # tealdeer deletes the cache directory (default: ~/.cache/tealdeer) and breaks
       # the link to the presistent storage
       directories = {
-        cache_dir = tldr_cache;
+        cache_dir = "${config.xdg.cacheHome}/tealdeer/tldrpages";
       };
     };
   };
