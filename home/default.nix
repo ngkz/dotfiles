@@ -17,4 +17,5 @@
   bat = import ./bat.nix;
   eza = import ./eza.nix;
   btop = import ./btop.nix;
+  hyfetch = import ./hyfetch.nix;
 }
