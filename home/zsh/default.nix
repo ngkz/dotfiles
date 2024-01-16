@@ -96,25 +96,6 @@
       '';
       custom = "${config.xdg.configHome}/zsh/custom";
     };
-    shellAliases = {
-      # modern unix commands
-      cat = "bat";
-      top = "btop";
-      # du = "dust";
-      ls = "eza --icons --time-style=iso --git";
-      rg = "rg -S";
-      l = "ls";
-      ll = "ls -lgh";
-      la = "ls -aa";
-      lt = "ls -lgh --tree";
-      lla = "ll -aa";
-      strings = "strings -a";
-
-      # safe rm,cp,mv
-      rm = "rm -i";
-      cp = "cp -i";
-      mv = "mv -i";
-    };
     shellGlobalAliases = {
       H = "| head";
       T = "| tail";
