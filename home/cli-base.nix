@@ -1,5 +1,9 @@
 # my cli environment configuration for all hosts
-{ config, pkgs, ... }: {
+{ config, lib, pkgs, ... }:
+let
+  inherit (lib) types mkOption;
+in
+{
   imports = [
     ./tmpfs-as-home.nix
     ./zsh
