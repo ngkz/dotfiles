@@ -20,7 +20,6 @@
     netcat-openbsd
     radare2
     radare2-cutter
-    pwntools
     python3Packages.binwalk-full
     foremost
     nkf
@@ -41,7 +40,7 @@
     uefitool
     #pkgs.python38Packages.uncompyle6 #XXX broken
     xortool
-    ropgadget
+    #ropgadget #pwntools in python environment brings ROPgadget in
     hashcat
     hashcat-utils
     # hcxtools
