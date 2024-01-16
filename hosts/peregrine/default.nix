@@ -19,7 +19,6 @@
     ../../modules/nix-maintenance
     ../../modules/zswap.nix
     ../../modules/bluetooth.nix
-    ../../modules/hacking.nix
 
     ../../modules/profiles/laptop.nix
     common-pc-laptop-acpi_call

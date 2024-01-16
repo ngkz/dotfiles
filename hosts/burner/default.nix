@@ -11,7 +11,6 @@ in
     ../../modules/base
     ../../modules/sshd.nix
     ../../modules/libvirt-vm
-    ../../modules/hacking.nix
   ];
 
   modules.libvirt-vm = {
