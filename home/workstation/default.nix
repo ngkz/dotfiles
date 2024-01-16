@@ -545,6 +545,7 @@ in
   home.packages = with pkgs; [
     binutils
     gdb
+    gcc
     strace
     ltrace
     wl-clipboard
