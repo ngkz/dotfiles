@@ -10,5 +10,6 @@
   neovim = import ./neovim;
   hacking = import ./hacking;
   vmm = import ./vmm.nix;
+  nix-index = import ./nix-index.nix;
   dust = import ./dust.nix;
 }
