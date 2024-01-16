@@ -132,20 +132,6 @@ in
     # List packages installed in system profile. To search, run:
     # $ nix search nixpkgs wget
     environment.systemPackages = with pkgs; [
-      # modern unix commands
-      fzf
-      bat
-      eza
-      du-dust # modern du
-      fd # find
-      httpie # modern curl
-      ncdu # du
-      sd #modern sed
-      procs # modern ps
-      ripgrep # modern grep
-      choose # modern cut
-      delta # diff
-
       btrfs-progs
       compsize
       ntfs3g
@@ -166,29 +152,7 @@ in
       pciutils #lspci
       ddrescue
 
-      iotop
-      btop
-      s-tui
-      stress
-
-      jq
-      git
-      inetutils
-      inotify-tools
-      netcat-openbsd
-      p7zip
-      pigz
       (python3.withPackages config.modules.base.pythonPackages)
-      wget
-      monolith # Save complete web pages as a single HTML file
-      file
-      python3Packages.yq
-      openssl
-      unixtools.xxd
-      nix-index
-      socat
-      bc
-      dig
     ];
 
     services.udev.extraRules = ''

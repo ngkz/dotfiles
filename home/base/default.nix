@@ -55,4 +55,42 @@
 
   # automatially trigger X-Restart-Triggers
   systemd.user.startServices = true;
+
+  home.packages = with pkgs; [
+    # modern unix commands
+    du-dust # modern du
+    fd # find
+    httpie # modern curl
+    hyperfine # benchmarking tool
+    ncdu # du
+    sd #modern sed
+    procs # modern ps
+    ripgrep # modern grep
+    choose # modern cut
+    delta # diff
+
+    iotop
+    btop
+    s-tui
+    stress
+
+    jq
+    git
+    inetutils
+    inotify-tools
+    netcat-openbsd
+    p7zip
+    pigz
+    #TODO (python3.withPackages config.modules.base.pythonPackages)
+    wget
+    monolith # Save complete web pages as a single HTML file
+    file
+    python3Packages.yq
+    openssl
+    unixtools.xxd
+    nix-index
+    socat
+    bc
+    dig
+  ];
 }
