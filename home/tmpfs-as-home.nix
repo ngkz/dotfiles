@@ -1,3 +1,4 @@
+# tmpfs as root: home-manager edition
 { lib, config, ... }:
 let
   inherit (builtins) listToAttrs;
