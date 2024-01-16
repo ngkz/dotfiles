@@ -110,7 +110,7 @@ in
       # install per-user packages to /etc/profiles to make nixos-rebuild build-vm work
       useUserPackages = true;
       users.user = { osConfig, config, ... }: {
-        imports =  [
+        imports = [
           ../../home/nixos.nix
           ../../home/base
           ../../home/tmpfs-as-home.nix
