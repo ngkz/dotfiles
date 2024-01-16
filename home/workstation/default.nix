@@ -13,6 +13,7 @@ in
     ./librewolf
     ./wine.nix
     ./doom-emacs
+    ../hyfetch.nix
   ];
 
   # XDG user dirs
