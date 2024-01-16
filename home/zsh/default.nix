@@ -1,3 +1,4 @@
+# Z shell + oh-my-zsh
 { config, pkgs, ... }:
 {
   imports = [
