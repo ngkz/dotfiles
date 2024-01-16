@@ -1,6 +1,7 @@
 {
   nixos = import ./nixos.nix;
   base = import ./base;
+  zsh = import ./zsh;
   tealdeer = import ./tealdeer.nix;
   tmpfs-as-home = import ./tmpfs-as-home.nix;
   workstation = import ./workstation;

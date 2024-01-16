@@ -1,5 +1,11 @@
-{ config, osConfig, pkgs, ... }:
+{ config, pkgs, ... }:
 {
+  imports = [
+    ../tmpfs-as-home.nix
+  ];
+
+  xdg.enable = true;
+
   tmpfs-as-home.persistentDirs = [
     ".local/share/zsh"
   ];

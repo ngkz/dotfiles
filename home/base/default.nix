@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ../tmpfs-as-home.nix
-    ./zsh
+    ../zsh
     ../tealdeer.nix
     ../neovim
   ];
