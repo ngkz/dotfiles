@@ -12,4 +12,5 @@
   vmm = import ./vmm.nix;
   nix-index = import ./nix-index.nix;
   dust = import ./dust.nix;
+  ripgrep = import ./ripgrep.nix;
 }
