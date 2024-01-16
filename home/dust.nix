@@ -3,6 +3,5 @@
   home.packages = with pkgs; [
     du-dust
   ];
-
-  programs.zsh.shellAliases.du = "dust";
+  home.shellAliases.du = "dust";
 }
