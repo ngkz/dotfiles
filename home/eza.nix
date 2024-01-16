@@ -7,7 +7,7 @@
     ll = "ls -lgh";
     la = "ls -aa";
     lt = "ls -lgh --tree";
-    lta = "lt -aa";
+    lta = "lt -a";
     lla = "ll -aa";
   };
 }
