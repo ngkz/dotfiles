@@ -146,6 +146,8 @@
 
   fonts.fontconfig.enable = true;
 
+  systemd.user.systemctlPath = "/usr/bin/systemctl";
+
   imports = [
     ../../home/base
     ../../home/hacking
