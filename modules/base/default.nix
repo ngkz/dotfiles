@@ -11,11 +11,6 @@ in
     ../tmpfs-as-root.nix
   ];
 
-  options.modules.base.pythonPackages = mkOption {
-    type = with types; functionTo (listOf package);
-    default = (_: [ ]);
-  };
-
   config = {
     nixpkgs = import ../../nixpkgs.nix inputs;
 
@@ -151,8 +146,6 @@ in
       dmidecode
       pciutils #lspci
       ddrescue
-
-      (python3.withPackages config.modules.base.pythonPackages)
     ];
 
     services.udev.extraRules = ''
