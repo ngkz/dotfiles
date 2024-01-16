@@ -16,6 +16,7 @@ trap 'rm -rf $work' EXIT
 
 for key in "${!cals[@]}"; do
     org=$out/${key}.org
+    org_work=$work/${key}.org
     ics=$work/${key}.ics
     url=${cals[$key]}
     if [[ -e "$org" ]] && [[ "$(($(stat -c %Y "$org") + life))" -gt "$(date +%s)" ]]; then
@@ -24,5 +25,6 @@ for key in "${!cals[@]}"; do
     fi
     echo "updating ${key}.org ($url)"
     curl -Lo "$ics" "$url"
-    @ical2org@ <"$ics" >"$org"
+    ical2org <"$ics" >"$org_work"
+    mv "$org_work" "$org"
 done
