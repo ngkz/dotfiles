@@ -18,4 +18,5 @@
   eza = import ./eza.nix;
   btop = import ./btop.nix;
   hyfetch = import ./hyfetch.nix;
+  git = import ./git.nix;
 }
