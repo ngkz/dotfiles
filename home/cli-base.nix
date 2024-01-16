@@ -55,7 +55,6 @@ in
       s-tui
       stress
 
-      jq
       inetutils
       inotify-tools
       netcat-openbsd
