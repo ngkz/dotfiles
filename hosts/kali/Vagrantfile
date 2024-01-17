@@ -84,7 +84,7 @@ Vagrant.configure('2') do |config|
   # information on available options.
 
   # more disk capacity
-  config.vm.disk :disk, size: "32GB", primary: true
+  config.vm.disk :disk, size: '64GB', primary: true
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
