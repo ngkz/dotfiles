@@ -1,5 +1,8 @@
 # Z shell + oh-my-zsh
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+let
+  inherit (lib) mkOption types concatStringsSep escapeShellArg mapAttrsToList;
+in
 {
   imports = [
     ../tmpfs-as-home.nix
@@ -7,6 +10,12 @@
     ../fzf.nix
   ];
 
+  options.programs.zsh.abbreviations = mkOption {
+    type = with types; attrsOf str;
+    default = { };
+  };
+
+  config = {
   xdg.enable = true;
 
   tmpfs-as-home.persistentDirs = [
@@ -70,6 +79,20 @@
       else
         ZSH_THEME_TERM_TITLE_IDLE="%~"
       fi
+
+      # in order to use #, ~ and ^ for filename generation grep word
+      # *~(*.gz|*.bz|*.bz2|*.zip|*.Z) -> searches for word not in compressed files
+      # don't forget to quote '^', '~' and '#'!
+      setopt extended_glob
+      # magic abbrev
+      # <space>: perform abbreviation expansion
+      # <C-x><space>: insert space without expansion
+      # <C-x>b: display list of abbreviations
+      source ${./abbrev.zsh}
+      abbreviations=(
+      # Key    Value
+        ${concatStringsSep "\n" (mapAttrsToList (key: val: "${escapeShellArg key} ${escapeShellArg val}") config.programs.zsh.abbreviations)}
+      )
     '';
     oh-my-zsh = {
       enable = true;
@@ -98,8 +121,9 @@
       '';
       custom = "${config.xdg.configHome}/zsh/custom";
     };
-    shellGlobalAliases = {
+    abbreviations = {
       H = "| head";
+      Hl = "--help |& less -r"; # display help in pager
       T = "| tail";
       ET = "|& tail";
       G = "| rg -S";
@@ -114,4 +138,5 @@
 
   # patch zbell plugin
   xdg.configFile."zsh/custom/plugins/zbell/zbell.plugin.zsh".source = ./zbell.plugin.zsh;
+  };
 }
