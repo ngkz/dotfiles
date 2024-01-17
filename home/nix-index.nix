@@ -7,7 +7,5 @@
     ".cache/nix-index"
   ];
 
-  home.packages = with pkgs; [
-    nix-index
-  ];
+  programs.nix-index.enable = true;
 }
