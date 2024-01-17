@@ -119,4 +119,6 @@
     ".local/share/nvim"
     ".local/state/nvim"
   ];
+
+  programs.zsh.abbreviations.V = "|& nvim -";
 }
