@@ -117,6 +117,8 @@ in
         # see 'man strftime' for details.
         HIST_STAMPS="yyyy-mm-dd"
 
+        # url-quote-magic is broken
+        DISABLE_MAGIC_FUNCTIONS="true"
 
         # dirpersist
         dirstack_file=${config.xdg.dataHome}/zsh/zdirs
