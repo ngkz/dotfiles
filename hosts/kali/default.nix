@@ -148,6 +148,11 @@
 
   systemd.user.systemctlPath = "/usr/bin/systemctl";
 
+  # import nix environment variables when ssh <command>
+  programs.zsh.envExtra = ''
+    [[ ! -o interactive ]] && . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+  '';
+
   imports = [
     ../../home/base.nix
     ../../home/hacking
