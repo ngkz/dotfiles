@@ -84,6 +84,10 @@ in
       # *~(*.gz|*.bz|*.bz2|*.zip|*.Z) -> searches for word not in compressed files
       # don't forget to quote '^', '~' and '#'!
       setopt extended_glob
+
+      # try to avoid the 'zsh: no matches found...'
+      setopt no_nomatch
+
       # magic abbrev
       # <space>: perform abbreviation expansion
       # <C-x><space>: insert space without expansion
