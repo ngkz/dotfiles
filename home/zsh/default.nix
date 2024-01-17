@@ -117,8 +117,6 @@ in
         # see 'man strftime' for details.
         HIST_STAMPS="yyyy-mm-dd"
 
-        # Enable command auto-correction.
-        ENABLE_CORRECTION="true"
 
         # dirpersist
         dirstack_file=${config.xdg.dataHome}/zsh/zdirs
