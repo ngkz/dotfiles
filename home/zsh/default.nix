@@ -6,7 +6,6 @@ in
 {
   imports = [
     ../tmpfs-as-home.nix
-    ../ripgrep.nix
     ../fzf.nix
   ];
 
@@ -130,8 +129,6 @@ in
       Hl = "--help |& less -r"; # display help in pager
       T = "| tail";
       ET = "|& tail";
-      G = "| rg -S";
-      EG = "|& rg -S";
       L = "| less";
       LL = "|& less -r";
       N = "&>/dev/null";
