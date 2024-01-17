@@ -5,10 +5,21 @@
   become: yes
   vars:
     ansible_become_password: vagrant
+    locale: en_US.UTF-8
   tasks:
     - name: upgrade the system
       apt: update_cache=yes upgrade=yes
       tags: ['never', 'update']
+
+    - name: Ensure localisation files for '{{ locale }}' are available
+      locale_gen:
+        name: "{{ locale }}"
+        state: present
+
+    - name: Set locale to '{{ locale }}'
+      become: yes
+      command: localectl set-locale LANG={{ locale }}
+      when: ansible_env.LANG != locale
 
     - name: set timezone to Asia/Tokyo
       timezone: name=Asia/Tokyo
