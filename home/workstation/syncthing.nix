@@ -43,7 +43,7 @@ in
         configDir = syncthingCfgDir;
         storage = config.home.homeDirectory;
         secrets = osConfig.age.secrets.syncthing.path;
-        hostname = osConfig.system.name;
+        hostname = config.systemName;
       });
   };
 

@@ -1,4 +1,4 @@
-{ config, osConfig, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   # Fcitx5 + Mozc IM
   i18n.inputMethod = {
@@ -20,7 +20,7 @@
   xdg.dataFile."fcitx5/skk/dictionary_list".text =
     let
       dictdir = "${config.home.homeDirectory}/misc/skk";
-      self = osConfig.system.name;
+      self = config.systemName;
       machines = [ "peregrine" "noguchi-pc" ];
       otherMachines = builtins.filter (host: host != self) machines;
     in
