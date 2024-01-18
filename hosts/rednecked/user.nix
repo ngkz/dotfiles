@@ -7,9 +7,10 @@ in
   age.secrets.user-password-hash-rednecked.file = ../../secrets/user-password-hash-rednecked.age;
   users.users.user.hashedPasswordFile = config.age.secrets.user-password-hash-rednecked.path;
 
-  # home-manager.users.user = {
-  #   imports = [
-  #   ];
-  # };
+  home-manager.users.user = {
+    tmpfs-as-home.persistentDirs = [
+      # keep ~/persist
+      "persist"
+    ];
+  };
 }
-

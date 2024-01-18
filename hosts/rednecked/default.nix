@@ -45,11 +45,6 @@ in
     device = "nodev";
   };
 
-  # tmpfs as home
-  home-manager.users.user.tmpfs-as-home.persistentDirs = [
-    "persist"
-  ];
-
   modules.sshd.allowRootLogin = true;
 
   # we won't use gui apps here
