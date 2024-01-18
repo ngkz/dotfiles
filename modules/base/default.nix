@@ -108,6 +108,7 @@ in
         imports = [
           ../../home/nixos.nix
           ../../home/base.nix
+          ../../home/cli-base.nix
           ../../home/tmpfs-as-home.nix
         ];
 

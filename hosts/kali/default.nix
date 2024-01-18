@@ -34,6 +34,7 @@
 
   imports = [
     ../../home/base.nix
+    ../../home/cli-base.nix
     ../../home/hacking
   ];
 }

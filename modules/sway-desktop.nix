@@ -82,6 +82,7 @@
   home-manager.users.greeter = {
     imports = [
       ../home/nixos.nix
+      ../home/base.nix
       ../home/theming
     ];
   };
