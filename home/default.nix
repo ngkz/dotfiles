@@ -20,4 +20,5 @@
   btop = import ./btop.nix;
   hyfetch = import ./hyfetch.nix;
   git = import ./git.nix;
+  im = import ./im;
 }

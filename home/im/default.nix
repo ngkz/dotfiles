@@ -1,6 +1,8 @@
+# im: Fcitx5 + fcitx5-skk
 { config, lib, pkgs, ... }:
 {
-  # Fcitx5 + Mozc IM
+  xdg.enable = true;
+
   i18n.inputMethod = {
     enabled = "fcitx5";
     fcitx5.addons = with pkgs; [

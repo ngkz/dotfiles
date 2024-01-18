@@ -7,7 +7,7 @@ in
   imports = [
     inputs.self.homeManagerModules.theming
     ./direnv.nix
-    ./fcitx5
+    ../im
     #./chromium.nix
     ./syncthing.nix
     ./librewolf
