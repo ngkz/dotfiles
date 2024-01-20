@@ -11,15 +11,22 @@
       apt: update_cache=yes upgrade=yes
       tags: update
 
+    - name: check current locale
+      slurp: src=/etc/locale.conf
+      become: no
+      register: cur_locale
+      changed_when: (cur_locale.content | b64decode).strip() != "LANG=" + locale
+
     - name: Ensure localisation files for '{{ locale }}' are available
       locale_gen:
         name: "{{ locale }}"
         state: present
+      when: cur_locale is changed
 
     - name: Set locale to '{{ locale }}'
       become: yes
       command: localectl set-locale LANG={{ locale }}
-      when: ansible_env.LANG != locale
+      when: cur_locale is changed
 
     - name: set timezone to Asia/Tokyo
       timezone: name=Asia/Tokyo
