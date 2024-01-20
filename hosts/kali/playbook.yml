@@ -155,3 +155,13 @@
 
     - name: use home-manager zsh
       user: user=vagrant shell=/home/vagrant/.nix-profile/bin/zsh
+
+    - name: run GC
+      command: nix-collect-garbage --delete-old
+      changed_when: no
+      tags: clean
+
+    - name: optimise nix store
+      command: nix store optimise
+      changed_when: no
+      tags: clean
