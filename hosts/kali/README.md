@@ -9,7 +9,7 @@ Kali Linux rolling + home-manager Vagrant VM
 ### Create and/or start
 
 ```sh
-vagrant up --provision
+VAGRANT_EXPERIMENTAL="disks" vagrant up --provision
 ```
 
 ### Switch the configuration
