@@ -9,7 +9,7 @@
   tasks:
     - name: upgrade the system
       apt: update_cache=yes upgrade=yes
-      tags: ['never', 'update']
+      tags: update
 
     - name: Ensure localisation files for '{{ locale }}' are available
       locale_gen:
