@@ -34,9 +34,18 @@
     [[ ! -o interactive ]] && . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   '';
 
+  xsession = {
+    enable = true;
+    windowManager.command = "x-session-manager";
+    profileExtra = ''
+      . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+    '';
+  };
+
   imports = [
     ../../home/base.nix
     ../../home/cli-base.nix
     ../../home/hacking
+    ../../home/im
   ];
 }

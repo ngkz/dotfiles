@@ -43,6 +43,9 @@
         - dnsmap
         - dnsrecon
 
+        # im
+        - fcitx5-frontend-all
+
     - name: install nix
       shell: sh <(curl -L https://nixos.org/nix/install) --daemon --yes
       args:
