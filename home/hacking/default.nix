@@ -79,6 +79,7 @@
     # flask-unsign
     wabt
     one_gadget
+    upx
 
     ghidra
     burpsuite
