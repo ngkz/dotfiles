@@ -144,32 +144,37 @@
       systemd: daemon_reload=yes name=nix-daemon state=restarted
       when: nix_update is changed or trusted_users is changed
 
-    - name: build home-manager profile
-      local_action:
-        module: command
-        cmd: "nix build --no-link --print-out-paths ../..#homeConfigurations.kali.activationPackage"
+    - name: get current home-manager profile
+      stat: path=~/.local/state/home-manager/gcroots/current-home
       become: no
-      register: profile
-      # TODO chenged_when
+      register: cur_profile
       tags: hm
 
-    - name: copy home-manager profile
+    - name: build and copy home-manager profile
       local_action:
         module: shell
         cmd: |
-          CONFIG=$(mktemp)
-          trap 'rm -f "$CONFIG"' EXIT
-          vagrant ssh-config >"$CONFIG"
-          export NIX_SSHOPTS="-F $CONFIG"
-          nix-copy-closure --to default {{ profile.stdout }}
+          cur_profile={{ cur_profile.stat.lnk_target|default("undefined") }}
+          if [ "$cur_profile" != "$(nix eval --raw ../..#homeConfigurations.kali.activationPackage)" ]; then
+            new_profile=$(nix build --no-link --print-out-paths ../..#homeConfigurations.kali.activationPackage)
+
+            CONFIG=$(mktemp)
+            trap 'rm -f "$CONFIG"' EXIT
+            vagrant ssh-config >"$CONFIG"
+            export NIX_SSHOPTS="-F $CONFIG"
+            nix-copy-closure --to default "$new_profile" >/dev/null
+
+            echo "$new_profile"
+          fi
       become: no
-      when: profile is changed
+      changed_when: new_profile.stdout != ''
+      register: new_profile
       tags: hm
 
     - name: activate home-manager profile
-      command: "{{ profile.stdout }}/activate"
+      command: "{{ new_profile.stdout }}/activate"
       become: no
-      when: profile is changed
+      when: new_profile is changed
       tags: hm
 
     - name: add home-manager zsh to /etc/shells
