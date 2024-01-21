@@ -8,7 +8,7 @@
     locale: en_US.UTF-8
   tasks:
     - name: upgrade the system
-      apt: update_cache=yes upgrade=yes
+      apt: update_cache=yes upgrade=yes autoclean=yes autoremove=yes
       tags: update
 
     - name: check current locale
@@ -183,13 +183,13 @@
     - name: use home-manager zsh
       user: user=vagrant shell=/home/vagrant/.nix-profile/bin/zsh
 
-    - name: remove ond profiles
-      command: nix profile wipe-history
+    - name: wipe old profiles (user)
+      command: nix-env --delete-generations old
       changed_when: no
       become: no
       tags: clean
 
-    - name: run GC
+    - name: wipe old profiles (root) and run GC
       command: nix-collect-garbage --delete-old
       changed_when: no
       tags: clean
