@@ -156,6 +156,12 @@
     - name: use home-manager zsh
       user: user=vagrant shell=/home/vagrant/.nix-profile/bin/zsh
 
+    - name: remove ond profiles
+      command: nix profile wipe-history
+      changed_when: no
+      become: no
+      tags: clean
+
     - name: run GC
       command: nix-collect-garbage --delete-old
       changed_when: no
