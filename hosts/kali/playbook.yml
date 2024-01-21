@@ -112,11 +112,33 @@
     - name: keep PATH when sudo
       lineinfile: path=/etc/sudoers regexp='^(Defaults\s*secure_path=.*)' line='# \1' backrefs=yes
 
+    - name: remove default nix channel
+      command: nix-channel --remove nixpkgs
+      register: channel_rm
+      changed_when: "\"uninstalling 'nixpkgs'\" in channel_rm.stdout"
+
     - name: update nix
-      shell: nix-env --install --attr nixpkgs.nix nixpkgs.cacert
-      become: no
+      shell: |
+        nix_pkg_expect=$(nix eval --raw nixpkgs#nix)
+        if ! nix profile list | grep -Fq "$nix_pkg_expect"; then
+          nix_pkg_installed=$(dirname $(dirname $(realpath $(command -v nix))))
+          del=()
+          while read -r line; do
+            if [[ $line =~ Index:.*([0-9]+) ]]; then
+              idx=${BASH_REMATCH[1]}
+            elif [[ $line = "Store paths:"* ]] && [[ $line =~ .*/nix/store/[^[:space:]]*-nix-[^[:space:]]* ]]; then
+              del+=("$idx")
+            fi
+          done < <(nix profile list)
+          nix profile remove "${del[@]}"
+          "${nix_pkg_installed}/bin/nix" profile install nixpkgs#nix
+          exit 10
+        fi
+      args:
+        executable: /bin/bash
       register: nix_update
-      # TODO chenged_when
+      changed_when: nix_update.rc == 10
+      failed_when: nix_update.rc != 10 and nix_update.rc != 0
 
     - name: restart nix
       systemd: daemon_reload=yes name=nix-daemon state=restarted
