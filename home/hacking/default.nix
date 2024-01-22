@@ -12,7 +12,6 @@
   ];
 
   home.packages = with pkgs; with linuxPackages; [
-    binutils
     gdb
     pwndbg
     strace
