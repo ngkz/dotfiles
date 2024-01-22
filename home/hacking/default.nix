@@ -18,7 +18,7 @@
     ltrace
     netcat-openbsd
     radare2
-    radare2-cutter
+    iaito
     python3Packages.binwalk-full
     foremost
     nkf
