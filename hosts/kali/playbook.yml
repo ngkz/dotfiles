@@ -119,6 +119,7 @@
 
     - name: update nix
       shell: |
+        set -euo pipefail
         nix_pkg_expect=$(nix eval --raw nixpkgs#nix)
         if ! nix profile list | grep -Fq "$nix_pkg_expect"; then
           nix_pkg_installed=$(dirname $(dirname $(realpath $(command -v nix))))
@@ -154,6 +155,7 @@
       local_action:
         module: shell
         cmd: |
+          set -euo pipefail
           cur_profile={{ cur_profile.stat.lnk_target|default("undefined") }}
           if [ "$cur_profile" != "$(nix eval --raw ../..#homeConfigurations.kali.activationPackage)" ]; then
             new_profile=$(nix build --no-link --print-out-paths ../..#homeConfigurations.kali.activationPackage)
