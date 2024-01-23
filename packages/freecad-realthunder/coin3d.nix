@@ -15,8 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "realthunder";
     repo = "coin";
-    rev = "ba1f6b514c0db7632d9288c5624c51856bd90650";
-    hash = "sha256-40dGA7Cm//7kas0ds67fKKivUJ2l87lgbU3FW9eHXak=";
+    rev = "3cbbd20cbce672367901dca86275491e59614d04";
+    hash = "sha256-ocTfB+4XFe/C0GA0qOk5HPZgOnLC6k8oyr/RqHgCHLU=";
   };
 
   nativeBuildInputs = [ cmake ];
