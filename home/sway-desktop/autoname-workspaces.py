@@ -62,6 +62,7 @@ WINDOW_ICONS = {
     "virt-manager": " ",
     "org.shotcut.shotcut": "󰟞 ",
     "org.inkscape.inkscape": "󰉼 ",
+    "so.libdb.gtkcord4": "󰙯"
 }
 
 DEFAULT_ICON = "󰣆 "
