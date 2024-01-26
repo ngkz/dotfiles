@@ -68,6 +68,10 @@
         # im
         - fcitx5-frontend-all
 
+    - name: disable screen lock
+      xfconf: channel=xfce4-power-manager property=/xfce4-power-manager/dpms-enabled value_type=bool value=false
+      become: no
+
     - name: install nix
       shell: sh <(curl -L https://nixos.org/nix/install) --daemon --yes
       args:
