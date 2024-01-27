@@ -17,6 +17,6 @@ fi
 
 sed -i "s/version = \"$current\"/version = \"$latest\"/" default.nix
 newhash=$(nix-prefetch-github --json "$owner" "$repo" --rev "$latest" | jq -r .hash)
-sed -i "s/\(sha256\|hash\) = \".*\"/hash = \"$newhash\"/" default.nix
+sed -i "s@\(sha256\|hash\) = \".*\"@hash = \"$newhash\"@" default.nix
 
 echo "$pname updated: $current -> $latest"

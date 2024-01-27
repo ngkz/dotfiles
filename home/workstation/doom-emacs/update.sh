@@ -17,6 +17,6 @@ fi
 
 newhash=$(nix-prefetch-github --json "$owner" "$repo" --rev "$latest" | jq -r .hash)
 sed -i "s|rev = \".*\"|rev = \"$latest\"|" default.nix
-sed -i "s/\(sha256\|hash\) = \".*\"/hash = \"$newhash\"/" default.nix
+sed -i "s@\(sha256\|hash\) = \".*\"@hash = \"$newhash\"@" default.nix
 
 echo "$repo updated: $current -> $latest"

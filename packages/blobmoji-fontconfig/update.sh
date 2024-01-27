@@ -23,6 +23,6 @@ rm -f git.json
 
 sed -i "s/version = \"$current\"/version = \"$latest\"/" default.nix
 sed -i "s/rev = \".*\"/rev = \"$newrev\"/" default.nix
-sed -i "s/\(sha256\|hash\) = \".*\"/hash = \"$newhash\"/" default.nix
+sed -i "s@\(sha256\|hash\) = \".*\"@hash = \"$newhash\"@" default.nix
 
 echo "$pname updated: $current -> $latest"
