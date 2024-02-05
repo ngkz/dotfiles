@@ -153,7 +153,7 @@ in
     python3Packages.grip
     pandoc
     nodePackages.markdownlint-cli
-    proselint
+    # proselint
 
     # lang/nix
     nixfmt
