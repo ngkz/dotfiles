@@ -274,3 +274,15 @@
 ;; reduce terminal lag
 (after! vterm
   (setq vterm-timer-delay 0.03))
+
+;; alert 5 minutes before schedules or deadlines
+(after! alert
+  (setq alert-default-style 'libnotify))
+(use-package! org-alert
+  :init
+  (setq org-alert-notify-cutoff 5
+        org-alert-notify-after-event-cutoff 10
+        ;; https://github.com/spegoraro/org-alert/blob/b4bfd4cead89215cc9a46162234f7a4836da4dad/README.md#custom-regexp-for-matching-times
+        org-alert-time-match-string "\\(?:SCHEDULED\\|DEADLINE\\):.*?<.*?\\([0-9]\\{2\\}:[0-9]\\{2\\}\\).*>")
+  :config
+  (org-alert-enable))

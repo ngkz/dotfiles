@@ -195,6 +195,9 @@ in
     nodePackages.js-beautify
     nodePackages.stylelint
     html-tidy
+
+    # alert
+    libnotify
   ];
   tmpfs-as-home.persistentDirs = [
     ".config/doom-local"
