@@ -52,7 +52,7 @@ in
     ".config/transmission"
     # FreeCAD
     ".FreeCAD"
-    ".config/FrreeCAD"
+    ".config/FreeCAD"
     # shotcut
     ".config/Meltytech"
     ".local/share/Meltytech/Shotcut"
