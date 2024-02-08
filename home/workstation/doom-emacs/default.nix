@@ -1,5 +1,6 @@
 { lib, config, pkgs, ... }:
 let
+  inherit (lib) mkForce;
   inherit (lib.ngkz) rot13;
 in
 {
@@ -62,6 +63,7 @@ in
         fi
       fi
     '';
+    Restart = mkForce "no";
   };
 
   systemd.user.services.org-external-calendars = {
