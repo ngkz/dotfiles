@@ -582,6 +582,9 @@ in
     mprime
     dislocker
     ansible
+    jpegoptim
+    optipng
+    imagemagick
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
