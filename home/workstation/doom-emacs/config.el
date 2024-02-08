@@ -237,7 +237,7 @@
       "* %u %?" :prepend t)
      ("j" "Journal" entry
       (file+olp+datetree +org-capture-journal-file)
-      "* %U %?" :prepend t)
+      "* %T %?" :prepend t)
      ("w" "Weekly review" entry
       (file+olp+datetree +org-capture-journal-file)
       "* %U 週次レビュー\n| 日付 | 起床 | 夜更かし | 出社 | 就寝 | 生産的な時間 | やったこと | 長期TODO/PJ消化 |\n|------+------+----------+------+------+--------------+------------+-----------------|\n| %?     |      |          |      |      |              |            |                 |"
