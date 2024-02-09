@@ -263,6 +263,11 @@
 
 ;; Make sure that the weekdays in the time stamps of your Org mode files and in the agenda appear in English.
 (setq system-time-locale "C")
+;; XXX suddenly emacs daemon started to ignore system-time-locale. why
+(when (daemonp)
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (setq system-time-locale "C"))))
 
 ;; transparent background
 (add-to-list 'default-frame-alist '(alpha-background . 96))
