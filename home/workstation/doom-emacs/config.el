@@ -244,7 +244,13 @@
      ("w" "Weekly review" entry
       (file+olp+datetree +org-capture-journal-file)
       "* %U 週次レビュー\n| 日付 | 起床 | 夜更かし | 出社 | 就寝 | 生産的な時間 | やったこと | 長期TODO/PJ消化 |\n|------+------+----------+------+------+--------------+------------+-----------------|\n| %?     |      |          |      |      |              |            |                 |"
-      :prepend t)))
+      :prepend t))
+   ;; show habits along normal items
+   org-agenda-sorting-strategy
+   '((agenda time-up priority-down category-keep)
+     (todo   priority-down category-keep)
+     (tags   priority-down category-keep)
+     (search category-keep)))
   ;; admonition
   (font-lock-add-keywords 'org-mode doom-docs-org-font-lock-keywords)
   ;; enable habit tracking
