@@ -177,6 +177,8 @@ in
       "net.ipv4.tcp_congestion_control" = "bbr";
       "net.core.default_qdisc" = "cake";
       "net.ipv4.tcp_notsent_lowat" = 16384;
+      "vm.mmap_rnd_bits" = 32;
+      "vm.mmap_rnd_compat_bits" = 16;
     };
 
     # mDNS
