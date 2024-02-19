@@ -8,8 +8,4 @@
     ngkz.backup
     borgbackup
   ];
-
-  boot.initrd.kernelModules = [
-    "dm-snapshot"
-  ];
 }
