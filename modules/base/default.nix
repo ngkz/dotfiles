@@ -147,6 +147,7 @@ in
       dmidecode
       pciutils #lspci
       ddrescue
+      bmap-tools
     ];
 
     services.udev.extraRules = ''
