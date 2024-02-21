@@ -46,7 +46,7 @@ let
     "~/pics" = {
       id = "pics";
       path = "${storage}/pics";
-      devices = personal-pcs;
+      devices = pcs;
       ignore = ''
         /phone
         /phone-dcim
@@ -55,13 +55,13 @@ let
     "~/pics/phone" = {
       id = "pics-phone";
       path = "${storage}/pics/phone";
-      devices = personal;
+      devices = all;
       ignore = ignoreCommon;
     };
     "~/pics/phone-dcim" = {
       id = "pics-phone-dcim";
       path = "${storage}/pics/phone-dcim";
-      devices = personal;
+      devices = all;
       ignore = ignoreCommon;
     };
     "~/videos" = {
