@@ -34,13 +34,13 @@
             };
           }
           {
-            # barbet
+            # bluejay
             wireguardPeerConfig = {
               AllowedIPs = [
                 "192.168.70.4/32"
                 "2400:4051:c520:1ef2:fd7e:d3e4:5bf0:be40/128" # TODO dynamic prefix
               ];
-              PublicKey = "a1XeocAbD6Two0/Zb2Pd7lfAwFc7eKG1Lsrk85nMQ30=";
+              PublicKey = "qAMJdOHfEYBA+pgGV4L3ZRx2meTdJRg5g1ZwWlO+V0M=";
               PersistentKeepalive = 25;
             };
           }

@@ -14,8 +14,8 @@ let
   guiUser = "user";
 
   pcs = [ "peregrine" "noguchi-pc" "rednecked" ];
-  all = [ "peregrine" "noguchi-pc" "barbet" "rednecked" ];
-  personal = [ "peregrine" "barbet" "rednecked" ];
+  all = [ "peregrine" "noguchi-pc" "bluejay" "rednecked" ];
+  personal = [ "peregrine" "bluejay" "rednecked" ];
   personal-pcs = [ "peregrine" "rednecked" ];
 
   ignoreCommon = ''
@@ -108,7 +108,7 @@ let
 
   devices = {
     noguchi-pc = { };
-    barbet = {
+    bluejay = {
       compression = "always";
     };
     peregrine = { };
