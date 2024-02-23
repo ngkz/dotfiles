@@ -46,7 +46,7 @@
 
     age.secrets = builtins.foldl'
       (acc: file: acc // {
-        "${file}.nmconnection".file = ../../../secrets/${file}.nmconnection.age;
+        "${file}.nmconnection".file = ../../secrets/${file}.nmconnection.age;
       })
       { }
       config.network-manager.connections;

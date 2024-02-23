@@ -18,4 +18,5 @@
   profiles-intel-cpu = import ./profiles/intel-cpu.nix;
   profiles-intel-wifi = import ./profiles/intel-wifi.nix;
   profiles-laptop = import ./profiles/laptop.nix;
+  network-manager = import ./network-manager;
 }

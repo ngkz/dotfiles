@@ -5,7 +5,6 @@ in
 {
   imports = [
     ./printing.nix
-    ./network-manager
     ./gpg.nix
     ./backup
     ./docker.nix
