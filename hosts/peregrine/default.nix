@@ -13,7 +13,6 @@
     ../../modules/workstation
     ../../modules/sway-desktop.nix
     ../../modules/undervolt.nix
-    ../../modules/nm-config-home.nix
     ../../modules/vmm.nix
     ../../modules/btrfs-maintenance
     ../../modules/nix-maintenance
@@ -161,12 +160,13 @@
   # XXX workaround for swaywm/sway #6962
   environment.variables.WLR_DRM_NO_MODIFIERS = "1";
 
-  # additional network configuration
-  environment.etc."NetworkManager/system-connections/F2L-VPN.nmconnection" = {
-    source = config.age.secrets."wireguard-peregrine.nmconnection".path;
-    mode = "0400";
-  };
-  age.secrets."wireguard-peregrine.nmconnection".file = ../../secrets/wireguard-peregrine.nmconnection.age;
+  network-manager.connections = [
+    "parents-home-1f-a"
+    "parents-home-1f-g"
+    "parents-home-2f"
+    "phone"
+    "wireguard-peregrine"
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

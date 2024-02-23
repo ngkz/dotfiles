@@ -6,7 +6,6 @@
   workstation = import ./workstation;
   sway-desktop = import ./sway-desktop.nix;
   undervolt = import ./undervolt.nix;
-  nm-config-home = import ./nm-config-home.nix;
   vmm = import ./vmm.nix;
   grub-secureboot = import ./grub-secureboot;
   btrfs-maintenance = import ./btrfs-maintenance;

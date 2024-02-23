@@ -1,47 +1,70 @@
+# NetworkManager
 { config, pkgs, lib, ... }: {
-  # NetworkManager
-  networking.useDHCP = false;
-  networking.networkmanager = {
-    enable = true;
-    wifi = {
-      powersave = true;
-      scanRandMacAddress = true;
-      # XXX https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/issues/1091
-      #backend = "iwd";
-      # Generate a random MAC for each WiFi and associate the two permanently.
-      macAddress = "stable";
-    };
-    # Randomize MAC for every ethernet connetion
-    ethernet.macAddress = "random";
-    connectionConfig = {
-      # IPv6 Privacy Extensions
-      "ipv6.ip6-privacy" = 2;
-
-      # unique DUID per connection
-      "ipv6.dhcp-duid" = "stable-uuid";
+  options.network-manager = {
+    connections = lib.mkOption {
+      type = with lib.types; listOf str;
+      default = [ ];
     };
   };
 
-  environment.etc."NetworkManager/dispatcher.d/10-dhcp-ntp".source = pkgs.substituteAll {
-    src = ./dhcp-ntp.sh;
-    isExecutable = true;
-    inherit (pkgs) bash;
-    path = with pkgs; [ coreutils util-linux systemd ];
-  };
+  config = {
+    networking.useDHCP = false;
+    networking.networkmanager = {
+      enable = true;
+      wifi = {
+        powersave = true;
+        scanRandMacAddress = true;
+        # XXX https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/issues/1091
+        #backend = "iwd";
+        # Generate a random MAC for each WiFi and associate the two permanently.
+        macAddress = "stable";
+      };
+      # Randomize MAC for every ethernet connetion
+      ethernet.macAddress = "random";
+      connectionConfig = {
+        # IPv6 Privacy Extensions
+        "ipv6.ip6-privacy" = 2;
 
-  users.users.user.extraGroups = [
-    "networkmanager"
-  ];
+        # unique DUID per connection
+        "ipv6.dhcp-duid" = "stable-uuid";
+      };
+    };
 
-  tmpfs-as-root.persistentDirs = [
-    "/var/lib/NetworkManager"
-  ];
+    environment.etc = {
+      "NetworkManager/dispatcher.d/10-dhcp-ntp".source = pkgs.substituteAll {
+        src = ./dhcp-ntp.sh;
+        isExecutable = true;
+        inherit (pkgs) bash;
+        path = with pkgs; [ coreutils util-linux systemd ];
+      };
+    } // (builtins.foldl'
+      (acc: file: acc // {
+        "NetworkManager/system-connections/${file}.nmconnection".source = config.age.secrets."${file}.nmconnection".path;
+      })
+      { }
+      config.network-manager.connections);
 
-  systemd.services.NetworkManager.serviceConfig = {
-    StateDirectory = lib.mkForce "";
-    ReadWritePaths = [
-      "/var/lib/NetworkManager"
-      "${config.tmpfs-as-root.storage}/var/lib/NetworkManager"
+    age.secrets = builtins.foldl'
+      (acc: file: acc // {
+        "${file}.nmconnection".file = ../../../secrets/${file}.nmconnection.age;
+      })
+      { }
+      config.network-manager.connections;
+
+    users.users.user.extraGroups = [
+      "networkmanager"
     ];
+
+    tmpfs-as-root.persistentDirs = [
+      "/var/lib/NetworkManager"
+    ];
+
+    systemd.services.NetworkManager.serviceConfig = {
+      StateDirectory = lib.mkForce "";
+      ReadWritePaths = [
+        "/var/lib/NetworkManager"
+        "${config.tmpfs-as-root.storage}/var/lib/NetworkManager"
+      ];
+    };
   };
 }
