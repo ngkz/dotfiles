@@ -24,4 +24,5 @@ in
   "wireguard-peregrine.nmconnection.age".publicKeys = [ peregrine ];
   "pppoe-creds.age".publicKeys = [ rednecked ];
   "cloudflare-api-key.age".publicKeys = [ rednecked ];
+  "0000docomo.nmconnection.age".publicKeys = [ peregrine noguchi-pc ];
 }

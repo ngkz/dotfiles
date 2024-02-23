@@ -160,6 +160,7 @@ in
     "IFC"
     "wireguard-noguchi-pc"
     "phone"
+    "0000docomo"
   ];
 
   # This value determines the NixOS release from which the default

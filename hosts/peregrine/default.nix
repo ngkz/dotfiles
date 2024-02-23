@@ -166,6 +166,7 @@
     "parents-home-2f"
     "phone"
     "wireguard-peregrine"
+    "0000docomo"
   ];
 
   # This value determines the NixOS release from which the default
