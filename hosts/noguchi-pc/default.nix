@@ -159,6 +159,7 @@ in
   network-manager.connections = [
     "IFC"
     "wireguard-noguchi-pc"
+    "phone"
   ];
 
   # This value determines the NixOS release from which the default
