@@ -40,7 +40,7 @@
                 "192.168.70.4/32"
                 "2400:4051:c520:1ef2:fd7e:d3e4:5bf0:be40/128" # TODO dynamic prefix
               ];
-              PublicKey = "qAMJdOHfEYBA+pgGV4L3ZRx2meTdJRg5g1ZwWlO+V0M=";
+              PublicKey = "w7UVhkpx03rLl2CK4nrWKXdGDWzmyg5Ua2TsPQrKoyI=";
               PersistentKeepalive = 25;
             };
           }
