@@ -12,7 +12,7 @@ current=$(nix eval --no-warn-dirty --raw "../..#${pname}.src.rev")
 commit=$(curl -sf https://api.github.com/repos/$owner/$repo/commits/$branch)
 latest=$(jq -r .sha <<<"$commit")
 
-if [[ $latest == "71737401648c85af21e1af28819cad55f6ab2b62" ]]; then
+if [[ $latest == "fcf8be8511344029841f3408238859395048687f" ]]; then
     echo "$pname: known bad commit"
     exit 0
 fi
