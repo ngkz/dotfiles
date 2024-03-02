@@ -17,17 +17,18 @@
 
 stdenv.mkDerivation rec {
   pname = "fcitx5-skk";
-  version = "5.1.1";
+  version = "5.1.2";
 
   src = fetchFromGitHub {
     owner = "fcitx";
     repo = pname;
     rev = version;
-    hash = "sha256-a+ZsuFEan61U0oOuhrTFoK5J4Vd0jj463jQ8Mk7TdbA=";
+    hash = "sha256-vg79zJ/ZoUjCKU11krDUjO0rAyZxDMsBnHqJ/I6NTTA=";
   };
 
   cmakeFlags = [
     "-DSKK_DEFAULT_PATH=${ skk-dicts }/share/SKK-JISYO.combined"
+    "-DUSE_QT6=off" #XXX current fcitx5-qt packagte doesn't support qt6
   ];
 
   nativeBuildInputs = [
