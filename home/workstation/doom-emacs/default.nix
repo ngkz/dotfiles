@@ -18,8 +18,8 @@ in
     "emacs".source = pkgs.fetchFromGitHub {
       owner = "doomemacs";
       repo = "doomemacs";
-      rev = "bea81278fd2ecb65db6a63dbcd6db2f52921ee41";
-      hash = "sha256-XbohD+bCpB9xNIqmmPvauqEA7gPBs/7mDhJ7kKdUFsM=";
+      rev = "aad8ec1895714f4fec6abfe444c9a69b4ee8f308";
+      hash = "sha256-QZCNdv/hdeFtRcuPdoXBicnXu/5iMhmfkkUhhnRSmnc=";
     };
   };
 
@@ -159,7 +159,7 @@ in
 
     # lang/nix
     nixfmt
-    rnix-lsp
+    #rnix-lsp # XXX rnix-lsp pulls in vulnerable nix
 
     # lang/org
     texlive.combined.scheme-medium
