@@ -70,7 +70,14 @@
         - fcitx5-frontend-all
 
     - name: disable screen lock
-      xfconf: channel=xfce4-power-manager property=/xfce4-power-manager/dpms-enabled value_type=bool value=false
+      xfconf: channel=xfce4-power-manager property={{ item.property }} value_type={{ item.value_type }} value={{ item.value }}
+      with_items:
+        - property: /xfce4-power-manager/dpms-enabled
+          value_type: bool
+          value: false
+        - property: /xfce4-power-manager/blank-on-ac
+          value_type: int
+          value: 0
       become: no
 
     - name: install nix
