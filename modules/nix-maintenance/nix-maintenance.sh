@@ -4,7 +4,6 @@ set -eu
 export PATH=/empty
 for i in @path@; do PATH=$PATH:$i/bin; done
 
-cache=/var/cache/nix-maintenance
 rwstore=/run/nix-maintenance
 
 # Delete configurations older than a week and perform GC
@@ -38,13 +37,8 @@ if [[ "$(findmnt -fno FSTYPE /nix/store)" = btrfs ]]; then
             xargs -d '\n' -r btrfs filesystem defragment -f >/dev/null
         exec 3>&-
     fi
-
-    # deduplicate the store
-    echo "deduplicating the store:"
-    mkdir -p "$cache"
-    duperemove -rdh --hashfile="$cache/duperemove.db" "$rwstore"
-else
-    # Replace identical files in the store by hard links
-    echo "deduplicating the store:"
-    nix store optimise
 fi
+
+# Replace identical files in the store by hard links
+echo "deduplicating the store:"
+nix store optimise
