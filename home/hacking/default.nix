@@ -82,6 +82,7 @@
 
     ghidra
     burpsuite
+    imhex
   ];
 
   cli-base.pythonPackages = p: with p; [
