@@ -79,6 +79,8 @@
     wabt
     one_gadget
     upx
+    dotnet-sdk
+    pkgsCross.mingwW64.buildPackages.gcc
 
     ghidra
     burpsuite
@@ -99,4 +101,6 @@
   ];
 
   xdg.configFile."gdb/gdbinit".source = ./gdbinit;
+
+  home.sessionVariables.DOTNET_CLI_TELEMETRY_OPTOUT = "1";
 }
