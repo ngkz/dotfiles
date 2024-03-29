@@ -12,11 +12,12 @@ Peripherals: ThinkPad USB-C Dock Gen 2, ThinkPad Compact USB Keyboard with Track
 #### Backup stock keys
 - Do once
 ```sh
-nix shell nixpkgs#efitools
+nix-shell -p efitools
 efi-readvar -v PK -o old_PK.esl
 efi-readvar -v KEK -o old_KEK.esl
 efi-readvar -v db -o old_db.esl
 efi-readvar -v dbx -o old_dbx.esl
+(copy to ~/docs/peregrine-secureboot-backup)
 ```
 
 #### Create Secure Boot keys
@@ -60,7 +61,7 @@ chown root:root *
 - **This might brick some machines!** Some devices need a microsoft-signed firmware to operate.
 
     ```sh
-    nix shell nixpkgs#efitools
+    nix-shell -p efitools
     efi-updatevar -e -f old_dbx.esl dbx
     efi-updatevar -e -f db.esl db
     efi-updatevar -e -f KEK.esl KEK
@@ -98,7 +99,7 @@ chown root:root *
     ```
 
 ### Boot with NixOS ISO
-- Disable Secure Boot and boot a NixOS installer ISO
+- Boot a NixOS installer ISO
 
 ### Load keyboard layout
 ```sh
@@ -107,6 +108,7 @@ loadkeys jp106
 
 ### Set up filesystems
 ```sh
+# Erase the disk
 nix-shell -p nvme-cli
 nvme format -s1 /dev/nvme0n1
 
@@ -177,31 +179,27 @@ EOS
 chmod 400 /mnt/var/persist/secrets/*
 ```
 
-### Install NixOS
+### Update hardware configuration
+ * use `nixos-generate-config --root /mnt` to generate hardware config
 ```sh
-nix-shell -p git nixFlakes
-git clone https://github.com/ngkz/dotfiles
-cd dotfiles
+btrfs inspect-internal map-swapfile /mnt/var/swap/swapfile
+Physical start:   2186280960
+Resume offset:        533760
 vim hosts/peregrine/default.nix
 (Update filesystems UUIDs)
-nixos-install --root /mnt --flake ".#peregrine" --no-root-passwd --impure
+boot.kernelParams = [ "resume_offset=533760" ];
+```
+
+### Install NixOS
+```sh
+passwd
+(set password)
+(transfer dotfiles with `rsync -a dotfiles nixos@<IP>:~/`)
+cd dotfiles
+nixos-install --root /mnt --flake ".#peregrine" --no-root-passwd
 ```
 
 ### Re-enable Secure Boot
-
-### Configure hibernation
-```sh
-btrfs inspect-internal map-swapfile /var/swap/swapfile
-Physical start:   2186280960
-Resume offset:        533760
-nvim hosts/peregrine/default.nix
-```
-```
-boot.kernelParams = [ "resume_offset=533760" ];
-```
-```sh
-switch
-```
 
 ### Setup TPM2 LUKS Unlock
 ```sh

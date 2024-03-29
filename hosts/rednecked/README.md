@@ -90,12 +90,19 @@ EOS
 chmod 400 /mnt/var/persist/secrets/*
 ```
 
-### Install NixOS
+### Update hardware configuration
+ * use `nixos-generate-config --root /mnt` to generate hardware config
 ```sh
-nix-shell -p git nixFlakes
-git clone https://github.com/ngkz/dotfiles
-cd dotfiles
 vim hosts/rednecked/fs.nix
 (Update filesystems UUIDs)
-nixos-install --root /mnt --flake ".#rednecked" --no-root-passwd --impure
+```
+
+
+### Install NixOS
+```sh
+passwd
+(set password)
+(transfer dotfiles with `rsync -a dotfiles nixos@<IP>:~/`)
+cd dotfiles
+nixos-install --root /mnt --flake ".#rednecked" --no-root-passwd
 ```
