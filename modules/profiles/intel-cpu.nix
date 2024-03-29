@@ -24,7 +24,7 @@ in
 
     # power saving
     boot.extraModprobeConfig = mkIf config.profiles.intel-cpu.enableGPUPowerSaving ''
-      options i915 enable_fbc=1 enable_psr=2 enable_guc=2 enable_psr2_sel_fetch=1
+      options i915 enable_fbc=1 enable_psr=2 enable_guc=3 enable_psr2_sel_fetch=1
       options drm vblankoffdelay=1
     '';
   };
