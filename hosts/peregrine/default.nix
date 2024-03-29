@@ -121,9 +121,6 @@
     START_CHARGE_THRESH_BAT0 = 70;
     STOP_CHARGE_THRESH_BAT0 = 80;
 
-    DISK_DEVICES = "nvme0n1";
-    #SATA_LINKPWR_ON_AC = "max_performance";
-
     PLATFORM_PROFILE_ON_AC = "performance";
     PLATFORM_PROFILE_ON_BAT = "low-power";
 
