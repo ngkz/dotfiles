@@ -63,15 +63,15 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "freecad-realthunder";
-  version = "2024.01.23";
+  version = "2024.03.22";
 
   srcs = [
     # TODO update script
     (fetchFromGitHub {
       owner = "realthunder";
       repo = "FreeCAD";
-      rev = "20240123stable";
-      hash = "sha256-6kPRWppobAyYO0OzJd7vhY+yu2cmquL1QWLKNkgtGgg=";
+      rev = "da98001cfe5cc50cb2e9e4c241626d07dd4b06f5";
+      hash = "sha256-MxcPgaJf4Ybg3JBWrvfSUkKb3cOimmJFeFhW1jYwdj4=";
       name = "freecad";
     })
     (fetchFromGitHub {
@@ -84,8 +84,8 @@ stdenv.mkDerivation (finalAttrs: {
     (fetchFromGitHub {
       owner = "realthunder";
       repo = "FreeCAD_assembly3";
-      rev = "f03d22c99448b93adcdf0d3690a553a0eca895d8";
-      hash = "sha256-6UHsuCW/osPDuYn9rVfJ53A0Qb2bg2yaJjlzIXhMZ3M=";
+      rev = "1fbe223d2014827dba5ce3bea8a6b2f4c904a8f7";
+      hash = "sha256-VKknAdCYNvPTuMb056qx2RLH0k/b5C4jf5Cym2XUcYQ=";
       name = "asm3";
     })
   ];
