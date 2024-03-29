@@ -90,10 +90,6 @@
   ];
 
   tmpfs-as-root.enable = true;
-  tmpfs-as-root.persistentDirs = [
-    # tlp
-    "/var/lib/tlp"
-  ];
 
   modules.btrfs-maintenance = {
     fileSystems = [

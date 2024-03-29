@@ -41,11 +41,6 @@
           modules = [ ./hosts/rednecked ];
           specialArgs = { inherit inputs lib; };
         };
-        burner = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ ./hosts/burner ];
-          specialArgs = { inherit inputs lib; };
-        };
       };
 
       homeConfigurations = {

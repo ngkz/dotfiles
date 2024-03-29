@@ -16,4 +16,10 @@ in
       "${config.tmpfs-as-root.storage}/var/lib/tlp"
     ];
   };
+
+  services.tlp.enable = true;
+  tmpfs-as-root.persistentDirs = [
+    # tlp
+    "/var/lib/tlp"
+  ];
 }
