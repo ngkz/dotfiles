@@ -65,6 +65,8 @@
         # nix packages are broken
         - dnsmap
         - dnsrecon
+        # no nix package
+        - dnscat2
 
         # im
         - fcitx5-frontend-all
