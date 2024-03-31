@@ -58,7 +58,7 @@ in
         # run doom sync only when really necessary
         if [ ! -e "$DOOMLOCALDIR/hash" ] ||  [ "$(<$DOOMLOCALDIR/hash)" != "$newhash" ]; then
           echo "configuration changed, doom sync"
-          ~/.config/emacs/bin/doom sync -p -!
+          ~/.config/emacs/bin/doom sync --gc -!
           echo "$newhash" > $DOOMLOCALDIR/hash
         fi
       fi
