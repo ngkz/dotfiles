@@ -39,7 +39,7 @@ in
   };
 
   systemd.user.services.emacs.Service = {
-    TimeoutStartSec = "1h";
+    TimeoutStartSec = "3h";
     Environment = [
       "DOOMDIR=${config.home.sessionVariables.DOOMDIR}"
       "DOOMLOCALDIR=${config.home.sessionVariables.DOOMLOCALDIR}"
