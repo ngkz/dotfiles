@@ -23,17 +23,6 @@
             };
           }
           {
-            # noguchi-pc
-            wireguardPeerConfig = {
-              AllowedIPs = [
-                "192.168.70.3/32"
-                "2400:4051:c520:1ef2:d5c8:218f:1106:82b9/128" # TODO dynamic prefix
-              ];
-              PublicKey = "ftZZBc7ToneXygRUg5YBWRDLbt9AlUm11/QrmsXXsis=";
-              PersistentKeepalive = 25;
-            };
-          }
-          {
             # bluejay
             wireguardPeerConfig = {
               AllowedIPs = [
@@ -41,6 +30,17 @@
                 "2400:4051:c520:1ef2:fd7e:d3e4:5bf0:be40/128" # TODO dynamic prefix
               ];
               PublicKey = "w7UVhkpx03rLl2CK4nrWKXdGDWzmyg5Ua2TsPQrKoyI=";
+              PersistentKeepalive = 25;
+            };
+          }
+          {
+            # noguchi2-pc
+            wireguardPeerConfig = {
+              AllowedIPs = [
+                "192.168.70.5/32"
+                "2400:4051:c520:1ef2:268e:64d6:2d3d:e2cb/128" # TODO dynamic prefix
+              ];
+              PublicKey = "WuvnqE7Z3MTseUm8Ji3KLxuhaBXcKmQb77A20S9DVmQ=";
               PersistentKeepalive = 25;
             };
           }
