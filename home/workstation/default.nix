@@ -170,6 +170,11 @@ in
         user = "user";
         port = 443;
       };
+      noguchi2-pc = {
+        hostname = "192.168.70.5";
+        user = "user";
+        port = 35822;
+      };
     };
   };
 

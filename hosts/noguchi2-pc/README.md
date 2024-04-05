@@ -1,9 +1,9 @@
-# noguchi-pc
+# noguchi2-pc
 ## Overview
-It's my workplace-issued machine. (This is why its hostname is awful)
+Lenovo V15 G4. It's my new workplace-issued machine. (This is why its hostname is awful)
 
 ## Specs
-Core i5-6200U, JIS Keyboard, 1366x768🤮 LCD, 8GB🤮🤮 RAM, 256GB🤮🤮🤮 WD Blue SATA SSD
+Core i5-13420H✨, 16GB RAM, JIS Keyboard, 15.6" 1920x1080 LCD, 256GB🤮 NVMe SSD
 
 Peripherals: 2x FHD monitors, TKL JIS Realforce, Kensington Expert Mouse 5 Trackball
 
@@ -12,11 +12,12 @@ Peripherals: 2x FHD monitors, TKL JIS Realforce, Kensington Expert Mouse 5 Track
 #### Backup stock keys
 - Do once
 ```sh
-nix shell nixpkgs#efitools
+nix-shell -p efitools
 efi-readvar -v PK -o old_PK.esl
 efi-readvar -v KEK -o old_KEK.esl
 efi-readvar -v db -o old_db.esl
 efi-readvar -v dbx -o old_dbx.esl
+(copy to ~/docs/noguchi2-pc-secureboot-backup)
 ```
 
 #### Create Secure Boot keys
@@ -48,14 +49,15 @@ chown root:root *
 #### Install secure boot keys
 1. Put the firmware in Setup Mode
 
- - Enable Secure Boot and clear secure boot keys
+ - Do *Reset to Setup Mode* and enable *Secure Boot*
+ - Set BIOS password
 
 2. Enroll keys
 - Replaces default manufacturer/microsoft keys with custom personal key.
 - **This might brick some machines!** Some devices need a microsoft-signed firmware to operate.
 
     ```sh
-    nix shell nixpkgs#efitools
+    nix-shell -p efitools
     efi-updatevar -e -f old_dbx.esl dbx
     efi-updatevar -e -f db.esl db
     efi-updatevar -e -f KEK.esl KEK
@@ -93,7 +95,7 @@ chown root:root *
     ```
 
 ### Boot with NixOS ISO
-- Disable Secure Boot and boot a NixOS installer ISO
+- Boot a NixOS installer ISO
 
 ### Load keyboard layout
 ```sh
@@ -102,24 +104,22 @@ loadkeys jp106
 
 ### Set up filesystems
 ```sh
-# Secure Erase the disk
-systemctl suspend
-(resume the machine)
-hdparm --user-master u --security-set-pass a /dev/sda
-hdparm --user-master u --security-erase-enhanced a /dev/sda
+# Erase the disk
+nix-shell -p nvme-cli
+nvme format -s1 /dev/nvme0n1
 
 # Create partitions
-parted /dev/sda -- mklabel gpt
-parted /dev/sda -- mkpart ESP fat32 1MiB 1GiB
-parted /dev/sda -- set 1 esp on
-parted /dev/sda -- mkpart NixOS 1GiB 100%
+parted /dev/nvme0n1 -- mklabel gpt
+parted /dev/nvme0n1 -- mkpart ESP fat32 1MiB 1GiB
+parted /dev/nvme0n1 -- set 1 esp on
+parted /dev/nvme0n1 -- mkpart NixOS 1GiB 100%
 
 # Format EFI System Partition
-mkfs.fat -n ESP -F32 /dev/sda1
+mkfs.fat -n ESP -F32 /dev/nvme0n1p1
 
 # Create and open an encrypted persistent data container
-cryptsetup luksFormat /dev/sda2
-cryptsetup open /dev/sda2 cryptroot --allow-discards
+cryptsetup luksFormat /dev/nvme0n1p2
+cryptsetup open /dev/nvme0n1p2 cryptroot --allow-discards
 
 # Format the persistent data container
 mkfs.btrfs -L root /dev/mapper/cryptroot
@@ -136,7 +136,7 @@ btrfs subvolume create /mnt/snapshots
 mkdir -p /mnt/persist/var/log
 
 # Create swapfile
-btrfs filesystem mkswapfile --size 8G /mnt/swap/swapfile
+btrfs filesystem mkswapfile --size 16G /mnt/swap/swapfile
 
 umount /mnt
 ```
@@ -150,7 +150,7 @@ mount -t tmpfs -o size=2G,mode=755 none /mnt
 mkdir -p /mnt/{boot,nix,var/{log,persist,swap}}
 
 # Mount ESP
-mount /dev/sda1 /mnt/boot
+mount /dev/nvme0n1p1 /mnt/boot
 
 # Mount persistent storages
 mount -o compress=zstd,subvol=nix /dev/mapper/cryptroot /mnt/nix
@@ -175,35 +175,31 @@ EOS
 chmod 400 /mnt/var/persist/secrets/*
 ```
 
+### Update hardware configuration
+ * use `nixos-generate-config --root /mnt` to generate hardware config
+```sh
+btrfs inspect-internal map-swapfile /mnt/var/swap/swapfile
+Physical start:   2186280960
+Resume offset:        533760
+vim hosts/noguchi2-pc/default.nix
+(Update filesystems UUIDs)
+boot.kernelParams = [ "resume_offset=533760" ];
+```
+
 ### Install NixOS
 ```sh
-nix-shell -p git nixFlakes
-git clone https://github.com/ngkz/dotfiles
+passwd
+(set password)
+(transfer dotfiles with `rsync -a dotfiles nixos@<IP>:~/`)
 cd dotfiles
-vim hosts/noguchi-pc/default.nix
-(Update filesystems UUIDs)
-nixos-install --root /mnt --flake ".#noguchi-pc" --no-root-passwd --impure
+nixos-install --root /mnt --flake ".#noguchi2-pc" --no-root-passwd
 ```
 
 ### Re-enable Secure Boot
 
-### Configure hibernation
-```sh
-btrfs inspect-internal map-swapfile /var/swap/swapfile
-Physical start:   2186280960
-Resume offset:        533760
-nvim hosts/noguchi-pc/default.nix
-```
-```
-boot.kernelParams = [ "resume_offset=533760" ];
-```
-```sh
-switch
-```
-
 ### Setup TPM2 LUKS Unlock
 ```sh
-systemd-cryptenroll --recovery-key /dev/sda2
-systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=0+2+3+7 --tpm2-with-pin=yes /dev/sda2
-cryptsetup luksKillSlot /dev/sda2 0 # delete password set by luksFormat
+systemd-cryptenroll --recovery-key /dev/nvme0n1p2
+systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=0+2+3+7 --tpm2-with-pin=yes /dev/nvme0n1p2
+cryptsetup luksKillSlot /dev/nvme0n1p2 0 # delete password set by luksFormat
 ```

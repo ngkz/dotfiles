@@ -31,14 +31,14 @@
           modules = [ ./hosts/peregrine ];
           specialArgs = { inherit inputs lib; };
         };
-        noguchi-pc = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ ./hosts/noguchi-pc ];
-          specialArgs = { inherit inputs lib; };
-        };
         rednecked = nixpkgs-small.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [ ./hosts/rednecked ];
+          specialArgs = { inherit inputs lib; };
+        };
+        noguchi2-pc = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [ ./hosts/noguchi2-pc ];
           specialArgs = { inherit inputs lib; };
         };
       };

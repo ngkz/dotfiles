@@ -13,8 +13,8 @@ let
 
   guiUser = "user";
 
-  pcs = [ "peregrine" "noguchi-pc" "rednecked" ];
-  all = [ "peregrine" "noguchi-pc" "bluejay" "rednecked" ];
+  pcs = [ "peregrine" "rednecked" "noguchi2-pc" ];
+  all = [ "peregrine" "bluejay" "rednecked" "noguchi2-pc" ];
   personal = [ "peregrine" "bluejay" "rednecked" ];
   personal-pcs = [ "peregrine" "rednecked" ];
 
@@ -46,7 +46,7 @@ let
     "~/pics" = {
       id = "pics";
       path = "${storage}/pics";
-      devices = pcs;
+      devices = personal-pcs;
       ignore = ''
         /phone
         /phone-dcim
@@ -55,13 +55,13 @@ let
     "~/pics/phone" = {
       id = "pics-phone";
       path = "${storage}/pics/phone";
-      devices = all;
+      devices = personal;
       ignore = ignoreCommon;
     };
     "~/pics/phone-dcim" = {
       id = "pics-phone-dcim";
       path = "${storage}/pics/phone-dcim";
-      devices = all;
+      devices = personal;
       ignore = ignoreCommon;
     };
     "~/videos" = {
@@ -107,12 +107,12 @@ let
   };
 
   devices = {
-    noguchi-pc = { };
     bluejay = {
       compression = "always";
     };
     peregrine = { };
     rednecked = { };
+    noguchi2-pc = { };
   };
 
   deviceFolders = hostname: storage: filterAttrs (_: v: elem hostname v.devices) (folders storage);

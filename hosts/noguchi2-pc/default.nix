@@ -1,17 +1,18 @@
-# configuration for noguchi-pc
+# configuration for noguchi2-pc
 
 { config, lib, pkgs, ... }:
 let
   inherit (lib) mkAfter;
 in
 {
-  networking.hostName = "noguchi-pc";
+  networking.hostName = "noguchi2-pc";
 
   imports = [
     ../../modules/agenix.nix
     ../../modules/base
     ../../modules/grub-secureboot
     ../../modules/ssd.nix
+    ../../modules/sshd.nix
     ../../modules/workstation
     ../../modules/sway-desktop.nix
     ../../modules/vmm.nix
@@ -30,10 +31,8 @@ in
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   boot.initrd.availableKernelModules = [
     "xhci_pci"
-    "ahci"
+    "nvme"
     "usbhid"
-    "sd_mod"
-    "sr_mod"
 
     # LUKS Early boot AES acceleration
     "aesni_intel"
@@ -48,7 +47,7 @@ in
   boot.initrd.luks.devices."cryptroot" = {
     allowDiscards = true;
     bypassWorkqueues = true;
-    device = "/dev/disk/by-uuid/7583af88-a565-4147-896e-65ad697a0f87";
+    device = "/dev/disk/by-uuid/9d9c5ab1-743c-40de-952b-8cb0f47be691";
     crypttabExtraOpts = [ "tpm2-device=auto" ]; # tpm2 unlock
   };
 
@@ -60,7 +59,7 @@ in
     in
     {
       "/boot" = {
-        device = "/dev/disk/by-uuid/24B3-7A55";
+        device = "/dev/disk/by-uuid/77CE-D642";
         fsType = "vfat";
       };
       "/nix" = {
@@ -102,8 +101,8 @@ in
   };
 
   # user
-  age.secrets.user-password-hash-noguchi-pc.file = ../../secrets/user-password-hash-noguchi-pc.age;
-  users.users.user.hashedPasswordFile = config.age.secrets.user-password-hash-noguchi-pc.path;
+  age.secrets.user-password-hash-noguchi2-pc.file = ../../secrets/user-password-hash-noguchi2-pc.age;
+  users.users.user.hashedPasswordFile = config.age.secrets.user-password-hash-noguchi2-pc.path;
 
   home-manager.users.user = {
     imports = [
@@ -116,6 +115,14 @@ in
 
   # tlp
   services.tlp.settings = {
+    # battery conservation mode
+    # https://linrunner.de/tlp/settings/bc-vendors.html
+    START_CHARGE_THRESH_BAT0 = 0;
+    STOP_CHARGE_THRESH_BAT0 = 1;
+
+    PLATFORM_PROFILE_ON_AC = "performance";
+    PLATFORM_PROFILE_ON_BAT = "low-power";
+
     CPU_SCALING_GOVERNOR_ON_AC = "performance";
     CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
@@ -127,33 +134,27 @@ in
     RESTORE_DEVICE_STATE_ON_STARTUP = 1; # TLP masks systemd-rfkill
     DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "bluetooth wifi wwan";
 
-    # XXX iGPU lockup
-    # RUNTIME_PM_DRIVER_DENYLIST = "";
-    # PCIE_ASPM_ON_AC = "default";
-    # PCIE_ASPM_ON_BAT = "powersupersave";
+    RUNTIME_PM_DRIVER_DENYLIST = "";
+    PCIE_ASPM_ON_AC = "default";
+    PCIE_ASPM_ON_BAT = "powersupersave";
   };
-
-  # XXX disable guc submission. It looks like iGPU causing lockup sometimes
-  profiles.intel-cpu.enableGPUPowerSaving = false;
 
   # hibernation
   boot.resumeDevice = config.fileSystems."/var/swap".device;
 
   boot.kernelParams = [
-    # tlp
-    # XXX iGPU lockup
-    # "pcie_aspm=force"
-
     # hibernation
     "resume_offset=533760"
   ];
 
-
-  environment.systemPackages = with pkgs; [ wireguard-tools ];
+  environment.systemPackages = with pkgs; [
+    nvme-cli # NVMe SSD
+    wireguard-tools
+  ];
 
   network-manager.connections = [
     "IFC"
-    "wireguard-noguchi-pc"
+    "wireguard-noguchi2-pc"
     "phone"
     "0000docomo"
   ];
@@ -164,5 +165,5 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
 }
