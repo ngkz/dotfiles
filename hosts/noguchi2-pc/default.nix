@@ -21,6 +21,7 @@ in
     ../../modules/zswap.nix
     ../../modules/bluetooth.nix
     ../../modules/network-manager
+    ../../modules/undervolt
 
     ../../modules/profiles/laptop.nix
     ../../modules/profiles/intel-cpu.nix
@@ -158,6 +159,11 @@ in
     "phone"
     "0000docomo"
   ];
+
+  undervolt = {
+    longTermPowerLimit = 45;
+    tjoffset = -3;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
