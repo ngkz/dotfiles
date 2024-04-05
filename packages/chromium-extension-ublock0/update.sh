@@ -8,7 +8,7 @@ owner=gorhill
 repo=uBlock
 
 current=$(nix eval --no-warn-dirty --raw "../..#${pname}.version")
-latest=$(curl -sf "https://api.github.com/repos/$owner/$repo/releases" | \
+latest=$(curl -sfL "https://api.github.com/repos/$owner/$repo/releases" | \
     jq -r '[.[]|select(.prerelease == false and .draft == false and (.tag_name|startswith("uBOLite")|not))][0].tag_name')
 
 if [[ $current == $latest ]]; then

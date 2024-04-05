@@ -9,7 +9,7 @@ repo=capture.vim
 branch=master
 
 current=$(nix eval --no-warn-dirty --raw "../..#${pname}.src.rev")
-commit=$(curl -sf https://api.github.com/repos/$owner/$repo/commits/$branch)
+commit=$(curl -sfL https://api.github.com/repos/$owner/$repo/commits/$branch)
 latest=$(jq -r .sha <<<"$commit")
 
 if [[ $current == "$latest" ]]; then

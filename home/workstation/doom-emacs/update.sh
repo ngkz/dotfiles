@@ -7,7 +7,7 @@ owner=doomemacs
 repo=doomemacs
 
 current=$(sed -n "s/\s*rev = \"\(.*\)\".*/\1/p" default.nix)
-commit=$(curl -sf https://api.github.com/repos/$owner/$repo/commits/master)
+commit=$(curl -sfL https://api.github.com/repos/$owner/$repo/commits/master)
 latest=$(jq -r .sha <<<"$commit")
 
 if [[ $current == "$latest" ]]; then

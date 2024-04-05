@@ -10,11 +10,11 @@ repo2=skktools
 branch=master
 
 current1=$(sed -n 's/.*dict_rev = "\(.*\)";.*/\1/p' default.nix)
-commit1=$(curl -sf https://api.github.com/repos/$owner/$repo1/commits/master)
+commit1=$(curl -sfL https://api.github.com/repos/$owner/$repo1/commits/master)
 latest1=$(jq -r .sha <<<"$commit1")
 
 current2=$(sed -n 's/.*tools_rev = "\(.*\)";.*/\1/p' default.nix)
-commit2=$(curl -sf https://api.github.com/repos/$owner/$repo2/commits/master)
+commit2=$(curl -sfL https://api.github.com/repos/$owner/$repo2/commits/master)
 latest2=$(jq -r .sha <<<"$commit2")
 
 if [[ $current1 == "$latest1" ]] && [[ $current2 == "$latest2" ]]; then

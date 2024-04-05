@@ -9,7 +9,7 @@ repo=FlyGrep.vim
 branch=master
 
 current=$(nix eval --no-warn-dirty --raw "../..#${pname}.src.rev")
-commit=$(curl -sf https://api.github.com/repos/$owner/$repo/commits/$branch)
+commit=$(curl -sfL https://api.github.com/repos/$owner/$repo/commits/$branch)
 latest=$(jq -r .sha <<<"$commit")
 
 if [[ $latest == "fcf8be8511344029841f3408238859395048687f" ]]; then

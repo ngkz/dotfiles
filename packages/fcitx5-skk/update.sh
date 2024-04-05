@@ -8,7 +8,7 @@ owner=fcitx
 repo=$pname
 
 current=$(nix eval --no-warn-dirty --raw "../..#${pname}.version")
-latest=$(curl -sf "https://api.github.com/repos/$owner/$repo/tags" | jq -r ".[0].name")
+latest=$(curl -sfL "https://api.github.com/repos/$owner/$repo/tags" | jq -r ".[0].name")
 
 if [[ $current == $latest ]]; then
     echo "$pname is up-to-date: $latest"

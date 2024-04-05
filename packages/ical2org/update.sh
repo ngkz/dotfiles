@@ -8,7 +8,7 @@ owner=msherry
 repo=ical2org
 
 current=$(nix eval --no-warn-dirty --raw "../..#${pname}.src.rev")
-commit=$(curl -sf https://api.github.com/repos/$owner/$repo/commits/master)
+commit=$(curl -sfL https://api.github.com/repos/$owner/$repo/commits/master)
 latest=$(jq -r .sha <<<"$commit")
 
 if [[ $current == "$latest" ]]; then
