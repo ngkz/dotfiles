@@ -12,7 +12,7 @@
     ../../modules/sshd.nix
     ../../modules/workstation
     ../../modules/sway-desktop.nix
-    ../../modules/undervolt.nix
+    ../../modules/undervolt
     ../../modules/vmm.nix
     ../../modules/btrfs-maintenance
     ../../modules/nix-maintenance
@@ -162,6 +162,19 @@
     "wireguard-peregrine"
     "0000docomo"
   ];
+
+  undervolt = {
+    cpu = -115;
+    gpu = -75;
+    cpuCache = -75;
+    gpuUnslice = -75;
+    systemAgent = -25;
+
+    shortTermPowerLimit = 65;
+    longTermPowerLimit = 65;
+
+    tjoffset = -3;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
