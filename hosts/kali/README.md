@@ -12,6 +12,23 @@ Kali Linux rolling + home-manager Vagrant VM
 VAGRANT_EXPERIMENTAL="disks" vagrant up --provision
 ```
 
+Resize / partition with:
+```sh
+vagrant ssh
+sudo swapoff /dev/sda5
+sudo parted /dev/sda
+p
+rm (extended partition)
+resizepart 1 -1GiB
+p
+mkpart linux-swap (/ END) 0
+quit
+sudo mkswap /dev/sda2
+sudo swapon /dev/sda2
+sudo -e /etc/fstab
+(change swap UUID)
+```
+
 ### Switch the configuration
 
 ```sh
