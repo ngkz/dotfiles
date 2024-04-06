@@ -76,7 +76,7 @@
       with_items:
         - property: /xfce4-power-manager/dpms-enabled
           value_type: bool
-          value: false
+          value: 'false'
         - property: /xfce4-power-manager/blank-on-ac
           value_type: int
           value: 0
