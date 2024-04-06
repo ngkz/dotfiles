@@ -67,7 +67,7 @@ Vagrant.configure('2') do |config|
     v.customize ['sharedfolder', 'add', :id, '--name', skk_dicts_sf_id, '--hostpath', skk_dicts, '--readonly']
   end
 
-  config.vm.hostname = vmname
+  config.vm.hostname = "lika" #change hostname to avoid detection
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
