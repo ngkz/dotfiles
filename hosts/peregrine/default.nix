@@ -164,11 +164,11 @@
   ];
 
   undervolt = {
-    cpu = -115;
-    gpu = -75;
-    cpuCache = -75;
-    gpuUnslice = -75;
-    systemAgent = -25;
+    cpu = -105;
+    gpu = -65;
+    cpuCache = -65;
+    gpuUnslice = -65;
+    systemAgent = -15;
 
     shortTermPowerLimit = 65;
     longTermPowerLimit = 65;
