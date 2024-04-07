@@ -576,7 +576,7 @@ in
     hugo
     sqlite
     exiftool
-    bsdgames
+    # bsdgames # conflicts with mono
     geteltorito
     sbsigntool
     tpm2-tools

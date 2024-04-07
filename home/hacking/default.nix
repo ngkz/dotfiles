@@ -79,8 +79,10 @@
     wabt
     one_gadget
     upx
-    dotnet-sdk
+    mono
     pkgsCross.mingwW64.buildPackages.gcc
+    proxychains
+    chisel
 
     ghidra
     burpsuite
@@ -101,6 +103,4 @@
   ];
 
   xdg.configFile."gdb/gdbinit".source = ./gdbinit;
-
-  home.sessionVariables.DOTNET_CLI_TELEMETRY_OPTOUT = "1";
 }
