@@ -4,7 +4,8 @@ let
   inherit (lib) mkOption types optionalString makeBinPath;
 
   cfg = config.undervolt;
-in {
+in
+{
   options.undervolt = {
     cpu = mkOption {
       type = types.nullOr types.int;
@@ -62,38 +63,40 @@ in {
   };
 
   config = {
-    systemd.services.undervolt = let
-      optional = x: optionalString (x != null) (toString x);
-      script = pkgs.substituteAll {
-        src = ./undervolt.sh;
-        isExecutable = true;
-        path = makeBinPath (with pkgs; [ msr-tools ]);
-        inherit (pkgs) bash;
-        cpu = optional cfg.cpu;
-        gpu = optional cfg.gpu;
-        cpuCache = optional cfg.cpuCache;
-        gpuUnslice = optional cfg.gpuUnslice;
-        systemAgent = optional cfg.systemAgent;
-        shortTermPowerLimit = optional cfg.shortTermPowerLimit;
-        shortTermPowerLimitTime = optional cfg.shortTermPowerLimitTime;
-        longTermPowerLimit = optional cfg.longTermPowerLimit;
-        longTermPowerLimitTime = optional cfg.longTermPowerLimitTime;
-        tjoffset = optional cfg.tjoffset;
-      };
-    in {
-      description = "Intel Undervolting Service";
+    systemd.services.undervolt =
+      let
+        optional = x: optionalString (x != null) (toString x);
+        script = pkgs.substituteAll {
+          src = ./undervolt.sh;
+          isExecutable = true;
+          path = makeBinPath (with pkgs; [ msr-tools ]);
+          inherit (pkgs) bash;
+          cpu = optional cfg.cpu;
+          gpu = optional cfg.gpu;
+          cpuCache = optional cfg.cpuCache;
+          gpuUnslice = optional cfg.gpuUnslice;
+          systemAgent = optional cfg.systemAgent;
+          shortTermPowerLimit = optional cfg.shortTermPowerLimit;
+          shortTermPowerLimitTime = optional cfg.shortTermPowerLimitTime;
+          longTermPowerLimit = optional cfg.longTermPowerLimit;
+          longTermPowerLimitTime = optional cfg.longTermPowerLimitTime;
+          tjoffset = optional cfg.tjoffset;
+        };
+      in
+      {
+        description = "Intel Undervolting Service";
 
-      # Apply undervolt on boot, nixos generation switch and resume
-      wantedBy = [ "multi-user.target" "post-resume.target" ];
-      after =
-        [ "post-resume.target" ]; # Not sure why but it won't work without this
+        # Apply undervolt on boot, nixos generation switch and resume
+        wantedBy = [ "multi-user.target" "post-resume.target" ];
+        after =
+          [ "post-resume.target" ]; # Not sure why but it won't work without this
 
-      serviceConfig = {
-        Type = "oneshot";
-        Restart = "no";
-        ExecStart = script;
+        serviceConfig = {
+          Type = "oneshot";
+          Restart = "no";
+          ExecStart = script;
+        };
       };
-    };
 
     boot.kernelParams = [
       # Kernel 5.9 spams warnings whenever userspace writes to CPU MSRs.
