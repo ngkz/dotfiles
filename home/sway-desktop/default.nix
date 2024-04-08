@@ -163,32 +163,35 @@ in
           xcursor_theme = config.gtk.cursorTheme.name;
         };
       };
-      window.commands = [
-        {
-          # mark xwayland windows
-          criteria = { shell = "xwayland$"; };
-          command = "title_format \"𝕏  %title\"";
-        }
-        {
-          criteria = { app_id = "foot-floating$"; };
-          command = "floating enable";
-        }
-        {
-          criteria = {
-            app_id = "org.keepassxc.KeePassXC$";
-            title = "KeePassXC - (ブラウザーの)?アクセス要求$";
-          };
-          command = "floating enable";
-        }
-        {
-          # XXX FreeCAD splash
-          criteria = {
-            app_id = "org.freecadweb.FreeCAD$";
-            title = "FreeCAD Link Branch$";
-          };
-          command = "floating enable";
-        }
-      ];
+      window = {
+        titlebar = false;
+        commands = [
+          {
+            # mark xwayland windows
+            criteria = { shell = "xwayland$"; };
+            command = "title_format \"𝕏  %title\"";
+          }
+          {
+            criteria = { app_id = "foot-floating$"; };
+            command = "floating enable";
+          }
+          {
+            criteria = {
+              app_id = "org.keepassxc.KeePassXC$";
+              title = "KeePassXC - (ブラウザーの)?アクセス要求$";
+            };
+            command = "floating enable";
+          }
+          {
+            # XXX FreeCAD splash
+            criteria = {
+              app_id = "org.freecadweb.FreeCAD$";
+              title = "FreeCAD Link Branch$";
+            };
+            command = "floating enable";
+          }
+        ];
+      };
     };
     extraConfig = ''
       # clamshell mode
