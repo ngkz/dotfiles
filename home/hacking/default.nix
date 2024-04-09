@@ -83,6 +83,9 @@
     pkgsCross.mingwW64.buildPackages.gcc
     proxychains
     chisel
+    krb5
+    responder
+    powershell
 
     ghidra
     burpsuite
@@ -98,6 +101,7 @@
     scapy
     requests
     httpx
+    impacket
 
     flask
   ];
