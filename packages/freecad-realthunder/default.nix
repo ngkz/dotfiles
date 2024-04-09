@@ -63,15 +63,15 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "freecad-realthunder";
-  version = "2024.03.22";
+  version = "2024.04.07";
 
   srcs = [
     # TODO update script
     (fetchFromGitHub {
       owner = "realthunder";
       repo = "FreeCAD";
-      rev = "da98001cfe5cc50cb2e9e4c241626d07dd4b06f5";
-      hash = "sha256-MxcPgaJf4Ybg3JBWrvfSUkKb3cOimmJFeFhW1jYwdj4=";
+      rev = "973e4821bcd19a5a1af9ae3e1d2ed961aad0a8ab";
+      hash = "sha256-hlAkR4Ubvjr+MSyP1WewDLkQRFgEGBXkVeKAjI9lsE0=";
       name = "freecad";
     })
     (fetchFromGitHub {
