@@ -12,7 +12,6 @@ in
     ../../modules/base
     ../../modules/grub-secureboot
     ../../modules/ssd.nix
-    ../../modules/sshd.nix
     ../../modules/workstation
     ../../modules/sway-desktop.nix
     ../../modules/vmm.nix
