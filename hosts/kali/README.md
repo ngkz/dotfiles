@@ -18,15 +18,20 @@ vagrant ssh
 sudo swapoff /dev/sda5
 sudo parted /dev/sda
 p
-rm (extended partition)
+rm 2
 resizepart 1 -1GiB
 p
-mkpart linux-swap (/ END) 0
+mkpart
+Partition type?  primary/extended? primary
+File system type?  [ext2]? linux-swap
+Start? 67.6GB
+End? -0
 quit
 sudo mkswap /dev/sda2
 sudo swapon /dev/sda2
 sudo -e /etc/fstab
 (change swap UUID)
+sudo resize2fs /dev/sda1
 ```
 
 ### Switch the configuration
