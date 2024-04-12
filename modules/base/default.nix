@@ -37,6 +37,8 @@ in
           allowed-users = [ "root" "@wheel" ];
 
           trusted-users = [ "root" ];
+
+          max-jobs = 1; # XXX default max-jobs causes memory exhaustion
         };
 
         # turned autoOptimiseStore and gc.automatic off due to slowdown
