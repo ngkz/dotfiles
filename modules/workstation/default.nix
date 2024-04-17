@@ -22,7 +22,7 @@ in
   # install dev manpages
   documentation.dev.enable = true;
 
-  environment.systemPackages = with pkgs; with linuxPackages; [
+  environment.systemPackages = with pkgs; with config.boot.kernelPackages; [
     turbostat
     libva-utils
     efitools
@@ -38,7 +38,7 @@ in
     xpra
   ];
 
-  boot.extraModulePackages = [ pkgs.linuxPackages.v4l2loopback ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
 
   # install fonts
   fonts = {
