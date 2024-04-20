@@ -164,6 +164,7 @@ in
     tjoffset = -3;
   };
 
+  # XXX Workaround: the machine refuses to resume after long suspend
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # This value determines the NixOS release from which the default
