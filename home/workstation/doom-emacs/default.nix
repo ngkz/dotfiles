@@ -159,7 +159,7 @@ in
 
     # lang/nix
     nixfmt
-    #rnix-lsp # XXX rnix-lsp pulls in vulnerable nix
+    nil
 
     # lang/org
     texlive.combined.scheme-medium
