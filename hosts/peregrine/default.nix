@@ -161,6 +161,7 @@
     "phone"
     "wireguard-peregrine"
     "0000docomo"
+    "IBARAKI-FREE-Wi-Fi"
   ];
 
   undervolt = {

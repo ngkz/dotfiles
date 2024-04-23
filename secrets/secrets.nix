@@ -25,4 +25,5 @@ in
   "pppoe-creds.age".publicKeys = [ rednecked ];
   "cloudflare-api-key.age".publicKeys = [ rednecked ];
   "0000docomo.nmconnection.age".publicKeys = [ peregrine noguchi2-pc ];
+  "IBARAKI-FREE-Wi-Fi.nmconnection.age".publicKeys = [ peregrine noguchi2-pc ];
 }

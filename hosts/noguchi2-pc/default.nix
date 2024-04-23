@@ -157,6 +157,7 @@ in
     "wireguard-noguchi2-pc"
     "phone"
     "0000docomo"
+    "IBARAKI-FREE-Wi-Fi"
   ];
 
   undervolt = {
