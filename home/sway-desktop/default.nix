@@ -155,7 +155,7 @@ in
         };
       output = {
         "*" = {
-          bg = "${./wallpapers/DSC02942.JPG} fill";
+          bg = "${./wallpapers/DSC01320.JPG} fill";
         };
       };
       seat = {
@@ -235,7 +235,7 @@ in
           "--indicator"
           "--clock"
           "--datestr \"%%Y-%%m-%%d %%a\""
-          "--image ${./wallpapers/DSC01320.JPG}"
+          "--image ${./wallpapers/DSC02942.JPG}"
           "--indicator-radius 175"
           "--indicator-thickness 10"
           "--ring-color c5c8c6"
