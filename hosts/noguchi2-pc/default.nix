@@ -137,6 +137,8 @@ in
     RUNTIME_PM_DRIVER_DENYLIST = "";
     PCIE_ASPM_ON_AC = "default";
     PCIE_ASPM_ON_BAT = "powersupersave";
+
+    USB_DENYLIST = "214b:7250";
   };
 
   # hibernation
