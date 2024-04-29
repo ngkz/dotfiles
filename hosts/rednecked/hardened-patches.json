@@ -22,12 +22,12 @@
     "5.15": {
         "patch": {
             "extra": "-hardened1",
-            "name": "linux-hardened-5.15.156-hardened1.patch",
-            "sha256": "1ricnr4xqgxhsnih68faz0j8v6rs6vfw3i2dvwn4nknz1yyllag4",
-            "url": "https://github.com/anthraxx/linux-hardened/releases/download/5.15.156-hardened1/linux-hardened-5.15.156-hardened1.patch"
+            "name": "linux-hardened-5.15.157-hardened1.patch",
+            "sha256": "1jhdscs2df0kkgi7l6kk8qx6xyknr0gfs1n08ma5rlb382x7mlfc",
+            "url": "https://github.com/anthraxx/linux-hardened/releases/download/5.15.157-hardened1/linux-hardened-5.15.157-hardened1.patch"
         },
-        "sha256": "0y3p7sqr8hsn0v9ybqlcmn1z150zc13yckgrymb10sck9k8na14z",
-        "version": "5.15.156"
+        "sha256": "0554qxnai66mpm3p5dln9dfsb392zr8zvwfwc9ks2sadsd8j7wmg",
+        "version": "5.15.157"
     },
     "5.4": {
         "patch": {
@@ -42,12 +42,12 @@
     "6.1": {
         "patch": {
             "extra": "-hardened1",
-            "name": "linux-hardened-6.1.87-hardened1.patch",
-            "sha256": "0qbbdd7l2rs9qnj9psidzjwpnhgm4h6g5j2idxj6dja0fg6aa6wb",
-            "url": "https://github.com/anthraxx/linux-hardened/releases/download/6.1.87-hardened1/linux-hardened-6.1.87-hardened1.patch"
+            "name": "linux-hardened-6.1.88-hardened1.patch",
+            "sha256": "1518d1y1m14xsjqn7q654pncjrjs9z93cwy01n34ax1wwnxcfpzl",
+            "url": "https://github.com/anthraxx/linux-hardened/releases/download/6.1.88-hardened1/linux-hardened-6.1.88-hardened1.patch"
         },
-        "sha256": "092iv5w5d6kwgiyzs7zajmhdxc1w03sinvvr1dwy9bp8f9mg2ypw",
-        "version": "6.1.87"
+        "sha256": "1lgqclvcxfs5c4my6fh041gxzgzz8i64cw43cf5ichy58pyh4sb9",
+        "version": "6.1.88"
     },
     "6.5": {
         "patch": {
@@ -62,12 +62,12 @@
     "6.6": {
         "patch": {
             "extra": "-hardened1",
-            "name": "linux-hardened-6.6.28-hardened1.patch",
-            "sha256": "01gk060mxhfd5228dr2fxr6wm2hcbx23lka19j6rlhq2pg77mi01",
-            "url": "https://github.com/anthraxx/linux-hardened/releases/download/6.6.28-hardened1/linux-hardened-6.6.28-hardened1.patch"
+            "name": "linux-hardened-6.6.29-hardened1.patch",
+            "sha256": "0bg2icmbdd06h4wwhbjnnz16168f0wdrlbmf45prhj5lpx69acj5",
+            "url": "https://github.com/anthraxx/linux-hardened/releases/download/6.6.29-hardened1/linux-hardened-6.6.29-hardened1.patch"
         },
-        "sha256": "151kdpp25fcl5qki138jxl90h9iyk5rk0kp2xamadnz72gnid1w1",
-        "version": "6.6.28"
+        "sha256": "1l6bcz0pwiby6q79va063767d0jxkkaf8rpqvaqqcb08116gf9kz",
+        "version": "6.6.29"
     },
     "6.7": {
         "patch": {
@@ -82,11 +82,11 @@
     "6.8": {
         "patch": {
             "extra": "-hardened1",
-            "name": "linux-hardened-6.8.7-hardened1.patch",
-            "sha256": "1w53p584nffk9ld6kdd9d95v5ldv1b8c9cq5gm22f9hvcz4s9wcs",
-            "url": "https://github.com/anthraxx/linux-hardened/releases/download/6.8.7-hardened1/linux-hardened-6.8.7-hardened1.patch"
+            "name": "linux-hardened-6.8.8-hardened1.patch",
+            "sha256": "1k87y826fqrwan2m9z24czrwzm12pny3pfqhbpllaymccdga83cc",
+            "url": "https://github.com/anthraxx/linux-hardened/releases/download/6.8.8-hardened1/linux-hardened-6.8.8-hardened1.patch"
         },
-        "sha256": "1bigq9my88d9xh647hgsy8gzval7p06hhacpxaqb71sfmwgil799",
-        "version": "6.8.7"
+        "sha256": "1fiiyvwi6frn83z730w4mng2z4nwpspvhb6vjpxx3yk0snwxqk0w",
+        "version": "6.8.8"
     }
 }
