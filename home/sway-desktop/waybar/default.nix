@@ -183,7 +183,7 @@ let
           "interval": 10,
           "locale": "C",
           "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>",
-          "timezones": ["Asia/Tokyo", "America/New_York", "Europe/London"],
+          "timezones": ["Asia/Tokyo", "America/New_York", "UTC"],
           "actions": {
             "on-scroll-up": "tz_up",
             "on-scroll-down": "tz_down"
