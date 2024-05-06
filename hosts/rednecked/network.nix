@@ -182,6 +182,11 @@ in
       enable = true;
       internalInterfaces = [ "br_lan" "wg0" ];
       externalInterface = "wan_pppoe"; #TODO MAP-E
+      forwardPorts = [{
+        destination = "192.168.18.215:43210";
+        proto = "tcp";
+        sourcePort = 3;
+      }];
     };
 
     networking.nftables.enable = true;
