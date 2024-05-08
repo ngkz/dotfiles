@@ -225,8 +225,8 @@
    ;; log into LOGBOOK drawer
    org-log-into-drawer t
    ;; log when reschedule
-   org-log-reschedule 'note
-   org-log-redeadline 'note
+   ;; org-log-reschedule 'note
+   ;; org-log-redeadline 'note
    ;; show completed tasks and clocks by default
    org-agenda-start-with-log-mode t
    org-agenda-log-mode-items '(state clock)
