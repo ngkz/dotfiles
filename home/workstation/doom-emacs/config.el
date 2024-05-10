@@ -228,7 +228,7 @@
    ;; org-log-reschedule 'note
    ;; org-log-redeadline 'note
    ;; show completed tasks and clocks by default
-   org-agenda-start-with-log-mode t
+   ;; org-agenda-start-with-log-mode t
    org-agenda-log-mode-items '(state clock)
    ;; customize org-capture-template
    org-capture-templates
