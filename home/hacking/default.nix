@@ -69,7 +69,7 @@
     badchars
     jwt-cli
     snscrape
-    gobuster # /usr/share/wordlists/dirbuster/directory-list-2.3-medium.tx
+    gobuster
     # dnsmap
     # dnsrecon
     python3Packages.pypykatz
@@ -107,4 +107,5 @@
   ];
 
   xdg.configFile."gdb/gdbinit".source = ./gdbinit;
+  programs.zsh.localVariables.SECLISTS = "${pkgs.seclists}/share/wordlists/seclists";
 }
