@@ -166,7 +166,7 @@ in
   };
 
   # XXX Workaround: the machine refuses to resume after long suspend
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_8;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
