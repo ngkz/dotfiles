@@ -1,9 +1,9 @@
 { fetchzip, ngkz, lib, ... }:
 ngkz.buildChromiumExtension rec {
   pname = "ublock0";
-  version = "1.57.2";
+  version = "1.58.0";
   src = fetchzip {
     url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.chromium.zip";
-    sha256 = "15ix4qsw66fz0rmwf5slb99hl8gmkrr34n1wxkzpwqrzf4bbvzb5";
+    sha256 = "0fqj8wdbyvclakc3sb5ckg722xycsji0fs3j2jfki2gyazqgn63x";
   };
 }
