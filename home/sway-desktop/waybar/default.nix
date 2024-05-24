@@ -34,6 +34,7 @@ let
         ],
         "modules-right": [
           "tray",
+          "idle_inhibitor",
           "custom/notification",
           $(if [ -n "$hwmon_path" ]; then echo '"temperature",'; fi)
           "cpu",
@@ -61,6 +62,13 @@ let
         "tray": {
           "icon-size": 16,
           "spacing": 5
+        },
+        "idle_inhibitor": {
+          "format": "{icon}",
+          "format-icons": {
+            "activated": "󰅶 ",
+            "deactivated": "󰾪 "
+          }
         },
         "custom/notification": {
           "format": "{icon}",

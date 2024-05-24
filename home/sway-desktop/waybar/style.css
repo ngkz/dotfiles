@@ -3,13 +3,13 @@ window#waybar {
   color: white;
 }
 
-#custom-scratchpad, #workspaces, #mode, #window, #custom-notification, #temperature,
+#custom-scratchpad, #workspaces, #mode, #window, #idle_inhibitor, #custom-notification, #temperature,
 #cpu, #memory, #disk, #pulseaudio, #battery, #clock, tooltip {
   font-family:   "Sarasa Term J Nerd Font";
   font-size:     13px;
 }
 
-#custom-scratchpad, #workspaces, #window, #custom-notification, #temperature, #cpu,
+#custom-scratchpad, #workspaces, #window, #idle_inhibitor, #custom-notification, #temperature, #cpu,
 #memory, #disk, #pulseaudio, #battery, #clock {
   font-weight: bold;
   text-shadow: black 0px 2px 2px;
@@ -40,7 +40,7 @@ window#waybar {
   text-shadow: #550 -1px 1px 2px, #550 1px 1px 2px, #550 -1px -1px 2px, #550 1px -1px 2px;
 }
 
-#custom-scratchpad, #mode, #tray, #custom-notification, #temperature, #cpu, #memory, #disk,
+#custom-scratchpad, #mode, #tray, #idle_inhibitor, #custom-notification, #temperature, #cpu, #memory, #disk,
 #pulseaudio, #battery, #clock {
   padding: 0 2px;
   margin: 0 3px;
