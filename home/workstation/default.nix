@@ -14,7 +14,8 @@ in
     ./wine.nix
     ./doom-emacs
     ../hyfetch.nix
-    ../gtkcord4.nix
+    # ../gtkcord4.nix
+    ../telegram.nix
   ];
 
   # XDG user dirs
