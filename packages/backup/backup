@@ -58,6 +58,8 @@ EXCLUDES=(
     "home/*/.config/doom-local/state/logs"
     "home/*/.config/doom-local/straight"
     "home/*/.config/doom-load"
+    "home/*/.local/share/TelegramDesktop/tdata/user_data"
+    "home/*/.local/share/TelegramDesktop/tdata/emoji"
     var/lib/docker
 )
 DIFF_CONFIG="--sort --content-only"
