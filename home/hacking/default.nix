@@ -25,6 +25,7 @@
     qemu_full
     metasploit
     nmap
+    rustscan
     z3
     aflplusplus
     apktool
@@ -70,6 +71,7 @@
     jwt-cli
     snscrape
     gobuster
+    ffuf
     # dnsmap
     # dnsrecon
     python3Packages.pypykatz
