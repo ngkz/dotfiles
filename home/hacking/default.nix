@@ -73,7 +73,7 @@
     gobuster
     ffuf
     # dnsmap
-    # dnsrecon
+    dnsrecon
     python3Packages.pypykatz
     oletools
     # stegsnow
