@@ -26,7 +26,6 @@
     metasploit
     nmap
     rustscan
-    z3
     aflplusplus
     apktool
     dex2jar

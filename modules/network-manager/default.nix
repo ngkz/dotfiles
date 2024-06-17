@@ -14,8 +14,6 @@
       wifi = {
         powersave = true;
         scanRandMacAddress = true;
-        # XXX https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/issues/1091
-        #backend = "iwd";
         # Generate a random MAC for each WiFi and associate the two permanently.
         macAddress = "stable";
       };

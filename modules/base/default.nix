@@ -15,45 +15,28 @@ in
     nixpkgs = import ../../nixpkgs.nix inputs;
 
     # Enable experimental flakes feature
-    nix =
-      let
-        filteredInputs = filterAttrs (n: _: n != "self") inputs;
-        nixPathInputs = mapAttrsToList (n: v: "${n}=${v}") filteredInputs;
-        registryInputs = mapAttrs (_: v: { flake = v; }) filteredInputs;
-      in
-      {
-        # Enable flake
-        package = pkgs.nixFlakes;
-        extraOptions = ''
-          experimental-features = nix-command flakes
+    nix = {
+      # Enable flake
+      package = pkgs.nixFlakes;
+      extraOptions = ''
+        experimental-features = nix-command flakes
 
-          # Keep build-time dependencies when GC
-          # keep-outputs = true
-          # keep-derivations = true
-        '';
+        # Keep build-time dependencies when GC
+        # keep-outputs = true
+        # keep-derivations = true
+      '';
 
-        settings = {
-          # Only allow administrative users to connect the nix daemon
-          allowed-users = [ "root" "@wheel" ];
+      settings = {
+        # Only allow administrative users to connect the nix daemon
+        allowed-users = [ "root" "@wheel" ];
 
-          trusted-users = [ "root" ];
+        trusted-users = [ "root" ];
 
-          max-jobs = 1; # XXX default max-jobs causes memory exhaustion
-        };
-
-        # turned autoOptimiseStore and gc.automatic off due to slowdown
-
-        # It’s often convenient to pin the nixpkgs flake to the exact version
-        # of nixpkgs used to build the system. This ensures that commands
-        # like nix shell nixpkgs#<package> work more efficiently since
-        # many or all of the dependencies of <package> will already be
-        # present.
-        registry = registryInputs // { dotfiles.flake = inputs.self; };
-
-        nixPath = nixPathInputs ++ [
-          "dotfiles=${inputs.self}"
-        ];
+        max-jobs = 1; # XXX default max-jobs causes memory exhaustion
       };
+
+      # turned autoOptimiseStore and gc.automatic off due to slowdown
+    };
 
     # Let 'nixos-version --json' know the Git revision of this flake.
     system.configurationRevision = mkIf (self ? rev) self.rev;
@@ -66,9 +49,9 @@ in
 
     # Remap Caps Lock To Ctrl
     console.useXkbConfig = true;
-    services.xserver = {
+    services.xserver.xkb = {
       layout = "jp";
-      xkbOptions = "ctrl:nocaps";
+      options = "ctrl:nocaps";
     };
 
     # Set your time zone.
@@ -192,7 +175,7 @@ in
     # mDNS
     services.avahi = {
       enable = true;
-      nssmdns = true; # *.local resolution
+      nssmdns4 = true; # *.local resolution
       publish = {
         enable = true;
         addresses = true; # make this host accessible with <hostname>.local

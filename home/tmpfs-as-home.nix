@@ -41,12 +41,12 @@ in
       # like home-manager.
       home.activation.tmpfs-as-home = hm.dag.entryBetween [ "linkGeneration" ] [ "writeBoundary" ] (
         concatStringsSep "\n" ((
-          map (path: "$DRY_RUN_CMD mkdir -p ${escapeShellArg path}") storageDirs
+          map (path: "run mkdir -p ${escapeShellArg path}") storageDirs
         ) ++ (
           map
             (path: ''
-              $DRY_RUN_CMD mkdir -p $(dirname ~/${escapeShellArg path})
-              $DRY_RUN_CMD ln -fnTs ${escapeShellArg (storage + "/" + path)} ~/${escapeShellArg path}
+              run mkdir -p $(dirname ~/${escapeShellArg path})
+              run ln -fnTs ${escapeShellArg (storage + "/" + path)} ~/${escapeShellArg path}
             '')
             (files ++ dirs)
         )

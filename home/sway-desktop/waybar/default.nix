@@ -206,7 +206,7 @@ in
   home.packages = [ pkgs.waybar ];
 
   home.activation.generate-waybar-config = hm.dag.entryAfter [ "writeBoundary" ] ''
-    $DRY_RUN_CMD ${generateWaybarConfig}
+    run ${generateWaybarConfig}
   '';
 
   xdg.configFile."waybar/style.css".source = ./style.css;

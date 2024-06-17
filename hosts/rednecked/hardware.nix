@@ -10,9 +10,6 @@ in
     "sd_mod"
     "bcache"
 
-    # LUKS Early boot AES acceleration
-    "aesni_intel"
-    "cryptd"
     # Btrfs CRC hardware acceleration
     "crc32c-intel"
   ];

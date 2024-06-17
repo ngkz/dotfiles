@@ -158,7 +158,7 @@ in
     # proselint
 
     # lang/nix
-    nixfmt
+    nixfmt-classic
     nil
 
     # lang/org

@@ -244,7 +244,7 @@ in
 
   services.gpg-agent = {
     enable = true;
-    pinentryFlavor = "gnome3";
+    pinentryPackage = pkgs.pinentry-gnome3;
     enableScDaemon = false;
     defaultCacheTtl = 0;
     maxCacheTtl = 0;

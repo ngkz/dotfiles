@@ -206,23 +206,6 @@ in
     '';
   };
 
-  # override xdg-desktop-portal-wlr.service
-  # After=graphical-session.target causes dependency loop
-  # XXX xdg-desktop-portal-wlr #238
-  systemd.user.services.xdg-desktop-portal-wlr = {
-    Unit = {
-      Description = "Portal service (wlroots implementation)";
-      PartOf = [ "sway-session.target" ];
-    };
-
-    Service = {
-      Type = "dbus";
-      BusName = "org.freedesktop.impl.portal.desktop.wlr";
-      ExecStart = "${pkgs.xdg-desktop-portal-wlr}/bin/xdg-desktop-portal-wlr";
-      Restart = "on-failure";
-    };
-  };
-
   services.swayidle = {
     enable = true;
     events = [
@@ -289,74 +272,86 @@ in
 
   services.kanshi = {
     enable = true;
-    profiles = {
-      peregrine-undocked = {
-        outputs = [{
-          criteria = "Chimei Innolux Corporation 0x14F3 Unknown";
-          scale = 1.0;
-        }];
-      };
-      peregrine-hdmi = {
-        outputs = [
-          {
+    settings = [
+      {
+        profile = {
+          name = "peregrine-undocked";
+          outputs = [{
             criteria = "Chimei Innolux Corporation 0x14F3 Unknown";
-            mode = "1920x1080@60Hz";
             scale = 1.0;
-            position = "0,0";
-          }
-          {
-            criteria = "HDMI-A-1";
-            position = "1920,0";
-            scale = 1.0;
-            status = "enable";
-          }
-        ];
-      };
-      peregrine-docked = {
-        outputs = [
-          {
-            criteria = "Chimei Innolux Corporation 0x14F3 Unknown";
-            mode = "1920x1080@60Hz";
-            position = "0,720";
-            scale = 1.5;
-          }
-          {
-            criteria = "JRY UHD HDMI Unknown";
-            mode = "3840x2160@30Hz";
-            position = "1280,0";
-            scale = 1.5;
-            status = "enable";
-          }
-          {
-            criteria = "ViewSonic Corporation VX3211-4K VJJ201920351";
-            mode = "3840x2160@29.981Hz";
-            position = "3840,0";
-            scale = 1.5;
-            status = "enable";
-          }
-        ];
-      };
-      noguchi2-pc-docked = {
-        outputs = [
-          {
-            criteria = "AU Optronics 0x369F Unknown";
-            mode = "1920x1080@60Hz";
-            position = "0,655";
-            scale = 1.25;
-          }
-          {
-            criteria = "Acer Technologies Acer KA240H T6NSJ0014205";
-            mode = "1920x1080@60Hz";
-            position = "1536,0";
-          }
-          {
-            criteria = "Acer Technologies KA240H TETSJ001853C";
-            mode = "1920x1080@60Hz";
-            position = "3456,0";
-          }
-        ];
-      };
-    };
+          }];
+        };
+      }
+      {
+        profile = {
+          name = "peregrine-hdmi";
+          outputs = [
+            {
+              criteria = "Chimei Innolux Corporation 0x14F3 Unknown";
+              mode = "1920x1080@60Hz";
+              scale = 1.0;
+              position = "0,0";
+            }
+            {
+              criteria = "HDMI-A-1";
+              position = "1920,0";
+              scale = 1.0;
+              status = "enable";
+            }
+          ];
+        };
+      }
+      {
+        profile = {
+          name = "peregrine-docked";
+          outputs = [
+            {
+              criteria = "Chimei Innolux Corporation 0x14F3 Unknown";
+              mode = "1920x1080@60Hz";
+              position = "0,720";
+              scale = 1.5;
+            }
+            {
+              criteria = "JRY UHD HDMI Unknown";
+              mode = "3840x2160@30Hz";
+              position = "1280,0";
+              scale = 1.5;
+              status = "enable";
+            }
+            {
+              criteria = "ViewSonic Corporation VX3211-4K VJJ201920351";
+              mode = "3840x2160@29.981Hz";
+              position = "3840,0";
+              scale = 1.5;
+              status = "enable";
+            }
+          ];
+        };
+      }
+      {
+        profile = {
+          name = "noguchi2-pc-docked";
+          outputs = [
+            {
+              criteria = "AU Optronics 0x369F Unknown";
+              mode = "1920x1080@60Hz";
+              position = "0,655";
+              scale = 1.25;
+            }
+            {
+              criteria = "Acer Technologies Acer KA240H T6NSJ0014205";
+              mode = "1920x1080@60Hz";
+              position = "1536,0";
+            }
+            {
+              criteria = "Acer Technologies KA240H TETSJ001853C";
+              mode = "1920x1080@60Hz";
+              position = "3456,0";
+            }
+          ];
+        };
+      }
+    ];
   };
 
   services.gammastep = {

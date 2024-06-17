@@ -1,16 +1,11 @@
 { lib
-, fmt
-, stdenv
-, fetchFromGitHub
-, fetchzip
 , callPackage
 , pkgs
 , cmake
 , doxygen
-, ninja
-, GitPython
-, boost
 , eigen
+, fetchFromGitHub
+, fmt
 , ngkz  # for passthru.tests
 , gfortran
 , gts
@@ -19,41 +14,49 @@
 , libXmu
 , libf2c
 , libredwg
+, libsForQt5
 , libspnav
-, matplotlib
 , medfile
 , mpi
+, ninja
 , ode
-, opencascade-occt
-, pivy
+, opencascade-occt_7_6
 , pkg-config
-, ply
-, pycollada
-, pyside2
-, pyside2-tools
-, python
-, pyyaml
-, qtbase
-, qttools
-, qtwebengine
-, qtx11extras
-, qtxmlpatterns
+, python3Packages
 , runCommand  # for passthru.tests
-, scipy
-, shiboken2
-, soqt
 , spaceNavSupport ? stdenv.isLinux
+, stdenv
 , swig
 , vtk
-, wrapQtAppsHook
-, wrapGAppsHook
+, wrapGAppsHook3
 , xercesc
 , zlib
 }:
+
 let
-  coin3d-realthunder = callPackage ./coin3d.nix {
-    inherit stdenv; # ccache
-  };
+  opencascade-occt = opencascade-occt_7_6;
+  boost = python3Packages.boost;
+  inherit (libsForQt5)
+    qtbase
+    qttools
+    qtwebengine
+    qtx11extras
+    qtxmlpatterns
+    soqt
+    wrapQtAppsHook;
+  inherit (python3Packages)
+    gitpython
+    matplotlib
+    pivy
+    ply
+    pycollada
+    pyside2
+    pyside2-tools
+    python
+    pyyaml
+    scipy
+    shiboken2;
+  coin3d-realthunder = callPackage ./coin3d.nix { };
   pivy-realthunder = pivy.override {
     pkgs = pkgs // {
       coin3d = coin3d-realthunder;
@@ -98,11 +101,11 @@ stdenv.mkDerivation (finalAttrs: {
     pyside2-tools
     gfortran
     wrapQtAppsHook
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   buildInputs = [
-    GitPython # for addon manager
+    gitpython # for addon manager
     boost
     coin3d-realthunder
     doxygen
