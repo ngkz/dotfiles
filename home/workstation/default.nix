@@ -441,23 +441,31 @@ in
       "application/x-cue" = "mpv.desktop";
       "audio/m3u" = "mpv.desktop";
 
-      # imv
-      "image/bmp" = "imv-dir.desktop";
-      "image/gif" = "imv-dir.desktop";
-      "image/jpeg" = "imv-dir.desktop";
-      "image/jpg" = "imv-dir.desktop";
-      "image/pjpeg" = "imv-dir.desktop";
-      "image/png" = "imv-dir.desktop";
-      "image/tiff" = "imv-dir.desktop";
-      "image/x-bmp" = "imv-dir.desktop";
-      "image/x-pcx" = "imv-dir.desktop";
-      "image/x-png" = "imv-dir.desktop";
-      "image/x-portable-anymap" = "imv-dir.desktop";
-      "image/x-portable-bitmap" = "imv-dir.desktop";
-      "image/x-portable-graymap" = "imv-dir.desktop";
-      "image/x-portable-pixmap" = "imv-dir.desktop";
-      "image/x-tga" = "imv-dir.desktop";
-      "image/x-xbitmap" = "imv-dir.desktop";
+      # eog
+      "image/bmp" = "org.gnome.eog.desktop";
+      "image/gif" = "org.gnome.eog.desktop";
+      "image/jpeg" = "org.gnome.eog.desktop";
+      "image/jpg" = "org.gnome.eog.desktop";
+      "image/pjpeg" = "org.gnome.eog.desktop";
+      "image/png" = "org.gnome.eog.desktop";
+      "image/tiff" = "org.gnome.eog.desktop";
+      "image/webp" = "org.gnome.eog.desktop";
+      "image/x-bmp" = "org.gnome.eog.desktop";
+      "image/x-gray" = "org.gnome.eog.desktop";
+      "image/x-icb" = "org.gnome.eog.desktop";
+      "image/x-ico" = "org.gnome.eog.desktop";
+      "image/x-png" = "org.gnome.eog.desktop";
+      "image/x-portable-anymap" = "org.gnome.eog.desktop";
+      "image/x-portable-bitmap" = "org.gnome.eog.desktop";
+      "image/x-portable-graymap" = "org.gnome.eog.desktop";
+      "image/x-portable-pixmap" = "org.gnome.eog.desktop";
+      "image/x-xbitmap" = "org.gnome.eog.desktop";
+      "image/x-xpixmap" = "org.gnome.eog.desktop";
+      "image/x-pcx" = "org.gnome.eog.desktop";
+      # "image/svg+xml" = "org.gnome.eog.desktop";
+      # "image/svg+xml-compressed" = "org.gnome.eog.desktop";
+      "image/vnd.wap.wbmp" = "org.gnome.eog.desktop";
+      "image/x-icns" = "org.gnome.eog.desktop";
 
       # thunderbird
       "x-scheme-handler/mailto" = "thunderbird.desktop";
@@ -592,7 +600,7 @@ in
     ngkz.freecad-realthunder
     gimp
     gscan2pdf # scanning tool
-    imv
+    gnome3.eog
     inkscape
     keepassxc
     tauon
