@@ -27,6 +27,7 @@ WINDOW_ICONS = {
     "org.freecadweb.freecad": " ",
     "gimp-2.10": " ",
     "imv": " ",
+    "eog": " ",
     "pavucontrol": "󰕾 ",
     "org.gnome.clocks": " ",
     "lollypop": " ",
