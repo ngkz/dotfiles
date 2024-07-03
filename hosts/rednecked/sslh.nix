@@ -14,7 +14,7 @@ in
       verbose-connections = 1;
       protocols = [
         { name = "tls"; host = "localhost"; port = toString config.services.nginx.defaultSSLListenPort; }
-        { name = "ssh"; host = "localhost"; port = toString (head config.services.openssh.ports); service = "ssh"; }
+        # { name = "ssh"; host = "localhost"; port = toString (head config.services.openssh.ports); service = "ssh"; }
         { name = "anyprot"; host = "localhost"; port = toString config.services.nginx.defaultSSLListenPort; }
       ];
     };

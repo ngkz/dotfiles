@@ -21,7 +21,7 @@ in
   security.acme.defaults.email = rot13 "abthpuv.xnmhgbfv+npzr@tznvy.pbz";
   services.nginx = {
     enable = true;
-    defaultSSLListenPort = 8443;
+    # defaultSSLListenPort = 8443;
     recommendedTlsSettings = true;
     recommendedOptimisation = true;
     recommendedBrotliSettings = true;
@@ -49,7 +49,7 @@ in
       };
     };
   };
-  networking.firewall.allowedTCPPorts = [ 80 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   tmpfs-as-root.persistentDirs = [ "/var/lib/acme" ];
   systemd.services.acme-fixperms.serviceConfig = {

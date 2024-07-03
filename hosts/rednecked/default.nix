@@ -1,6 +1,6 @@
 # configuration for rednecked
 
-{ inputs, lib, ... }:
+{ inputs, lib, config, ... }:
 let
   inherit (lib) mkDefault;
 in
@@ -28,7 +28,7 @@ in
     ./chrony
     ./wireguard.nix
     ./hardening.nix
-    ./sslh.nix
+    # ./sslh.nix
     ./syncthing.nix
     ./avahi.nix
     ./ddns.nix
@@ -46,6 +46,8 @@ in
   };
 
   modules.sshd.allowRootLogin = true;
+  services.openssh.openFirewall = false;
+  hosts.rednecked.network.internalInterfaces.allowedTCPPorts = config.services.openssh.ports;
 
   # we won't use gui apps here
   fonts.fontconfig.enable = false;
