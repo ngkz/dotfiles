@@ -49,7 +49,10 @@ in
       };
     };
   };
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    config.services.nginx.defaultHTTPListenPort
+    config.services.nginx.defaultSSLListenPort
+  ];
 
   tmpfs-as-root.persistentDirs = [ "/var/lib/acme" ];
   systemd.services.acme-fixperms.serviceConfig = {
