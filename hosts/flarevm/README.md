@@ -8,9 +8,40 @@ Vagrant [FLARE-VM](https://github.com/mandiant/flare-vm)
 
 ### Create and start
 
-```sh
-vagrant up --provision
-```
+1. Start and provision
+
+   ```sh
+   vagrant up --provision
+   ```
+
+2. Disable Windows Defender
+   https://lazyadmin.nl/win-11/turn-off-windows-defender-windows-11-permanently/
+
+3. Setup Flare VM
+
+   ```powershell
+   cd $env:TEMP
+   Invoke-WebRequest -Uri "https://raw.githubusercontent.com/fireeye/flare-vm/master/install.ps1" -OutFile install.ps1
+   Unblock-File .\\install.ps1
+   Set-ExecutionPolicy Unrestricted -Force
+   .\\install.ps1 -password vagrant -noWait -noChecks
+   ```
+
+4. Enable auto logon
+
+   ```powershell
+    # Auto logon
+    $RegistryPath = 'HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon'
+    Set-ItemProperty $RegistryPath 'DefaultUsername' -Value "vagrant" -type String
+    Set-ItemProperty $RegistryPath 'DefaultPassword' -Value "vagrant" -type String
+    Set-ItemProperty $RegistryPath 'AutoAdminLogon' -Value "1" -Type String
+    ```
+
+5. Take clean snapshot
+
+   ```sh
+   vagrant snapshot save clean
+   ```
 
 ### Switch the configuration
 

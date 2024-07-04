@@ -125,18 +125,5 @@ Vagrant.configure('2') do |config|
     } else {
       Set-ItemProperty -Path $RegistryPath -Name "Scancode Map" -Value ([byte[]]$hexified)
     }
-
-    # Auto logon
-    $RegistryPath = 'HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon'
-    Set-ItemProperty $RegistryPath 'AutoAdminLogon' -Value "1" -Type String
-    Set-ItemProperty $RegistryPath 'DefaultUsername' -Value "vagrant" -type String
-    Set-ItemProperty $RegistryPath 'DefaultPassword' -Value "vagrant" -type String
-
-    # Flare VM
-    cd $env:TEMP
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/fireeye/flare-vm/master/install.ps1" -OutFile install.ps1
-    Unblock-File .\\install.ps1
-    Set-ExecutionPolicy Unrestricted -Force
-    .\\install.ps1 -customConfig c:\\vagrant\\config.xml -password vagrant -noWait -noGui -noChecks -noReboots
   SHELL
 end
