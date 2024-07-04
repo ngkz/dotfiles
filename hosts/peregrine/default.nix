@@ -9,7 +9,7 @@
     ../../modules/base
     ../../modules/grub-secureboot
     ../../modules/ssd.nix
-    # ../../modules/sshd.nix
+    ../../modules/sshd.nix
     ../../modules/workstation
     ../../modules/sway-desktop.nix
     ../../modules/undervolt
@@ -179,6 +179,13 @@
 
   # reverse shell
   networking.firewall.allowedTCPPorts = [ 43210 ];
+
+  # sshd
+  services.openssh.openFirewall = false;
+  # wireguard only
+  networking.firewall.extraCommands = ''
+    iptables -A nixos-fw -p tcp --source 192.168.70.0/24 --dport ${toString (builtins.head config.services.openssh.ports)} -j nixos-fw-accept
+  '';
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
