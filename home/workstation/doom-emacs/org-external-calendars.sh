@@ -6,6 +6,7 @@ export PATH=@path@
 out=$HOME/docs/all/org
 declare -A cals=(
     [ctftime]="https://calendar.google.com/calendar/ical/ctftime%40gmail.com/public/basic.ics"
+    [securityevents]="https://calendar.google.com/calendar/ical/4u9fvij6ul4oug11bcphr8ofb0%40group.calendar.google.com/public/basic.ics"
 )
 life=$((24 * 60 * 60))
 
