@@ -3,9 +3,9 @@ set -euo pipefail
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-pname=fcitx5-themes
+pname=fcitx5-themes-candlelight
 owner=thep0y
-repo=fcitx5-themes
+repo=$pname
 
 current=$(nix eval --no-warn-dirty --raw "../..#${pname}.rev")
 commit=$(curl -sfL https://api.github.com/repos/$owner/$repo/commits/main)

@@ -19,7 +19,7 @@ rec {
   fcitx5-with-addons = pkgs.libsForQt5.callPackage ./fcitx5-with-addons-patched.nix {
     kcmSupport = false;
   };
-  fcitx5-themes = pkgs.callPackage ./fcitx5-themes { };
+  fcitx5-themes-candlelight = pkgs.callPackage ./fcitx5-themes-candlelight { };
   gnome-ssh-askpass3 = pkgs.callPackage ./gnome-ssh-askpass3.nix { };
   backup = pkgs.callPackage ./backup { };
   hotkey-scripts = pkgs.callPackage ./hotkey-scripts { };

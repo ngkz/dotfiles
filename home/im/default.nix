@@ -7,7 +7,7 @@
     enabled = "fcitx5";
     fcitx5.addons = with pkgs; [
       ngkz.fcitx5-skk
-      ngkz.fcitx5-themes
+      ngkz.fcitx5-themes-candlelight
     ];
   };
 
