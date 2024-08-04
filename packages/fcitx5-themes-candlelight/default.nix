@@ -2,8 +2,8 @@
 
 fetchFromGitHub rec {
   owner = "thep0y";
-  repo = "fcitx5-themes";
-  rev = "5d4b77594b2fc488fbb8e2c3a5275b6e5a694e32";
+  repo = "fcitx5-themes-candlelight";
+  rev = "d4146d3d3f7a276a8daa2847c3e5c08de20485da";
   sha256 = "sha256-aPs6YQ9JRScCUTCM1ko7o0imX4GJmhWeIqJCaoGfL7g=";
   name = "${repo}-${builtins.substring 0 6 rev}";
 
