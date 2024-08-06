@@ -101,6 +101,7 @@
   environment.systemPackages = with pkgs; [
     nvme-cli # NVMe SSD
     wireguard-tools
+    linux-wifi-hotspot
   ];
 
   # user
