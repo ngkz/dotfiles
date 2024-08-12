@@ -87,10 +87,12 @@
     krb5
     responder
     powershell
+    dive
 
     ghidra
     burpsuite
-    imhex
+    rehex
+    xclip
   ];
 
   cli-base.pythonPackages = p: with p; [
@@ -105,6 +107,9 @@
     impacket
 
     flask
+    treelib
+    scp
+
   ];
 
   xdg.configFile."gdb/gdbinit".source = ./gdbinit;
