@@ -92,7 +92,7 @@ Vagrant.configure('2') do |config|
 
   # more disk capacity
   # vagrant <2.4.0 needs VAGRANT_EXPERIMENTAL="disks" set
-  config.vm.disk :disk, size: '64GB', primary: true
+  config.vm.disk :disk, size: '256GB', primary: true
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the

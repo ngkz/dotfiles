@@ -19,12 +19,12 @@ sudo swapoff /dev/sda5
 sudo parted /dev/sda
 p
 rm 2
-resizepart 1 -1GiB
+resizepart 1 -2GiB
 p
 mkpart
 Partition type?  primary/extended? primary
 File system type?  [ext2]? linux-swap
-Start? 67.6GB
+Start? -2GiB
 End? -0
 quit
 sudo mkswap /dev/sda2
