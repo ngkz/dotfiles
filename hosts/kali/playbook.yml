@@ -88,6 +88,9 @@
           value: 0
       become: no
 
+    - name: add vagrant user to docker group
+      user: name={{ ansible_user }} groups=docker append=yes
+
     - name: install nix
       shell: sh <(curl -L https://nixos.org/nix/install) --daemon --yes
       args:
