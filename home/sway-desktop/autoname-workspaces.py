@@ -63,7 +63,8 @@ WINDOW_ICONS = {
     "virt-manager": " ",
     "org.shotcut.shotcut": "󰟞 ",
     "org.inkscape.inkscape": "󰉼 ",
-    "so.libdb.gtkcord4": "󰙯"
+    "so.libdb.gtkcord4": "󰙯",
+    "wihotspot-gui": "󰖩",
 }
 
 DEFAULT_ICON = "󰣆 "
