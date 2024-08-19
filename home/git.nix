@@ -3,7 +3,7 @@
     enable = true;
     delta.enable = true;
     userName = "Kazutoshi Noguchi";
-    userEmail = lib.ngkz.rot13 "abthpuv.xnmhgbfv+Nm0Twsg4@tznvy.pbz";
+    userEmail = lib.ngkz.rot13 "xa@s2y.pp";
     extraConfig = {
       init.defaultBranch = "main";
       diff.tool = "nvimdiff";

@@ -18,7 +18,7 @@ let
 in
 {
   security.acme.acceptTerms = true;
-  security.acme.defaults.email = rot13 "abthpuv.xnmhgbfv+npzr@tznvy.pbz";
+  security.acme.defaults.email = rot13 "npzr@s2y.pp";
   services.nginx = {
     enable = true;
     # defaultSSLListenPort = 8443;
