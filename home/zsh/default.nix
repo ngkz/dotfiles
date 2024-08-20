@@ -96,6 +96,9 @@ in
         # Key    Value
           ${concatStringsSep "\n" (mapAttrsToList (key: val: "${escapeShellArg key} ${escapeShellArg val}") config.programs.zsh.abbreviations)}
         )
+
+        # XXX emacs dereferences project directory symlink
+        cd ''${PWD/${builtins.replaceStrings ["/"] ["\\/"] config.tmpfs-as-home.storage}/$HOME}
       '';
       oh-my-zsh = {
         enable = true;
