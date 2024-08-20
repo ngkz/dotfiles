@@ -10,8 +10,7 @@ in
     enable = mkEnableOption "Tmpfs as home setup";
 
     storage = mkOption {
-      type = types.str;
-      default = null;
+      type = types.strMatching "^/.*[^/]$";
       description = "Path of persistent storage";
     };
 
