@@ -1,5 +1,5 @@
 # my cli environment configuration for all hosts
-{ config, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 let
   inherit (lib) types mkOption;
 in
@@ -7,7 +7,7 @@ in
   imports = [
     ./tmpfs-as-home.nix
     ./zsh
-    ./nix-index.nix
+    inputs.nix-index-database.hmModules.nix-index
     ./tealdeer.nix
     ./dust.nix
     ./ripgrep.nix

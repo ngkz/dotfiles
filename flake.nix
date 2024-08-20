@@ -15,6 +15,8 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
+    nix-index-database.url = "github:Mic92/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ { self, nixpkgs, nixpkgs-small, flake-utils, home-manager, ... }:

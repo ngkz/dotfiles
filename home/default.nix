@@ -11,7 +11,6 @@
   neovim = import ./neovim;
   hacking = import ./hacking;
   vmm = import ./vmm.nix;
-  nix-index = import ./nix-index.nix;
   dust = import ./dust.nix;
   ripgrep = import ./ripgrep.nix;
   fzf = import ./fzf.nix;
