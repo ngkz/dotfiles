@@ -328,31 +328,6 @@ in
           ];
         };
       }
-      {
-        profile = {
-          name = "noguchi2-pc-docked";
-          outputs = [
-            {
-              criteria = "AU Optronics 0x369F Unknown";
-              mode = "1920x1080@60Hz";
-              position = "0,655";
-              scale = 1.25;
-            }
-            {
-              criteria = "Acer Technologies Acer KA240H T6NSJ0014205";
-              mode = "1920x1080@60Hz";
-              position = "1536,0";
-              status = "enable";
-            }
-            {
-              criteria = "Acer Technologies KA240H TETSJ001853C";
-              mode = "1920x1080@60Hz";
-              position = "3456,0";
-              status = "enable";
-            }
-          ];
-        };
-      }
     ];
   };
 

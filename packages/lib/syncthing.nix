@@ -13,8 +13,8 @@ let
 
   guiUser = "user";
 
-  pcs = [ "peregrine" "rednecked" "noguchi2-pc" ];
-  all = [ "peregrine" "bluejay" "rednecked" "noguchi2-pc" ];
+  pcs = [ "peregrine" "rednecked" ];
+  all = [ "peregrine" "bluejay" "rednecked" ];
   personal = [ "peregrine" "bluejay" "rednecked" ];
   personal-pcs = [ "peregrine" "rednecked" ];
 
@@ -112,7 +112,6 @@ let
     };
     peregrine = { };
     rednecked = { };
-    noguchi2-pc = { };
   };
 
   deviceFolders = hostname: storage: filterAttrs (_: v: elem hostname v.devices) (folders storage);

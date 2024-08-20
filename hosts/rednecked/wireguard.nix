@@ -33,17 +33,6 @@
               PersistentKeepalive = 25;
             };
           }
-          {
-            # noguchi2-pc
-            wireguardPeerConfig = {
-              AllowedIPs = [
-                "192.168.70.5/32"
-                "2400:4051:c520:1ef2:268e:64d6:2d3d:e2cb/128" # TODO dynamic prefix
-              ];
-              PublicKey = "WuvnqE7Z3MTseUm8Ji3KLxuhaBXcKmQb77A20S9DVmQ=";
-              PersistentKeepalive = 25;
-            };
-          }
         ];
       };
     };
