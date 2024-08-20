@@ -23,7 +23,7 @@
     let
       dictdir = "${config.home.homeDirectory}/misc/skk";
       self = config.systemName;
-      machines = [ "peregrine" "noguchi-pc" "noguchi2-pc" ];
+      machines = [ "peregrine" ];
       otherMachines = builtins.filter (host: host != self) machines;
     in
     lib.concatStringsSep "\n" ([
