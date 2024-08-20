@@ -33,6 +33,14 @@ in
         trusted-users = [ "root" ];
 
         max-jobs = 1; # XXX default max-jobs causes memory exhaustion
+
+        # substituters = [
+        #   "http://peregrine.local:5000"
+        # ];
+
+        trusted-public-keys = [
+          "peregrine:ttyus2jSLVWOMNfGkwgC71iJ36DZgJINICtkdUMeg8k="
+        ];
       };
 
       # turned autoOptimiseStore and gc.automatic off due to slowdown

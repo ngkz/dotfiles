@@ -19,4 +19,5 @@
   profiles-intel-wifi = import ./profiles/intel-wifi.nix;
   profiles-laptop = import ./profiles/laptop.nix;
   network-manager = import ./network-manager;
+  binary-cache = import ./binary-cache.nix;
 }
