@@ -9,7 +9,7 @@ in
     enable = mkEnableOption "Tmpfs as root setup";
 
     storage = mkOption {
-      type = types.nonEmptyStr;
+      type = types.strMatching "^/.*[^/]$";
       default = "/var/persist";
       description = "Path of persistent storage";
     };
