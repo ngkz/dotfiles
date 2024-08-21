@@ -1,7 +1,7 @@
 # Z shell + oh-my-zsh
 { config, pkgs, lib, ... }:
 let
-  inherit (lib) mkOption types concatStringsSep escapeShellArg mapAttrsToList;
+  inherit (lib) mkOption types concatStringsSep escapeShellArg mapAttrsToList optionalString;
 in
 {
   imports = [
@@ -96,7 +96,7 @@ in
         # Key    Value
           ${concatStringsSep "\n" (mapAttrsToList (key: val: "${escapeShellArg key} ${escapeShellArg val}") config.programs.zsh.abbreviations)}
         )
-
+      '' + optionalString config.tmpfs-as-home.enable ''
         # XXX emacs dereferences project directory symlink
         cd ''${PWD/${builtins.replaceStrings ["/"] ["\\/"] config.tmpfs-as-home.storage}/$HOME}
       '';
