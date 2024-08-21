@@ -19,6 +19,7 @@
     ../../modules/zswap.nix
     ../../modules/bluetooth.nix
     ../../modules/network-manager
+    # ../../modules/binary-cache.nix
 
     ../../modules/profiles/laptop.nix
     common-pc-laptop-acpi_call
