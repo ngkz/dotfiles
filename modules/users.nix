@@ -1,9 +1,11 @@
 # User accounts
-{ pkgs, ... }:
-
+{ pkgs, inputs, ... }:
+let
+  inherit (inputs) home-manager;
+in
 {
   imports = [
-    ./home-manager.nix
+    home-manager.nixosModule
   ];
 
   users = {
