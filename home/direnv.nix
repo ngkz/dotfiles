@@ -1,5 +1,9 @@
 { ... }:
 {
+  imports = [
+    ./tmpfs-as-home.nix
+  ];
+
   tmpfs-as-home.persistentDirs = [
     ".local/share/direnv"
   ];
