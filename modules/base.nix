@@ -1,12 +1,8 @@
 # configuration applied to all hosts
 
-{ pkgs, inputs, ... }:
-let
-  inherit (inputs) home-manager;
-in
+{ pkgs, ... }:
 {
   imports = [
-    home-manager.nixosModule
     ./tmpfs-as-root.nix
     ./nix.nix
     ./users.nix
