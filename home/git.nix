@@ -10,5 +10,5 @@
       merge.tool = "nvimdiff";
     };
   };
-  # See also: gnupg.nix
+  # See also: gpg.nix
 }
