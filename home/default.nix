@@ -23,4 +23,5 @@
   dev-docs = import ./dev-docs.nix;
   doom-emacs = import ./doom-emacs;
   direnv = import ./direnv.nix;
+  syncthing = import ./syncthing;
 }

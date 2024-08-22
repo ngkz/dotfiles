@@ -9,7 +9,7 @@ in
     ../direnv.nix
     ../im
     #./chromium.nix
-    ./syncthing.nix
+    ../syncthing
     ./librewolf
     ./wine.nix
     ../doom-emacs

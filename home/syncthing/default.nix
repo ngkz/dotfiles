@@ -1,4 +1,5 @@
-{ config, osConfig, pkgs, lib, ... }:
+# Syncthing
+{ config, osConfig, pkgs, ... }:
 let
   xq = "${pkgs.python3Packages.yq}/bin/xq";
   sed = "${pkgs.gnused}/bin/sed";
@@ -8,7 +9,12 @@ let
   syncthingTrayCfg = "${config.xdg.configHome}/syncthingtray.ini";
 in
 {
-  # Syncthing
+  imports = [
+    ../tmpfs-as-home.nix
+  ];
+
+  xdg.enable = true;
+
   services.syncthing = {
     enable = true;
     tray.enable = true;
