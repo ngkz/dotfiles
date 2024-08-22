@@ -4,7 +4,7 @@ let
 in
 {
   imports = [
-    ./tmpfs-as-home.nix
+    ../tmpfs-as-home.nix
   ];
 
   xdg.enable = true;
