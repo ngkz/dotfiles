@@ -22,4 +22,5 @@
   binary-cache = import ./binary-cache.nix;
   console = import ./console.nix;
   nix = import ./nix.nix;
+  users = import ./users.nix;
 }

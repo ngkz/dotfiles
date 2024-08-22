@@ -10,6 +10,7 @@ in
     home-manager.nixosModule
     ../tmpfs-as-root.nix
     ../nix.nix
+    ../users.nix
   ];
 
   config = {
@@ -21,24 +22,6 @@ in
 
     # tmpfs /tmp
     boot.tmp.useTmpfs = true;
-
-    # User accounts
-    users = {
-      mutableUsers = false;
-
-      users = {
-        # disable root login
-        root.hashedPassword = "*";
-
-        # define a primary user account
-        user = {
-          isNormalUser = true;
-          uid = 1000;
-          extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-          shell = pkgs.zsh;
-        };
-      };
-    };
 
     # sudo
     security.sudo = {
