@@ -3,6 +3,12 @@ let
   inherit (lib) mkForce;
 in
 {
+  imports = [
+    ./tmpfs-as-home.nix
+  ];
+
+  xdg.enable = true;
+
   home.sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
   home.sessionVariables = {
     DOOMDIR = "${config.xdg.configHome}/doom";
@@ -200,6 +206,7 @@ in
     # alert
     libnotify
   ];
+
   tmpfs-as-home.persistentDirs = [
     ".config/doom-local"
     ".config/doom-load"
