@@ -21,4 +21,5 @@
   network-manager = import ./network-manager;
   binary-cache = import ./binary-cache.nix;
   console = import ./console.nix;
+  nix = import ./nix.nix;
 }

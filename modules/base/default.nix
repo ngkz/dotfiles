@@ -2,56 +2,17 @@
 
 { config, lib, pkgs, utils, inputs, ... }:
 let
-  inherit (lib) mapAttrs filterAttrs mapAttrsToList mkIf;
-  inherit (inputs) self home-manager;
+  inherit (lib) mapAttrsToList;
+  inherit (inputs) home-manager;
 in
 {
   imports = [
     home-manager.nixosModule
     ../tmpfs-as-root.nix
+    ../nix.nix
   ];
 
   config = {
-    nixpkgs = import ../../nixpkgs.nix inputs;
-
-    # Enable experimental flakes feature
-    nix = {
-      # Enable flake
-      package = pkgs.nixFlakes;
-      extraOptions = ''
-        experimental-features = nix-command flakes
-
-        # Keep build-time dependencies when GC
-        # keep-outputs = true
-        # keep-derivations = true
-      '';
-
-      settings = {
-        # Only allow administrative users to connect the nix daemon
-        allowed-users = [ "root" "@wheel" ];
-
-        trusted-users = [ "root" ];
-
-        # max-jobs = 1; # XXX default max-jobs causes memory exhaustion
-
-        # substituters = [
-        #   "http://peregrine.local:5000"
-        # ];
-
-        trusted-public-keys = [
-          "peregrine:ttyus2jSLVWOMNfGkwgC71iJ36DZgJINICtkdUMeg8k="
-        ];
-      };
-
-      # turned autoOptimiseStore and gc.automatic off due to slowdown
-    };
-
-    # Let 'nixos-version --json' know the Git revision of this flake.
-    system.configurationRevision = mkIf (self ? rev) self.rev;
-
-    # build packages on the disk
-    systemd.services.nix-daemon.environment.TMPDIR = "/var/tmp";
-
     # Select internationalisation properties.
     i18n.defaultLocale = "ja_JP.UTF-8";
 
