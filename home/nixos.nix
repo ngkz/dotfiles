@@ -2,6 +2,12 @@
 { lib, config, osConfig, ... }:
 let inherit (lib) mkIf;
 in {
+  imports = [
+    ./base.nix
+    ./btop.nix
+    ./tmpfs-as-home.nix
+  ];
+
   # Sync home-manager state version with NixOS state version
   home.stateVersion = osConfig.system.stateVersion;
 
