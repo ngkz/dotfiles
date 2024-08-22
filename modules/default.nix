@@ -25,4 +25,5 @@
   users = import ./users.nix;
   sudo = import ./sudo.nix;
   home-manager = import ./home-manager.nix;
+  sysctl-tweaks = import ./sysctl-tweaks.nix;
 }

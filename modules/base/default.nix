@@ -13,6 +13,7 @@ in
     ../users.nix
     ../sudo.nix
     ../home-manager.nix
+    ../sysctl-tweaks.nix
   ];
 
   config = {
@@ -61,18 +62,6 @@ in
       # disable usb keyboard wakeup
       ATTR{idProduct}=="6047",ATTR{idVendor}=="17ef",ATTR{power/wakeup}="disabled"
     '';
-
-    # use bbr congestion control algorithm
-    boot.kernelModules = [ "tcp_bbr" ];
-    boot.kernel.sysctl = {
-      "net.ipv4.tcp_congestion_control" = "bbr";
-      "net.core.default_qdisc" = "cake";
-      "net.ipv4.tcp_notsent_lowat" = 16384;
-
-      # XXX x86-64
-      "vm.mmap_rnd_bits" = 32;
-      "vm.mmap_rnd_compat_bits" = 16;
-    };
 
     # mDNS
     services.avahi = {
