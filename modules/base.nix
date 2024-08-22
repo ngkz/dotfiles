@@ -56,8 +56,5 @@
       # set scheduler for rotating disks
       ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
     '';
-
-    # record machine-check exception
-    hardware.rasdaemon.enable = true;
   };
 }

@@ -17,4 +17,7 @@ in
   # AMD CPU
   hardware.enableRedistributableFirmware = true;
   boot.kernelModules = [ "kvm-amd" ];
+
+  # record machine-check exception
+  hardware.rasdaemon.enable = true;
 }
