@@ -1,5 +1,5 @@
 {
-  base = import ./base;
+  base = import ./base.nix;
   tmpfs-as-root = import ./tmpfs-as-root.nix;
   ssd = import ./ssd.nix;
   sshd = import ./sshd.nix;
@@ -27,4 +27,5 @@
   home-manager = import ./home-manager.nix;
   sysctl-tweaks = import ./sysctl-tweaks.nix;
   mdns = import ./mdns.nix;
+  update-users-groups-bug-workaround = import ./update-users-groups-bug-workaround;
 }

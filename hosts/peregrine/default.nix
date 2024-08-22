@@ -6,7 +6,7 @@
 
   imports = with inputs.nixos-hardware.nixosModules; [
     ../../modules/agenix.nix
-    ../../modules/base
+    ../../modules/base.nix
     ../../modules/console.nix
     ../../modules/grub-secureboot
     ../../modules/ssd.nix
