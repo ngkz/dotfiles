@@ -93,12 +93,11 @@ in
       useGlobalPkgs = true; # use global nixpkgs
       # install per-user packages to /etc/profiles to make nixos-rebuild build-vm work
       useUserPackages = true;
-      users.user = { osConfig, config, lib, ... }: {
+      users.user = { ... }: {
         imports = [
           ../../home/nixos.nix
           ../../home/base.nix
           ../../home/cli-base.nix
-          ../../home/tmpfs-as-home.nix
         ];
       };
       extraSpecialArgs = {
