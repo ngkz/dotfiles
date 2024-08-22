@@ -6,7 +6,7 @@ in
 {
   imports = [
     inputs.self.homeManagerModules.theming
-    ./direnv.nix
+    ../direnv.nix
     ../im
     #./chromium.nix
     ./syncthing.nix
