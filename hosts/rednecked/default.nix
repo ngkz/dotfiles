@@ -8,6 +8,7 @@ in
   imports = with inputs.nixos-hardware.nixosModules; [
     ../../modules/agenix.nix
     ../../modules/base
+    ../../modules/console.nix
     ../../modules/ssd.nix
     ../../modules/sshd.nix
     ../../modules/btrfs-maintenance
