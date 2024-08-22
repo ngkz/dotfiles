@@ -25,8 +25,6 @@ in
     # tmpfs /tmp
     boot.tmp.useTmpfs = true;
 
-    environment.pathsToLink = [ "/share/zsh" ]; #zsh
-
     # List packages installed in system profile. To search, run:
     # $ nix search nixpkgs wget
     environment.systemPackages = with pkgs; [
@@ -62,16 +60,6 @@ in
 
       # disable usb keyboard wakeup
       ATTR{idProduct}=="6047",ATTR{idVendor}=="17ef",ATTR{power/wakeup}="disabled"
-    '';
-
-    # XXX Apply home.sessionPath when logging in via ssh
-    programs.zsh.enable = true;
-
-    # XXX Apply home.sessionVariables. Workaround for home-manager #1011
-    environment.extraInit = ''
-      if [ -e "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh" ]; then
-        . "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh"
-      fi
     '';
 
     # use bbr congestion control algorithm
