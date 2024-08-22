@@ -21,4 +21,5 @@
   git = import ./git.nix;
   im = import ./im;
   dev-docs = import ./dev-docs.nix;
+  doom-emacs = import ./doom-emacs;
 }

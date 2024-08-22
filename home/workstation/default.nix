@@ -12,7 +12,7 @@ in
     ./syncthing.nix
     ./librewolf
     ./wine.nix
-    ./doom-emacs
+    ../doom-emacs
     ../hyfetch.nix
     # ../gtkcord4.nix
     ../telegram.nix
