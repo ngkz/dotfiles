@@ -12,6 +12,7 @@ in
     ../nix.nix
     ../users.nix
     ../sudo.nix
+    ../home-manager.nix
   ];
 
   config = {
@@ -23,24 +24,6 @@ in
 
     # tmpfs /tmp
     boot.tmp.useTmpfs = true;
-
-    # home-manager
-    home-manager = {
-      useGlobalPkgs = true; # use global nixpkgs
-      # install per-user packages to /etc/profiles to make nixos-rebuild build-vm work
-      useUserPackages = true;
-      users.user = { ... }: {
-        imports = [
-          ../../home/nixos.nix
-          ../../home/base.nix
-          ../../home/cli-base.nix
-        ];
-      };
-      extraSpecialArgs = {
-        inherit inputs;
-        lib = lib.extend (_: _: home-manager.lib);
-      };
-    };
 
     environment.pathsToLink = [ "/share/zsh" ]; #zsh
 

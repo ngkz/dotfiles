@@ -24,4 +24,5 @@
   nix = import ./nix.nix;
   users = import ./users.nix;
   sudo = import ./sudo.nix;
+  home-manager = import ./home-manager.nix;
 }

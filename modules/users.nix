@@ -2,6 +2,10 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ./home-manager.nix
+  ];
+
   users = {
     mutableUsers = false;
 
@@ -17,5 +21,13 @@
         shell = pkgs.zsh;
       };
     };
+  };
+
+  home-manager.users.user = { ... }: {
+    imports = [
+      ../home/nixos.nix
+      ../home/base.nix
+      ../home/cli-base.nix
+    ];
   };
 }
