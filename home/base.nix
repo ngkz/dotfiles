@@ -1,5 +1,5 @@
 # home-manager configuration for all users
-{ pkgs, lib, ... }:
+{ lib, ... }:
 let
   inherit (lib) types mkOption;
   inherit (lib.ngkz) rot13;
