@@ -44,10 +44,14 @@ zbell_timestamp=$EPOCHSECONDS
 zbell_ui_notify() {
 	[[ $zbell_use_notify_send != "true" ]] && return
 
-	#if type notify-send > /dev/null; then
-	#	notify-send -i terminal "Command completed in ${2}s:" $1
-	#fi
-	echo "\e]777;notify;Command completed in ${2}s;${1//;/}\e\\\\"
+	if [ -n "$WT_SESSION" ]; then
+		# Windows Terminal does not support OSC 777
+		if type notify-send > /dev/null; then
+			notify-send -i terminal "Command completed in ${2}s:" $1
+		fi
+	else
+		echo "\e]777;notify;Command completed in ${2}s;${1//;/}\e\\\\"
+	fi
 }
 
 # default notification function
