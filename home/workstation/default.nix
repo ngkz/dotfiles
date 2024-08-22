@@ -41,7 +41,6 @@ in
     "pics"
     "videos"
     "projects"
-    "work"
     "misc"
     # adb
     ".android"

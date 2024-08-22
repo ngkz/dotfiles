@@ -84,12 +84,6 @@ let
       devices = pcs;
       ignore = ignoreCommon;
     };
-    "~/work" = {
-      id = "work";
-      path = "${storage}/work";
-      devices = pcs;
-      ignore = ignoreCommon;
-    };
     "~/misc" = {
       id = "misc";
       path = "${storage}/misc";
