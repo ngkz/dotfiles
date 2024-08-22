@@ -3,7 +3,8 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.btop;
-in {
+in
+{
   options.btop.tmpfs-as-root-filter =
     mkEnableOption "filter tmpfs-as-root and btrfs related directories";
 
