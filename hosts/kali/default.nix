@@ -48,5 +48,6 @@
     ../../home/cli-base.nix
     ../../home/hacking
     ../../home/im
+    ../../home/dev-docs.nix
   ];
 }

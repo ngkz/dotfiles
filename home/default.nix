@@ -20,4 +20,5 @@
   hyfetch = import ./hyfetch.nix;
   git = import ./git.nix;
   im = import ./im;
+  dev-docs = import ./dev-docs.nix;
 }

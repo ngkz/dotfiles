@@ -117,6 +117,7 @@
       ../../home/sway-desktop
       ../../home/hacking
       ../../home/vmm.nix
+      ../../home/dev-docs.nix
     ];
   };
 
