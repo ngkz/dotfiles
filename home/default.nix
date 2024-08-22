@@ -24,4 +24,5 @@
   doom-emacs = import ./doom-emacs;
   direnv = import ./direnv.nix;
   syncthing = import ./syncthing;
+  user-dirs = import ./user-dirs.nix;
 }

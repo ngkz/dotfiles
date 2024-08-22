@@ -16,32 +16,12 @@ in
     ../hyfetch.nix
     # ../gtkcord4.nix
     ../telegram.nix
+    ../user-dirs.nix
   ];
-
-  # XDG user dirs
-  xdg.userDirs = {
-    enable = true;
-    desktop = "$HOME";
-    documents = "$HOME/docs";
-    download = "$HOME/dl";
-    music = "$HOME/music";
-    pictures = "$HOME/pics";
-    publicShare = "$HOME";
-    templates = "$HOME";
-    videos = "$HOME/videos";
-  };
 
   # tmpfs as home
   tmpfs-as-home.persistentDirs = [
     ".local/share/wireplumber"
-    # personal files
-    "docs"
-    "dl"
-    "music"
-    "pics"
-    "videos"
-    "projects"
-    "misc"
     # adb
     ".android"
     # tauon
