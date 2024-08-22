@@ -23,4 +23,5 @@
   console = import ./console.nix;
   nix = import ./nix.nix;
   users = import ./users.nix;
+  sudo = import ./sudo.nix;
 }

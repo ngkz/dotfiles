@@ -11,6 +11,7 @@ in
     ../tmpfs-as-root.nix
     ../nix.nix
     ../users.nix
+    ../sudo.nix
   ];
 
   config = {
@@ -22,15 +23,6 @@ in
 
     # tmpfs /tmp
     boot.tmp.useTmpfs = true;
-
-    # sudo
-    security.sudo = {
-      execWheelOnly = true;
-      extraConfig = ''
-        # rollback results in sudo lectures after each reboot
-        Defaults lecture = never
-      '';
-    };
 
     # home-manager
     home-manager = {
