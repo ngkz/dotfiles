@@ -40,9 +40,6 @@ in
     ".electrum"
   ];
 
-  # shotwell
-  xdg.dataFile."shotwell".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/misc/shotwell";
-
   programs.foot = {
     enable = true;
     settings = {
@@ -586,7 +583,6 @@ in
     wdisplays
     pavucontrol
     gnome.gnome-clocks
-    shotwell
     thunderbird
     wev
     gnome.gnome-power-manager
