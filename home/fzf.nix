@@ -1,4 +1,4 @@
-# FZF fyzzy finder
+# FZF fuzzy finder
 { pkgs, ... }: {
   programs.fzf = {
     enable = true;
