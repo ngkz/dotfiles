@@ -100,11 +100,6 @@ in
           ../../home/cli-base.nix
           ../../home/tmpfs-as-home.nix
         ];
-
-        tmpfs-as-home = {
-          enable = osConfig.tmpfs-as-root.enable;
-          storage = lib.mkIf osConfig.tmpfs-as-root.enable (osConfig.tmpfs-as-root.storage + config.home.homeDirectory);
-        };
       };
       extraSpecialArgs = {
         inherit inputs;
