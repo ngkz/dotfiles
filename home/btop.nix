@@ -5,10 +5,12 @@ let
   cfg = config.btop;
 in
 {
-  options.btop.tmpfs-as-root-filter =
-    mkEnableOption "filter tmpfs-as-root and btrfs related directories";
+  options.btop = {
+    enable = mkEnableOption "install and configure btop";
+    tmpfs-as-root-filter = mkEnableOption "filter tmpfs-as-root and btrfs related directories";
+  };
 
-  config = {
+  config = mkIf cfg.enable {
     programs.btop.enable = true;
     home.shellAliases.top = "btop";
 

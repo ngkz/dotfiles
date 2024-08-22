@@ -31,6 +31,7 @@ in
     ];
 
     programs.jq.enable = true;
+    btop.enable = true;
 
     home.shellAliases = {
       strings = "strings -a";
