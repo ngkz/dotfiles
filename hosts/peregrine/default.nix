@@ -118,6 +118,7 @@
       ../../home/hacking
       ../../home/vmm.nix
       ../../home/dev-docs.nix
+      ../../home/git.nix
     ];
   };
 

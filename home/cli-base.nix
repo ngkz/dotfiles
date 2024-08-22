@@ -15,7 +15,6 @@ in
     ./bat.nix
     ./eza.nix
     ./btop.nix
-    ./git.nix
     ./neovim
   ];
 

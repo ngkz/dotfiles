@@ -49,5 +49,6 @@
     ../../home/hacking
     ../../home/im
     ../../home/dev-docs.nix
+    ../../home/git.nix
   ];
 }
