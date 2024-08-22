@@ -63,7 +63,6 @@ in
       pigz
       (python3.withPackages config.cli-base.pythonPackages)
       wget
-      monolith # Save complete web pages as a single HTML file
       file
       python3Packages.yq
       openssl
