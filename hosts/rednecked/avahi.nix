@@ -3,7 +3,7 @@ let
   inherit (lib) mkForce;
 in
 {
-  # See also: base.nix
+  # See also: modules/mdns.nix
   services.avahi = {
     allowInterfaces = [ "br_lan" ];
     openFirewall = mkForce false;

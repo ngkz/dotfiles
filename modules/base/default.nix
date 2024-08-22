@@ -14,6 +14,7 @@ in
     ../sudo.nix
     ../home-manager.nix
     ../sysctl-tweaks.nix
+    ../mdns.nix
   ];
 
   config = {
@@ -62,17 +63,6 @@ in
       # disable usb keyboard wakeup
       ATTR{idProduct}=="6047",ATTR{idVendor}=="17ef",ATTR{power/wakeup}="disabled"
     '';
-
-    # mDNS
-    services.avahi = {
-      enable = true;
-      nssmdns4 = true; # *.local resolution
-      publish = {
-        enable = true;
-        addresses = true; # make this host accessible with <hostname>.local
-        workstation = true;
-      };
-    };
 
     # record machine-check exception
     hardware.rasdaemon.enable = true;
