@@ -23,11 +23,13 @@
     };
   };
 
-  home-manager.users.user = { ... }: {
+  home-manager.users.user = { osConfig, ... }: {
     imports = [
       ../home/nixos.nix
       ../home/base.nix
       ../home/cli-base.nix
     ];
+
+    tmpfs-as-home.enable = osConfig.tmpfs-as-root.enable;
   };
 }

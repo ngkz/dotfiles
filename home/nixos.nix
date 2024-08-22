@@ -13,11 +13,8 @@ in {
 
   systemName = osConfig.system.name;
 
-  tmpfs-as-home = {
-    enable = osConfig.tmpfs-as-root.enable;
-    storage = mkIf osConfig.tmpfs-as-root.enable
-      (osConfig.tmpfs-as-root.storage + config.home.homeDirectory);
-  };
+  tmpfs-as-home.storage = mkIf osConfig.tmpfs-as-root.enable
+    (osConfig.tmpfs-as-root.storage + config.home.homeDirectory);
 
   btop.tmpfs-as-root-filter = osConfig.tmpfs-as-root.enable;
 }
