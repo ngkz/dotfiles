@@ -81,7 +81,7 @@ in
 
     # sudo
     security.sudo = {
-      #execWheelOnly = true; # btrbk can't run with this option
+      execWheelOnly = true;
       extraConfig = ''
         # rollback results in sudo lectures after each reboot
         Defaults lecture = never

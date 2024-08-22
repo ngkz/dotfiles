@@ -171,6 +171,7 @@ in
 
   services.fwupd.enable = true;
 
+  security.sudo.execWheelOnly = lib.mkIf (builtins.any (fs: fs.fsType == "btrfs") (builtins.attrValues config.fileSystems)) (lib.mkForce false); # btrbk uses sudo
   services.btrbk = lib.mkIf (builtins.any (fs: fs.fsType == "btrfs") (builtins.attrValues config.fileSystems)) {
     instances.btrbk = {
       settings = {
