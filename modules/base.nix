@@ -6,6 +6,7 @@
     ./tmpfs-as-root.nix
     ./nix.nix
     ./users.nix
+    ./zsh.nix
     ./sudo.nix
     ./home-manager.nix
     ./sysctl-tweaks.nix

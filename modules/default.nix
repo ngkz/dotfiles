@@ -30,4 +30,5 @@
   update-users-groups-bug-workaround = import ./update-users-groups-bug-workaround;
   disable-usb-keyboard-wakeup = import ./disable-usb-keyboard-wakeup.nix;
   fonts = import ./fonts.nix;
+  zsh = import ./zsh.nix;
 }
