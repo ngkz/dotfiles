@@ -78,7 +78,7 @@ in
               in
               "install -dD -o ${toString user.uid} -g ${toString group.gid} -m 700 ${escapeShellArg homeStorage}"
             )
-            (attrNames (filterAttrs (n: v: v ? tmpfs-as-home) config.home-manager.users))
+            (attrNames (filterAttrs (n: v: v ? tmpfs-as-home && v.tmpfs-as-home.enable) config.home-manager.users))
         ) ++
         (map (path: "mkdir -p ${escapeShellArg path}") storageDirs) ++
         (map
