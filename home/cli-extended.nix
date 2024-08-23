@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  home.enableDebugInfo = true;
+
   home.packages = with pkgs; [
     binutils
     gdb

@@ -156,8 +156,6 @@ in
     maxCacheTtl = 0;
   };
 
-  home.enableDebugInfo = true;
-
   # patch neovim desktop entry
   xdg.desktopEntries.nvim = {
     name = "Neovim";
