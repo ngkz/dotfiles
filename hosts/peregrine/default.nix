@@ -12,6 +12,7 @@
     ../../modules/ssd.nix
     ../../modules/sshd.nix
     ../../modules/workstation
+    ../../modules/fonts.nix
     ../../modules/sway-desktop.nix
     ../../modules/undervolt
     ../../modules/vmm.nix
