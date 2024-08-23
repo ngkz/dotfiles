@@ -39,16 +39,6 @@ in
       package = pkgs.vimix-icon-theme;
       name = "Vimix-Ruby-dark";
     };
-    gtk3.bookmarks = [
-      "file:///home/user/docs docs"
-      "file:///home/user/pics pics"
-      "file:///home/user/music music"
-      "file:///home/user/videos videos"
-      "file:///home/user/dl dl"
-      "file:///home/user/projects projects"
-      "file:///home/user/work work"
-      "file:///home/user/misc misc"
-    ];
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = true;
     };

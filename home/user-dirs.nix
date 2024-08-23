@@ -40,4 +40,14 @@ in
     lib.hm.dag.entryAfter [ "linkGeneration" ]
       (strings.concatMapStringsSep "\n" mkdir dirs)
   );
+
+  gtk.gtk3.bookmarks = [
+    "file://${config.home.homeDirectory}/docs docs"
+    "file://${config.home.homeDirectory}/pics pics"
+    "file://${config.home.homeDirectory}/music music"
+    "file://${config.home.homeDirectory}/videos videos"
+    "file://${config.home.homeDirectory}/dl dl"
+    "file://${config.home.homeDirectory}/projects projects"
+    "file://${config.home.homeDirectory}/misc misc"
+  ];
 }
