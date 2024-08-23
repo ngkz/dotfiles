@@ -21,7 +21,6 @@ in
 
   # tmpfs as home
   tmpfs-as-home.persistentDirs = [
-    ".local/share/wireplumber"
     # adb
     ".android"
     # tauon
