@@ -431,5 +431,9 @@ in
     slurp
     swappy
     i3-swallow
+    wdisplays
+    wev
+    gnome.gnome-power-manager
+    networkmanagerapplet
   ];
 }

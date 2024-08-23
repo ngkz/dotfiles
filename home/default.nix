@@ -26,4 +26,6 @@
   syncthing = import ./syncthing;
   user-dirs = import ./user-dirs.nix;
   foot = import ./foot.nix;
+  cli-extended = import ./cli-extended.nix;
+  desktop-essential = import ./desktop-essential.nix;
 }

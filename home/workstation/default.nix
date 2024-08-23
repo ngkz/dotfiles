@@ -17,6 +17,8 @@ in
     ../telegram.nix
     ../user-dirs.nix
     ../foot.nix
+    ../cli-extended.nix
+    ../desktop-essential.nix
   ];
 
   # tmpfs as home
@@ -457,47 +459,10 @@ in
   };
 
   home.packages = with pkgs; [
-    binutils
-    gdb
-    gcc
-    strace
-    ltrace
-    wl-clipboard
-    xdg-utils
     powertop
-    pulseaudio
-    glib.bin #gsettings
-    evtest
-    libinput.bin #libinput
-    libnotify #notify-send
-    picocom
-    hashcat
-    libsecret # secret-tool
-    zbar
-    qrencode
-    yt-dlp
-    mp3gain
-    aacgain
-    ffmpeg
-    manix # nix documentation searcher
-    psmisc
-    hugo
-    sqlite
-    exiftool
-    # bsdgames # conflicts with mono
-    geteltorito
-    sbsigntool
     tpm2-tools
     efitools
     v4l-utils
-    gphoto2
-    ngkz.scripts
-    mprime
-    dislocker
-    ansible
-    jpegoptim
-    optipng
-    imagemagick
 
     gnome.dconf-editor
     gnome.gnome-font-viewer
@@ -508,13 +473,8 @@ in
     inkscape
     keepassxc
     tauon
-    wdisplays
     pavucontrol
     gnome.gnome-clocks
-    thunderbird
-    wev
-    gnome.gnome-power-manager
-    networkmanagerapplet
     #wxmaxima
     libreoffice
     xorg.xlsclients

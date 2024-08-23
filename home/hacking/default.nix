@@ -1,5 +1,5 @@
 # hacking: install hacking tools
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ../tmpfs-as-home.nix
@@ -88,6 +88,9 @@
     responder
     powershell
     dive
+    exiftool
+    geteltorito
+    dislocker
 
     ghidra
     burpsuite
