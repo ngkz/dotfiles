@@ -46,6 +46,7 @@
   imports = [
     ../../home/base.nix
     ../../home/cli-essential.nix
+    ../../home/cli-extended.nix
     ../../home/hacking
     ../../home/im
     ../../home/dev-docs.nix
