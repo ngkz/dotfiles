@@ -135,9 +135,6 @@ in
   # enable all magic sysrq functions
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
-  # qemu-user
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
   # wireguard
   # XXX https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/issues/997
   networking.firewall = {
