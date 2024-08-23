@@ -18,7 +18,7 @@ in
     ./neovim
   ];
 
-  options.cli-base.pythonPackages = mkOption {
+  options.cli-essential.pythonPackages = mkOption {
     type = with types; functionTo (listOf package);
     default = (_: [ ]);
     description = "python libraries available to default python interpreter";
@@ -60,7 +60,7 @@ in
       netcat-openbsd
       p7zip
       pigz
-      (python3.withPackages config.cli-base.pythonPackages)
+      (python3.withPackages config.cli-essential.pythonPackages)
       wget
       file
       python3Packages.yq

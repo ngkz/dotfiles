@@ -29,7 +29,7 @@ in
     imports = [
       ../home/nixos.nix
       ../home/base.nix
-      ../home/cli-base.nix
+      ../home/cli-essential.nix
     ];
 
     tmpfs-as-home.enable = osConfig.tmpfs-as-root.enable;

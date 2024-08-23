@@ -95,7 +95,7 @@
     xclip
   ];
 
-  cli-base.pythonPackages = p: with p; [
+  cli-essential.pythonPackages = p: with p; [
     pwntools
     angr
     z3
