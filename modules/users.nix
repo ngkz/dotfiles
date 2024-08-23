@@ -1,13 +1,6 @@
 # User accounts
-{ pkgs, inputs, ... }:
-let
-  inherit (inputs) home-manager;
-in
+{ pkgs, ... }:
 {
-  imports = [
-    home-manager.nixosModule
-  ];
-
   users = {
     mutableUsers = false;
 
@@ -23,16 +16,6 @@ in
         shell = pkgs.zsh;
       };
     };
-  };
-
-  home-manager.users.user = { osConfig, ... }: {
-    imports = [
-      ../home/nixos.nix
-      ../home/base.nix
-      ../home/cli-essential.nix
-    ];
-
-    tmpfs-as-home.enable = osConfig.tmpfs-as-root.enable;
   };
 
   # XXX Apply home.sessionPath when logging in via ssh

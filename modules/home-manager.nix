@@ -17,4 +17,14 @@ in
       lib = lib.extend (_: _: home-manager.lib); # lib.ngkz
     };
   };
+
+  home-manager.users.user = { osConfig, ... }: {
+    imports = [
+      ../home/nixos.nix
+      ../home/base.nix
+      ../home/cli-essential.nix
+    ];
+
+    tmpfs-as-home.enable = osConfig.tmpfs-as-root.enable;
+  };
 }
