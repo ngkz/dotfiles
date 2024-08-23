@@ -22,8 +22,6 @@ in
   environment.systemPackages = with pkgs; with config.boot.kernelPackages; [
     turbostat
     libva-utils
-    efitools
-    sbsigntool
   ];
 
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
