@@ -25,4 +25,5 @@
   direnv = import ./direnv.nix;
   syncthing = import ./syncthing;
   user-dirs = import ./user-dirs.nix;
+  foot = import ./foot.nix;
 }
