@@ -1,7 +1,4 @@
-{ pkgs, lib, ... }:
-let
-  inherit (lib) versions getVersion;
-in
+{ pkgs, ... }:
 {
   services.printing = {
     enable = true;
