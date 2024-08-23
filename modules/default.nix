@@ -32,4 +32,5 @@
   fonts = import ./fonts.nix;
   zsh = import ./zsh.nix;
   desktop-essential = import ./desktop-essential.nix;
+  print-and-scan = import ./print-and-scan.nix;
 }

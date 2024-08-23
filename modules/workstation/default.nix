@@ -4,7 +4,6 @@ let
 in
 {
   imports = [
-    ./printing.nix
     ./gpg.nix
     ./backup
     ./docker.nix

@@ -1,5 +1,7 @@
+# personal printer and scanner configuration
 { pkgs, ... }:
 {
+  # printing
   services.printing = {
     enable = true;
     drivers = with pkgs; [ epson-escpr2 ];
@@ -17,7 +19,7 @@
   };
   programs.system-config-printer.enable = true;
 
-  # Scanner support
+  # scanning
   hardware.sane = {
     enable = true;
     extraBackends = with pkgs; [ sane-airscan ];
