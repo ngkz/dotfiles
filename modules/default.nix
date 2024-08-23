@@ -31,4 +31,5 @@
   disable-usb-keyboard-wakeup = import ./disable-usb-keyboard-wakeup.nix;
   fonts = import ./fonts.nix;
   zsh = import ./zsh.nix;
+  desktop-essential = import ./desktop-essential.nix;
 }

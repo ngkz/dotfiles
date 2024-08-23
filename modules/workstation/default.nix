@@ -74,9 +74,6 @@ in
     device = "TPPS/2 Elan Trackpoint";
   };
 
-  # install debug symbols
-  environment.enableDebugInfo = true;
-
   # Syncthing
   networking.firewall = {
     allowedTCPPorts = [ 22000 ];
@@ -135,8 +132,6 @@ in
     };
   };
 
-  xdg.sounds.enable = true;
-
   # enable all magic sysrq functions
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
@@ -164,6 +159,4 @@ in
     SUBSYSTEM=="usb",  ATTRS{idVendor}=="0416", ATTRS{idProduct}=="5020", MODE="0666"
     KERNEL=="hidraw*", ATTRS{idVendor}=="0416", ATTRS{idProduct}=="5020", ATTRS{busnum}=="1", MODE="0666"
   '';
-
-  services.openssh.settings.X11Forwarding = true;
 }
