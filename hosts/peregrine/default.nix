@@ -24,6 +24,7 @@
     ../../modules/network-manager
     # ../../modules/binary-cache.nix
     ../../modules/disable-usb-keyboard-wakeup.nix
+    ../../modules/desktop-essential.nix
 
     ../../modules/profiles/laptop.nix
     common-pc-laptop-acpi_call
