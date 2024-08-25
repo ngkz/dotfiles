@@ -21,6 +21,7 @@ in
   environment.systemPackages = with pkgs; with config.boot.kernelPackages; [
     turbostat
     libva-utils
+    x86_energy_perf_policy
   ];
 
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
