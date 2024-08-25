@@ -10,14 +10,14 @@
 }:
 
 let
-  dict_rev = "b798a46b886f71c0c25ad2a9e78b1c3e8933970c";
-  dict_hash = "sha256-IvQFi/VA+klwolJGRyxAgT/ZOI5EYRNvXfAqWGhTTKM=";
+  dict_rev = "d0345be10b52e51471f0e27837c0c4d81b138593";
+  dict_hash = "sha256-0H7Q0GSWaPl8pGG2v9eUoBktV/CSX0cITi45u5zyKb4=";
   tools_rev = "1e8c457c2796c2e3d84badcf41386506d5010a7e";
   tools_hash = "sha256-8sG6fMqoKjZ7c0S6O8Nf/GWv1y3TzZmE3FaJgp0YoRg=";
 in
 stdenv.mkDerivation {
   pname = "skk-dicts-unstable";
-  version = "2024-01-31";
+  version = "2024-08-25";
 
   srcs = [
     (fetchFromGitHub rec {
