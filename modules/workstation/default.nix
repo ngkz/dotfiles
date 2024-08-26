@@ -135,22 +135,6 @@ in
   # enable all magic sysrq functions
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
-  # wireguard
-  # XXX https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/issues/997
-  networking.firewall = {
-    # if packets are still dropped, they will show up in dmesg
-    logReversePathDrops = true;
-    # wireguard trips rpfilter up
-    extraCommands = ''
-      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 53 -j RETURN
-      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --dport 53 -j RETURN
-    '';
-    extraStopCommands = ''
-      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --sport 53 -j RETURN || true
-      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 53 -j RETURN || true
-    '';
-  };
-
   services.udev.extraRules = ''
     # LED name badge
     SUBSYSTEM=="usb",  ATTRS{idVendor}=="0416", ATTRS{idProduct}=="5020", MODE="0666"

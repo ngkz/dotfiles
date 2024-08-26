@@ -180,7 +180,7 @@ in
 
     networking.nat = {
       enable = true;
-      internalInterfaces = [ "br_lan" "wg0" "tailscale0" ];
+      internalInterfaces = [ "br_lan" "tailscale0" ];
       externalInterface = "wan_pppoe"; #TODO MAP-E
       forwardPorts = [{
         destination = "192.168.18.215:43210";
@@ -193,8 +193,8 @@ in
     networking.firewall = {
       filterForward = true;
       extraForwardRules = ''
-        iifname { "br_lan", "wg0", "tailscale0" } oifname { "wan_hgw" } accept comment "internal network to HGW"
-        iifname { "br_lan", "wg0", "tailscale0" } oifname { "br_lan", "wg0", "tailscale0" } accept comment "between LAN and VPN clients"
+        iifname { "br_lan", "tailscale0" } oifname { "wan_hgw" } accept comment "internal network to HGW"
+        iifname { "br_lan", "tailscale0" } oifname { "br_lan", "tailscale0" } accept comment "between LAN and VPN clients"
       '';
       interfaces =
         let
@@ -202,7 +202,6 @@ in
         in
         {
           br_lan = fwcfg;
-          wg0 = fwcfg;
           tailscale0 = fwcfg;
         };
     };

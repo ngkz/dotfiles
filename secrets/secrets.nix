@@ -17,8 +17,6 @@ in
   "db.crt.age".publicKeys = [ peregrine ];
   "db.key.age".publicKeys = [ peregrine ];
   "grub.key.age".publicKeys = [ peregrine ];
-  "wireguard-rednecked-private.key.age".publicKeys = [ rednecked ];
-  "wireguard-peregrine.nmconnection.age".publicKeys = [ peregrine ];
   "pppoe-creds.age".publicKeys = [ rednecked ];
   "cloudflare-api-key.age".publicKeys = [ rednecked ];
   "0000docomo.nmconnection.age".publicKeys = [ peregrine ];

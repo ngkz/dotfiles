@@ -107,7 +107,6 @@
 
   environment.systemPackages = with pkgs; [
     nvme-cli # NVMe SSD
-    wireguard-tools
     linux-wifi-hotspot
   ];
 
@@ -166,7 +165,6 @@
     "parents-home-1f-g"
     "parents-home-2f"
     "phone"
-    "wireguard-peregrine"
     "0000docomo"
     "IBARAKI-FREE-Wi-Fi"
   ];

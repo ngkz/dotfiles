@@ -8,7 +8,7 @@ in
     enable = true;
     resolveLocalQueries = true;
     settings = {
-      interface = [ "br_lan" "wg0" ];
+      interface = [ "br_lan" ];
       bind-interfaces = true;
       domain-needed = true;
       bogus-priv = true;
@@ -39,23 +39,16 @@ in
     };
   };
 
-  networking.firewall.interfaces =
-    let
-      ports = {
-        allowedTCPPorts = [
-          53 #DNS
-        ];
-        allowedUDPPorts = [
-          53 # DNS
-          67 # DHCPv4 server
-          547 # DHCPv6 server
-        ];
-      };
-    in
-    {
-      br_lan = ports;
-      wg0 = ports;
-    };
+  networking.firewall.interfaces.br_lan = {
+    allowedTCPPorts = [
+      53 #DNS
+    ];
+    allowedUDPPorts = [
+      53 # DNS
+      67 # DHCPv4 server
+      547 # DHCPv6 server
+    ];
+  };
 
   systemd.tmpfiles.rules = [
     "d /etc/dnsmasq.d 0755 root root -"

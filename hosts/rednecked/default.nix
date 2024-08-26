@@ -27,7 +27,6 @@ in
     ./pppoe.nix
     ./dnsmasq
     ./chrony
-    ./wireguard.nix
     ./hardening.nix
     ./syncthing.nix
     ./avahi.nix
