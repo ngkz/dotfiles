@@ -1,3 +1,4 @@
+# See also: home/gpg
 { config, pkgs, lib, ... }:
 let
   keygrips = [
