@@ -30,6 +30,7 @@
     ../../modules/btrbk.nix
     ../../modules/upower.nix
     ../../modules/gpg.nix
+    ../../modules/ssh.nix
 
     ../../modules/profiles/laptop.nix
     common-pc-laptop-acpi_call

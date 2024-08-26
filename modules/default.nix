@@ -39,4 +39,5 @@
   btrbk = import ./btrbk.nix;
   upower = import ./upower.nix;
   gpg = import ./gpg.nix;
+  ssh = import ./ssh.nix;
 }
