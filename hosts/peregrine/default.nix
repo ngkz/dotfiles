@@ -194,9 +194,6 @@
     iptables -A nixos-fw -p tcp --source 192.168.70.0/24 --dport ${toString (builtins.head config.services.openssh.ports)} -j nixos-fw-accept
   '';
 
-  # record machine-check exception
-  hardware.rasdaemon.enable = true;
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
