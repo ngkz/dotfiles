@@ -29,7 +29,6 @@ in
     ./chrony
     ./wireguard.nix
     ./hardening.nix
-    # ./sslh.nix
     ./syncthing.nix
     ./avahi.nix
     ./ddns.nix
