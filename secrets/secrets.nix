@@ -6,6 +6,7 @@ in
 {
   "user-password-hash-peregrine.age".publicKeys = [ peregrine ];
   "user-password-hash-rednecked.age".publicKeys = [ rednecked ];
+  "user-password-hash-mauritius.age".publicKeys = [ mauritius ];
   "parents-home-1f-a.nmconnection.age".publicKeys = [ peregrine ];
   "parents-home-1f-g.nmconnection.age".publicKeys = [ peregrine ];
   "parents-home-2f.nmconnection.age".publicKeys = [ peregrine ];

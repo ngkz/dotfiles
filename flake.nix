@@ -17,6 +17,8 @@
     devshell.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ { self, nixpkgs, nixpkgs-small, flake-utils, home-manager, ... }:
@@ -36,6 +38,11 @@
         rednecked = nixpkgs-small.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [ ./hosts/rednecked ];
+          specialArgs = { inherit inputs lib; };
+        };
+        mauritius = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [ ./hosts/mauritius ];
           specialArgs = { inherit inputs lib; };
         };
       };
