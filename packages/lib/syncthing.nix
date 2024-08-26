@@ -14,7 +14,7 @@ let
   guiUser = "user";
 
   pcs = [ "peregrine" "rednecked" ];
-  all = [ "peregrine" "bluejay" "rednecked" ];
+  all = [ "peregrine" "bluejay" "rednecked" "mauritius-host" ];
   personal = [ "peregrine" "bluejay" "rednecked" ];
   personal-pcs = [ "peregrine" "rednecked" ];
 
@@ -113,6 +113,10 @@ let
     };
     rednecked = {
       address = [ "tcp://rednecked.falcon-nunki.ts.net" "tcp6://rednecked.falcon-nunki.ts.net" ];
+      allowedNetwork = [ "100.64.0.0/10" "fd7a:115c:a1e0::/48" ];
+    };
+    mauritius-host = {
+      address = [ "tcp://mauritius-host.falcon-nunki.ts.net" "tcp6://mauritius-host.falcon-nunki.ts.net" ];
       allowedNetwork = [ "100.64.0.0/10" "fd7a:115c:a1e0::/48" ];
     };
   };
