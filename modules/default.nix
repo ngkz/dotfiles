@@ -35,4 +35,5 @@
   print-and-scan = import ./print-and-scan.nix;
   tailscale-common = import ./tailscale/common.nix;
   tailscale-client = import ./tailscale/client.nix;
+  syncthing-user = import ./syncthing-user.nix;
 }

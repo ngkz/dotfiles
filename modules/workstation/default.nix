@@ -74,19 +74,6 @@ in
     device = "TPPS/2 Elan Trackpoint";
   };
 
-  # Syncthing
-  networking.firewall = {
-    allowedTCPPorts = [ 22000 ];
-    allowedUDPPorts = [ 21027 22000 ];
-  };
-
-  age.secrets.syncthing = {
-    file = ../../secrets/syncthing.json.age;
-    owner = "user";
-    group = "users";
-    mode = "0400";
-  };
-
   boot.kernel.sysctl."fs.inotify.max_user_watches" = 524288;
 
   hardware.opengl.extraPackages = with pkgs; [

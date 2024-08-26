@@ -26,6 +26,7 @@
     ../../modules/disable-usb-keyboard-wakeup.nix
     ../../modules/desktop-essential.nix
     ../../modules/tailscale/client.nix
+    ../../modules/syncthing-user.nix
 
     ../../modules/profiles/laptop.nix
     common-pc-laptop-acpi_call
