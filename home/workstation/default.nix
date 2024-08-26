@@ -403,7 +403,6 @@ in
     shotcut
     vlc
     wireshark
-    hexchat
     electrum
     tenacity
   ];
