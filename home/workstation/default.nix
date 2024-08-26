@@ -68,14 +68,12 @@ in
         port = 49224;
       };
       peregrine = {
-        hostname = "peregrine.home.arpa";
+        hostname = "peregrine.falcon-nunki.ts.net";
         user = "user";
-        port = 35822;
       };
       rednecked = {
-        hostname = "f2l.cc";
+        hostname = "rednecked.falcon-nunki.ts.net";
         user = "user";
-        port = 35822;
       };
     };
   };

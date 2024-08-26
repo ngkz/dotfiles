@@ -189,10 +189,7 @@
 
   # sshd
   services.openssh.openFirewall = false;
-  # wireguard only
-  networking.firewall.extraCommands = ''
-    iptables -A nixos-fw -p tcp --source 192.168.70.0/24 --dport ${toString (builtins.head config.services.openssh.ports)} -j nixos-fw-accept
-  '';
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = config.services.openssh.ports; # tailscale only
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

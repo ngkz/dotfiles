@@ -1,7 +1,7 @@
 # Enable the OpenSSH daemon
 { config, lib, ... }:
 let
-  inherit (lib) mkOption types mkDefault mkIf;
+  inherit (lib) mkOption types mkIf;
 
   keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPQUeKD00Z5e9LmeoHR2oqlTP9i3qMLE3Pc/YEfxQoeL Kazutoshi Noguchi"
@@ -22,7 +22,6 @@ in
         PermitRootLogin = if config.modules.sshd.allowRootLogin then "prohibit-password" else "no";
       };
       startWhenNeeded = true;
-      ports = mkDefault [ 35822 ];
     };
 
     users.users.user.openssh.authorizedKeys.keys = keys;
