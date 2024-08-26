@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ config, pkgs, ... }:
 let
   cfg = config.services.syncthing;
   storage = "/var/spinningrust/syncthing";
@@ -6,9 +6,10 @@ in
 {
   services.syncthing = {
     enable = true;
-    openDefaultPorts = true;
     guiAddress = "0.0.0.0:8384";
   };
+
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 22000 ]; # tailscale only
 
   age.secrets.syncthing = {
     file = ../../secrets/syncthing.json.age;

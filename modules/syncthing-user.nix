@@ -2,10 +2,7 @@
 { ... }:
 
 {
-  networking.firewall = {
-    allowedTCPPorts = [ 22000 ];
-    allowedUDPPorts = [ 21027 22000 ];
-  };
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 22000 ]; # tailscale only
 
   age.secrets.syncthing = {
     file = ../secrets/syncthing.json.age;

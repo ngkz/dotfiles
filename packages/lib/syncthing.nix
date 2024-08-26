@@ -103,9 +103,29 @@ let
   devices = {
     bluejay = {
       compression = "always";
+      # no peer discovery, tailscale only
+      address = [ "tcp://bluejay.falcon-nunki.ts.net" "tcp6://bluejay.falcon-nunki.ts.net" ];
+      allowedNetwork = [ "100.64.0.0/10" "fd7a:115c:a1e0::/48" ];
     };
-    peregrine = { };
-    rednecked = { };
+    peregrine = {
+      address = [ "tcp://peregrine.falcon-nunki.ts.net" "tcp6://peregrine.falcon-nunki.ts.net" ];
+      allowedNetwork = [ "100.64.0.0/10" "fd7a:115c:a1e0::/48" ];
+    };
+    rednecked = {
+      address = [ "tcp://rednecked.falcon-nunki.ts.net" "tcp6://rednecked.falcon-nunki.ts.net" ];
+      allowedNetwork = [ "100.64.0.0/10" "fd7a:115c:a1e0::/48" ];
+    };
+  };
+
+  options = {
+    # no peer discovery, tailscale only
+    globalAnnounceEnabled = false;
+    localAnnounceEnabled = false;
+    relaysEnabled = false;
+    natEnabled = false;
+    # no usage report
+    urAccepted = -1;
+    urSeen = 3;
   };
 
   deviceFolders = hostname: storage: filterAttrs (_: v: elem hostname v.devices) (folders storage);
@@ -195,7 +215,8 @@ in
                       '.configuration.gui.user = ${toJSON guiUser} |
                        .configuration.gui.password = $secrets.password |
                        .configuration.device = $devices |
-                       .configuration.folder = $folders' \
+                       .configuration.folder = $folders |
+                       .configuration.options = ${toJSON options}' \
                       "$config")
     if [ "$(${xq} -x <"$config")" != "$newConfig" ]; then
       echo "config changed, updating"
