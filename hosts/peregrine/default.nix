@@ -28,6 +28,7 @@
     ../../modules/tailscale/client.nix
     ../../modules/syncthing-user.nix
     ../../modules/btrbk.nix
+    ../../modules/upower.nix
 
     ../../modules/profiles/laptop.nix
     common-pc-laptop-acpi_call

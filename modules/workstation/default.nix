@@ -46,16 +46,6 @@ in
     extraConfig = "HandlePowerKey=suspend";
   };
 
-  services.upower.enable = true;
-  tmpfs-as-root.persistentDirs = [ "/var/lib/upower" ];
-  systemd.services.upower.serviceConfig = {
-    StateDirectory = "";
-    ReadWritePaths = [
-      "/var/lib/upower"
-      "${config.tmpfs-as-root.storage}/var/lib/upower"
-    ];
-  };
-
   services.blueman.enable = true;
 
   # increase maximum fan speed
