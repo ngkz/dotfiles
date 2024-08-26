@@ -26,3 +26,11 @@ exit
 wsl --shutdown
 wsl
 ```
+
+### Cleanup
+``` sh
+sudo nix-channel ---remove nixos
+sudo nix-channel ---remove nixos-wsl
+sudo rm /etc/nixos/configuration.nix
+```
+
