@@ -25,6 +25,7 @@
   # user
   age.secrets.user-password-hash-mauritius.file = ../../secrets/user-password-hash-mauritius.age;
   users.users.user.hashedPasswordFile = config.age.secrets.user-password-hash-mauritius.path;
+  security.sudo.wheelNeedsPassword = true;
 
   home-manager.users.user.imports = [
     ../../home/hacking
