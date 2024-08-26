@@ -182,11 +182,6 @@ in
       enable = true;
       internalInterfaces = [ "br_lan" "tailscale0" ];
       externalInterface = "wan_pppoe"; #TODO MAP-E
-      forwardPorts = [{
-        destination = "192.168.18.215:43210";
-        proto = "tcp";
-        sourcePort = 3;
-      }];
     };
 
     networking.nftables.enable = true;
@@ -204,6 +199,8 @@ in
           br_lan = fwcfg;
           tailscale0 = fwcfg;
         };
+      # ports for ssh reverse forwarding
+      allowedTCPPorts = [ 1024 1025 1026 1027 1028 ];
     };
 
     networking.nftables.ruleset = ''

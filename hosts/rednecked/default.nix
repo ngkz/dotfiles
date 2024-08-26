@@ -48,6 +48,7 @@ in
   modules.sshd.allowRootLogin = true; # switch-remote
   services.openssh.openFirewall = false;
   hosts.rednecked.network.internalInterfaces.allowedTCPPorts = config.services.openssh.ports;
+  services.openssh.settings.GatewayPorts = "clientspecified";
 
   # we won't use gui apps here
   fonts.fontconfig.enable = false;

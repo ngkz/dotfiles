@@ -183,7 +183,7 @@
   };
 
   # reverse shell
-  networking.firewall.allowedTCPPorts = [ 43210 ];
+  networking.firewall.allowedTCPPorts = [ 1024 1025 1026 1027 1028 ];
 
   # sshd
   services.openssh.openFirewall = false;
