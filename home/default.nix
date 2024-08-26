@@ -28,4 +28,5 @@
   foot = import ./foot.nix;
   cli-extended = import ./cli-extended.nix;
   desktop-essential = import ./desktop-essential.nix;
+  tailscale = import ./tailscale.nix;
 }
