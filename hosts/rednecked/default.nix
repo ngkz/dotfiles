@@ -46,7 +46,7 @@ in
     device = "nodev";
   };
 
-  modules.sshd.allowRootLogin = true;
+  modules.sshd.allowRootLogin = true; # switch-remote
   services.openssh.openFirewall = false;
   hosts.rednecked.network.internalInterfaces.allowedTCPPorts = config.services.openssh.ports;
 
