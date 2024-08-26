@@ -30,4 +30,5 @@
   desktop-essential = import ./desktop-essential.nix;
   tailscale = import ./tailscale.nix;
   gpg = import ./gpg;
+  ssh = import ./ssh.nix;
 }

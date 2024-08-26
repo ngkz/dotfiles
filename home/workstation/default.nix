@@ -20,6 +20,7 @@ in
     ../cli-extended.nix
     ../desktop-essential.nix
     ../gpg
+    ../ssh.nix
   ];
 
   # tmpfs as home
@@ -47,37 +48,6 @@ in
   xsession.preferStatusNotifierItems = true;
 
   services.blueman-applet.enable = true;
-
-  #ssh
-  programs.ssh = {
-    enable = true;
-    serverAliveInterval = 60;
-    #https://qiita.com/tango110/items/c8194d43b46fa2a712d1
-    extraConfig = ''
-      IPQoS none
-    '';
-    matchBlocks = {
-      "github.com" = {
-        user = "git";
-      };
-      "gitlab.com" = {
-        user = "git";
-      };
-      niwase = {
-        hostname = rot13 "gfhxhon.avjnfr.arg";
-        user = "ngkz";
-        port = 49224;
-      };
-      peregrine = {
-        hostname = "peregrine.falcon-nunki.ts.net";
-        user = "user";
-      };
-      rednecked = {
-        hostname = "rednecked.falcon-nunki.ts.net";
-        user = "user";
-      };
-    };
-  };
 
   # KeePassXC
   systemd.user.services.keepassxc = {
