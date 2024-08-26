@@ -4,7 +4,6 @@ let
 in
 {
   imports = [
-    ./gpg.nix
     ./backup
     ./docker.nix
   ];

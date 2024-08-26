@@ -15,7 +15,7 @@ lib.mkMerge ([{
     home-manager.users.user.xdg.dataFile."gnupg/private-keys-v1.d/${keygrip}.key".source =
       config.home-manager.users.user.lib.file.mkOutOfStoreSymlink config.age.secrets."${keygrip}.key".path;
     age.secrets."${keygrip}.key" = {
-      file = ../../secrets/${keygrip}.key.age;
+      file = ../secrets/${keygrip}.key.age;
       owner = "user";
       group = "users";
       mode = "0400";
