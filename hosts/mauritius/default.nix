@@ -20,6 +20,11 @@
     startMenuLaunchers = true;
   };
 
+  # https://stackoverflow.com/questions/63960859/how-can-i-raise-the-limit-for-open-files-in-ubuntu-20-04-on-wsl2
+  systemd.user.extraConfig = ''
+    DefaultLimitNOFILE=65535
+  '';
+
   age.identityPaths = [ "/etc/age.key" ];
 
   # user
