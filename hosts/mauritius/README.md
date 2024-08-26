@@ -18,8 +18,11 @@ wsl --import NixOS $env:USERPROFILE\NixOS\ Downloads\nixos-wsl.tar.gz
 
 ### Install secret keys
 ``` sh
-cat <<'EOS' >/etc/age.key
+wsl
+sudo -e /etc/age.key
 (age secret key)
-EOS
-chmod 400 /etc/age.key
+sudo chmod 400 /etc/age.key
+exit
+wsl --shutdown
+wsl
 ```
