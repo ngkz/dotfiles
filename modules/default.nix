@@ -36,4 +36,5 @@
   tailscale-common = import ./tailscale/common.nix;
   tailscale-client = import ./tailscale/client.nix;
   syncthing-user = import ./syncthing-user.nix;
+  btrbk = import ./btrbk.nix;
 }

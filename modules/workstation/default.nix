@@ -106,19 +106,6 @@ in
 
   services.fwupd.enable = true;
 
-  security.sudo.execWheelOnly = lib.mkIf (builtins.any (fs: fs.fsType == "btrfs") (builtins.attrValues config.fileSystems)) (lib.mkForce false); # btrbk uses sudo
-  services.btrbk = lib.mkIf (builtins.any (fs: fs.fsType == "btrfs") (builtins.attrValues config.fileSystems)) {
-    instances.btrbk = {
-      settings = {
-        snapshot_preserve_min = "latest";
-        snapshot_preserve = "24h 2d";
-        subvolume = "/var/persist/home";
-        snapshot_dir = "/var/snapshots";
-      };
-      onCalendar = "hourly";
-    };
-  };
-
   # enable all magic sysrq functions
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
