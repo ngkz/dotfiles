@@ -33,6 +33,7 @@ in
     ./avahi.nix
     ./ddns.nix
     ./nginx
+    ./tailscale.nix
   ];
 
   networking.hostName = "rednecked";

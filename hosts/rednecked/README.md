@@ -106,3 +106,13 @@ passwd
 cd dotfiles
 nixos-install --root /mnt --flake ".#rednecked" --no-root-passwd
 ```
+
+### Login to Tailscale
+
+``` sh
+sudo tailscale up
+```
+
+ * `Dissable key expiry` of this node from admin console
+ * Approve LAN subnet
+ * Approve as exit node

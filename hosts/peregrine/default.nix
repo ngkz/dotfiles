@@ -25,7 +25,7 @@
     # ../../modules/binary-cache.nix
     ../../modules/disable-usb-keyboard-wakeup.nix
     ../../modules/desktop-essential.nix
-    ../../modules/tailscale.nix
+    ../../modules/tailscale/client.nix
 
     ../../modules/profiles/laptop.nix
     common-pc-laptop-acpi_call

@@ -33,5 +33,6 @@
   zsh = import ./zsh.nix;
   desktop-essential = import ./desktop-essential.nix;
   print-and-scan = import ./print-and-scan.nix;
-  tailscale = import ./tailscale.nix;
+  tailscale-common = import ./tailscale/common.nix;
+  tailscale-client = import ./tailscale/client.nix;
 }

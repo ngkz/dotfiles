@@ -3,7 +3,7 @@
 
 {
   imports = [
-    ./tmpfs-as-root.nix
+    ../tmpfs-as-root.nix
   ];
 
   services.tailscale = {
