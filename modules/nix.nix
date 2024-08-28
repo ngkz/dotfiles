@@ -35,7 +35,7 @@ in
         # max-jobs = 1; # XXX default max-jobs causes memory exhaustion
 
         # substituters = [
-        #   "http://peregrine.local:5000"
+        #   "http://peregrine.falcon-nunki.ts.net:5000"
         # ];
 
         trusted-public-keys = [
