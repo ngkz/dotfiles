@@ -42,6 +42,7 @@
     ../../home/cli-extended.nix
     ../../home/desktop-essential.nix
     ../../home/ssh.nix
+    ../../home/im
   ];
 
   # This value determines the NixOS release from which the default
