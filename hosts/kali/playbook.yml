@@ -89,7 +89,7 @@
       become: no
 
     - name: add vagrant user to docker group
-      user: name={{ ansible_user }} groups=docker append=yes
+      user: name=vagrant groups=docker append=yes
 
     - name: install nix
       shell: sh <(curl -L https://nixos.org/nix/install) --daemon --yes
@@ -195,7 +195,7 @@
       register: cur_profile
       tags: hm
 
-    - name: build and copy home-manager profile
+    - name: build home-manager profile locally and copy to vm
       local_action:
         module: shell
         cmd: |
@@ -214,13 +214,21 @@
           fi
       become: no
       changed_when: new_profile.stdout != ''
+      when: ansible_connection != 'local'
       register: new_profile
       tags: hm
 
     - name: activate home-manager profile
       command: "{{ new_profile.stdout }}/activate"
       become: no
-      when: new_profile is changed
+      when: ansible_connection != 'local' and new_profile is changed
+      tags: hm
+
+    - name: build home-manager profile in vm and activate
+      shell: nix run home-manager -- switch --flake "../../#kali"
+      become: no
+      when: ansible_connection == 'local'
+      register: new_profile
       tags: hm
 
     - name: add home-manager zsh to /etc/shells
