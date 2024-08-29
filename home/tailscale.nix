@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs; [ trayscale ];
 
-  systemd.user.services.tailscale-systray = {
+  systemd.user.services.trayscale = {
     Unit = {
       Description = "Tailscale GUI";
       Requires = [ "tray.target" ];
