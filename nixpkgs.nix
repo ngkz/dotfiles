@@ -10,4 +10,9 @@
     unstable
   ];
   config.allowUnfree = true;
+  flake = {
+    # conflicts with modules/nix.nix
+    setFlakeRegistry = false;
+    setNixPath = false;
+  };
 }
