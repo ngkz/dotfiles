@@ -91,6 +91,7 @@
     exiftool
     geteltorito
     dislocker
+    can-utils
 
     ghidra
     burpsuite
