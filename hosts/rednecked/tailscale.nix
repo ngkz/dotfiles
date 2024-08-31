@@ -19,6 +19,7 @@
   services.networkd-dispatcher.rules."50-tailscale" = {
     onState = [ "routable" ];
     script = ''
+      #!${pkgs.runtimeShell}
       ${lib.getExe pkgs.ethtool} -K wan_pppoe rx-udp-gro-forwarding on rx-gro-list off
       ${lib.getExe pkgs.ethtool} -K wan_hgw rx-udp-gro-forwarding on rx-gro-list off
     '';
