@@ -105,6 +105,16 @@ command = 'sudo nixos-rebuild boot --flake "${PRJ_ROOT}#" "$@"'
 category = "system maintenance"
 
 [[commands]]
+help = "Build the new configuration and activate it on next reboot"
+name = "boot-remote"
+command = '''
+host=$1
+shift
+nixos-rebuild boot --flake "${PRJ_ROOT}#$host" --target-host "root@$host" "$@"
+'''
+category = "system maintenance"
+
+[[commands]]
 help = "Build the new configuration, but neither activate it nor add it to the boot menu. It leaves a symlink result that points to the system derivation."
 name = "build"
 command = '''
