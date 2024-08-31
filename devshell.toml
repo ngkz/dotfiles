@@ -115,6 +115,19 @@ nixos-rebuild boot --flake "${PRJ_ROOT}#$host" --target-host "root@$host" "$@"
 category = "system maintenance"
 
 [[commands]]
+help = "Build the new configuration and activate it but it reverts automatically on next reboot. reboot after 15mins if sshd dies during update"
+name = "test-remote-safe"
+command = '''
+host=$1
+shift
+build "$host" --no-link
+ssh root@$host shutdown -r +15
+nixos-rebuild test --flake "${PRJ_ROOT}#$host" --target-host "root@$host" "$@"
+ssh root@$host shutdown -c
+'''
+category = "system maintenance"
+
+[[commands]]
 help = "Build the new configuration, but neither activate it nor add it to the boot menu. It leaves a symlink result that points to the system derivation."
 name = "build"
 command = '''
