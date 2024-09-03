@@ -92,11 +92,13 @@
     geteltorito
     dislocker
     can-utils
+    python3Packages.cantools
 
     ghidra
     burpsuite
     rehex
     xclip
+    savvycan
   ];
 
   cli-essential.pythonPackages = p: with p; [
