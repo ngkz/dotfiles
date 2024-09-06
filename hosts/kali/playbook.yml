@@ -73,6 +73,8 @@
         - dnsrecon
         # no nix package
         - dnscat2
+        # kenel tools
+        - usbip
 
         # im
         - fcitx5-frontend-all
