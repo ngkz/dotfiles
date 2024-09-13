@@ -33,6 +33,7 @@ in
     ./ddns.nix
     ./nginx
     ./tailscale.nix
+    ./borg.nix
   ];
 
   networking.hostName = "rednecked";

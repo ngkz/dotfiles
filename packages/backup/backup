@@ -7,16 +7,16 @@ for i in @path@; do PATH=$PATH:$i/bin; done
 PATH=$PATH:/run/wrappers/bin
 
 SCRIPT=$(readlink -f "$0")
-ROOT=$(dirname "$SCRIPT")
 
 TMPDIR=/run/backup
-DEST_UUID="0fc9e5dd-c4d2-4d81-bcc6-99d00e10f32e"
-DEST_MOUNTPOINT=$TMPDIR/bkupdisk
-export BORG_REPO="$DEST_MOUNTPOINT/borg"
+SSH_HOST=borg@rednecked.falcon-nunki.ts.net
+SSH_SOCKET=$TMPDIR/ssh.sock
+SSH_OPTS="-o ServerAliveInterval=10 -o ServerAliveCountMax=30"
+export BORG_REPO="$SSH_HOST:~/"
+export BORG_RSH="ssh -S $(printf %q "$SSH_SOCKET") $SSH_OPTS"
 ARCHIVE_PREFIX="$(hostname)_"
 PRUNE_CONFIG="--keep-within=7d --keep-daily=7 --keep-weekly=2 --keep-monthly=-1"
 MOUNT_MOUNTPOINT=$TMPDIR/backup
-DETACH_DEST=0
 VERIFY=0
 AFTER=nop
 CHECK=0
@@ -102,48 +102,6 @@ umount_retry() {
     return 0
 }
 
-mount_dest() {
-    if [[ ! -e "/dev/disk/by-uuid/$DEST_UUID" ]]; then
-        log "connect the backup disk."
-        while [[ ! -e "/dev/disk/by-uuid/$DEST_UUID" ]]; do
-            sleep 1
-        done
-    fi
-
-    if [[ ! -e /dev/mapper/backup ]]; then
-        if ! echo -n "$DEST_LUKS_PASSPHRASE" | cryptsetup open --key-file - "UUID=$DEST_UUID" backup; then
-            return 1
-        fi
-    fi
-
-    if ! mkdir "$DEST_MOUNTPOINT"; then
-        cryptsetup close backup
-        return 1
-    fi
-
-    if ! mount /dev/mapper/backup "$DEST_MOUNTPOINT"; then
-        rmdir "$DEST_MOUNTPOINT"
-        cryptsetup close backup
-        return 1
-    fi
-}
-
-umount_dest() {
-    local rc=0
-
-    umount_retry "$DEST_MOUNTPOINT" || rc=1
-    rmdir "$DEST_MOUNTPOINT" || rc=1
-    cryptsetup close backup || rc=1
-
-    if [[ $DETACH_DEST == 1 ]]; then
-        if ! udisksctl power-off -b "$(disk_from_partition "/dev/disk/by-uuid/$DEST_UUID")"; then
-            log "warning: could not power off the disk"
-        fi
-    fi
-
-    return "$rc"
-}
-
 log_output() {
     mkfifo "$LOGGER_PIPE" || return 1
     logger -t backup <"$LOGGER_PIPE" &
@@ -155,6 +113,16 @@ log_output_stop() {
     exec 1>&3 2>&4 3>&- 4>&-
     wait "$LOGGER_PID" # wait until tees flush the buffer and exit
     rm -f "$LOGGER_PIPE"
+}
+
+controlmaster_start() {
+    if ! ssh -fN -S "$SSH_SOCKET" $SSH_OPTS -o ControlMaster=yes "$SSH_HOST"; then
+        return 1
+    fi
+}
+
+controlmaster_stop() {
+    ssh -q -S "$SSH_SOCKET" -O exit "$SSH_HOST"
 }
 
 take_snapshots() {
@@ -201,13 +169,13 @@ rm_snapshots() {
 backup() {
     log_output
 
-    if ! mount_dest; then
+    if ! controlmaster_start; then
         log_output_stop
         return 1
     fi
 
     if ! take_snapshots; then
-        umount_dest
+        controlmaster_stop
         log_output_stop
         return 1
     fi
@@ -232,7 +200,7 @@ backup() {
     local archive=$ARCHIVE_PREFIX$(date +%Y-%m-%d_%H-%M-%S)
     if ! (cd "$SNAPSHOT_MOUNTPOINT$BACKUP_PATH" && borg create --stats --compression "$COMPRESSION" --exclude-from "$excludes_borg" "::$archive" .); then
         rm_snapshots
-        umount_dest
+        controlmaster_stop
         log_output_stop
         return 1
     fi
@@ -240,7 +208,7 @@ backup() {
     if [[ $VERIFY -ne 0 ]]; then
         if ! verify "$archive" "$SNAPSHOT_MOUNTPOINT$BACKUP_PATH" "$excludes_rsync"; then
             rm_snapshots
-            umount_dest
+            controlmaster_stop
             log_output_stop
             return 1
         fi
@@ -248,7 +216,7 @@ backup() {
 
     rm -f "$excludes_rsync" "$excludes_borg"
     if ! rm_snapshots; then
-        umount_dest
+        controlmaster_stop
         log_output_stop
         return 1
     fi
@@ -256,7 +224,7 @@ backup() {
     if [[ -n "$archive_prev" ]]; then
         log "$archive_prev -> $archive diff:"
         if ! borg diff "::$archive_prev" "$archive" $DIFF_CONFIG; then
-            umount_dest
+            controlmaster_stop
             log_output_stop
             return 1
         fi
@@ -264,13 +232,13 @@ backup() {
 
     log "deleting old backups"
     if ! borg prune --list --glob-archives "${ARCHIVE_PREFIX}*" $PRUNE_CONFIG ::; then
-        umount_dest
+        controlmaster_stop
         log_output_stop
         return 1
     fi
 
     if ! borg compact ::; then
-        umount_dest
+        controlmaster_stop
         log_output_stop
         return 1
     fi
@@ -278,19 +246,14 @@ backup() {
     if [[ $CHECK -ne 0 ]]; then
         log "checking repository"
         if ! borg check ::; then
-            umount_dest
+            controlmaster_stop
             log_output_stop
             return 1
         fi
     fi
 
-    if [[ $(LC_MESSAGES=C df -h "$DEST_MOUNTPOINT" | awk '!/Filesystem/ { sub(/%/, "", $5); print $5 }') -ge 95 ]]; then
-        log "warning: the backup disk is almost full"
-        df -h "$DEST_MOUNTPOINT"
-    fi
-
     local rc=0
-    umount_dest || rc=1
+    controlmaster_stop || rc=1
     log_output_stop || rc=1
     return "$rc"
 }
@@ -324,9 +287,7 @@ verify() {
 mount_repository() {
     log "mounting the repository at $MOUNT_MOUNTPOINT"
 
-    mount_dest || return 1
     if ! mkdir "$MOUNT_MOUNTPOINT"; then
-        umount_dest
         return 1
     fi
 
@@ -337,32 +298,32 @@ mount_repository() {
     fi
 
     rmdir "$MOUNT_MOUNTPOINT" || rc=1
-    umount_dest || rc=1
     return "$rc"
 }
 
 shell() {
-    mount_dest || return 1
-
-    export DEST_MOUNTPOINT
     export ARCHIVE_PREFIX
     export PRUNE_CONFIG
 
     echo "BORG_PASSPHRASE=(hidden)"
     echo "BORG_REPO=$BORG_REPO"
-    echo "DEST_MOUNTPOINT=$DEST_MOUNTPOINT"
+    echo "BORG_RSH=$BORG_RSH"
     echo "ARCHIVE_PREFIX=$ARCHIVE_PREFIX"
     echo "PRUNE_CONFIG=$PRUNE_CONFIG"
 
-    (cd "$DEST_MOUNTPOINT" && @bashInteractive@/bin/bash)
+    if ! controlmaster_start; then
+        return 1
+    fi
 
-    umount_dest
+    @bashInteractive@/bin/bash
+
+    controlmaster_stop
 }
 
 usage() {
     local name=$(basename "$0")
     echo "Usage:" >&2
-    echo "$name backup [--verify] [--no-detach] [--check] [suspend|hibernate|poweroff]" >&2
+    echo "$name backup [--verify] [--check] [suspend|hibernate|poweroff]" >&2
     echo "$name mount" >&2
     echo "$name shell" >&2
 }
@@ -375,12 +336,9 @@ fi
 ACTION=$1
 case "$ACTION" in
 backup)
-    DETACH_DEST=1
-
     for arg in "${@:2}"; do
         case "$arg" in
         --verify) VERIFY=1 ;;
-        --no-detach) DETACH_DEST=0 ;;
         --check) CHECK=1 ;;
         suspend | hibernate | poweroff)
             if [[ "$AFTER" != nop ]]; then
@@ -408,16 +366,12 @@ mount|shell)
     ;;
 esac
 
-if [[ ! -v BORG_PASSPHRASE ]] && [[ ! -v DEST_LUKS_PASSPHRASE ]]; then
+if [[ ! -v BORG_PASSPHRASE ]]; then
     if ! BORG_PASSPHRASE=$(secret-tool lookup backup borg); then
         log "can't lookup borg repository passphrase"
         exit 1
     fi
-    if ! DEST_LUKS_PASSPHRASE=$(secret-tool lookup backup luks); then
-        log "can't lookup luks passphrase"
-        exit 1
-    fi
-    BORG_PASSPHRASE="$BORG_PASSPHRASE" DEST_LUKS_PASSPHRASE="$DEST_LUKS_PASSPHRASE" exec sudo --preserve-env=BORG_PASSPHRASE --preserve-env=DEST_LUKS_PASSPHRASE "$SCRIPT" "$@"
+    BORG_PASSPHRASE="$BORG_PASSPHRASE" exec sudo --preserve-env=BORG_PASSPHRASE --preserve-env=SSH_AUTH_SOCK "$SCRIPT" "$@"
 fi
 
 mkdir "$TMPDIR" || exit 1
