@@ -1,4 +1,4 @@
-{ lib, pkgs,  ... }:
+{ lib, pkgs, ... }:
 
 let
   repo = "/var/spinningrust/borg";
