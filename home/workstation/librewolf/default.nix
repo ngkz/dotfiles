@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   programs.librewolf = {
     enable = true;
     settings = {
@@ -27,10 +27,6 @@
   };
 
   home.file.".librewolf/profiles.ini".source = ./profiles.ini;
-  home.file.".librewolf/native-messaging-hosts/org.keepassxc.keepassxc_browser.json".source = pkgs.substituteAll {
-    src = ./org.keepassxc.keepassxc_browser.json;
-    inherit (pkgs) keepassxc;
-  };
 
   tmpfs-as-home.persistentDirs = [
     ".librewolf/default"

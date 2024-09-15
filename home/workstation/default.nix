@@ -21,6 +21,8 @@ in
     ../desktop-essential.nix
     ../gpg
     ../ssh.nix
+    ../keepassxc
+    ../keepassxc/librewolf.nix
   ];
 
   # tmpfs as home
@@ -48,29 +50,6 @@ in
   xsession.preferStatusNotifierItems = true;
 
   services.blueman-applet.enable = true;
-
-  # KeePassXC
-  systemd.user.services.keepassxc = {
-    Unit = {
-      Description = "KeePassXC password manager";
-      Requires = [ "ssh-agent.service" "tray.target" ];
-      After = [ "graphical-session-pre.target" "ssh-agent.service" "tray.target" ];
-      PartOf = [ "graphical-session.target" ];
-    };
-
-    Install = { WantedBy = [ "graphical-session.target" ]; };
-
-    Service = {
-      ExecStart = "${pkgs.keepassxc}/bin/keepassxc %h/misc/all/db.kdbx";
-      Restart = "on-failure";
-      Environment = [
-        "SSH_AUTH_SOCK=%t/ssh-agent"
-        "PATH=/etc/profiles/per-user/%u/bin" # XXX Qt find plugins from PATH
-      ];
-    };
-  };
-
-  home.file.".config/keepassxc/keepassxc.ini".source = ./keepassxc.ini;
 
   # patch neovim desktop entry
   xdg.desktopEntries.nvim = {
@@ -385,7 +364,6 @@ in
     gscan2pdf # scanning tool
     gnome3.eog
     inkscape
-    keepassxc
     tauon
     pavucontrol
     gnome.gnome-clocks

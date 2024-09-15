@@ -31,4 +31,6 @@
   tailscale = import ./tailscale.nix;
   gpg = import ./gpg;
   ssh = import ./ssh.nix;
+  keepassxc = import ./keepassxc;
+  keepassxc-librewolf = import ./keepassxc/librewolf.nix;
 }
