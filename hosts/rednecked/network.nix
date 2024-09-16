@@ -40,10 +40,6 @@ in
           matchConfig.MACAddress = "f4:b5:20:1b:02:68";
           linkConfig.Name = "lan3";
         };
-        "10-wlan_24g" = {
-          matchConfig.MACAddress = "30:10:b3:03:41:51";
-          linkConfig.Name = "wlan_24g";
-        };
       };
       netdevs = {
         "20-br_lan" = {
@@ -152,11 +148,6 @@ in
         };
         "30-lan3" = {
           matchConfig.Name = "lan3";
-          networkConfig.Bridge = "br_lan";
-          linkConfig.RequiredForOnline = false;
-        };
-        "30-wlan_24g" = {
-          matchConfig.Name = "wlan_24g";
           networkConfig.Bridge = "br_lan";
           linkConfig.RequiredForOnline = false;
         };
