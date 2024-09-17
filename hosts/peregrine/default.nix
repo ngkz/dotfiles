@@ -22,7 +22,7 @@
     ../../modules/zswap.nix
     ../../modules/bluetooth.nix
     ../../modules/network-manager
-    # ../../modules/binary-cache.nix
+    ../../modules/binary-cache.nix
     ../../modules/disable-usb-keyboard-wakeup.nix
     ../../modules/desktop-essential.nix
     ../../modules/tailscale/client.nix
