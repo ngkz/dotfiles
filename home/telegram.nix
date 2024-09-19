@@ -24,7 +24,6 @@
 
     Service = {
       ExecStart = "${pkgs.telegram-desktop}/bin/telegram-desktop -autostart";
-      Restart = "on-failure";
     };
   };
 }

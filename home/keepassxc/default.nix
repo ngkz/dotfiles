@@ -14,7 +14,6 @@
 
     Service = {
       ExecStart = "${pkgs.keepassxc}/bin/keepassxc %h/misc/all/db.kdbx";
-      Restart = "on-failure";
       Environment = [
         "SSH_AUTH_SOCK=%t/ssh-agent"
         "PATH=/etc/profiles/per-user/%u/bin" # XXX Qt find plugins from PATH

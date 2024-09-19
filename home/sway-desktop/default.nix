@@ -384,7 +384,6 @@ in
 
     Service = {
       ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-      Restart = "always";
     };
 
     Install = { WantedBy = [ "sway-session.target" ]; };
@@ -414,7 +413,6 @@ in
 
     Service = {
       ExecStart = "${autoname-workspaces} --duplicate";
-      Restart = "always";
     };
 
     Install = { WantedBy = [ "sway-session.target" ]; };

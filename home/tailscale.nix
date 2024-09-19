@@ -15,7 +15,6 @@
 
     Service = {
       ExecStart = "${lib.getExe pkgs.trayscale} --hide-window";
-      Restart = "on-failure";
     };
   };
 }
