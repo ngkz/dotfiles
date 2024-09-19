@@ -206,6 +206,22 @@ in
     '';
   };
 
+  # override xdg-desktop-portal-wlr.service
+  # After=graphical-session.target causes dependency loop
+  # XXX xdg-desktop-portal-wlr #238
+  systemd.user.services.xdg-desktop-portal-wlr = {
+    Unit = {
+      Description = "Portal service (wlroots implementation)";
+      PartOf = [ "sway-session.target" ];
+    };
+
+    Service = {
+      Type = "dbus";
+      BusName = "org.freedesktop.impl.portal.desktop.wlr";
+      ExecStart = "${pkgs.xdg-desktop-portal-wlr}/bin/xdg-desktop-portal-wlr";
+    };
+  };
+
   services.swayidle = {
     enable = true;
     events = [
