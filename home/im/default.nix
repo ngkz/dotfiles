@@ -31,6 +31,7 @@
     ] ++ (map (host: "encoding=UTF-8,file=${dictdir}/user-${host}.dict,mode=readonly,type=file") otherMachines) ++ [
       "file=${pkgs.ngkz.skk-dicts}/share/SKK-JISYO.total,mode=readonly,type=file"
       "file=${pkgs.ngkz.skk-dicts}/share/SKK-JISYO.emoji,mode=readonly,type=file"
+      "file=${./marusuuji},mode=readonly,type=file"
     ]);
 
   systemd.user.services.fcitx5-daemon = {
