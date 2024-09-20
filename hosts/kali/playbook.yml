@@ -45,6 +45,12 @@
         regexp: '^127.0.1.1'
         line: "127.0.1.1\t{{ ansible_hostname }}"
 
+    - name: automatically load usbip kernel module
+      lineinfile:
+        path: /etc/modules-load.d/ansible.conf
+        line: "vhci-hcd"
+        create: yes
+
     - name: install kali packages
       apt: name={{ item }}
       with_items:
