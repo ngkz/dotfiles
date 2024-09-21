@@ -32,7 +32,7 @@ in
 
         trusted-users = [ "root" ];
 
-        # max-jobs = 1; # XXX default max-jobs causes memory exhaustion
+        max-jobs = 1; # XXX default max-jobs causes memory exhaustion
 
         # substituters = [
         #   "http://peregrine.falcon-nunki.ts.net:5000"
