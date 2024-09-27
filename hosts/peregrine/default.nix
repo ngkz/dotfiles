@@ -12,7 +12,7 @@
     ../../modules/ssd.nix
     ../../modules/sshd.nix
     ../../modules/workstation
-    ../../modules/print-and-scan.nix
+    # ../../modules/print-and-scan.nix
     ../../modules/fonts.nix
     ../../modules/sway-desktop.nix
     ../../modules/undervolt
