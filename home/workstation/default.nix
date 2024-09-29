@@ -14,7 +14,7 @@ in
     ../doom-emacs
     ../hyfetch.nix
     # ../gtkcord4.nix
-    ../telegram.nix
+    ../signal
     ../user-dirs.nix
     ../foot.nix
     ../cli-extended.nix
