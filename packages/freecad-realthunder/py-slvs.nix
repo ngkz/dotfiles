@@ -6,8 +6,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "realthunder";
     repo = "slvs_py";
-    rev = "b70471944aef07a9a23402f6831f463d031d0ab1";
-    hash = "sha256-L7dnQ1cyCeRvXcXuh8e8OPRET3WpsMnkb5yDLYTISc4=";
+    rev = "8bacae911c0c94c04ec8219aad3548b3b54f886e";
+    hash = "sha256-b9DgsQ+lJ430WYjMUreCOAhTAZt1lFVMwItdY4/alk4=";
     fetchSubmodules = true;
   };
 

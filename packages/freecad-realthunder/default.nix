@@ -66,15 +66,15 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "freecad-realthunder";
-  version = "2024.04.07";
+  version = "2024.10.03";
 
   srcs = [
     # TODO update script
     (fetchFromGitHub {
       owner = "realthunder";
       repo = "FreeCAD";
-      rev = "973e4821bcd19a5a1af9ae3e1d2ed961aad0a8ab";
-      hash = "sha256-hlAkR4Ubvjr+MSyP1WewDLkQRFgEGBXkVeKAjI9lsE0=";
+      rev = "a9810d509a6f112b5ac03d4d4831b67e6bffd5b7";
+      hash = "sha256-aKsjUsJcjSSgi44ztz9zRSrEvfSq/KpbLyw8pXLapU4=";
       name = "freecad";
     })
     (fetchFromGitHub {
@@ -87,8 +87,8 @@ stdenv.mkDerivation (finalAttrs: {
     (fetchFromGitHub {
       owner = "realthunder";
       repo = "FreeCAD_assembly3";
-      rev = "1fbe223d2014827dba5ce3bea8a6b2f4c904a8f7";
-      hash = "sha256-VKknAdCYNvPTuMb056qx2RLH0k/b5C4jf5Cym2XUcYQ=";
+      rev = "b6d2ecd35a9a12a9422106cd2af58c296788f183";
+      hash = "sha256-yIDv9RV2V9BMyFjp4TjAjgH3lUeejrBhV9BMzPpJI40=";
       name = "asm3";
     })
   ];
@@ -204,6 +204,10 @@ stdenv.mkDerivation (finalAttrs: {
       mv $out/bin/FreeCAD $out/bin/FreeCADLink
 
       cp -a ../../asm3 $out/Mod/Assembly3
+      # causes fixup failure
+      chmod +w $out/Mod/Assembly3/freecad/asm3/translations
+      rm -f $out/Mod/Assembly3/freecad/asm3/translations/update_translation.sh
+      chmod -w $out/Mod/Assembly3/freecad/asm3/translations
     '';
 
   postFixup = ''
