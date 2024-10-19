@@ -27,10 +27,12 @@
     nmap
     rustscan
     aflplusplus
+    aapt
     apktool
     dex2jar
     enjarify
     jd-gui
+    jadx
     sqlmap
     linux-exploit-suggester
     john
@@ -93,6 +95,7 @@
     dislocker
     can-utils
     python3Packages.cantools
+    linux-wifi-hotspot
 
     ghidra
     burpsuite
