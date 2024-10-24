@@ -173,6 +173,7 @@
     "phone"
     "0000docomo"
     "IBARAKI-FREE-Wi-Fi"
+    "home-a"
   ];
 
   undervolt = {

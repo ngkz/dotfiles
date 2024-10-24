@@ -10,6 +10,7 @@ in
   "parents-home-1f-a.nmconnection.age".publicKeys = [ peregrine ];
   "parents-home-1f-g.nmconnection.age".publicKeys = [ peregrine ];
   "parents-home-2f.nmconnection.age".publicKeys = [ peregrine ];
+  "home-a.nmconnection.age".publicKeys = [ peregrine ];
   "phone.nmconnection.age".publicKeys = [ peregrine ];
   "syncthing.json.age".publicKeys = [ peregrine rednecked ];
   "8657BC028746A06C68F352BA86EE58CD1294C73E.key.age".publicKeys = [ peregrine ];
