@@ -31,7 +31,6 @@
     apktool
     dex2jar
     enjarify
-    jd-gui
     jadx
     sqlmap
     linux-exploit-suggester
