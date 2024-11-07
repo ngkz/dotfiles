@@ -280,8 +280,7 @@ in
       }
       {
         timeout = 600;
-        # TODO read tlp state
-        command = "[ \"$(${cat} /sys/class/power_supply/AC/online)\" = 0 ] && ${systemctl} suspend";
+        command = "[ \"$(${cat} /run/tlp/last_pwr)\" = 1 ] && ${systemctl} suspend";
       }
     ];
   };
