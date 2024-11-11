@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
   networking.hostName = "mauritius";
@@ -43,6 +43,10 @@
     ../../home/desktop-essential.nix
     ../../home/ssh.nix
     ../../home/im
+  ];
+
+  environment.systemPackages = with pkgs; [
+    wsl-open
   ];
 
   # This value determines the NixOS release from which the default
