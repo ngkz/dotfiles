@@ -95,6 +95,8 @@
     can-utils
     python3Packages.cantools
     linux-wifi-hotspot
+    erofs-utils
+    apksigner
 
     ghidra
     burpsuite
