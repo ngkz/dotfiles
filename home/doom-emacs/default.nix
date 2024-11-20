@@ -23,8 +23,8 @@ in
     "emacs".source = pkgs.fetchFromGitHub {
       owner = "doomemacs";
       repo = "doomemacs";
-      rev = "7bc39f2c1402794e76ea10b781dfe586fed7253b";
-      hash = "sha256-F1CfUiOcSdZi/00iKvL74n2ycH9cA3IV7z5GnTfMaME=";
+      rev = "be4fb85dd93810e495d5f4a793d620f82508cb7e";
+      hash = "sha256-13DX27VcSe9lLz7go2tFdNLoroNzlcboD5I2mHfL0Ms=";
     };
   };
 
