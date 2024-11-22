@@ -199,6 +199,9 @@
       register: cur_profile
       tags: hm
 
+    - set_fact: real_ansible_connection={{ ansible_connection }}
+      tags: hm
+
     - name: build home-manager profile locally and copy to vm
       local_action:
         module: shell
@@ -218,7 +221,7 @@
           fi
       become: no
       changed_when: new_profile.stdout != ''
-      when: ansible_connection != 'local'
+      when: real_ansible_connection != 'local'
       register: new_profile
       tags: hm
 
