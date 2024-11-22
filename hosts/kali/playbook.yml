@@ -131,9 +131,7 @@
         state: present
 
     - name: calculate NIX_PATH
-      local_action:
-        module: command
-        cmd: "nix eval --raw --impure --expr 'let inputs = (builtins.getFlake (toString ../..)).inputs; in with builtins; with inputs.nixpkgs.lib; concatStringsSep \":\" (mapAttrsToList (n: v: \"${n}=${v}\") (filterAttrs (n: _: n != \"self\") inputs))'"
+      command: "nix eval --raw --impure --expr 'let inputs = (builtins.getFlake (toString \"/dotfiles\")).inputs; in with builtins; with inputs.nixpkgs.lib; concatStringsSep \":\" (mapAttrsToList (n: v: \"${n}=${v}\") (filterAttrs (n: _: n != \"self\") inputs))'"
       become: no
       changed_when: no
       register: nix_path
@@ -145,9 +143,7 @@
         line: 'NIX_PATH={{ nix_path.stdout }}'
 
     - name: generate registry.json
-      local_action:
-        module: command
-        cmd: "nix eval --json --impure --expr 'let inputs = (builtins.getFlake (toString ../..)).inputs; registry = {}; in { version = 2; flakes = inputs.nixpkgs.lib.mapAttrsToList (n: v: { from = { \"type\" = \"indirect\"; id = n; }; to = { type = \"path\"; path = v.outPath; } // inputs.nixpkgs.lib.filterAttrs (n: _: n == \"lastModified\" || n == \"rev\" || n == \"revCount\" || n == \"narHash\") v; exact = true; }) inputs; }'"
+      command: "nix eval --json --impure --expr 'let inputs = (builtins.getFlake \"/dotfiles\").inputs; registry = {}; in { version = 2; flakes = inputs.nixpkgs.lib.mapAttrsToList (n: v: { from = { \"type\" = \"indirect\"; id = n; }; to = { type = \"path\"; path = v.outPath; } // inputs.nixpkgs.lib.filterAttrs (n: _: n == \"lastModified\" || n == \"rev\" || n == \"revCount\" || n == \"narHash\") v; exact = true; }) inputs; }'"
       become: no
       changed_when: no
       register: registry_json
