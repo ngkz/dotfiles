@@ -60,7 +60,7 @@ Vagrant.configure('2') do |config|
 
   dotfiles = File.expand_path '../..'
   dotfiles_sf_id = 'dotfiles'
-  config.vm.synced_folder skk_dicts, '/dotfiles'
+  config.vm.synced_folder dotfiles, '/dotfiles'
 
   config.vm.provider :virtualbox do |v|
     # XXX unmap shared folder and remap it as read-only.
