@@ -97,6 +97,7 @@
     linux-wifi-hotspot
     erofs-utils
     apksigner
+    docker-compose
 
     ghidra
     burpsuite
