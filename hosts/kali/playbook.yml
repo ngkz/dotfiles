@@ -59,6 +59,7 @@
         - build-essential
         - binutils
         - gcc
+        - libc6-dev-i386
         - gcc-arm-linux-gnueabi
         - g++-arm-linux-gnueabi
         - gcc-arm-linux-gnueabihf
