@@ -174,6 +174,7 @@
     "0000docomo"
     "IBARAKI-FREE-Wi-Fi"
     "home-a"
+    "PD-50"
   ];
 
   undervolt = {

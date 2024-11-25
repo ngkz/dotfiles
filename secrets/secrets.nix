@@ -24,4 +24,5 @@ in
   "0000docomo.nmconnection.age".publicKeys = [ peregrine ];
   "IBARAKI-FREE-Wi-Fi.nmconnection.age".publicKeys = [ peregrine ];
   "cache-priv-key-peregrine.pem.age".publicKeys = [ peregrine ];
+  "PD-50.nmconnection.age".publicKeys = [ peregrine ];
 }
