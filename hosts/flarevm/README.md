@@ -17,6 +17,19 @@ Vagrant [FLARE-VM](https://github.com/mandiant/flare-vm)
 2. Disable Windows Defender
    https://lazyadmin.nl/win-11/turn-off-windows-defender-windows-11-permanently/
 
+   1. Restart with safe mode
+      reboot with shift pressed down
+   2. win+r powershell and run this script
+      ```powershell
+       # Disable Windows Defender
+       $servicepath = 'HKLM:\\SYSTEM\\CurrentControlSet\\Services'
+       $targets = @('Sense', 'WdBoot', 'WdFilter', 'WdNisDrv', 'WdNisSvc', 'WinDefend', 'MDCoreSvc')
+
+       foreach ($target in $targets) {
+         Set-ItemProperty "$servicepath\\$target" Start -Value 4 -type Dword
+       }
+       ```
+
 3. Setup Flare VM
 
    ```powershell
