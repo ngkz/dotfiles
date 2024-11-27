@@ -2,7 +2,7 @@
   programs.hyfetch = {
     enable = true;
     settings = {
-      preset = "gendernonconforming2";
+      preset = "demiboy";
       mode = "rgb";
       light_dark = "dark";
       lightness = 0.5;
