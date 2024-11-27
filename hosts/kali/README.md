@@ -34,6 +34,9 @@ sudo -e /etc/fstab
 sudo resize2fs /dev/sda1
 ```
 
+Enabling extended session mode:
+https://www.kali.org/docs/virtualization/install-hyper-v-guest-enhanced-session-mode/
+
 ### Switch the configuration
 
 ```sh
