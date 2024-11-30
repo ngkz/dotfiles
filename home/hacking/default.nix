@@ -104,6 +104,7 @@
     rehex
     xclip
     savvycan
+    testdisk-qt
   ];
 
   cli-essential.pythonPackages = p: with p; [
