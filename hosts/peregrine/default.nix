@@ -4,7 +4,7 @@
 {
   networking.hostName = "peregrine";
 
-  imports = with inputs.nixos-hardware.nixosModules; [
+  imports = [
     ../../modules/agenix.nix
     ../../modules/base.nix
     ../../modules/console.nix
@@ -33,7 +33,6 @@
     ../../modules/ssh.nix
 
     ../../modules/profiles/laptop.nix
-    common-pc-laptop-acpi_call
     ../../modules/profiles/intel-cpu.nix
     ../../modules/profiles/intel-wifi.nix
   ];
