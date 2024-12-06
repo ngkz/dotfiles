@@ -29,5 +29,6 @@
     aacgain
     mprime
     qrencode
+    ijq #interactiv jq
   ];
 }

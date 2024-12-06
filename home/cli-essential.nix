@@ -69,7 +69,6 @@ in
       socat
       bc
       dig
-      ijq #interactiv jq
     ];
   };
 }
