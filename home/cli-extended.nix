@@ -30,5 +30,7 @@
     mprime
     qrencode
     ijq #interactiv jq
+    dos2unix
+    wireguard-tools
   ];
 }
