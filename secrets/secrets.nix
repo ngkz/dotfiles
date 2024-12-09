@@ -20,7 +20,6 @@ in
   "db.key.age".publicKeys = [ peregrine ];
   "grub.key.age".publicKeys = [ peregrine ];
   "pppoe-creds.age".publicKeys = [ rednecked ];
-  "cloudflare-api-key.age".publicKeys = [ rednecked ];
   "0000docomo.nmconnection.age".publicKeys = [ peregrine ];
   "IBARAKI-FREE-Wi-Fi.nmconnection.age".publicKeys = [ peregrine ];
   "cache-priv-key-peregrine.pem.age".publicKeys = [ peregrine ];
