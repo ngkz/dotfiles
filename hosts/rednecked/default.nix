@@ -14,6 +14,7 @@ in
     ../../modules/btrfs-maintenance
     ../../modules/nix-maintenance
     ../../modules/zswap.nix
+    ../../modules/mdns.nix
 
     common-pc
     common-cpu-amd #common-cpu-amd-pstate zen2 onward
@@ -24,12 +25,8 @@ in
     ./fs
     ./user.nix
     ./network.nix
-    ./pppoe.nix
-    ./dnsmasq
-    ./chrony
     ./hardening.nix
     ./syncthing.nix
-    ./avahi.nix
     ./tailscale.nix
     ./borg.nix
   ];

@@ -19,7 +19,6 @@ in
   "db.crt.age".publicKeys = [ peregrine ];
   "db.key.age".publicKeys = [ peregrine ];
   "grub.key.age".publicKeys = [ peregrine ];
-  "pppoe-creds.age".publicKeys = [ rednecked ];
   "0000docomo.nmconnection.age".publicKeys = [ peregrine ];
   "IBARAKI-FREE-Wi-Fi.nmconnection.age".publicKeys = [ peregrine ];
   "cache-priv-key-peregrine.pem.age".publicKeys = [ peregrine ];
