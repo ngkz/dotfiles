@@ -30,7 +30,6 @@ in
     ./hardening.nix
     ./syncthing.nix
     ./avahi.nix
-    ./nginx
     ./tailscale.nix
     ./borg.nix
   ];
