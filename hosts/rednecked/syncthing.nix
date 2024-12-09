@@ -9,7 +9,7 @@ in
     guiAddress = "0.0.0.0:8384";
   };
 
-  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 22000 ]; # tailscale only
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 22000 8384 ]; # tailscale only
 
   age.secrets.syncthing = {
     file = ../../secrets/syncthing.json.age;
@@ -26,8 +26,6 @@ in
   };
 
   tmpfs-as-root.persistentDirs = [ cfg.dataDir ];
-
-  hosts.rednecked.network.internalInterfaces.allowedTCPPorts = [ 8384 ];
 
   systemd.tmpfiles.rules = [
     "d ${storage} 0700 syncthing syncthing -"
