@@ -1,0 +1,21 @@
+commit f4a689a98d9672497e775c2e7fc4e0f09815588b
+Author: Kazutoshi Noguchi <kn@f2l.cc>
+Date:   Wed Dec 11 22:56:29 2024 +0900
+
+    make WslNotifydWin path configurable
+
+diff --git a/WslNotifyd/Program.cs b/WslNotifyd/Program.cs
+index 5d3422e..d9555e4 100644
+--- a/WslNotifyd/Program.cs
++++ b/WslNotifyd/Program.cs
+@@ -64,8 +64,8 @@ internal class Program
+         var workingDirectory = Path.Combine(Path.GetDirectoryName(Environment.ProcessPath)!, "../../../../WslNotifydWin");
+         var hashString = "development";
+ #else
+-        var notifydWinPath = Path.Combine(Path.GetDirectoryName(Environment.ProcessPath)!, "WslNotifydWin/scripts/runner-release.sh");
+-        var workingDirectory = Path.Combine(Path.GetDirectoryName(Environment.ProcessPath)!, "WslNotifydWin");
++        var notifydWinPath = "@WslNotifydWin@/scripts/runner-release.sh";
++        var workingDirectory = "@WslNotifydWin@";
+         var hashString = new string(new Random().GetItems("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".ToCharArray(), 10));
+ #endif
+         builder.Services.AddSingleton(serviceProvider =>

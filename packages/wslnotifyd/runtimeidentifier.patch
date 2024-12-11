@@ -1,0 +1,18 @@
+commit 4d8ff559bf14cd022ada5d6ba887825d4b4ec477
+Author: Kazutoshi Noguchi <kn@f2l.cc>
+Date:   Wed Dec 11 20:09:55 2024 +0900
+
+    specify RuntimeIdentifier at WslNotifydWin.csproj
+
+diff --git a/WslNotifydWin/WslNotifydWin.csproj b/WslNotifydWin/WslNotifydWin.csproj
+index 1b1bfa3..071a208 100644
+--- a/WslNotifydWin/WslNotifydWin.csproj
++++ b/WslNotifydWin/WslNotifydWin.csproj
+@@ -6,6 +6,7 @@
+     <ImplicitUsings>enable</ImplicitUsings>
+     <Nullable>enable</Nullable>
+     <EnableWindowsTargeting>true</EnableWindowsTargeting>
++    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+   </PropertyGroup>
+ 
+   <ItemGroup>

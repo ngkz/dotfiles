@@ -1,0 +1,18 @@
+commit be780e079442c4d7d9ac2c4aadedc22446082baf
+Author: Kazutoshi Noguchi <kn@f2l.cc>
+Date:   Wed Dec 11 23:17:40 2024 +0900
+
+    make copy destination writable
+
+diff --git a/WslNotifydWin/scripts/runner.sh b/WslNotifydWin/scripts/runner.sh
+index 623f433..0ae513b 100755
+--- a/WslNotifydWin/scripts/runner.sh
++++ b/WslNotifydWin/scripts/runner.sh
+@@ -28,6 +28,7 @@ if [[ $do_copy = 1 ]]; then
+     echo "copy WslNotifyd to ${dst}"
+     rm -rf "${dst}"
+     cp -r "${copy_src}" "${dst}"
++    chmod -R +w "${dst}"
+     printf '%s\n' "${hash_str}" > "${hash_path}"
+ fi
+ 

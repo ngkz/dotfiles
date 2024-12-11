@@ -34,4 +34,5 @@ rec {
   flygrep-vim = pkgs.callPackage ./flygrep-vim { };
   capture-vim = pkgs.callPackage ./capture-vim { };
   ical2org = pkgs.callPackage ./ical2org { };
+  wslnotifyd = pkgs.callPackage ./wslnotifyd { };
 }
