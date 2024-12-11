@@ -47,7 +47,7 @@
 
   environment.systemPackages = with pkgs; [
     wsl-open
-    wslnotifyd
+    ngkz.wslnotifyd
   ];
 
   # This value determines the NixOS release from which the default
