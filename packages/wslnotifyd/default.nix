@@ -20,7 +20,6 @@ buildDotnetModule rec {
   };
 
   patches = [
-    ./runtimeidentifier.patch
     ./wslnotifydwin-path.patch
     ./make-dst-writable.patch
   ];
