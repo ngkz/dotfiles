@@ -3,6 +3,9 @@
 , dotnetCorePackages
 , gtk3
 , lib
+, coreutils
+, iconv
+, gnused
 }:
 
 buildDotnetModule rec {
@@ -41,6 +44,12 @@ buildDotnetModule rec {
     executables = [ ];
     selfContainedBuild = true;
     nugetDeps = ./deps-win.nix;
+    postInstall = ''
+      for script in $out/lib/wslnotifyd-win/scripts/*.sh; do
+        # /bin/wslpath
+        wrapProgram "$script" --prefix PATH : /bin:${lib.makeBinPath [coreutils iconv gnused]}
+      done
+    '';
   };
 
   postInstall = ''
