@@ -7,8 +7,8 @@ stdenvNoCC.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "vinceliuice";
     repo = "vimix-kde";
-    rev = "e03243ef4f6a6b7a57331823ae5dbe4df30c8567";
-    hash = "sha256-uvJL7BfRXcgNj/5lR6jJNJTzW7myy5aINCmsl5y6/fA=";
+    rev = "cf5b8f6136cff0b679b31006bae6fea182c23fe2";
+    hash = "sha256-uj4ItnRuAo5vz+tcY++EOiKuO7QfIfouL3dUdulQAbM=";
   };
 
   phases = "unpackPhase patchPhase installPhase";
