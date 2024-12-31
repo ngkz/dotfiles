@@ -5,7 +5,7 @@ ThinkPad E490. It's my main driver.
 ## Specs
 Core i7-8565U, 16GB RAM, JIS keyboard, No dGPU, No fingerprint reader, Intel Wireless-AC 9260, WD SN550 1TB NVMe SSD, No HDD, Low Power LCD Mod(N140HCG-GQ2), Cooling Mod
 
-Peripherals: ThinkPad USB-C Dock Gen 2, ThinkPad Compact USB Keyboard with TrackPoint(JIS), 2x 4K monitors, Amp and stereo speakers, 1x FHD monitor via FL2000 adapter(TODO)
+Peripherals: ThinkPad USB-C Dock Gen 2, ThinkPad Compact USB Keyboard with TrackPoint(JIS), 2x 4K monitors, Amp and stereo speakers
 
 ## Installation
 ### Setup Secure boot

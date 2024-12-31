@@ -109,9 +109,7 @@ in
           "extract"
           "dirpersist" # persistent directory stack
           "dirhistory" # alt+left, alt+right, alt+up, alt+down
-          "ripgrep"
           "aliases" # alias cheatsheet with `acs`
-          "fd"
           "httpie"
           "nmap"
           "perms"

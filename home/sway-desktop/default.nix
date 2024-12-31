@@ -446,7 +446,7 @@ in
     i3-swallow
     wdisplays
     wev
-    gnome.gnome-power-manager
+    gnome-power-manager
     networkmanagerapplet
   ];
 }

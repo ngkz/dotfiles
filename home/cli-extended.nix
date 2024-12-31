@@ -23,7 +23,7 @@
     jpegoptim
     optipng
     imagemagick
-    #bsdgames # FIXME conflicts with mono
+    bsdgames
     yt-dlp
     mp3gain
     aacgain

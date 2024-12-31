@@ -37,7 +37,6 @@ in
             DHCP = "yes";
             networkConfig = {
               IPv6AcceptRA = true;
-              IPForward = true;
             };
             ipv6AcceptRAConfig = {
               Token = "::f21";
@@ -47,19 +46,9 @@ in
         };
       };
 
-      # tailscale to HGW NAT
-      # networking.nat = {
-      #   enable = true;
-      #   internalInterfaces = [ "tailscale0" ];
-      #   externalInterface = "wan_hgw";
-      # };
-
       networking.nftables.enable = true;
       networking.firewall = {
         filterForward = true;
-        extraForwardRules = ''
-          iifname "tailscale0" oifname "wan_hgw" accept comment "tailscale to HGW"
-        '';
         extraInputRules =
           let
             ifaceNetwork = "iifname \"wan_hgw\" ip saddr ${cfg.lan}";
@@ -71,7 +60,6 @@ in
             ${optionalString (tcpSet != "") "${ifaceNetwork} tcp dport { ${tcpSet} } accept"}
             ${optionalString (udpSet != "") "${ifaceNetwork} udp dport { ${udpSet} } accept"}
           '';
-        interfaces.tailscale0 = cfg.internalInterfaces;
         # ports for ssh reverse forwarding
         # allowedTCPPorts = [ 1024 1025 1026 1027 1028 ];
       };

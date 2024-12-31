@@ -25,4 +25,16 @@
     '';
   };
 
+  # See also: network.nix
+  networking.firewall = {
+    extraForwardRules = ''
+      iifname "tailscale0" oifname "wan_hgw" accept comment "tailscale to HGW"
+    '';
+    interfaces.tailscale0 = config.hosts.rednecked.network.internalInterfaces;
+  };
+
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv6.conf.all.forwarding" = 1;
+  };
 }

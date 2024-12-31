@@ -1,5 +1,5 @@
 # sway + greetd
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 {
   # Sway wayland tiling compositor
   programs.sway = {
@@ -24,7 +24,7 @@
     wrapperFeatures.gtk = true;
   };
 
-  hardware.opengl.driSupport32Bit = true; #32bit OpenGL
+  hardware.graphics.enable32Bit = true; #32bit OpenGL
 
   # greetd display manager
   environment.etc =
@@ -88,7 +88,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    gnome.adwaita-icon-theme # gtkgreet
+    adwaita-icon-theme # gtkgreet
     qt5.qtwayland
   ];
 

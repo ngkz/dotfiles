@@ -175,7 +175,6 @@ in
     python3Packages.pyflakes
     python3Packages.isort
     pipenv
-    python3Packages.nose
     python3Packages.pytest
 
     # lang/rst
@@ -197,8 +196,7 @@ in
     bashdb
 
     # lang/web
-    nodePackages.vscode-html-languageserver-bin
-    nodePackages.vscode-css-languageserver-bin
+    vscode-langservers-extracted
     nodePackages.js-beautify
     nodePackages.stylelint
     html-tidy

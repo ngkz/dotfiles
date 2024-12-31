@@ -81,7 +81,7 @@
     wabt
     one_gadget
     upx
-    mono
+    # mono
     pkgsCross.mingwW64.buildPackages.gcc
     proxychains
     chisel
@@ -109,7 +109,7 @@
 
   cli-essential.pythonPackages = p: with p; [
     pwntools
-    angr
+    # angr # XXX broken
     z3
     capstone
     cryptography

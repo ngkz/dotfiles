@@ -24,7 +24,7 @@ sed -i "s/version = \".*\"/version = \"$version\"/" default.nix
 sed -i "s|rev = \".*\"|rev = \"$latest\"|" default.nix
 sed -i "s@\(sha256\|hash\) = \".*\"@hash = \"$newhash\"@" default.nix
 
-eval "$(nix build --no-link --print-out-paths ../..#wslnotifyd.passthru.fetch-deps)" deps-wsl.nix
-eval "$(nix build --no-link --print-out-paths ../..#wslnotifyd.win.passthru.fetch-deps)" deps-win.nix
+eval "$(nix build --no-link --print-out-paths ../..#wslnotifyd.win.passthru.fetch-deps)" deps-win.json
+eval "$(nix build --no-link --print-out-paths ../..#wslnotifyd.passthru.fetch-deps)" deps-wsl.json
 
 echo "$pname updated: $current -> $latest ($version)"

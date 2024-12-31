@@ -10,7 +10,6 @@ rec {
       xlib;
   };
   sway-systemd-autostart = sway-systemd.override { autostart = true; };
-  sway-im-unwrapped = pkgs.callPackage ./sway-im-unwrapped { };
   sarasa-term-j-nerd-font = pkgs.callPackage ./sarasa-term-j-nerd-font { };
   blobmoji-fontconfig = pkgs.callPackage ./blobmoji-fontconfig { };
   chromium-extension-ublock0 = pkgs.callPackage ./chromium-extension-ublock0 { };
@@ -23,7 +22,6 @@ rec {
   gnome-ssh-askpass3 = pkgs.callPackage ./gnome-ssh-askpass3.nix { };
   backup = pkgs.callPackage ./backup { };
   hotkey-scripts = pkgs.callPackage ./hotkey-scripts { };
-  freecad-realthunder = pkgs.libsForQt5.callPackage ./freecad-realthunder { };
   vimix-kde = pkgs.callPackage ./vimix-kde { };
   fcitx5-skk = pkgs.libsForQt5.callPackage ./fcitx5-skk {
     inherit skk-dicts;

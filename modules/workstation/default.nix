@@ -65,11 +65,6 @@ in
 
   boot.kernel.sysctl."fs.inotify.max_user_watches" = 524288;
 
-  hardware.opengl.extraPackages = with pkgs; [
-    intel-compute-runtime
-    intel-ocl
-  ];
-
   programs.adb.enable = true;
   # XXX windows network browsing function doesn't work due to https://gitlab.gnome.org/GNOME/gvfs/-/issues/506
   services.gvfs.enable = true;

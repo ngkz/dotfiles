@@ -38,8 +38,6 @@ let
             <filesystem type='mount' accessmode='passthrough'>
               ${if cfg.shareMode == "virtiofs" then ''
                 <driver type='virtiofs'/>
-                <!-- XXX workaround for nixpkgs#187078 -->
-                <binary path='/run/current-system/sw/bin/virtiofsd' xattr='on'/>
               '' else ""}
               <source dir='${escapeXML mount.source}'/>
               <target dir='${escapeXML tag}'/>

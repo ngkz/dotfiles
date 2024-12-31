@@ -30,7 +30,7 @@ buildDotnetModule rec {
   '';
 
   projectFile = "WslNotifyd/WslNotifyd.csproj";
-  nugetDeps = ./deps-wsl.nix;
+  nugetDeps = ./deps-wsl.json;
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
   runtimeDeps = [ gtk3 win ];
@@ -42,7 +42,7 @@ buildDotnetModule rec {
     projectFile = "WslNotifydWin/WslNotifydWin.csproj";
     executables = [ ];
     selfContainedBuild = true;
-    nugetDeps = ./deps-win.nix;
+    nugetDeps = ./deps-win.json;
     postInstall = ''
       for script in $out/lib/wslnotifyd-win/scripts/*.sh; do
         # /bin/wslpath

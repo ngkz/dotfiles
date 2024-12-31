@@ -17,7 +17,6 @@ in
     in
     {
       # Enable flake
-      package = pkgs.nixFlakes;
       extraOptions = ''
         experimental-features = nix-command flakes
 

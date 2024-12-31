@@ -4,7 +4,7 @@ let
   foot = "${pkgs.foot}/bin/foot";
   btop = "${pkgs.btop}/bin/btop";
   pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
-  gnome-power-statistics = "${pkgs.gnome.gnome-power-manager}/bin/gnome-power-statistics";
+  gnome-power-statistics = "${pkgs.gnome-power-manager}/bin/gnome-power-statistics";
   swaymsg = "${pkgs.sway}/bin/swaymsg";
   jq = "${pkgs.jq}/bin/jq";
   swaync-client = "${pkgs.swaynotificationcenter}/bin/swaync-client";

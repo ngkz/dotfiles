@@ -357,26 +357,26 @@ in
     efitools
     v4l-utils
 
-    gnome.dconf-editor
-    gnome.gnome-font-viewer
-    ngkz.freecad-realthunder
+    dconf-editor
+    gnome-font-viewer
+    freecad-wayland
     gimp
     gscan2pdf # scanning tool
-    gnome3.eog
+    eog
     inkscape
     tauon
     pavucontrol
-    gnome.gnome-clocks
+    gnome-clocks
     #wxmaxima
     libreoffice
     xorg.xlsclients
-    cinnamon.nemo
+    nemo
     ffmpegthumbnailer #video thumbnailer
-    gnome.totem #audio/video thumbnailer
-    gnome.gnome-disk-utility
-    gnome.file-roller
-    gnome.evince #pdf viewer/thumbnailer
-    transmission-gtk
+    totem #audio/video thumbnailer
+    gnome-disk-utility
+    file-roller
+    evince #pdf viewer/thumbnailer
+    transmission_4-gtk
     filezilla
     shotcut
     vlc
