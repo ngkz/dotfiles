@@ -43,7 +43,7 @@ in
 
         mkdir -p "$out/share/${prefixedName}"
         find . -exec touch --date="1980-01-01 00:00:00 UTC" {} +
-        crx3-creator -o "$out/share/${prefixedName}/${name}.crx" -pem "$key" .
+        PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python crx3-creator -o "$out/share/${prefixedName}/${name}.crx" -pem "$key" .
         mkdir -p "$out/share/chromium/extensions"
         cat <<EOF >"$out/share/chromium/extensions/$id.json"
         {
