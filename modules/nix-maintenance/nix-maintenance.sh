@@ -11,7 +11,8 @@ echo "collecting garbages:"
 nix-collect-garbage --delete-older-than 7d
 
 # Remove old configurations from the boot menu
-/nix/var/nix/profiles/system/bin/switch-to-configuration switch
+# boot is safer
+/nix/var/nix/profiles/system/bin/switch-to-configuration boot
 
 if [[ "$(findmnt -fno FSTYPE /nix/store)" = btrfs ]]; then
     # nix store is btrfs
