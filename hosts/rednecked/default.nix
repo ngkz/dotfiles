@@ -49,6 +49,9 @@ in
   # we won't use gui apps here
   fonts.fontconfig.enable = false;
 
+  # do not enter emergency mode (and kill everythin including tailscale and sshd) when filesystem mounting failure
+  systemd.enableEmergencyMode = false;
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
