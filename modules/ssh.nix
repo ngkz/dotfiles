@@ -6,6 +6,7 @@ let
 in
 {
   programs.ssh = {
+    package = pkgs.openssh_hpn;
     enableAskPassword = true;
     askPassword = "${pkgs.ngkz.gnome-ssh-askpass3}/libexec/gnome-ssh-askpass3";
     startAgent = true;

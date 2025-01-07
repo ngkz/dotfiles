@@ -1,5 +1,5 @@
 # Enable the OpenSSH daemon
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   inherit (lib) mkOption types mkIf;
 
@@ -16,6 +16,7 @@ in
   config = {
     services.openssh = {
       enable = true;
+      package = pkgs.openssh_hpn;
       settings = {
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
