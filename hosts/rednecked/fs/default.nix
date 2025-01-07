@@ -2,7 +2,7 @@
   fileSystems = import ./fileSystems.nix {
     bootDev = "/dev/disk/by-uuid/CACA-B820";
     rootDev = "/dev/disk/by-uuid/a15d98dd-3561-486f-9a3b-adfee684a63d";
-    hddDev = "/dev/disk/by-uuid/d3156153-27e7-4a2c-b9cf-f54f6456e952"; # bcache
+    hddDev = "/dev/disk/by-uuid/1a3d5415-471d-4f72-ad9c-268c9071628a"; # bcache
   };
   swapDevices = [
     {
