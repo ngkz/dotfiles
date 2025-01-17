@@ -1,4 +1,4 @@
-{ stdenvNoCC, bash, coreutils, borgbackup, btrfs-progs, util-linux, rsync, libsecret, gnused, findutils, nettools, gnugrep, bashInteractive, systemd, openssh, ... }:
+{ stdenvNoCC, bash, coreutils, borgbackup, btrfs-progs, util-linux, rsync, libsecret, gnused, findutils, nettools, gnugrep, bashInteractive, systemd, openssh_hpn, ... }:
 stdenvNoCC.mkDerivation rec {
   name = "backup";
 
@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation rec {
     gnugrep
     util-linux
     systemd
-    openssh
+    openssh_hpn
   ];
 
   installPhase = ''
