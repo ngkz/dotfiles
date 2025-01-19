@@ -32,6 +32,6 @@ in
   "/var/spinningrust" = {
     device = hddDev;
     fsType = "btrfs";
-    options = [ "compress=zstd:1" "lazytime" ];
+    options = [ "compress=zstd:1" "lazytime" "nossd" ];
   };
 }
