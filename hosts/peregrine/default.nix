@@ -189,9 +189,6 @@
     tjoffset = -3;
   };
 
-  # reverse shell
-  networking.firewall.allowedTCPPorts = [ 1024 1025 1026 1027 1028 ];
-
   # sshd
   services.openssh.openFirewall = false;
   networking.firewall.interfaces.tailscale0.allowedTCPPorts = config.services.openssh.ports; # tailscale only
