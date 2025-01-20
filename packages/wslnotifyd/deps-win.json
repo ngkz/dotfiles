@@ -31,8 +31,8 @@
   },
   {
     "pname": "Microsoft.AspNetCore.App.Runtime.win-x64",
-    "version": "8.0.11",
-    "hash": "sha256-D74oiqctESxpeOCl8mRGy7a9d7WeEAF+nPrGKe1oA+I="
+    "version": "8.0.12",
+    "hash": "sha256-EEH2aLskSq8ciDuvJwBcyITQgORklQEHVYumXqaK9wE="
   },
   {
     "pname": "Microsoft.Extensions.Configuration",
@@ -206,28 +206,28 @@
   },
   {
     "pname": "Microsoft.NETCore.App.Host.win-x64",
-    "version": "8.0.11",
-    "hash": "sha256-ITNfs5yyhw6BbPD76CBvi67aUqcDVmwckuh2wdm5vkU="
+    "version": "8.0.12",
+    "hash": "sha256-N9yDTYEWfUYfN8umEbF9I3UvaorfAwmM8xgbIWHUAh4="
   },
   {
     "pname": "Microsoft.NETCore.App.Runtime.win-x64",
-    "version": "8.0.11",
-    "hash": "sha256-t0+QCGqI1VbPU4haBWJG+znoWZ6Gx/U6b+xASECDsmU="
+    "version": "8.0.12",
+    "hash": "sha256-DrYzvtQhKgAzywIK/S1hC8II9KVPjmEraEIsnERQFQA="
   },
   {
     "pname": "Microsoft.Windows.SDK.NET.Ref",
-    "version": "10.0.19041.53",
-    "hash": "sha256-kPXst3cB9ayaClDRVXRGZH3M7kkN6HumsXGkq7FoP9E="
+    "version": "10.0.19041.56",
+    "hash": "sha256-i9rw5zr0i0QmQTqENpCR2TtOpjuK/fa0M2/S6UEXXBw="
   },
   {
     "pname": "Microsoft.WindowsDesktop.App.Ref",
-    "version": "8.0.11",
-    "hash": "sha256-IHsHBfvmb+z/4DmVqk7WT1eldz4mKCz7d3RAx5e3/Bs="
+    "version": "8.0.12",
+    "hash": "sha256-hI22jqtAo7p9qw36x+Fd4nHVjvy9HH8DLIpsSP1ic7o="
   },
   {
     "pname": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-    "version": "8.0.11",
-    "hash": "sha256-+m1Bi87dCwvsKF4Zf3ZhUCQWsfZw+7UKe+WxLaqj6sA="
+    "version": "8.0.12",
+    "hash": "sha256-yFardA+spLIbGzZpmgq9Z+fTAFHxZrHHlmhuPsfNli0="
   },
   {
     "pname": "System.Diagnostics.DiagnosticSource",
