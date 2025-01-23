@@ -51,7 +51,7 @@ in
   services.thinkfan = {
     enable = true;
     levels = [
-      [ "level auto" 0 70 ]
+      [ "level auto" 0 80 ]
       [ "level full-speed" 65 32767 ]
     ];
   };
