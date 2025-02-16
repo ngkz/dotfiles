@@ -7,7 +7,7 @@ buildVimPlugin {
   src = fetchFromGitHub {
     owner = "wsdjeg";
     repo = "FlyGrep.vim";
-    rev = "54bd78ee9e58406fd1698b5ffe51518742238df3";
-    hash = "sha256-hc0blsSQifHLOFG2dOXyvfUqzo3Ezmlmbp+UV+igDGE=";
+    rev = "0cb3146f9700460b7c924277c5b9b07b30ddc68e";
+    hash = "sha256-yu6Win14A7CMBf0Bhi9Lti1pAARJS1TqDRvowAbTip8=";
   };
 }
