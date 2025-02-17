@@ -17,7 +17,7 @@ in
   };
 
   xdg.configFile = {
-    "doom/config.el".text = builtins.replaceStrings [ "@email@" ] [ config.personal-email ] (builtins.readFile ./config.el);
+    "doom/config.el".text = builtins.replaceStrings [ "@email@" ] [ config.personalEmail ] (builtins.readFile ./config.el);
     "doom/init.el".source = ./init.el;
     "doom/packages.el".source = ./packages.el;
     "emacs".source = pkgs.fetchFromGitHub {

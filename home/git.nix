@@ -3,7 +3,7 @@
     enable = true;
     delta.enable = true;
     userName = "Kazutoshi Noguchi";
-    userEmail = config.personal-email;
+    userEmail = config.personalEmail;
     extraConfig = {
       init.defaultBranch = "main";
       diff.tool = "nvimdiff";

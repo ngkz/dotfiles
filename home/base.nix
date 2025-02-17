@@ -11,14 +11,15 @@ in
       description = "the name of the system";
     };
 
-    personal-email = mkOption {
+    personalEmail = mkOption {
       type = types.str;
       description = "personal mail address";
-      default = rot13 "xa@s2y.pp";
     };
   };
 
   config = {
+    personalEmail = rot13 "xa@s2y.pp";
+
     # automatially trigger X-Restart-Triggers
     systemd.user.startServices = true;
   };
