@@ -40,4 +40,5 @@
   upower = import ./upower.nix;
   gpg = import ./gpg.nix;
   ssh = import ./ssh.nix;
+  mail = import ./mail.nix;
 }

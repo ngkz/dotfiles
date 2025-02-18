@@ -31,6 +31,7 @@
     ../../modules/upower.nix
     ../../modules/gpg.nix
     ../../modules/ssh.nix
+    ../../modules/mail.nix
 
     ../../modules/profiles/laptop.nix
     ../../modules/profiles/intel-cpu.nix
@@ -127,6 +128,7 @@
       ../../home/dev-docs.nix
       ../../home/git.nix
       ../../home/tailscale.nix
+      ../../home/mail.nix
     ];
   };
 

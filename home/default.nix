@@ -34,4 +34,5 @@
   keepassxc = import ./keepassxc;
   keepassxc-librewolf = import ./keepassxc/librewolf.nix;
   signal = import ./signal;
+  mail = import ./mail.nix;
 }

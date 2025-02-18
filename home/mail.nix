@@ -1,0 +1,71 @@
+{ config, osConfig, lib, pkgs, ... }:
+let
+  inherit (lib.ngkz) rot13;
+in
+{
+  xdg.enable = true;
+
+  accounts.email.accounts = {
+    "mailbox.org" = {
+      primary = true;
+      address = rot13 "xa@s2y.pp";
+      aliases = [
+        (rot13 "atxm@znvyobk.bet")
+        (rot13 "abthpuv.xnmhgbfv@tznvy.pbz")
+      ];
+      realName = "Kazutoshi Noguchi";
+      userName = rot13 "atxm@znvyobk.bet";
+      passwordCommand = "${pkgs.coreutils}/bin/cat ${osConfig.age.secrets.email-password-mailbox-org.path}";
+      imap = {
+        host = "imap.mailbox.org";
+        port = 993;
+        tls.enable = true;
+      };
+      smtp = {
+        host = "smtp.mailbox.org";
+        port = 465;
+        tls.enable = true;
+      };
+      gpg = {
+        key = config.gpgFingerprint;
+      };
+      signature = {
+        showSignature = "append";
+        text = ''
+          Kazutoshi Noguchi / 野口和敏
+          ${rot13 "xa@s2y.pp"}
+          https://f2l.cc/
+        '';
+      };
+      msmtp.enable = true;
+      thunderbird.enable = true;
+    };
+  };
+
+  programs.thunderbird = {
+    enable = true;
+    profiles.default = {
+      isDefault = true;
+      withExternalGnupg = true;
+      search = {
+        force = true;
+        default = "DuckDuckGo";
+      };
+      settings = {
+        "mail.identity.default.compose_html" = false;
+        "network.cookie.cookieBehavior" = 2; # deny all cookies
+        "privacy.donottrackheader.enabled" = true;
+        "mail.openpgp.fetch_pubkeys_from_gnupg" = true;
+      };
+    };
+  };
+
+  programs.msmtp.enable = true;
+
+  tmpfs-as-home.persistentDirs = [
+    # msmtp
+    "${config.xdg.dataHome}/msmtp"
+    # thunderbird
+    ".thunderbird/default"
+  ];
+}

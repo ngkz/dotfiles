@@ -266,9 +266,6 @@ in
       "image/vnd.wap.wbmp" = "org.gnome.eog.desktop";
       "image/x-icns" = "org.gnome.eog.desktop";
 
-      # thunderbird
-      "x-scheme-handler/mailto" = "thunderbird.desktop";
-
       # inkscape
       "image/svg+xml" = "org.inkscape.Inkscape.desktop";
       "image/svg+xml-compressed" = "org.inkscape.Inkscape.desktop";
