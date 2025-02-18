@@ -44,7 +44,7 @@
   };
 
   programs.git = {
-    signing.key = "BC6DCFE03513A9FA4F55D70206B8106665DD36F3";
+    signing.key = config.gpgFingerprint;
     extraConfig.tag.gpgSign = true;
   };
 
