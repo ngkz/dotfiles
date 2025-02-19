@@ -38,7 +38,12 @@ in
         '';
       };
       msmtp.enable = true;
-      thunderbird.enable = true;
+      thunderbird = {
+        enable = true;
+        perIdentitySettings = id: {
+          "mail.identity.id_${id}.archive_granularity" = 0; # use single folder archive. thunderbird mobile does not support yearly archive :(
+        };
+      };
     };
   };
 
