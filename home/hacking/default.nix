@@ -19,7 +19,7 @@
     netcat-openbsd
     radare2
     iaito
-    python3Packages.binwalk-full
+    unstable.binwalk
     foremost
     nkf
     qemu_full
