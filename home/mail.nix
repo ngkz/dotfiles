@@ -69,7 +69,7 @@ in
 
   tmpfs-as-home.persistentDirs = [
     # msmtp
-    "${config.xdg.dataHome}/msmtp"
+    ".local/share/msmtp"
     # thunderbird
     ".thunderbird/default"
   ];
