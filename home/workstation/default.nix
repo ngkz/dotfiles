@@ -1,7 +1,4 @@
-{ inputs, lib, config, pkgs, ... }:
-let
-  inherit (lib.ngkz) rot13;
-in
+{ inputs, lib, pkgs, ... }:
 {
   imports = [
     inputs.self.homeManagerModules.theming
