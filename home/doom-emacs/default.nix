@@ -30,7 +30,7 @@ in
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs29-pgtk;
+    package = pkgs.emacs30-pgtk; #TODO
     extraPackages = (epkgs: with epkgs; [
       # term/vterm
       vterm
