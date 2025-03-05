@@ -346,6 +346,11 @@ in
     "org/nemo/window-state" = {
       sidebar-bookmark-breakpoint = 8;
     };
+
+    # eog
+    "org/gnome/eog/ui" = {
+      sidebar = false;
+    };
   };
 
   home.packages = with pkgs; [
