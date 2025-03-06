@@ -382,5 +382,6 @@
     wireshark
     electrum
     tenacity
+    scrcpy
   ];
 }
