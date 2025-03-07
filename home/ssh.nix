@@ -25,11 +25,11 @@ in
         port = 49224;
       };
       peregrine = {
-        hostname = "peregrine.falcon-nunki.ts.net";
+        hostname = "peregrine.v.f2l.cc";
         user = "user";
       };
       rednecked = {
-        hostname = "rednecked.falcon-nunki.ts.net";
+        hostname = "rednecked.v.f2l.cc";
         user = "user";
       };
     };

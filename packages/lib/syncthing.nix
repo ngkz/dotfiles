@@ -104,16 +104,16 @@ let
     bluejay = {
       compression = "always";
       # no peer discovery, tailscale only
-      address = [ "tcp://bluejay.falcon-nunki.ts.net" "tcp6://bluejay.falcon-nunki.ts.net" ];
-      allowedNetwork = [ "100.64.0.0/10" "fd7a:115c:a1e0::/48" ];
+      address = [ "tcp://bluejay.v.f2l.cc" ];
+      allowedNetwork = [ "100.64.0.0/10" ];
     };
     peregrine = {
-      address = [ "tcp://peregrine.falcon-nunki.ts.net" "tcp6://peregrine.falcon-nunki.ts.net" ];
-      allowedNetwork = [ "100.64.0.0/10" "fd7a:115c:a1e0::/48" ];
+      address = [ "tcp://peregrine.v.f2l.cc" ];
+      allowedNetwork = [ "100.64.0.0/10" ];
     };
     rednecked = {
-      address = [ "tcp://rednecked.falcon-nunki.ts.net" "tcp6://rednecked.falcon-nunki.ts.net" ];
-      allowedNetwork = [ "100.64.0.0/10" "fd7a:115c:a1e0::/48" ];
+      address = [ "tcp://rednecked.v.f2l.cc" ];
+      allowedNetwork = [ "100.64.0.0/10" ];
     };
     mauritius-host = {
       address = [ "tcp://mauritius-host.falcon-nunki.ts.net" "tcp6://mauritius-host.falcon-nunki.ts.net" ];

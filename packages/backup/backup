@@ -9,7 +9,7 @@ PATH=$PATH:/run/wrappers/bin
 SCRIPT=$(readlink -f "$0")
 
 TMPDIR=/run/backup
-SSH_HOST=borg@rednecked.falcon-nunki.ts.net
+SSH_HOST=borg@rednecked.v.f2l.cc
 SSH_SOCKET=$TMPDIR/ssh.sock
 SSH_OPTS="-o ServerAliveInterval=10 -o ServerAliveCountMax=30"
 export BORG_REPO="$SSH_HOST:~/"
