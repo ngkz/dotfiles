@@ -98,6 +98,7 @@
     erofs-utils
     apksigner
     docker-compose
+    awscli2
 
     ghidra
     burpsuite
