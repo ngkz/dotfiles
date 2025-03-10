@@ -16,6 +16,6 @@ index 5d3422e..d9555e4 100644
 -        var workingDirectory = Path.Combine(Path.GetDirectoryName(Environment.ProcessPath)!, "WslNotifydWin");
 +        var notifydWinPath = "@WslNotifydWin@/scripts/runner-release.sh";
 +        var workingDirectory = "@WslNotifydWin@";
-         var hashString = GitInfo.GitHash;
+         var hashString = new string(new Random().GetItems("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".ToCharArray(), 10));
  #endif
          builder.Services.AddSingleton(serviceProvider =>

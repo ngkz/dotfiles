@@ -10,13 +10,13 @@
 
 buildDotnetModule rec {
   pname = "wslnotifyd";
-  version = "0.0.0-unstable-2025-03-08";
+  version = "0.0.0-unstable-2025-02-14";
 
   src = fetchFromGitHub {
     owner = "ultrabig";
     repo = "WslNotifyd";
-    rev = "5a129ba48fa787b358b93fc8aff68003649689cf";
-    hash = "sha256-aXpvnIOiRgDaqBj+lUPxCjQY+VeYXF9TKlPWNcdIXbQ=";
+    rev = "fb2aca84b766a0cedf64fbbcb5b2e33436b1f19a";
+    hash = "sha256-xgMK1lTbghDhpXREctGqSiT0GxgSNMx/R7KsZfd6nbk=";
   };
 
   patches = [
