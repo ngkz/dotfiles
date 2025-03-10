@@ -32,5 +32,6 @@
     ijq #interactiv jq
     dos2unix
     wireguard-tools
+    nix-output-monitor
   ];
 }

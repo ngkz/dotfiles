@@ -20,7 +20,8 @@ packages = [
   "prefetch-yarn-deps",
   "nvd",
   "agenix",
-  "libsecret"
+  "libsecret",
+  "nix-output-monitor"
 ]
 
 # Declare commands that are available in the environment.
@@ -83,7 +84,7 @@ help = "Build and activate the new configuration"
 name = "switch"
 command = '''
 prev=$(readlink /run/current-system)
-sudo nixos-rebuild switch --flake "${PRJ_ROOT}#" "$@"
+sudo sh -c "nixos-rebuild switch --flake '${PRJ_ROOT}#' --log-format internal-json -v \"\$@\" |& nom --json" -- "$@"
 nvd diff "$prev" /run/current-system
 '''
 category = "system maintenance"
@@ -94,14 +95,16 @@ name = "switch-remote"
 command = '''
 host=$1
 shift
-nixos-rebuild switch --flake "${PRJ_ROOT}#$host" --target-host "root@$host" "$@"
+nixos-rebuild switch --flake "${PRJ_ROOT}#$host" --target-host "root@$host" --log-format internal-json -v "$@" |& nom --json
 '''
 category = "system maintenance"
 
 [[commands]]
 help = "Build the new configuration and activate it on next reboot"
 name = "boot"
-command = 'sudo nixos-rebuild boot --flake "${PRJ_ROOT}#" "$@"'
+command = '''
+sudo sh -c "nixos-rebuild boot --flake '${PRJ_ROOT}#' --log-format internal-json -v \"\$@\" |& nom --json" -- "$@"
+'''
 category = "system maintenance"
 
 [[commands]]
@@ -110,7 +113,7 @@ name = "boot-remote"
 command = '''
 host=$1
 shift
-nixos-rebuild boot --flake "${PRJ_ROOT}#$host" --target-host "root@$host" "$@"
+nixos-rebuild boot --flake "${PRJ_ROOT}#$host" --target-host "root@$host" --log-format internal-json -v "$@" |& nom --json
 '''
 category = "system maintenance"
 
@@ -134,9 +137,9 @@ command = '''
 host=${1:-$(hostname)}
 shift || true
 if [ $(nix eval --json --impure --expr "(builtins.getFlake \"$PRJ_ROOT\").nixosConfigurations ? $host") = true ]; then
-  nix build "${PRJ_ROOT}#nixosConfigurations.${host}.config.system.build.toplevel" "$@"
+  nom build "${PRJ_ROOT}#nixosConfigurations.${host}.config.system.build.toplevel" "$@"
 elif [ $(nix eval --json --impure --expr "(builtins.getFlake \"$PRJ_ROOT\").homeConfigurations ? $host") = true ]; then
-  nix build "${PRJ_ROOT}#homeConfigurations.${host}.activationPackage" "$@"
+  nom build "${PRJ_ROOT}#homeConfigurations.${host}.activationPackage" "$@"
 else
   echo "no configuration: $host"
 fi
