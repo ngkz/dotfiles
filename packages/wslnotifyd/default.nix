@@ -35,8 +35,8 @@ buildDotnetModule rec {
 
   projectFile = "WslNotifyd/WslNotifyd.csproj";
   nugetDeps = ./deps-wsl.json;
-  dotnet-sdk = dotnetCorePackages.sdk_9_0;
-  dotnet-runtime = dotnetCorePackages.aspnetcore_9_0;
+  dotnet-sdk = dotnetCorePackages.sdk_8_0;
+  dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
   runtimeDeps = [ gtk3 win ];
 
   win = buildDotnetModule {
