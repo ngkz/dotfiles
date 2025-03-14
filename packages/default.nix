@@ -33,4 +33,5 @@ rec {
   capture-vim = pkgs.callPackage ./capture-vim { };
   ical2org = pkgs.callPackage ./ical2org { };
   wslnotifyd = pkgs.callPackage ./wslnotifyd { };
+  avr-ghidra-helpers = pkgs.callPackage ./avr-ghidra-helpers { };
 }

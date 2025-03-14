@@ -100,7 +100,7 @@
     docker-compose
     awscli2
 
-    ghidra
+    (ghidra.withExtensions (p: [ ngkz.avr-ghidra-helpers ]))
     burpsuite
     rehex
     xclip
