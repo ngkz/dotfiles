@@ -40,6 +40,8 @@
     ".local/share/Meltytech/Shotcut"
     # electrum
     ".electrum"
+    # platformio
+    ".platformio"
   ];
 
   #nm-applet
@@ -355,6 +357,7 @@
     tpm2-tools
     efitools
     v4l-utils
+    platformio
 
     dconf-editor
     gnome-font-viewer
