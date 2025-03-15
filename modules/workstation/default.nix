@@ -79,14 +79,21 @@ in
   # enable all magic sysrq functions
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
-  services.udev.extraRules = ''
-    # LED name badge
-    SUBSYSTEM=="usb",  ATTRS{idVendor}=="0416", ATTRS{idProduct}=="5020", MODE="0666"
-    KERNEL=="hidraw*", ATTRS{idVendor}=="0416", ATTRS{idProduct}=="5020", ATTRS{busnum}=="1", MODE="0666"
-
-    # Raspberry Pi Pico in BOOTSEL mode
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0003", MODE="0666"
-    # Raspberry Pi Pico
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="000a", MODE="0666"
-  '';
+  services.udev.packages = lib.singleton (pkgs.writeTextFile
+    {
+      name = "udev-user-devices";
+      text = ''
+        # LED name badge
+        SUBSYSTEMS=="usb",  ATTRS{idVendor}=="0416", ATTRS{idProduct}=="5020", TAG+="uaccess"
+        # Raspberry Pi Pico in BOOTSEL mode
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0003", TAG+="uaccess"
+        # Raspberry Pi Pico
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="000a", TAG+="uaccess"
+        # WCH-Link
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="2a86", ATTRS{idProduct}=="8011", TAG+="uaccess"
+        # STM32duino
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", TAG+="uaccess"
+      '';
+      destination = "/etc/udev/rules.d/71-user-devices.rules";
+    });
 }
