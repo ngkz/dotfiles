@@ -10,27 +10,23 @@
 
 buildDotnetModule rec {
   pname = "wslnotifyd";
-  version = "0.0.0-unstable-2025-03-08";
+  version = "0.0.0-unstable-2025-03-14";
 
   src = fetchFromGitHub {
     owner = "ultrabig";
     repo = "WslNotifyd";
-    rev = "5a129ba48fa787b358b93fc8aff68003649689cf";
-    hash = "sha256-aXpvnIOiRgDaqBj+lUPxCjQY+VeYXF9TKlPWNcdIXbQ=";
-    leaveDotGit = true;
+    rev = "2de45206a6005346dc07d391e3e0907646b6a294";
+    hash = "sha256-4TYCTjt/ZbmoBKizyM/OCgYpKw1xE1uacnP49zIpZsU=";
   };
 
   patches = [
     ./wslnotifydwin-path.patch
     ./make-dst-writable.patch
-    ./allow-injecting-git-hash.patch
   ];
 
   postPatch = ''
     substituteInPlace WslNotifyd/Program.cs \
       --subst-var-by WslNotifydWin "${win}/lib/wslnotifyd-win"
-    substituteInPlace WslNotifyd/scripts/generate-git-hash.sh \
-      --subst-var-by REV "${builtins.substring 0 8 src.rev}"
   '';
 
   projectFile = "WslNotifyd/WslNotifyd.csproj";
@@ -38,6 +34,7 @@ buildDotnetModule rec {
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
   runtimeDeps = [ gtk3 win ];
+  dotnetFlags = [ "-p:CustomGitHash=${builtins.substring 0 8 src.rev}" ];
 
   win = buildDotnetModule {
     inherit version src patches dotnet-sdk dotnet-runtime;
