@@ -96,6 +96,9 @@ in
         SUBSYSTEMS=="usb", ATTRS{idVendor}=="0110", ATTRS{idProduct}=="1002", TAG+="uaccess"
         SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", TAG+="uaccess", SYMLINK+="maple"
         SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0004", TAG+="uaccess", SYMLINK+="maple"
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", TAG+="uaccess"
+        # FT2232H
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", TAG+="uaccess"
       '';
       destination = "/etc/udev/rules.d/71-user-devices.rules";
     });
