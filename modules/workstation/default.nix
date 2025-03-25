@@ -3,10 +3,6 @@ let
   inherit (lib.ngkz) rot13;
 in
 {
-  imports = [
-    ./backup
-  ];
-
   # PipeWire
   security.rtkit.enable = true;
   services.pipewire = {

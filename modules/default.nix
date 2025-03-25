@@ -42,4 +42,5 @@
   ssh = import ./ssh.nix;
   mail = import ./mail.nix;
   docker = import ./docker.nix;
+  backup = import ./backup;
 }

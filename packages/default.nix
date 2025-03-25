@@ -20,7 +20,6 @@ rec {
   };
   fcitx5-themes-candlelight = pkgs.callPackage ./fcitx5-themes-candlelight { };
   gnome-ssh-askpass3 = pkgs.callPackage ./gnome-ssh-askpass3.nix { };
-  backup = pkgs.callPackage ./backup { };
   hotkey-scripts = pkgs.callPackage ./hotkey-scripts { };
   vimix-kde = pkgs.callPackage ./vimix-kde { };
   fcitx5-skk = pkgs.libsForQt5.callPackage ./fcitx5-skk {

@@ -2,9 +2,7 @@
 
 set -uo pipefail
 
-export PATH=/empty
-for i in @path@; do PATH=$PATH:$i/bin; done
-PATH=$PATH:/run/wrappers/bin
+PATH=@path@:/run/wrappers/bin
 
 SCRIPT=$(readlink -f "$0")
 
