@@ -43,4 +43,5 @@
   mail = import ./mail.nix;
   docker = import ./docker.nix;
   backup = import ./backup;
+  wireshark = import ./wireshark.nix;
 }
