@@ -3,7 +3,7 @@
   tmpfs-as-root = import ./tmpfs-as-root.nix;
   ssd = import ./ssd.nix;
   sshd = import ./sshd.nix;
-  workstation = import ./workstation;
+  workstation = import ./workstation.nix;
   sway-desktop = import ./sway-desktop.nix;
   undervolt = import ./undervolt.nix;
   vmm = import ./vmm.nix;

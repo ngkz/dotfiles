@@ -3,6 +3,10 @@ let
   inherit (lib.ngkz) rot13;
 in
 {
+  imports = [
+    ./wireshark.nix
+  ];
+
   # PipeWire
   security.rtkit.enable = true;
   services.pipewire = {
@@ -20,13 +24,10 @@ in
 
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
 
-  programs.wireshark.enable = true;
   programs.light.enable = true;
 
   # Extra groups
   users.users.user.extraGroups = [
-    # Wireshark
-    "wireshark"
     # adb
     "adbusers"
 

@@ -10,7 +10,7 @@
     ../../modules/grub-secureboot
     ../../modules/ssd.nix
     ../../modules/sshd.nix
-    ../../modules/workstation
+    ../../modules/workstation.nix
     ../../modules/backup
     # ../../modules/print-and-scan.nix
     ../../modules/fonts.nix
