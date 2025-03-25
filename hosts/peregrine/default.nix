@@ -51,6 +51,21 @@
     "crc32c-intel"
   ];
 
+  hardware.trackpoint = {
+    enable = true;
+    speed = 255;
+    device = "TPPS/2 Elan Trackpoint";
+  };
+
+  # increase maximum fan speed
+  services.thinkfan = {
+    enable = true;
+    levels = [
+      [ "level auto" 0 80 ]
+      [ "level full-speed" 65 32767 ]
+    ];
+  };
+
   # disk
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.systemd.enable = true; # tpm2 unlock requires systemd initrd
