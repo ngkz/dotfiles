@@ -12,6 +12,7 @@
     ./sysctl-tweaks.nix
     ./mdns.nix
     ./update-users-groups-bug-workaround
+    ./console.nix
   ];
 
   config = {

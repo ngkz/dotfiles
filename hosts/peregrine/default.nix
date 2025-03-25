@@ -7,7 +7,6 @@
   imports = [
     ../../modules/agenix.nix
     ../../modules/base.nix
-    ../../modules/console.nix
     ../../modules/grub-secureboot
     ../../modules/ssd.nix
     ../../modules/sshd.nix
