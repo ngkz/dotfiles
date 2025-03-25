@@ -5,7 +5,6 @@ in
 {
   imports = [
     ./backup
-    ./docker.nix
   ];
 
   # PipeWire

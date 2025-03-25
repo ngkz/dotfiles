@@ -41,4 +41,5 @@
   gpg = import ./gpg.nix;
   ssh = import ./ssh.nix;
   mail = import ./mail.nix;
+  docker = import ./docker.nix;
 }
