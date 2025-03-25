@@ -11,7 +11,6 @@
     ../../modules/ssd.nix
     ../../modules/sshd.nix
     ../../modules/workstation
-    ../../modules/docker.nix
     # ../../modules/print-and-scan.nix
     ../../modules/fonts.nix
     ../../modules/sway-desktop.nix
