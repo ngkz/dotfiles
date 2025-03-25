@@ -1,8 +1,8 @@
 # nix configuration
-{ lib, pkgs, inputs, ... }:
+{ lib, inputs, ... }:
 
 let
-  inherit (lib) mkIf filterAttrs mapAttrsToList mapAttrs;
+  inherit (lib) mkIf;
   inherit (inputs) self;
 in
 {
@@ -10,11 +10,6 @@ in
 
   # Enable experimental flakes feature
   nix =
-    let
-      filteredInputs = filterAttrs (n: _: n != "self") inputs;
-      nixPathInputs = mapAttrsToList (n: v: "${n}=${v}") filteredInputs;
-      registryInputs = mapAttrs (_: v: { flake = v; }) filteredInputs;
-    in
     {
       # Enable flake
       extraOptions = ''
@@ -44,17 +39,14 @@ in
 
       # turned autoOptimiseStore and gc.automatic off due to slowdown
 
-      # pin flakes to the exact version used to build the system
-      registry = registryInputs // { dotfiles.flake = inputs.self; };
-
-      nixPath = nixPathInputs ++ [
-        "dotfiles=${inputs.self}"
-      ];
+      # i use flakes only
+      channel.enable = false;
     };
 
   # Let 'nixos-version --json' know the Git revision of this flake.
   system.configurationRevision = mkIf (self ? rev) self.rev;
 
   # build packages on the disk
-  systemd.services.nix-daemon.environment.TMPDIR = "/var/tmp";
+  # it does not work when nix is running as root
+  # systemd.services.nix-daemon.environment.TMPDIR = "/var/tmp";
 }
