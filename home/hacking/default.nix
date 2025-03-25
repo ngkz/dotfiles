@@ -1,5 +1,5 @@
 # hacking: install hacking tools
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ../tmpfs-as-home.nix
@@ -81,7 +81,7 @@
     wabt
     one_gadget
     upx
-    # mono
+    (lib.hiPrio mono)
     pkgsCross.mingwW64.buildPackages.gcc
     proxychains
     chisel
