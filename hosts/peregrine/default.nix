@@ -31,10 +31,9 @@
     ../../modules/gpg.nix
     ../../modules/ssh.nix
     ../../modules/mail.nix
-
-    ../../modules/profiles/laptop.nix
-    ../../modules/profiles/intel-cpu.nix
-    ../../modules/profiles/intel-wifi.nix
+    ../../modules/laptop.nix
+    ../../modules/intel-cpu.nix
+    ../../modules/intel-wifi.nix
   ];
 
   # hardware configuration

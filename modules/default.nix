@@ -14,9 +14,9 @@
   zram = import ./zram.nix;
   agenix = import ./agenix.nix;
   libvirt-vm = import ./libvirt-vm;
-  profiles-intel-cpu = import ./profiles/intel-cpu.nix;
-  profiles-intel-wifi = import ./profiles/intel-wifi.nix;
-  profiles-laptop = import ./profiles/laptop.nix;
+  intel-cpu = import ./intel-cpu.nix;
+  intel-wifi = import ./intel-wifi.nix;
+  laptop = import ./laptop.nix;
   network-manager = import ./network-manager;
   binary-cache = import ./binary-cache.nix;
   console = import ./console.nix;
