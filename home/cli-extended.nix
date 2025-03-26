@@ -11,7 +11,6 @@
     ltrace
     picocom
     ffmpeg
-    manix # nix documentation searcher
     hugo
     sqlite
     geteltorito
