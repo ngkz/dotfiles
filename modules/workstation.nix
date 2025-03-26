@@ -22,8 +22,6 @@ in
     x86_energy_perf_policy
   ];
 
-  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
-
   programs.light.enable = true;
 
   # Extra groups
