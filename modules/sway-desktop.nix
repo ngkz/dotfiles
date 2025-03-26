@@ -99,6 +99,17 @@
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
   };
 
+  # Bluetooth GUI
+  services.blueman.enable = true;
+
+  # backlight control
+  programs.light.enable = true;
+
+  users.users.user.extraGroups = [
+    # light
+    "video"
+  ];
+
   # systemd.user.services.xdg-desktop-portal.serviceConfig.ExecStart = lib.mkForce [
   #   # Empty ExecStart value to override the field
   #   ""

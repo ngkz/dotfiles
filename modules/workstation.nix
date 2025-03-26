@@ -22,21 +22,11 @@ in
     x86_energy_perf_policy
   ];
 
-  programs.light.enable = true;
-
-  # Extra groups
-  users.users.user.extraGroups = [
-    # light
-    "video"
-  ];
-
   services.logind = {
     lidSwitch = "suspend";
     lidSwitchDocked = "suspend";
     extraConfig = "HandlePowerKey=suspend";
   };
-
-  services.blueman.enable = true;
 
   boot.kernel.sysctl."fs.inotify.max_user_watches" = 524288;
 
