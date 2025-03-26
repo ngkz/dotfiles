@@ -41,10 +41,42 @@ in
 
       # i use flakes only
       channel.enable = false;
+
+      # optimise nix store periodically
+      optimise = {
+        automatic = true;
+        dates = [ "weekly" ];
+      };
+
+      # run garbage collection periodically
+      gc = {
+        automatic = true;
+        options = "--delete-older-than 7d";
+        dates = "weekly";
+      };
     };
 
   # Let 'nixos-version --json' know the Git revision of this flake.
   system.configurationRevision = mkIf (self ? rev) self.rev;
+
+  # lower priority of maintenace tasks
+  systemd.services =
+    let
+      overrides = {
+        unitConfig = {
+          ConditionACPower = true;
+        };
+        serviceConfig = {
+          Nice = 10;
+          IOSchedulingClass = "best-effort";
+          IOSchedulingPriority = 7;
+        };
+      };
+    in
+    {
+      nix-gc = overrides;
+      nix-optimise = overrides;
+    };
 
   # build packages on the disk
   # it does not work when nix is running as root

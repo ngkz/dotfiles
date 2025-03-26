@@ -18,7 +18,6 @@
     ../../modules/undervolt
     ../../modules/vmm.nix
     ../../modules/btrfs-maintenance
-    ../../modules/nix-maintenance
     ../../modules/zswap.nix
     ../../modules/bluetooth.nix
     ../../modules/network-manager

@@ -11,7 +11,6 @@ in
     ../../modules/ssd.nix
     ../../modules/sshd.nix
     ../../modules/btrfs-maintenance
-    ../../modules/nix-maintenance
     ../../modules/zswap.nix
     ../../modules/mdns.nix
 

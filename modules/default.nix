@@ -9,7 +9,6 @@
   vmm = import ./vmm.nix;
   grub-secureboot = import ./grub-secureboot;
   btrfs-maintenance = import ./btrfs-maintenance;
-  nix-maintenance = import ./nix-maintenance;
   zswap = import ./zswap.nix;
   bluetooth = import ./bluetooth.nix;
   zram = import ./zram.nix;

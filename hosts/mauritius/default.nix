@@ -9,7 +9,6 @@
     ../../modules/base.nix
     ../../modules/desktop-essential.nix
     ../../modules/fonts.nix
-    ../../modules/nix-maintenance
     ../../modules/ssh.nix
   ];
 
