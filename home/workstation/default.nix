@@ -20,12 +20,11 @@
     ../ssh.nix
     ../keepassxc
     ../keepassxc/librewolf.nix
+    ../adb.nix
   ];
 
   # tmpfs as home
   tmpfs-as-home.persistentDirs = [
-    # adb
-    ".android"
     # tauon
     ".local/share/TauonMusicBox"
     # libreoffice

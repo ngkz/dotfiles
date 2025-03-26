@@ -28,9 +28,6 @@ in
 
   # Extra groups
   users.users.user.extraGroups = [
-    # adb
-    "adbusers"
-
     # light
     "video"
   ];
@@ -45,7 +42,6 @@ in
 
   boot.kernel.sysctl."fs.inotify.max_user_watches" = 524288;
 
-  programs.adb.enable = true;
   # XXX windows network browsing function doesn't work due to https://gitlab.gnome.org/GNOME/gvfs/-/issues/506
   services.gvfs.enable = true;
 
@@ -59,8 +55,10 @@ in
   # enable all magic sysrq functions
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
-  services.udev.packages = lib.singleton (pkgs.writeTextFile
-    {
+  services.udev.packages = [
+    pkgs.android-udev-rules #adb
+    # allow unprivileged device access
+    (pkgs.writeTextFile {
       name = "udev-user-devices";
       text = ''
         # LED name badge
@@ -81,5 +79,6 @@ in
         SUBSYSTEMS=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", TAG+="uaccess"
       '';
       destination = "/etc/udev/rules.d/71-user-devices.rules";
-    });
+    })
+  ];
 }
