@@ -27,11 +27,11 @@
             serviceConfig = {
               Type = "oneshot";
               ExecStart = "${pkgs.substituteAll {
-            src = ./btrfs-defrag.sh;
-            isExecutable = true;
-            path = with pkgs; [ coreutils findutils gawk gnused e2fsprogs btrfs-progs ];
-            inherit (pkgs) bash;
-          }} ${lib.escapeShellArgs cfg.defragMounts}";
+                src = ./btrfs-defrag.sh;
+                isExecutable = true;
+                path = lib.makeBinPath (with pkgs; [ coreutils findutils gawk gnused e2fsprogs btrfs-progs ]);
+                inherit (pkgs) bash;
+              }} ${lib.escapeShellArgs cfg.defragMounts}";
               Nice = 19;
               IOSchedulingClass = "idle";
             };

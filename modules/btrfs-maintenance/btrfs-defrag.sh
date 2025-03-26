@@ -1,7 +1,6 @@
 #!@bash@/bin/bash
 
-export PATH=/empty
-for i in @path@; do PATH=$PATH:$i/bin; done
+PATH=@path@
 
 FRAGMENT_THRESHOLD=500
 
