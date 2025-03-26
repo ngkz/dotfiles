@@ -38,8 +38,6 @@ in
     GST_PLUGIN_FEATURE_RANK = "vampeg2dec:MAX,vah264dec:MAX,vah265dec:MAX,vavp8dec:MAX,vavp9dec:MAX,vaav1dec:MAX";
   };
 
-  services.fwupd.enable = true;
-
   # enable all magic sysrq functions
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
