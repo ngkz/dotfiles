@@ -2,26 +2,12 @@
 { pkgs, ... }:
 
 {
-  systemd.user.services.keepassxc = {
-    Unit = {
-      Description = "KeePassXC password manager";
-      Requires = [ "ssh-agent.service" "tray.target" ];
-      After = [ "graphical-session-pre.target" "ssh-agent.service" "tray.target" ];
-      PartOf = [ "graphical-session.target" ];
-    };
+  # TODO switch to xdg.autostart after 25.05 upgrade
+  xdg.configFile."autostart/org.keepassxc.KeePassXC.desktop".source = "${pkgs.keepassxc}/share/applications/org.keepassxc.KeePassXC.desktop";
 
-    Install = { WantedBy = [ "graphical-session.target" ]; };
-
-    Service = {
-      ExecStart = "${pkgs.keepassxc}/bin/keepassxc %h/misc/all/db.kdbx";
-      Environment = [
-        "SSH_AUTH_SOCK=%t/ssh-agent"
-        "PATH=/etc/profiles/per-user/%u/bin" # XXX Qt find plugins from PATH
-      ];
-    };
-  };
-
-  home.file.".config/keepassxc/keepassxc.ini".source = ./keepassxc.ini;
+  xdg.configFile."keepassxc/keepassxc.ini".source = ./config.ini;
+  # TODO switch to xdg.cacheFile after 25.05 upgrade
+  home.file.".cache/keepassxc/keepassxc.ini".source = ./cache.ini;
 
   home.packages = with pkgs; [
     keepassxc
