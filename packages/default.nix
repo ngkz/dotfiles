@@ -33,4 +33,5 @@ rec {
   ical2org = pkgs.callPackage ./ical2org { };
   wslnotifyd = pkgs.callPackage ./wslnotifyd { };
   avr-ghidra-helpers = pkgs.callPackage ./avr-ghidra-helpers { };
+  adwaita-colors-icon-theme = pkgs.callPackage ./adwaita-colors-icon-theme { };
 }

@@ -1,7 +1,7 @@
-{ inputs, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
-    inputs.self.homeManagerModules.theming
+    ./theming.nix
     ./direnv.nix
     ./im
     #./chromium.nix

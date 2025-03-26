@@ -7,7 +7,7 @@
   tmpfs-as-home = import ./tmpfs-as-home.nix;
   workstation = import ./workstation.nix;
   sway-desktop = import ./sway-desktop;
-  theming = import ./theming;
+  theming = import ./theming.nix;
   neovim = import ./neovim;
   hacking = import ./hacking;
   vmm = import ./vmm.nix;
