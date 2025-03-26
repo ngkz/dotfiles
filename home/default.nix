@@ -36,4 +36,5 @@
   signal = import ./signal;
   mail = import ./mail.nix;
   adb = import ./adb.nix;
+  librewolf = import ./librewolf;
 }

@@ -6,7 +6,7 @@
     ../im
     #./chromium.nix
     ../syncthing
-    ./librewolf
+    ../librewolf
     ./wine.nix
     ../doom-emacs
     ../hyfetch.nix
