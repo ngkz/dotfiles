@@ -134,7 +134,7 @@
 
   home-manager.users.user = {
     imports = [
-      ../../home/workstation
+      ../../home/workstation.nix
       ../../home/sway-desktop
       ../../home/hacking
       ../../home/vmm.nix

@@ -5,7 +5,7 @@
   zsh = import ./zsh;
   tealdeer = import ./tealdeer.nix;
   tmpfs-as-home = import ./tmpfs-as-home.nix;
-  workstation = import ./workstation;
+  workstation = import ./workstation.nix;
   sway-desktop = import ./sway-desktop;
   theming = import ./theming;
   neovim = import ./neovim;
