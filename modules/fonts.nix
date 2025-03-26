@@ -30,7 +30,7 @@
         emoji = [ "Blobmoji" ];
         monospace = [ "Sarasa Term J Nerd Font" ];
       };
-      cache32Bit = true;
+      # cache32Bit = true;
       confPackages = [ pkgs.ngkz.blobmoji-fontconfig ];
     };
   };
