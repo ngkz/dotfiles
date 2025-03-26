@@ -37,4 +37,5 @@
   mail = import ./mail.nix;
   adb = import ./adb.nix;
   librewolf = import ./librewolf;
+  chromium = import ./chromium.nix;
 }

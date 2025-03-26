@@ -4,7 +4,7 @@
     inputs.self.homeManagerModules.theming
     ../direnv.nix
     ../im
-    #./chromium.nix
+    #../chromium.nix
     ../syncthing
     ../librewolf
     ./wine.nix
