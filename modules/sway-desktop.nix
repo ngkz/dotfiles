@@ -1,5 +1,5 @@
 # sway + greetd
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   # Sway wayland tiling compositor
   programs.sway = {
@@ -17,9 +17,6 @@
       export MOZ_ENABLE_WAYLAND=1
       # Chromium / Electron (experimental):
       export NIXOS_OZONE_WL=1
-
-      # Log sway stdout/stderr
-      exec &> >(${pkgs.systemd}/bin/systemd-cat -t sway)
     '';
     wrapperFeatures.gtk = true;
   };
@@ -43,7 +40,7 @@
 
       # gtkgreet list of login environments
       "greetd/environments".text = ''
-        sway
+        sway-session
         zsh
       '';
 
@@ -65,7 +62,7 @@
       };
 
       initial_session = {
-        command = "sway";
+        command = "sway-session";
         user = "user";
       };
     };
@@ -90,6 +87,11 @@
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme # gtkgreet
     qt5.qtwayland
+    (writeShellScriptBin "sway-session" ''
+      # Load shell profiles
+      # Log sway stdout/stderr
+      exec -l ${lib.getExe config.users.users.user.shell} -c 'exec ${pkgs.systemd}/bin/systemd-cat -t sway sway "$@"' "$@"
+    '')
   ];
 
   # XDG Portal
