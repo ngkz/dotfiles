@@ -43,12 +43,6 @@
     ".platformio"
   ];
 
-  #nm-applet
-  services.network-manager-applet.enable = true;
-  xsession.preferStatusNotifierItems = true;
-
-  services.blueman-applet.enable = true;
-
   # patch neovim desktop entry
   xdg.desktopEntries.nvim = {
     name = "Neovim";

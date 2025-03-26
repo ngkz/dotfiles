@@ -433,6 +433,13 @@ in
     Install = { WantedBy = [ "sway-session.target" ]; };
   };
 
+  # nm-applet
+  services.network-manager-applet.enable = true;
+  xsession.preferStatusNotifierItems = true;
+
+  # bluetooth gui
+  services.blueman-applet.enable = true;
+
   home.packages = with pkgs; [
     # XXX workaround for home-manager #2806
     ngkz.sway-systemd-autostart
