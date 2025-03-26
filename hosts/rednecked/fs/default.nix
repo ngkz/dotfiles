@@ -21,8 +21,8 @@
     ];
 
     defragMounts = [
-      "/nix"
-      "/var/persist"
+      # "/nix"
+      # "/var/persist"
       "/var/spinningrust"
     ];
   };
