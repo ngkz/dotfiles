@@ -5,18 +5,15 @@
     ./direnv.nix
     ./im
     #./chromium.nix
-    ./syncthing
     ./librewolf
     ./wine.nix
     ./doom-emacs
     ./hyfetch.nix
     # ./gtkcord4.nix
-    ./signal
     ./user-dirs.nix
     ./foot.nix
     ./cli-extended.nix
     ./desktop-essential.nix
-    ./gpg
     ./ssh.nix
     ./keepassxc
     ./keepassxc/librewolf.nix

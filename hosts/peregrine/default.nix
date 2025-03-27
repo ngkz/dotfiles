@@ -142,6 +142,9 @@
       ../../home/git.nix
       ../../home/tailscale.nix
       ../../home/mail.nix
+      ../../home/syncthing
+      ../../home/signal
+      ../../home/gpg
     ];
   };
 
