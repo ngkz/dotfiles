@@ -76,7 +76,7 @@
     };
 
     # RunCat extension
-    "/org/gnome/shell/extensions/runcat" = {
+    "org/gnome/shell/extensions/runcat" = {
       idle-threshold = 1;
     };
 
