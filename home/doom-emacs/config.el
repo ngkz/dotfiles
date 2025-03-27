@@ -259,8 +259,8 @@
   (add-to-list 'org-modules 'org-checklist t))
 
 (after! org-download
-  ;; sway screen capture
-  (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s"))
+  ;; GNOME screen capture
+  (setq org-download-screenshot-method "gnome-screenshot -a -f %s"))
 
 (custom-set-faces!
   '(org-document-title :weight bold :height 1.25)

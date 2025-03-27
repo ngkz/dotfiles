@@ -14,7 +14,7 @@
     ../../modules/backup
     # ../../modules/print-and-scan.nix
     ../../modules/fonts.nix
-    ../../modules/sway-desktop.nix
+    ../../modules/gnome.nix
     ../../modules/undervolt
     ../../modules/vmm.nix
     ../../modules/btrfs-maintenance
@@ -135,14 +135,14 @@
   home-manager.users.user = {
     imports = [
       ../../home/workstation.nix
-      ../../home/sway-desktop
+      ../../home/gnome
       ../../home/hacking
       ../../home/vmm.nix
       ../../home/dev-docs.nix
       ../../home/git.nix
       ../../home/tailscale.nix
       ../../home/mail.nix
-      ../../home/syncthing
+      ../../home/syncthing.nix
       ../../home/signal
       ../../home/gpg
     ];
@@ -179,9 +179,6 @@
     # hibernation
     "resume_offset=533760"
   ];
-
-  # XXX workaround for swaywm/sway #6962
-  environment.variables.WLR_DRM_NO_MODIFIERS = "1";
 
   network-manager.connections = [
     "parents-home-1f-a"

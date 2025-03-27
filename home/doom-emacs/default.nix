@@ -169,6 +169,7 @@ in
     # lang/org
     texlive.combined.scheme-medium
     gnuplot
+    gnome-screenshot #gnome screen capture
 
     # lang/python
     python3Packages.python-lsp-server

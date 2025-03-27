@@ -4,7 +4,7 @@
   ssd = import ./ssd.nix;
   sshd = import ./sshd.nix;
   workstation = import ./workstation.nix;
-  sway-desktop = import ./sway-desktop.nix;
+  gnome = import ./gnome.nix;
   undervolt = import ./undervolt.nix;
   vmm = import ./vmm.nix;
   grub-secureboot = import ./grub-secureboot;

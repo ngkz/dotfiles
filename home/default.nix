@@ -6,7 +6,7 @@
   tealdeer = import ./tealdeer.nix;
   tmpfs-as-home = import ./tmpfs-as-home.nix;
   workstation = import ./workstation.nix;
-  sway-desktop = import ./sway-desktop;
+  gnome = import ./gnome;
   theming = import ./theming.nix;
   neovim = import ./neovim;
   hacking = import ./hacking;
@@ -23,7 +23,7 @@
   dev-docs = import ./dev-docs.nix;
   doom-emacs = import ./doom-emacs;
   direnv = import ./direnv.nix;
-  syncthing = import ./syncthing;
+  syncthing = import ./syncthing.nix;
   user-dirs = import ./user-dirs.nix;
   foot = import ./foot.nix;
   cli-extended = import ./cli-extended.nix;
