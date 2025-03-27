@@ -1,15 +1,5 @@
 { pkgs, inputs }:
 rec {
-  sway-systemd = pkgs.callPackage ./sway-systemd {
-    inherit (pkgs.python3Packages)
-      wrapPython
-      dbus-next
-      i3ipc
-      psutil
-      tenacity
-      xlib;
-  };
-  sway-systemd-autostart = sway-systemd.override { autostart = true; };
   sarasa-term-j-nerd-font = pkgs.callPackage ./sarasa-term-j-nerd-font { };
   blobmoji-fontconfig = pkgs.callPackage ./blobmoji-fontconfig { };
   chromium-extension-ublock0 = pkgs.callPackage ./chromium-extension-ublock0 { };
@@ -20,8 +10,6 @@ rec {
   };
   fcitx5-themes-candlelight = pkgs.callPackage ./fcitx5-themes-candlelight { };
   gnome-ssh-askpass3 = pkgs.callPackage ./gnome-ssh-askpass3.nix { };
-  hotkey-scripts = pkgs.callPackage ./hotkey-scripts { };
-  vimix-kde = pkgs.callPackage ./vimix-kde { };
   fcitx5-skk = pkgs.libsForQt5.callPackage ./fcitx5-skk {
     inherit skk-dicts;
   };
