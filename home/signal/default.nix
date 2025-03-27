@@ -5,7 +5,6 @@
     ../tmpfs-as-home.nix
   ];
 
-  xdg.enable = true;
 
   home.packages = with pkgs; [
     signal-desktop
@@ -31,18 +30,6 @@
 
   xdg.configFile."Signal/ephemeral.json".source = ./ephemeral.json;
 
-  systemd.user.services.signal-desktop = {
-    Unit = {
-      Description = "Signal desktop client";
-      Requires = [ "tray.target" ];
-      After = [ "graphical-session-pre.target" "tray.target" ];
-      PartOf = [ "graphical-session.target" ];
-    };
-
-    Install = { WantedBy = [ "graphical-session.target" ]; };
-
-    Service = {
-      ExecStart = "${pkgs.signal-desktop}/bin/signal-desktop --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto";
-    };
-  };
+  # TODO switch to xdg.autostart after 25.05 upgrade
+  xdg.configFile."autostart/signal-desktop.desktop".source = "${pkgs.signal-desktop}/share/applications/signal-desktop.desktop";
 }

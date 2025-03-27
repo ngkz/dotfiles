@@ -1,10 +1,10 @@
 {
   "localeOverride": null,
-  "system-tray-setting": "MinimizeToAndStartInSystemTray",
+  "system-tray-setting": "DoNotUseSystemTray",
   "theme-setting": "system",
   "spell-check": true,
   "window": {
-    "maximized": false,
+    "maximized": true,
     "autoHideMenuBar": false,
     "fullscreen": false,
     "width": 956,
