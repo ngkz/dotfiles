@@ -65,6 +65,14 @@ in
     };
   };
 
+  # thunderbird as default mail app
+  xdg.mimeApps.defaultApplications = {
+    "essage/rfc822" = "thunderbird.desktop";
+    "x-scheme-handler/mailto" = "thunderbird.desktop";
+    "text/calendar" = "thunderbird.desktop";
+    "text/x-vcard" = "thunderbird.desktop";
+  };
+
   programs.msmtp.enable = true;
 
   tmpfs-as-home.persistentDirs = [
