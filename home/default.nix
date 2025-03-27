@@ -39,4 +39,5 @@
   librewolf = import ./librewolf;
   chromium = import ./chromium.nix;
   wine = import ./wine.nix;
+  mpv = import ./mpv.nix;
 }
