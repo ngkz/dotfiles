@@ -39,6 +39,8 @@
     ".electrum"
     # platformio
     ".platformio"
+    # inkscape
+    ".config/inkscape"
   ];
 
   xdg.mimeApps = {
