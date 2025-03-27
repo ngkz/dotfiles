@@ -187,5 +187,6 @@
     electrum
     tenacity
     scrcpy
+    shortwave
   ];
 }
