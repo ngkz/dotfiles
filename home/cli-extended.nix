@@ -15,7 +15,6 @@
     sqlite
     geteltorito
     sbsigntool
-    ngkz.scripts
     dislocker
     ansible
     exiftool
