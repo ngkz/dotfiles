@@ -26,5 +26,7 @@
     enable = true;
     user = "user";
   };
-  services.xserver.displayManager.gdm.autoLogin.delay = 3; #XXX https://github.com/NixOS/nixpkgs/issues/9843
+  # XXX https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
 }
