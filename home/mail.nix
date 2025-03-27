@@ -73,6 +73,9 @@ in
     "text/x-vcard" = "thunderbird.desktop";
   };
 
+  # TODO switch to xdg.autostart after 25.05 upgrade
+  xdg.configFile."autostart/thunderbird.desktop".source = "${pkgs.thunderbird}/share/applications/thunderbird.desktop";
+
   programs.msmtp.enable = true;
 
   tmpfs-as-home.persistentDirs = [
