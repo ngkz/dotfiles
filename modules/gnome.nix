@@ -1,6 +1,10 @@
 # GNOME desktop
 # See also: home/gnome
 { pkgs, lib, ... }: {
+  imports = [
+    ./network-manager
+  ];
+
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
