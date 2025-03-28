@@ -5,6 +5,8 @@ in
 {
   imports = [
     ./wireshark.nix
+    ./desktop-essential.nix
+    ./fonts.nix
   ];
 
   # PipeWire

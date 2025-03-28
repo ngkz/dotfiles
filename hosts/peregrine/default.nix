@@ -13,7 +13,6 @@
     ../../modules/workstation.nix
     ../../modules/backup
     # ../../modules/print-and-scan.nix
-    ../../modules/fonts.nix
     ../../modules/gnome.nix
     ../../modules/undervolt
     ../../modules/vmm.nix
@@ -23,7 +22,6 @@
     ../../modules/network-manager
     ../../modules/binary-cache.nix
     ../../modules/disable-usb-keyboard-wakeup.nix
-    ../../modules/desktop-essential.nix
     ../../modules/tailscale/client.nix
     ../../modules/syncthing-user.nix
     ../../modules/btrbk.nix
