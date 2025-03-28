@@ -11,6 +11,7 @@
     # ../../modules/btrfs-maintenance
     ../../modules/zswap.nix
     ../../modules/network-manager
+    ../../modules/tailscale/client.nix
     # TODO ../../modules/syncthing-user.nix
     ../../modules/btrbk.nix
     # ../../modules/ssh.nix
@@ -100,6 +101,7 @@
       ../../home/workstation.nix
       ../../home/gnome
       ../../home/hacking
+      ../../home/tailscale.nix
       # TODO ../../home/syncthing.nix
       # ../../home/ssh.nix
     ];
