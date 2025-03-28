@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   networking.hostName = "mauritius";
@@ -36,6 +36,7 @@
     device = "/dev/sda";
   };
 
+  system.fsPackages = [ pkgs.open-vm-tools ];
   fileSystems =
     let
       rootDev = "/dev/sda1";
@@ -68,6 +69,17 @@
         device = rootDev;
         fsType = "btrfs";
         options = rootOpts ++ [ "subvol=snapshots" "noatime" ];
+      };
+      "/home/user/host" = {
+        device = ".host:/nixos";
+        fsType = "fuse./run/current-system/sw/bin/vmhgfs-fuse";
+        options = [
+          "umask=22"
+          "uid=${toString config.users.users.user.uid}"
+          "gid=${toString config.users.groups."${config.users.users.user.group}".gid}"
+          "allow_other"
+          "auto_unmount"
+        ];
       };
     };
   swapDevices = [
