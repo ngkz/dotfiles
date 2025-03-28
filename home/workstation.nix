@@ -13,11 +13,12 @@
     ./user-dirs.nix
     ./cli-extended.nix
     ./desktop-essential.nix
-    ./ssh.nix
     ./keepassxc
     ./keepassxc/librewolf.nix
     ./adb.nix
     ./mpv.nix
+    ./dev-docs.nix
+    ./git.nix
   ];
 
   # tmpfs as home

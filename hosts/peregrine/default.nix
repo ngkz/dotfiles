@@ -130,21 +130,18 @@
   age.secrets.user-password-hash-peregrine.file = ../../secrets/user-password-hash-peregrine.age;
   users.users.user.hashedPasswordFile = config.age.secrets.user-password-hash-peregrine.path;
 
-  home-manager.users.user = {
-    imports = [
-      ../../home/workstation.nix
-      ../../home/gnome
-      ../../home/hacking
-      ../../home/vmm.nix
-      ../../home/dev-docs.nix
-      ../../home/git.nix
-      ../../home/tailscale.nix
-      ../../home/mail.nix
-      ../../home/syncthing.nix
-      ../../home/signal
-      ../../home/gpg
-    ];
-  };
+  home-manager.users.user.imports = [
+    ../../home/workstation.nix
+    ../../home/ssh.nix
+    ../../home/gnome
+    ../../home/hacking
+    ../../home/vmm.nix
+    ../../home/tailscale.nix
+    ../../home/mail.nix
+    ../../home/syncthing.nix
+    ../../home/signal
+    ../../home/gpg
+  ];
 
   # tlp
   services.tlp.settings = {
