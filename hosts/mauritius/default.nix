@@ -83,13 +83,25 @@
   age.secrets.user-password-hash-mauritius.file = ../../secrets/user-password-hash-mauritius.age;
   users.users.user.hashedPasswordFile = config.age.secrets.user-password-hash-mauritius.path;
 
-  home-manager.users.user.imports = [
-    ../../home/workstation.nix
-    ../../home/gnome
-    ../../home/hacking
-    # TODO ../../home/syncthing.nix
-    # ../../home/ssh.nix
-  ];
+  home-manager.users.user = {
+    imports = [
+      ../../home/workstation.nix
+      ../../home/gnome
+      ../../home/hacking
+      # TODO ../../home/syncthing.nix
+      # ../../home/ssh.nix
+    ];
+
+    dconf.settings = {
+      "org/gnome/settings-daemon-plugins/color" = {
+        night-light-enabled = false;
+      };
+
+      "org/gnome/desktop/session" = {
+        idle-delay = 0; # disable automatic screen lock
+      };
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

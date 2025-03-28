@@ -1,6 +1,6 @@
 # GNOME desktop
 # See also: modules/gnome.nix
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   imports = [
     ../tmpfs-as-home.nix
   ];
@@ -20,7 +20,7 @@
     # Shell
     # Night light
     "org/gnome/settings-daemon/plugins/color" = {
-      night-light-enabled = true;
+      night-light-enabled = lib.mkDefault true;
       night-light-temperature = 2859;
     };
 
