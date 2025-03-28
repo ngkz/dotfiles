@@ -110,7 +110,7 @@
       };
 
       "org/gnome/desktop/session" = {
-        idle-delay = 0; # disable automatic screen lock
+        idle-delay = lib.gvariant.mkUint32 0; # disable automatic screen lock
       };
     };
   };
