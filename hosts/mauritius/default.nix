@@ -1,52 +1,94 @@
-{ inputs, config, pkgs, ... }:
+{ config, lib, ... }:
 
 {
   networking.hostName = "mauritius";
 
   imports = [
-    inputs.nixos-wsl.nixosModules.wsl
     ../../modules/agenix.nix
     ../../modules/base.nix
-    ../../modules/desktop-essential.nix
-    ../../modules/fonts.nix
-    ../../modules/ssh.nix
+    ../../modules/workstation.nix
+    ../../modules/gnome.nix
+    # ../../modules/btrfs-maintenance
+    ../../modules/zswap.nix
+    ../../modules/network-manager
+    # TODO ../../modules/syncthing-user.nix
+    ../../modules/btrbk.nix
+    # ../../modules/ssh.nix
   ];
 
-  wsl = {
+  # hardware configuration
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  virtualisation.vmware.guest.enable = true;
+  boot.initrd.availableKernelModules = [
+    "sd_mod"
+
+    # Btrfs CRC hardware acceleration
+    "crc32c-intel"
+  ];
+  boot.kernelModules = [ "kvm-intel" ];
+
+  powerManagement.enable = false; #VM
+
+  # disk
+  # legacy boot
+  boot.loader.grub = {
     enable = true;
-    defaultUser = "user";
-    # useWindowsDriver = true;
-    startMenuLaunchers = true;
+    device = "/dev/sda";
   };
 
-  # https://stackoverflow.com/questions/63960859/how-can-i-raise-the-limit-for-open-files-in-ubuntu-20-04-on-wsl2
-  systemd.user.extraConfig = ''
-    DefaultLimitNOFILE=65535
-  '';
+  fileSystems =
+    let
+      rootDev = "/dev/sda1";
+      # only options in first mounted subvolume will take effect so all mounts must have same options
+      rootOpts = [ "compress=zstd:1" "lazytime" ];
+    in
+    {
+      "/boot" = {
+        device = rootDev;
+        fsType = "btrfs";
+        options = rootOpts ++ [ "subvol=boot" ];
+      };
+      "/nix" = {
+        device = rootDev;
+        fsType = "btrfs";
+        options = rootOpts ++ [ "subvol=nix" "noatime" ];
+      };
+      "/var/persist" = {
+        device = rootDev;
+        fsType = "btrfs";
+        neededForBoot = true;
+        options = rootOpts ++ [ "subvol=persist" ];
+      };
+      "/var/swap" = {
+        device = rootDev;
+        fsType = "btrfs";
+        options = rootOpts ++ [ "subvol=swap" "noatime" ];
+      };
+      "/var/snapshots" = {
+        device = rootDev;
+        fsType = "btrfs";
+        options = rootOpts ++ [ "subvol=snapshots" "noatime" ];
+      };
+    };
+  swapDevices = [
+    {
+      device = "/var/swap/swapfile";
+      discardPolicy = "once";
+    }
+  ];
 
-  age.identityPaths = [ "/etc/age.key" ];
+  tmpfs-as-root.enable = true;
 
   # user
   age.secrets.user-password-hash-mauritius.file = ../../secrets/user-password-hash-mauritius.age;
   users.users.user.hashedPasswordFile = config.age.secrets.user-password-hash-mauritius.path;
-  security.sudo.wheelNeedsPassword = true;
 
   home-manager.users.user.imports = [
+    ../../home/workstation.nix
+    ../../home/gnome
     ../../home/hacking
-    ../../home/dev-docs.nix
-    ../../home/git.nix
-    ../../home/doom-emacs
-    ../../home/direnv.nix
-    ../../home/user-dirs.nix
-    ../../home/cli-extended.nix
-    ../../home/desktop-essential.nix
-    ../../home/ssh.nix
-    ../../home/im
-  ];
-
-  environment.systemPackages = with pkgs; [
-    wsl-open
-    ngkz.wslnotifyd
+    # TODO ../../home/syncthing.nix
+    # ../../home/ssh.nix
   ];
 
   # This value determines the NixOS release from which the default
