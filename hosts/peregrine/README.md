@@ -157,9 +157,9 @@ mkdir -p /mnt/{boot,nix,var/{log,persist,swap}}
 mount /dev/nvme0n1p1 /mnt/boot
 
 # Mount persistent storages
-mount -o subvol=nix /dev/mapper/cryptroot /mnt/nix
-mount -o subvol=persist /dev/mapper/cryptroot /mnt/var/persist
-mount -o subvol=swap /dev/mapper/cryptroot /mnt/var/swap
+mount -o lazytime,subvol=nix /dev/mapper/cryptroot /mnt/nix
+mount -o lazytime,subvol=persist /dev/mapper/cryptroot /mnt/var/persist
+mount -o lazytime,subvol=swap /dev/mapper/cryptroot /mnt/var/swap
 
 # Bind mount persistent /var/log
 mount --bind /mnt/{var/persist,}/var/log
