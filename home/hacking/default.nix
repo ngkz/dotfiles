@@ -17,8 +17,6 @@
     strace
     ltrace
     netcat-openbsd
-    radare2
-    iaito
     unstable.binwalk
     foremost
     nkf
@@ -56,7 +54,6 @@
     deno
     socat
     dtc
-    qtspim
     sqlite
     subversion
     git
