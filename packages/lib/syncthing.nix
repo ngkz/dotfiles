@@ -98,12 +98,19 @@ let
       devices = personal-pcs;
       ignore = ''
         /all
+        /allpc
       '' + ignoreCommon;
     };
     "~/misc/all" = {
       id = "misc-all";
       path = "${storage}/misc/all";
       devices = all;
+      ignore = ignoreCommon;
+    };
+    "~/misc/allpc" = {
+      id = "misc-allpc";
+      path = "${storage}/misc/allpc";
+      devices = all-pcs;
       ignore = ignoreCommon;
     };
   };

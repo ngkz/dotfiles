@@ -21,9 +21,9 @@
 
   xdg.dataFile."fcitx5/skk/dictionary_list".text =
     let
-      dictdir = "${config.home.homeDirectory}/misc/skk";
+      dictdir = "${config.home.homeDirectory}/misc/allpc/skk";
       self = config.systemName;
-      machines = [ "peregrine" ];
+      machines = [ "peregrine" "mauritius" ];
       otherMachines = builtins.filter (host: host != self) machines;
     in
     lib.concatStringsSep "\n" ([
