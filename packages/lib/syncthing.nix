@@ -83,7 +83,7 @@ let
       path = "${storage}/projects";
       devices = personal-pcs;
       ignore = ''
-        /shared
+        /allpc
       '' + ignoreCommon;
     };
     "~/projects/allpc" = {
