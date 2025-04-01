@@ -96,6 +96,7 @@
     apksigner
     docker-compose
     awscli2
+    python3Packages.wsgidav
 
     (ghidra.withExtensions (p: [ ngkz.avr-ghidra-helpers ]))
     burpsuite
