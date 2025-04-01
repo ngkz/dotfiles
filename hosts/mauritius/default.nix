@@ -15,6 +15,7 @@
     ../../modules/syncthing-user.nix
     ../../modules/btrbk.nix
     # ../../modules/ssh.nix
+    ./backup-work
   ];
 
   # hardware configuration
