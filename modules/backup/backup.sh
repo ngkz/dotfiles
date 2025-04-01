@@ -367,7 +367,7 @@ if [[ ! -v BORG_PASSPHRASE ]]; then
         log "can't lookup borg repository passphrase"
         exit 1
     fi
-    BORG_PASSPHRASE="$BORG_PASSPHRASE" exec sudo --preserve-env=BORG_PASSPHRASE --preserve-env=SSH_AUTH_SOCK "$SCRIPT" "$@"
+    exec pkexec env BORG_PASSPHRASE="$BORG_PASSPHRASE" SSH_AUTH_SOCK="$SSH_AUTH_SOCK" "$SCRIPT" "$@"
 fi
 
 mkdir "$TMPDIR" || exit 1
