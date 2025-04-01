@@ -22,7 +22,6 @@
         findutils
         gnused
         nettools
-        udisks
         gnugrep
         util-linux
         systemd
