@@ -65,16 +65,6 @@ log() {
     echo "[$(date "+%Y/%m/%d %H:%M:%S")] $1"
 }
 
-disk_from_partition() {
-    local part disk
-    part=$(readlink -f "$1")
-    part=${part#/dev/}
-    disk=$(readlink /sys/class/block/$part)
-    disk=${disk%/*}
-    disk=/dev/${disk##*/}
-    echo "$disk"
-}
-
 umount_retry() {
     local progress=0
     local err
