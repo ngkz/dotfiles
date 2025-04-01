@@ -1,7 +1,7 @@
 # Syncthing
 { config, osConfig, pkgs, ... }:
 let
-  syncthingCfgDir = "${config.xdg.configHome}/syncthing";
+  syncthingCfgDir = "${config.xdg.stateHome}/syncthing";
   syncthingCfg = "${syncthingCfgDir}/config.xml";
 in
 {
@@ -31,7 +31,6 @@ in
   };
 
   tmpfs-as-home.persistentDirs = [
-    ".config/syncthing"
-    ".local/share/syncthing"
+    ".local/state/syncthing"
   ];
 }
