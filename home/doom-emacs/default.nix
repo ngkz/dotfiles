@@ -210,6 +210,5 @@ in
   tmpfs-as-home.persistentDirs = [
     ".config/doom-local"
     ".config/doom-load"
-    ".local/share/doom"
   ];
 }
