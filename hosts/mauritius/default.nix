@@ -124,7 +124,7 @@
     "net.ipv6.ip_unprivileged_port_start" = 0;
   };
 
- networking.firewall.allowedTCPPorts = [ 80 ];
+  networking.firewall.allowedTCPPorts = [ 80 ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
