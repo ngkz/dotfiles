@@ -34,7 +34,7 @@ EXCLUDES=(
     "home/*/.cache"
     root/.cache
     "home/*/.local/var/pmbootstrap"
-    "home/*/.local/share/syncthing"
+    "home/*/.local/state/syncthing/index-*.db"
     "var/lib/systemd/random-seed"
     "var/lib/systemd/coredump"
     "home/*/.local/share/TauonMusicBox/scaled-icons"
