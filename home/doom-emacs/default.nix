@@ -57,13 +57,14 @@ in
       newhash=$(nix-hash $(realpath ~/.config/doom/{init.el,packages.el} ~/.config/emacs/) && echo ${config.programs.emacs.package})
       if [ ! -d "$DOOMLOCALDIR/etc" ]; then
         echo "doom install"
-        ~/.config/emacs/bin/doom install -!
+        mkdir -p ~/.config/doom-local/cache/eln #XXX
+        ~/.config/emacs/bin/doom install -! --aot
         echo "$newhash" > $DOOMLOCALDIR/hash
       else
         # run doom sync only when really necessary
         if [ ! -e "$DOOMLOCALDIR/hash" ] ||  [ "$(<$DOOMLOCALDIR/hash)" != "$newhash" ]; then
           echo "configuration changed, doom sync"
-          ~/.config/emacs/bin/doom sync --gc -!
+          ~/.config/emacs/bin/doom sync --gc -! --aot
           echo "$newhash" > $DOOMLOCALDIR/hash
         fi
       fi
