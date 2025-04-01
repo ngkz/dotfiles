@@ -117,6 +117,14 @@
     };
   };
 
+  boot.kernel.sysctl = {
+    # allow unprivileged low port listening
+    "net.ipv4.ip_unprivileged_port_start" = 0;
+    "net.ipv6.ip_unprivileged_port_start" = 0;
+  };
+
+ networking.firewall.allowedTCPPorts = [ 80 ];
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
