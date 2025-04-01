@@ -13,8 +13,8 @@ let
 
   guiUser = "user";
 
-  pcs = [ "peregrine" "rednecked" ];
-  all = [ "peregrine" "bluejay" "rednecked" "mauritius-host" ];
+  all = [ "peregrine" "bluejay" "rednecked" "mauritius" ];
+  all-pcs = [ "peregrine" "rednecked" "mauritius" ];
   personal = [ "peregrine" "bluejay" "rednecked" ];
   personal-pcs = [ "peregrine" "rednecked" ];
 
@@ -26,7 +26,7 @@ let
     "~/docs" = {
       id = "docs";
       path = "${storage}/docs";
-      devices = pcs;
+      devices = personal-pcs;
       ignore = ''
         /all
       '' + ignoreCommon;
@@ -81,13 +81,21 @@ let
     "~/projects" = {
       id = "projects";
       path = "${storage}/projects";
-      devices = pcs;
+      devices = personal-pcs;
+      ignore = ''
+        /shared
+      '' + ignoreCommon;
+    };
+    "~/projects/allpc" = {
+      id = "projects-allpc";
+      path = "${storage}/projects/allpc";
+      devices = all-pcs;
       ignore = ignoreCommon;
     };
     "~/misc" = {
       id = "misc";
       path = "${storage}/misc";
-      devices = pcs;
+      devices = personal-pcs;
       ignore = ''
         /all
       '' + ignoreCommon;
@@ -115,9 +123,9 @@ let
       address = [ "tcp://rednecked.v.f2l.cc" ];
       allowedNetwork = [ "100.64.0.0/10" ];
     };
-    mauritius-host = {
-      address = [ "tcp://mauritius-host.falcon-nunki.ts.net" "tcp6://mauritius-host.falcon-nunki.ts.net" ];
-      allowedNetwork = [ "100.64.0.0/10" "fd7a:115c:a1e0::/48" ];
+    mauritius = {
+      address = [ "tcp://mauritius.v.f2l.cc" ];
+      allowedNetwork = [ "100.64.0.0/10" ];
     };
   };
 

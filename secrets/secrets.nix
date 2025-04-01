@@ -12,7 +12,7 @@ in
   "parents-home-2f.nmconnection.age".publicKeys = [ peregrine ];
   "home-a.nmconnection.age".publicKeys = [ peregrine ];
   "phone.nmconnection.age".publicKeys = [ peregrine ];
-  "syncthing.json.age".publicKeys = [ peregrine rednecked ];
+  "syncthing.json.age".publicKeys = [ peregrine rednecked mauritius ];
   "8657BC028746A06C68F352BA86EE58CD1294C73E.key.age".publicKeys = [ peregrine ];
   "8227E10D40D92D39449DB2B615655DB542EA9FAF.key.age".publicKeys = [ peregrine ];
   "grub-password-hash.age".publicKeys = [ peregrine ];
